@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FpsController.h" />
+    <ClInclude Include="Hanahuda_GameMain.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="Title.h" />

@@ -3,6 +3,7 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
+#include"Hanahuda_GameMain.h"
 
 
 #define FRAMERATE 60.0 //フレームレート
