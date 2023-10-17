@@ -2,8 +2,7 @@
 #include "Title.h"
 //#include "GameMain.h"
 #include "PadInput.h"
-//#include "Help.h"
-//#include "End.h"
+#include "GameSelect.h"
 
 //タイトルメニュー
 enum class TITLE_MENU
@@ -54,7 +53,6 @@ Title::Title()
 	//{
 	//	PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP);
 	//}
-
 }
 
 Title::~Title()
@@ -70,72 +68,18 @@ Title::~Title()
 
 AbstractScene* Title::Update()
 {
-	//十字キー↑入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
-	{
-		PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
-		Select--;
-		if (Select < 0)Select = 3;
-	}
-	//十字キー↓入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
-	{
-		PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
-		Select++;
-		if (Select > 3)Select = 0;
-	}
-
-	//Lスティック上入力
-	if (PAD_INPUT::GetLStick().ThumbY > 10000 && Once == TRUE)
-	{
-		PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
-		Select--;
-		if (Select < 0)Select = 3;
-		Once = FALSE;
-	}
-
-	//Lスティック下入力
-	if (PAD_INPUT::GetLStick().ThumbY < -10000 && Once == TRUE)
-	{
-		PlaySoundMem(MenuSE, DX_PLAYTYPE_BACK);
-		Select++;
-		if (Select > 3)Select = 0;
-		Once = FALSE;
-	}
-
-	//Lスティックが元に戻されたらOnceをリセット
-	if (Once == FALSE && PAD_INPUT::GetLStick().ThumbY < 10000 && PAD_INPUT::GetLStick().ThumbY > -10000)
-	{
-		Once = TRUE;
-	}
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		//switch (static_cast<TITLE_MENU>(Select))
-		//{
-		//	//ゲーム画面へ
-		//case TITLE_MENU::GAME_START:
-
-		//	return new GameMain();
-		//	break;
-		//	//ランキング画面へ
-		//case TITLE_MENU::GAME_RANKING:
-		//	return new DrawRanking();
-		//	//StopSoundMem(TitleBGM);
-		//	break;
-		//	//ヘルプ画面
-		//case TITLE_MENU::GAME_HELP:
-		//	return new Help();
-		//	//StopSoundMem(TitleBGM);
-		//	break;
-		//	//エンド画面へ
-		//case TITLE_MENU::GAME_END:
-		//	return new End();
-		//	//StopSoundMem(TitleBGM);
-		//	break;
-		//default:
-		//	break;
-		//}
+		switch (static_cast<TITLE_MENU>(Select))
+		{
+			//ゲーム画面へ
+		case TITLE_MENU::GAME_START:
+			return new GameSelect();
+			break;
+		default:
+			break;
+		}
 	}
 	return this;
 }
