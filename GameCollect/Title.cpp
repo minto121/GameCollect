@@ -15,12 +15,9 @@ enum class TITLE_MENU
 
 Title::Title()
 {
-	////初期化
-	//Select = 0;
-	//Once = TRUE;
 
-	////フォントの追加
-	//MenuFont = CreateFontToHandle("HG創英角ﾎﾟｯﾌﾟ体", 64, 8, DX_FONTTYPE_ANTIALIASING);
+	//フォントの追加
+	MenuFont = CreateFontToHandle("HG創英角ﾎﾟｯﾌﾟ体", 64, 8, DX_FONTTYPE_ANTIALIASING);
 
 	////タイトル画像の読み込み
 	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
@@ -71,17 +68,17 @@ AbstractScene* Title::Update()
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 	{
-		switch (static_cast<TITLE_MENU>(Select))
-		{
-			//ゲーム画面へ
-		case TITLE_MENU::GAME_START:
-			return new GameSelect();
-			break;
-		default:
-			break;
-		}
+		//switch (static_cast<TITLE_MENU>(Select))
+		//{
+		//	//ゲーム画面へ
+		//case TITLE_MENU::GAME_START:
+		//	return new GameSelect();
+		//	break;
+		//default:
+		//	break;
+		//}
+		return new GameSelect;
 	}
-	return this;
 }
 
 void Title::Draw()const
@@ -91,10 +88,10 @@ void Title::Draw()const
 	DrawStringToHandle(150, 100, "りんごおとし", 0xffffff, MenuFont);
 
 	//メニューの描画
-	DrawStringToHandle(730, 240, "すたーと", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 320, "らんきんぐ", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 400, "へるぷ", 0xffffff, MenuFont);
-	DrawStringToHandle(730, 480, "えんど", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 240, "すたーと", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 320, "らんきんぐ", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 400, "へるぷ", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 480, "えんど", 0xffffff, MenuFont);
 
 	//カーソルの描画
 	int select_y = 230 + Select * 80;

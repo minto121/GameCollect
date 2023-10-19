@@ -54,4 +54,5 @@ AbstractScene* GameSelect::Update()
 
 void GameSelect::Draw() const
 {
+	DrawString(70, 240, "Select", 0xffffff);
 }
