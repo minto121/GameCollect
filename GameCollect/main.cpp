@@ -5,7 +5,6 @@
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
 
-
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
@@ -65,8 +64,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			break;
 		}
-
 		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
 	return 0;
+
 }
