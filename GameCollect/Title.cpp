@@ -3,6 +3,7 @@
 //#include "GameMain.h"
 #include "PadInput.h"
 #include "GameSelect.h"
+#include"Hanahuda_GameMain.h"
 
 //タイトルメニュー
 enum class TITLE_MENU
@@ -72,7 +73,7 @@ AbstractScene* Title::Update()
 		//default:
 		//	break;
 		//}
-		return new GameSelect();
+		return new Hanahuda();
 	}
 	return this;
 }

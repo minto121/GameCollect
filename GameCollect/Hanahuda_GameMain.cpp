@@ -1,22 +1,22 @@
 #include"DxLib.h"
-#include"main.h"
 #include"Hanahuda_GameMain.h"
 #include"Math.h"
 
 Hanahuda::Hanahuda()
 {
-	if(Stage = LoadGraph("images/Hanafuda/BG_Dummy.png")){}
+	Stage = LoadGraph("images/Hanafuda/BG_Dummy.png");
 }
 
 Hanahuda::~Hanahuda()
 {
 }
 
-Hanahuda::Update()
+AbstractScene* Hanahuda::Update()
 {
+	return this;
 }
 
-Hanahuda::Draw()
+void Hanahuda::Draw()const
 {
 	DrawGraph(0, 0, Stage, TRUE);
 }
