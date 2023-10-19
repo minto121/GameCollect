@@ -4,7 +4,7 @@ class Hanahuda:
 	public AbstractScene
 {
 	int huda[47];
-	
+	int Stage;
 	
 private:
 

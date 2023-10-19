@@ -5,7 +5,7 @@
 
 Hanahuda::Hanahuda()
 {
-
+	if(Stage = LoadGraph("images/Hanafuda/BG_Dummy.png")){}
 }
 
 Hanahuda::~Hanahuda()
@@ -18,5 +18,5 @@ Hanahuda::Update()
 
 Hanahuda::Draw()
 {
-	DrawFormatString(0, 0,GetColor(255, 0, 0), "‰ÔŽD");
+	DrawGraph(0, 0, Stage, TRUE);
 }
