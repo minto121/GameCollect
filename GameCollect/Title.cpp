@@ -66,7 +66,8 @@ Title::~Title()
 AbstractScene* Title::Update()
 {
 
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))*/
+	if(CheckHitKey(KEY_INPUT_P))
 	{
 		//switch (static_cast<TITLE_MENU>(Select))
 		//{
@@ -77,8 +78,9 @@ AbstractScene* Title::Update()
 		//default:
 		//	break;
 		//}
-		return new GameSelect;
+		return new GameSelect();
 	}
+	return this;
 }
 
 void Title::Draw()const
