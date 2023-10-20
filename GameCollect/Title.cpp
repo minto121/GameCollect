@@ -61,8 +61,8 @@ Title::~Title()
 AbstractScene* Title::Update()
 {
 
-	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))*/
-	if(CheckHitKey(KEY_INPUT_P))
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+	/*if(CheckHitKey(KEY_INPUT_P))*/
 	{
 		//switch (static_cast<TITLE_MENU>(Select))
 		//{
