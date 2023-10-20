@@ -60,7 +60,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		FPSC.All();
 		FPSC.Disp();
 		//ã≠êßèIóπ
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK))
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK) || CheckHitKey(KEY_INPUT_ESCAPE))
 		{
 			break;
 		}
