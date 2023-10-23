@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="gomoku.cpp" />
+    <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FpsController.h" />
+    <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="Hanahuda_GameMain.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
