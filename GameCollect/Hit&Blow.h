@@ -5,7 +5,9 @@ class HitAndBlow : public AbstractScene {
 private:
 	int Color[6]; // 色の駒を入れる配列
 	int Hit;     // ヒット数を数える変数
-	int Blow;    // ブロー数を数える変数 
+	int Blow;    // ブロー数を数える変数
+	int HitImg;  // ヒットピンの画像表示
+	int BlowImg; // ブローピンの画像表示
 
 public:
 	// インクリメント
