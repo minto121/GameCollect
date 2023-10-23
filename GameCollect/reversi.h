@@ -1,20 +1,20 @@
 #pragma once
 #include "AbstractScene.h"
 
-class Revesi :
+class Reversi :
     public AbstractScene
 
 {
 private:
-
-
+    int R_Img;
+    
 
 public:
     //コンストラクタ
-    Revesi();
+    Reversi();
 
     //デストラクタ
-    ~Revesi();
+    ~Reversi();
 
     //描画以外の更新を実行
     AbstractScene* Update() override;

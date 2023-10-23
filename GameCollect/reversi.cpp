@@ -1,18 +1,21 @@
 #include "Reversi.h"
+#include"DxLib.h"
 
-Revesi::Revesi()
+Reversi::Reversi()
+{
+	R_Img = LoadGraph("images/Reversi/banmen.png");
+}
+
+Reversi::~Reversi()
 {
 }
 
-Revesi::~Revesi()
-{
-}
-
-AbstractScene* Revesi::Update()
+AbstractScene* Reversi::Update()
 {
 	return this;
 }
 
-void Revesi::Draw() const
+void Reversi::Draw() const
 {
+	DrawGraph(0, 0, R_Img, TRUE);
 }
