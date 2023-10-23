@@ -10,5 +10,6 @@ private:
 	void Draw()const override;
 
 	int S_timg;
+	int S_back;
 };
 
