@@ -7,6 +7,7 @@ class Chekkermain:
 private:
 	int Boardimg; //@”Õ
 	int Pieceimg; //@‹î
+	int back; 
 
 public:
 	Chekkermain();
