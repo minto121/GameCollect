@@ -4,7 +4,7 @@
 #include "Title.h"
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
-
+#include"Mankara.h"
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
@@ -32,7 +32,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Title());
+		sceneMng = new SceneManager((AbstractScene*)new Mankara());
 
 	}
 	catch (const char* err)
