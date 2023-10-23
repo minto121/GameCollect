@@ -5,7 +5,7 @@ class Hanahuda:
 {
 	int HudaImg[47];
 	int Stage;
-	
+	int MouseX, MouseY;
 private:
 
 
