@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FpsController.h" />
+    <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="Hanahuda_GameMain.h" />
     <ClInclude Include="SceneManager.h" />
