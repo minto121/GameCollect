@@ -156,6 +156,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="sinkeisuijaku.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
