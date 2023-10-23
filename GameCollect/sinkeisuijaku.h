@@ -1,15 +1,13 @@
 #pragma once
-class sinkeisuijaku
+#include "AbstractScene.h"
+class sinkeisuijaku :public AbstractScene
 {
 public:
 
 private:
 
-	sinkeisuijaku();
-
-	void Update();
-
-	void Draw();
+	virtual AbstractScene* Update()override;
+	void Draw()const override;
 
 	int S_timg;
 };

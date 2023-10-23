@@ -1,10 +1,14 @@
 #include "sinkeisuijaku.h"
 #include "DxLib.h"
-void sinkeisuijaku::Update()
+
+AbstractScene* sinkeisuijaku::Update()
 {
 	S_timg = LoadGraph("");
+
+	return nullptr;
 }
 
-void sinkeisuijaku::Draw()
+void sinkeisuijaku::Draw() const
 {
 }
+
