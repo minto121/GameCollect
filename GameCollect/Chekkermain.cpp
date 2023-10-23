@@ -4,7 +4,7 @@
 
 Chekkermain::Chekkermain()
 {
-	Boardimg = LoadGraph("../images/Checkers/Chekkerboard.png");
+	Boardimg = LoadGraph("../images/Checkers/banmen.png");
 	Pieceimg = 0;
 }
 
@@ -19,5 +19,5 @@ AbstractScene* Chekkermain::Update()
 
 void Chekkermain::Draw() const
 {
-	DrawGraph(500, 0, Boardimg, TRUE);
+	DrawGraph(400, 0, Boardimg, TRUE);
 }
