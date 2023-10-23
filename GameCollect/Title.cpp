@@ -1,6 +1,5 @@
 #include "DxLib.h"
 #include "Title.h"
-//#include "GameMain.h"
 #include "PadInput.h"
 #include "GameSelect.h"
 #include"Hanahuda_GameMain.h"
@@ -62,17 +61,7 @@ AbstractScene* Title::Update()
 {
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || PAD_INPUT::OnButton(XINPUT_BUTTON_B))
-	/*if(CheckHitKey(KEY_INPUT_P))*/
 	{
-		//switch (static_cast<TITLE_MENU>(Select))
-		//{
-		//	//ÉQÅ[ÉÄâÊñ Ç÷
-		//case TITLE_MENU::GAME_START:
-		//	return new GameSelect();
-		//	break;
-		//default:
-		//	break;
-		//}
 		return new Hanahuda();
 	}
 	return this;
