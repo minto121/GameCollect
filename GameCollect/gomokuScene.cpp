@@ -16,5 +16,5 @@ AbstractScene* gomokuScene::Update()
 
 void gomokuScene::Draw() const
 {
-	DrawGraph(280, 0, TitleImg, TRUE);
+	DrawGraph(180, 0, TitleImg, TRUE);
 }
