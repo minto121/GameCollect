@@ -4,7 +4,7 @@
 
 SixBollPuzzle::SixBollPuzzle()
 {
-	Back_Ground_img = LoadGraph("../images/SixBallPazzle/BackGroundBoll_1.png");
+	Back_Ground_img = LoadGraph("../images/SixBallPuzzle/square.png");
 }
 
 SixBollPuzzle::~SixBollPuzzle()
