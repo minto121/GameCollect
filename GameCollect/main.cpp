@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new HitAndBlow());
+		sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	}
 	catch (const char* err)
