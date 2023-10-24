@@ -3,6 +3,7 @@
 class Porker : public AbstractScene
 {
 private:
+	int a;
 	int Tranpu_Img[52];
 	int Back;
 	int P_rand1;
@@ -18,6 +19,9 @@ private:
 	int C_flg1;
 	int C_flg2;
 	int C_flg3;
+
+
+
 public:
 	Porker();
 
@@ -28,5 +32,9 @@ public:
 
 	//•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ðŽÀ‘•
 	void Draw() const override;
+
+	void ROUND_INIT();
+
+	void SCORE();
 };
 

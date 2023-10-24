@@ -2,10 +2,27 @@
 #include "GameSelect.h"
 #include"PadInput.h"
 #include "DxLib.h"
+#include "Title.h"
+
 Porker::Porker()
 {
     if ((Back = LoadGraph("../GameCollect/images/TexasHoldem/BG_Dummy.png"))) {}
     /*if (LoadDivGraph("../GameCollect/images/TexasHoldem/", 52, 13, 4, 100, 150, Tranpu_Img,FALSE)) {}*/
+
+    ROUND_INIT();
+
+    a = 0;
+   
+}
+
+Porker::~Porker()
+{
+
+}
+
+
+void Porker::ROUND_INIT() 
+{
 
     P_rand1 = GetRand(51);   //プレイヤーのホールカード1
     P_rand2 = GetRand(51);   //プレイヤーのホールカード2
@@ -22,13 +39,9 @@ Porker::Porker()
     C_flg1 = FALSE;
     C_flg2 = FALSE;
     C_flg3 = FALSE;
-   
 }
 
-Porker::~Porker()
-{
 
-}
 
 AbstractScene* Porker::Update()
 {
@@ -85,19 +98,32 @@ AbstractScene* Porker::Update()
     }
    
     //コール(今はS押す)
-    if (CheckHitKey(KEY_INPUT_S)) {
+    if (CheckHitKey(KEY_INPUT_S)&&C_flg1 ==TRUE) {
         C_flg2 = TRUE;
     }
 
     //コール(今はD押す)
-    if (CheckHitKey(KEY_INPUT_D)) {
+    if (CheckHitKey(KEY_INPUT_D)&&C_flg2 == TRUE) {
         C_flg3 = TRUE;
     }
 
 
 
+    //         ラウンドを変える(3回目でタイトル)          //
+
+    //Rを押したらラウンドチェンジ
+    if (CheckHitKey(KEY_INPUT_R)&&C_flg3 == TRUE) {
+        ROUND_INIT();
+        a++;
+    }
+    if (a == 3) {
+        return new Title;
+    }
+
     return this;
 }
+
+
 
 void Porker::Draw() const
 {
@@ -141,6 +167,29 @@ void Porker::Draw() const
 
     if (C_flg1 == TRUE && C_flg2 == TRUE&&C_flg3 == FALSE) {
         DrawString(500, 650, "PRESS [D] KEY", 0xffffff, TRUE);
+    }
+
+    if (C_flg3 == TRUE) {
+        DrawString(500, 650, "PRESS [R] KEY", 0xffffff, TRUE);
+    }
+
+
+
+    //              表示               //
+
+    //ROUND1
+    if (a == 0) {
+        DrawString(50, 50, "ROUND 1", 0xffffff, TRUE);
+    }
+
+    //ROUND2
+    if (a == 1) {
+        DrawString(50, 50, "ROUND 2", 0xffffff, TRUE);
+    }
+
+    //ROUND3
+    if (a == 2) {
+        DrawString(50, 50, "ROUND 3", 0xffffff, TRUE);
     }
 
    /* DrawGraph(0, 0, Back, TRUE);*/
