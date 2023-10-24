@@ -23,6 +23,14 @@ Mankara::Mankara()
 	for (int i = 0; i < 8; i++) {
 		yellowStone[i];
 	}
+	
+	for (int i = 0; i < 8; i++) {
+		purpleStone[i];
+	}
+	
+	for (int i = 0; i < 8; i++) {
+		whiteStone[i];
+	}
 
 
 
@@ -58,19 +66,19 @@ Mankara::Mankara()
 void Mankara::Draw()const
 {
 
-	DrawCircle(400, 500, 50, GetColor(255, 0, 0),P1Pocket[0]);
-	DrawCircle(500, 500, 50, GetColor(255, 0, 0),P1Pocket[1]);
-	DrawCircle(600, 500, 50, GetColor(255, 0, 0),P1Pocket[2]);
-	DrawCircle(700, 500, 50, GetColor(255, 0, 0),P1Pocket[3]);
-	DrawCircle(800, 500, 50, GetColor(255, 0, 0),P1Pocket[4]);
-	DrawCircle(900, 500, 50, GetColor(255, 0, 0),P1Pocket[5]);
+	DrawCircle(400, 500, 50, GetColor(255, 0, 0),Pocket1);
+	DrawCircle(500, 500, 50, GetColor(255, 0, 0),Pocket2);
+	DrawCircle(600, 500, 50, GetColor(255, 0, 0),Pocket3);
+	DrawCircle(700, 500, 50, GetColor(255, 0, 0),Pocket4);
+	DrawCircle(800, 500, 50, GetColor(255, 0, 0),Pocket5);
+	DrawCircle(900, 500, 50, GetColor(255, 0, 0),Pocket6);
 	
-	DrawCircle(400, 300, 50, GetColor(255, 0, 0),P2Pocket[0]);
-	DrawCircle(500, 300, 50, GetColor(255, 0, 0),P2Pocket[1]);
-	DrawCircle(600, 300, 50, GetColor(255, 0, 0),P2Pocket[2]);
-	DrawCircle(700, 300, 50, GetColor(255, 0, 0),P2Pocket[3]);
-	DrawCircle(800, 300, 50, GetColor(255, 0, 0),P2Pocket[4]);
-	DrawCircle(900, 300, 50, GetColor(255, 0, 0),P2Pocket[5]);
+	DrawCircle(400, 300, 50, GetColor(255, 0, 0),Pocket7);
+	DrawCircle(500, 300, 50, GetColor(255, 0, 0),Pocket8);
+	DrawCircle(600, 300, 50, GetColor(255, 0, 0),Pocket9);
+	DrawCircle(700, 300, 50, GetColor(255, 0, 0),Pocket10);
+	DrawCircle(800, 300, 50, GetColor(255, 0, 0),Pocket11);
+	DrawCircle(900, 300, 50, GetColor(255, 0, 0),Pocket12);
 
 
 	// 赤ストーン
@@ -82,10 +90,10 @@ void Mankara::Draw()const
 	DrawCircle(500 - 100, 500, 10, GetColor(255, 0, 0), redStone[4]);
 	DrawCircle(500 - 100, 500-200, 10, GetColor(255, 0, 0), redStone[5]);
 	DrawCircle(500 , 500 - 200, 10, GetColor(255, 0, 0), redStone[6]);
-	DrawCircle(500 + 100, 500-200, 10, GetColor(255, 0, 0), redStone[9]);
+	
 
-	if (CheckHitKey(KEY_INPUT_Q)) {
-		if (CheckHitKey(KEY_INPUT_W)) {
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
 			DrawCircle(510, 490, 10, GetColor(255, 0, 0), FALSE,RedStone);
 
 		}else
@@ -110,8 +118,8 @@ void Mankara::Draw()const
 	DrawCircle(500 + 400, 515 - 200, 10, GetColor(0, 0, 255), blueStone[7]);
 
 
-	if (CheckHitKey(KEY_INPUT_Q)) {
-		if (CheckHitKey(KEY_INPUT_W)) {
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
 			DrawCircle(515, 495, 10, GetColor(0, 0, 255),FALSE, BlueStone);
 		}
 		else
@@ -133,8 +141,8 @@ void Mankara::Draw()const
 	DrawCircle(500 + 300, 525 - 200, 10, GetColor(0, 255, 0), greenStone[6]);
 	DrawCircle(500 + 400, 525 - 200, 10, GetColor(0, 255, 0), greenStone[7]);
 
-	if (CheckHitKey(KEY_INPUT_Q)) {
-		if (CheckHitKey(KEY_INPUT_W)) {
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_B)) {
 			DrawCircle(505, 485, 10, GetColor(0, 255, 0), FALSE, GreenStone);
 		}
 		else
@@ -156,8 +164,8 @@ void Mankara::Draw()const
 	DrawCircle(500 + 300, 535 - 200, 10, GetColor(255, 255, 0), yellowStone[6]);
 	DrawCircle(500 + 400, 535 - 200, 10, GetColor(255, 255, 0), yellowStone[7]);
 
-	if (CheckHitKey(KEY_INPUT_Q)) {
-		if (CheckHitKey(KEY_INPUT_W)) {
+	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+		if (PAD_INPUT::OnPressed(XINPUT_BUTTON_B)) {
 			DrawCircle(495, 480, 10, GetColor(255, 255, 0), FALSE,YellowStone);
 
 		}else
@@ -168,18 +176,41 @@ void Mankara::Draw()const
 
 	}
 
+	// 紫ストーン
+	DrawCircle(500 + 100, 545-200, 10, GetColor(255, 0, 255), purpleStone[0]);
+	DrawCircle(500 + 200, 545-200, 10, GetColor(255, 0, 255), purpleStone[1]);
+	DrawCircle(500 + 300, 545-200, 10, GetColor(255, 0, 255), purpleStone[2]);
+	DrawCircle(500 + 400, 545-200, 10, GetColor(255, 0, 255), purpleStone[3]);
+
+	DrawCircle(500 - 100, 545, 10, GetColor(255, 0, 255), purpleStone[4]);
+	DrawCircle(500 + 100, 545 - 200, 10, GetColor(255, 0, 255), purpleStone[5]);
+	DrawCircle(500 + 200, 545 - 200, 10, GetColor(255, 0, 255), purpleStone[6]);
+	DrawCircle(500 + 300, 545 - 200, 10, GetColor(255, 0, 255), purpleStone[7]);
+
+	// 白ストーン
+	DrawCircle(500 , 545 - 200, 10, GetColor(255, 255, 255), whiteStone[0]);
+	DrawCircle(500 , 525 - 200, 10, GetColor(255, 255, 255), whiteStone[1]);
+	DrawCircle(500 + 100, 535 - 200, 10, GetColor(255, 255, 255), whiteStone[2]);
+	DrawCircle(500 + 100, 525 - 200, 10, GetColor(255, 255, 255), whiteStone[3]);
+
+	DrawCircle(500, 535-200, 10, GetColor(255, 255, 255), whiteStone[4]);
+	DrawCircle(500 - 100, 525 - 200, 10, GetColor(255, 255, 255), whiteStone[5]);
+	DrawCircle(500 - 100, 545 - 200, 10, GetColor(255, 255, 255), whiteStone[6]);
+	DrawCircle(500 + 100, 505 - 200, 10, GetColor(255, 255, 255), whiteStone[7]);
+
+
+
 	// ポケットの移動
 	if (CheckHitKey(KEY_INPUT_E)) {
-		DrawCircle(400+100, 500, 60, GetColor(255, 255, 0),FALSE);
-		DrawCircle(400+200, 500, 60, GetColor(255, 255, 0),FALSE);
-		DrawCircle(400+300, 500, 60, GetColor(255, 255, 0),FALSE);
-		DrawCircle(400+400, 500, 60, GetColor(255, 255, 0),FALSE);
+		DrawCircle(400 + 100, 500, 60, GetColor(255, 255, 0), FALSE);
+		
 
 	}
 	else {
-		DrawCircle(400, 500, 60, GetColor(255, 255, 0),FALSE);
+		DrawCircle(400, 500, 60, GetColor(255, 255, 0), FALSE);
 
 	}
+
 	// ストーンの移動
 
 	if (CheckHitKey(KEY_INPUT_Q)) {

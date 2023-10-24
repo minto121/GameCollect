@@ -7,10 +7,14 @@ private:
 	int BlueStone;
 	int GreenStone;
 	int YellowStone;
+	int PurpleStone;
+	int WhiteStone;
 	int redStone[8];
 	int blueStone[8];
 	int greenStone[8];
 	int yellowStone[8];
+	int purpleStone[8];
+	int whiteStone[8];
 	// 1P用ポケット
 	int Pocket1;
 	int Pocket2;
