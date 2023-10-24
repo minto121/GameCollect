@@ -4,7 +4,8 @@ class gomokuScene : public AbstractScene
 {
 private:
 	int TitleImg;
-	int TopImg;
+	int wTopImg;
+	int bTopImg;
 public:
 	gomokuScene();
 	~gomokuScene();
