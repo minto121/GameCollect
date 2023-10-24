@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "PadInput.h"
 #include "AbstractScene.h"
+#include "DrawLine.h"
 
 DotAndBox::DotAndBox() {
 
@@ -22,6 +23,8 @@ void DotAndBox::DrawGridOfPoints(int startX, int startY, int gridSize, int rows,
 }
 
 AbstractScene* DotAndBox::Update() {
+    Line line;
+    line.DrawLine();
 	return this;
 }
 
