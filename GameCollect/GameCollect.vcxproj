@@ -158,6 +158,7 @@
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Usagi to Ryouken-main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
