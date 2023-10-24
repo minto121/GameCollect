@@ -6,7 +6,7 @@ class SixBollPuzzle:
 {
 
 private:
-	int Boll; //　ボール
+	int Ball_img; //　ボール
 	int Back_Ground_img; //　背景画像
 	int e;
 
