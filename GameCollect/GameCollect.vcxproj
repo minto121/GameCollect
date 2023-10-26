@@ -158,7 +158,7 @@
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="Title.cpp" />
-    <ClCompile Include="Usagi to Ryouken-main.cpp" />
+    <ClCompile Include="RabbitAndHounds.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
@@ -169,6 +169,7 @@
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="RabbitAndHounds.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
