@@ -1,10 +1,18 @@
 #include "sinkeisuijaku.h"
 #include "DxLib.h"
+#include <stdlib.h>
+#include <time.h>
+
+
 
 AbstractScene* sinkeisuijaku::Update()
 {
 	S_timg = LoadGraph("../images/sinkensuijaku/ura.png");
 	S_back = LoadGraph("../images/sinkensuijaku/back.png");
+
+
+
+	
 
 
 
@@ -53,22 +61,34 @@ AbstractScene* sinkeisuijaku::Update()
 			S2_ber = S2_ber + 5;
 		}
 	}
-	
+
+	//カード選択
+	if (g_KeyFlg & PAD_INPUT_1) {
+		trumpflg = 1;
+	}
+	if (trumpflg == 1) trumps[S_ber][S2_ber].flg = 1;
+	trumpflg = 0;
+
 	return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
 //test
-	if (first % 2 == 0) {
+
+		DrawFormatString(200, 200, 0x0000ff, "%d", trumps[S_ber][S2_ber].flg);
+
+	DrawFormatString(100, 100, 0xfff00f, "%d", trumps[S_ber][S2_ber].flg);
+	DrawFormatString(100, 150, 0xfff00f, "%d %d", S_ber,S2_ber);
+
+
+	if (first  == 1) {
 		DrawFormatString(50, 30, 0xff00ff, "先行です！");
 	}
 	else {
 		DrawFormatString(50, 30, 0xff00ff, "後攻です！");
 	}
 	
-	DrawFormatString(50, 50,0xff00ff,"%d",S_ber);
-	DrawFormatString(50, 70, 0xff00ff, "%d", S2_ber);
 	//DrawGraph(0,0, S_back, FALSE);
 	
 	for (int j = 1; j < 5; j++) {
@@ -83,16 +103,22 @@ void sinkeisuijaku::Draw() const
 	for (int j = 0; j < 4; j++) {
 		for (int i = 0; i < 5; i++) {
 			DrawBox(395 + i * 110, 70 + j * 140, 495 + i * 110, 215 + j * 140, 0x00ffff, FALSE);
-			
 		}
 	}
-	//DrawBox(395 + i * 110, 90 + j * 160, 495 + i * 110, 235 + j * 160, 0x00ffff, TRUE);
+	
 	
 
 }
 
 void sinkeisuijaku::Select()
 {
-	first = GetRand(201);
+	// 現在の時間を使ってシードを初期化
+	srand((unsigned int)time(NULL));
+
+
+	// 1または2をランダムに生成
+	first = (rand() % 2) + 1;
+	
 
 }
+

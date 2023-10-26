@@ -6,6 +6,16 @@ public:
 
 private:
 
+
+	struct TRUMPS {
+		int flg;
+		int syurui;
+	};
+	
+	TRUMPS trumps[10][10];
+
+	int trumpflg = 0;
+
 	virtual AbstractScene* Update()override;
 	void Draw()const override;
 
