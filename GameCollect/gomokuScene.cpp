@@ -98,6 +98,14 @@ void gomokuScene::Draw() const
 			}
 		}
 	}
+	if (Phase == 0 && Battle == 0) {
+		SetFontSize(60);
+		DrawFormatString(50, 300, 0xfffffff, "•‚Ìè”Ô");
+	}
+	if (Phase == 1 && Battle == 0) {
+		SetFontSize(60);
+		DrawFormatString(50, 300, 0xfffffff, "”’‚Ìè”Ô");
+	}
 	if (Battle == 0) {
 		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
 	}
@@ -106,6 +114,7 @@ void gomokuScene::Draw() const
 		DrawFormatString(600, 300, 0xFF00FF, ("•‚ÌŸ‚¿"));
 	}
 	else if (Battle == 2) {
+		SetFontSize(80);
 		DrawFormatString(600, 300, 0xFF00FF, ("”’‚ÌŸ‚¿"));
 	}
 	
