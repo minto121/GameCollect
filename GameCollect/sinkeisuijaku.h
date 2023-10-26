@@ -12,6 +12,11 @@ private:
 		int syurui;
 	};
 	
+	 struct Card{
+		int cardValue;//カードの値
+		int flg;//カードが選択されたかどうか
+	};
+
 	TRUMPS trumps[10][10];
 
 	int trumpflg = 0;
@@ -56,5 +61,10 @@ private:
 	int S_H8;
 	int S_H9;
 	int S_H10;
+
+	int grid[4][5];
+	int shuffle_flg = 0;
+
+	int s;
 };
 

@@ -87,6 +87,32 @@ AbstractScene* sinkeisuijaku::Update()
 	if (trumpflg == 1) trumps[S_ber][S2_ber].flg = 1;
 	trumpflg = 0;
 
+
+	////トランプに値を入れる
+	//int x = 1;
+	//for (int j = 0; j < 4; j++) {
+	//	for (int i = 0; i < 5; i++) {
+	//		trumps[j][i].syurui = x++;
+	//	}
+	//}
+
+	////トランプのシャッフル
+	//int y;
+
+	//if (shuffle_flg == 0) {
+	//	for (int i = 0; i < 3; i++) {
+	//		srand((unsigned int)time(NULL));
+	//		s = (rand() % 5 ) + 1 ;
+
+	//		y = trumps[i][s].syurui;
+	//		trumps[i][s].syurui = trumps[s][i].syurui;
+	//		trumps[s][i].syurui = y;
+
+	//	}
+	//	shuffle_flg = 1;
+	//}
+
+
 	return this;
 }
 
@@ -94,11 +120,12 @@ void sinkeisuijaku::Draw() const
 {
 //test
 
-		DrawFormatString(200, 200, 0x0000ff, "%d", trumps[S_ber][S2_ber].flg);
 
-	DrawFormatString(100, 100, 0xfff00f, "%d", trumps[S_ber][S2_ber].flg);
 	DrawFormatString(100, 150, 0xfff00f, "%d %d", S_ber,S2_ber);
 
+	DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
+	DrawFormatString(100, 200, 0xfff00f, "%d", s);
+	//test 
 
 	if (first  == 1) {
 		DrawFormatString(50, 30, 0xff00ff, "先行です！");
@@ -117,14 +144,13 @@ void sinkeisuijaku::Draw() const
 	DrawBox(395 + S2_ber * 110 , 70 +S_ber * 140 , 495 + S2_ber  * 110, 215 + S_ber * 140, 0x00ffff, TRUE);
 
 
-	//test
+	//カーソルの四角
 	for (int j = 0; j < 4; j++) {
 		for (int i = 0; i < 5; i++) {
 			DrawBox(395 + i * 110, 70 + j * 140, 495 + i * 110, 215 + j * 140, 0x00ffff, FALSE);
 		}
 	}
-	
-	
+
 
 }
 
