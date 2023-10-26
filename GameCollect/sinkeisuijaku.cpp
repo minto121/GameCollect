@@ -10,10 +10,28 @@ AbstractScene* sinkeisuijaku::Update()
 	S_timg = LoadGraph("../images/sinkensuijaku/ura.png");
 	S_back = LoadGraph("../images/sinkensuijaku/back.png");
 
-
-
+	//トランプの画像
+	S_D1 = LoadGraph("../images/sinkensuijaku/D1.png");
+	S_D2 = LoadGraph("../images/sinkensuijaku/D2.png");
+	S_D3 = LoadGraph("../images/sinkensuijaku/D3.png");
+	S_D4 = LoadGraph("../images/sinkensuijaku/D4.png");
+	S_D5 = LoadGraph("../images/sinkensuijaku/D5.png");
+	S_D6 = LoadGraph("../images/sinkensuijaku/D6.png");
+	S_D7 = LoadGraph("../images/sinkensuijaku/D7.png");
+	S_D8 = LoadGraph("../images/sinkensuijaku/D8.png");
+	S_D9 = LoadGraph("../images/sinkensuijaku/D9.png");
+	S_D10 = LoadGraph("../images/sinkensuijaku/D10.png");
 	
-
+	S_H1 = LoadGraph("../images/sinkensuijaku/H1.png");
+	S_H2 = LoadGraph("../images/sinkensuijaku/H2.png");
+	S_H3 = LoadGraph("../images/sinkensuijaku/H3.png");
+	S_H4 = LoadGraph("../images/sinkensuijaku/H4.png");
+	S_H5 = LoadGraph("../images/sinkensuijaku/H5.png");
+	S_H6 = LoadGraph("../images/sinkensuijaku/H6.png");
+	S_H7 = LoadGraph("../images/sinkensuijaku/H7.png");
+	S_H8 = LoadGraph("../images/sinkensuijaku/H8.png");
+	S_H9 = LoadGraph("../images/sinkensuijaku/H9.png");
+	S_H10 = LoadGraph("../images/sinkensuijaku/H10.png");
 
 
 	// 入力キー取得
@@ -112,7 +130,7 @@ void sinkeisuijaku::Draw() const
 
 void sinkeisuijaku::Select()
 {
-	// 現在の時間を使ってシードを初期化
+	// 現在の時間を使って初期化
 	srand((unsigned int)time(NULL));
 
 
