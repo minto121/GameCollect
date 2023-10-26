@@ -1,18 +1,19 @@
 #pragma once
 #include "AbstractScene.h"
-class Chekkermain:
+class Checkermain:
 	public AbstractScene
 {
 
 private:
 	int Boardimg; //　盤
-	int Pieceimg; //　駒
-	int back; 
+	int PieceB; //　駒黒
+	int PiceW; // 駒白
+	int Checkerback; // 背景
 
 public:
-	Chekkermain();
+	Checkermain();
 
-	~Chekkermain();
+	~Checkermain();
 
 	//描画以外の更新を実行
 	AbstractScene* Update() override;
