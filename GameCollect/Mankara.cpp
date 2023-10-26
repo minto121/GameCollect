@@ -80,11 +80,11 @@ Mankara::Mankara()
 void Mankara::Draw()const
 {
 	// ターン切り替え
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
+	if (P2Turn == 1 ) {
 		DrawFormatString(200,200,GetColor(255,255,255),"2P TURN");
 	}
 
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)) {
+	if (P1Turn == 1) {
 		DrawFormatString(200, 200, GetColor(255, 255, 255), "1P TURN");
 	}
 
@@ -104,7 +104,6 @@ void Mankara::Draw()const
 
 
 	// 赤ストーン初期配置
-	DrawCircle(500, 500, 10, GetColor(255, 0, 0), RedStone);
 	DrawCircle(500 + 100, 500, 10, GetColor(255, 0, 0), redStone[0]);
 	DrawCircle(500 + 200, 500, 10, GetColor(255, 0, 0), redStone[1]);
 	DrawCircle(500 + 300, 500, 10, GetColor(255, 0, 0), redStone[2]);
@@ -123,14 +122,19 @@ void Mankara::Draw()const
 			}else {
 				DrawCircle(510, 490, 10, GetColor(255, 0, 0), RedStone);
 			}
-			
+		}
+		else {
+			DrawCircle(500, 500, 10, GetColor(255, 0, 0), RedStone);
 		}
 		
+	}else if (P1Turn == 0) {
+	
+		DrawCircle(500, 500, 10, GetColor(255, 0, 0), RedStone);
 	}
 
 
 	 // 青ストーン初期配置
-	DrawCircle(500, 515, 10, GetColor(0, 0, 255), BlueStone);
+	
 	DrawCircle(500 + 100, 515, 10, GetColor(0, 0, 255), blueStone[0]);
 	DrawCircle(500 + 200, 515, 10, GetColor(0, 0, 255), blueStone[1]);
 	DrawCircle(500 + 300, 515, 10, GetColor(0, 0, 255), blueStone[2]);
@@ -149,13 +153,18 @@ void Mankara::Draw()const
 			}else {
 				DrawCircle(515, 495, 10, GetColor(0, 0, 255), BlueStone);
 			}
+		}else {
+			DrawCircle(500, 515, 10, GetColor(0, 0, 255), BlueStone);
 		}
 
+	}else if (P1Turn == 0) {
+		DrawCircle(500, 515, 10, GetColor(0, 0, 255), BlueStone);
+		
 	}
 	
 
 	// 緑ストーン初期配置
-	DrawCircle(500, 525, 10, GetColor(0, 255, 0), GreenStone);
+
 	DrawCircle(500 + 100, 525, 10, GetColor(0, 255, 0), greenStone[0]);
 	DrawCircle(500 + 200, 525, 10, GetColor(0, 255, 0), greenStone[1]);
 	DrawCircle(500 + 300, 525, 10, GetColor(0, 255, 0), greenStone[2]);
@@ -176,14 +185,19 @@ void Mankara::Draw()const
 			else {
 				DrawCircle(505, 485, 10, GetColor(0, 255, 0), GreenStone);
 			}
+		}else {
+			DrawCircle(500, 525, 10, GetColor(0, 255, 0), GreenStone);
 		}
 		
+	}else if (P1Turn == 0) {
+
+		DrawCircle(500, 525, 10, GetColor(0, 255, 0), GreenStone);
 	}
 
 
 	// 黄ストーン 初期配置
 	
-	DrawCircle(500, 535, 10, GetColor(255, 255, 0), YellowStone);
+	
 	DrawCircle(500 + 100, 535, 10, GetColor(255, 255, 0), yellowStone[0]);
 	DrawCircle(500 + 200, 535, 10, GetColor(255, 255, 0), yellowStone[1]);
 	DrawCircle(500 + 300, 535, 10, GetColor(255, 255, 0), yellowStone[2]);
@@ -202,7 +216,12 @@ void Mankara::Draw()const
 			}else {
 				DrawCircle(495, 480, 10, GetColor(255, 255, 0), YellowStone);
 			}		
+		}else {
+			DrawCircle(500, 535, 10, GetColor(255, 255, 0), YellowStone);
 		}
+	}else if (P1Turn == 0) {
+
+		DrawCircle(500, 535, 10, GetColor(255, 255, 0), YellowStone);
 	}
 
 
