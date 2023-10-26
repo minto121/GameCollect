@@ -33,7 +33,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Title());
+		sceneMng = new SceneManager((AbstractScene*)new Checkermain());
 
 	}
 	catch (const char* err)
