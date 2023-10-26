@@ -23,6 +23,7 @@ HitAndBlow::HitAndBlow()
 	DecisionFlg = TRUE;
 
 	WarpPosition = 0;
+	SidePosition = 0;
 
 	Turns = 0;
 }
@@ -36,38 +37,56 @@ AbstractScene* HitAndBlow::Update()
 {
 	RandomDecision(); // 答えの配列をランダムに設定する
 
+		//十字キー↑入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+		{
+			WarpPosition--;
+			if (WarpPosition < 0) WarpPosition = 0;  // 位置が0より下なら、0にする
+		}
+
+		// 十字キー↓入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+		{
+			WarpPosition++;
+			if (WarpPosition > 4) WarpPosition = 4;
+		}
+
+		// 十字キー←入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
+		{
+			Color[SidePosition--];
+			if (SidePosition < 0) SidePosition = 5;
+		}
+
+		//十字キー→入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
+		{
+			Color[SidePosition++];
+			if (SidePosition > 5) SidePosition = 0;
+		}
+
+		// デバック用
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			Turns++;
+			if (Turns > 8) {
+				Turns = 8;
+			}
+		}
+
+		// デバック用
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+		{
+			Turns--;
+			if (Turns < 0) {
+				Turns = 0;
+			}
+		}
+		
 	/* ここに自分が駒を入れる処理を書く */
 	/* 重すぎてタスクの応答がなくなるため、コメントアウト中 */
 	//while (Turns < 8)
 	//{
-	//	//十字キー↑入力
-	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
-	//	{
-	//		WarpPosition--;
-	//		if (WarpPosition < 0) WarpPosition = 0;  // 位置が0より下なら、0にする
-	//	}
-
-	//	// 十字キー↓入力
-	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
-	//	{
-	//		WarpPosition++;
-	//		if (WarpPosition > 4) WarpPosition = 4;
-	//	}
-
-	//	// 十字キー←入力
-	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
-	//	{
-	//		Color[SidePosition--];
-	//		if (SidePosition < 0) SidePosition = 6;
-	//	}
-
-	//	//十字キー→入力
-	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
-	//	{
-	//		Color[SidePosition++];
-	//		if (SidePosition > 6) SidePosition = 0;
-	//	}
-
 	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A && WarpPosition == 0))
 	//	{
 	//		/* ジャッジ処理を書く */
@@ -77,6 +96,7 @@ AbstractScene* HitAndBlow::Update()
 	//	{
 	//		Reasoning[WarpPosition] = Color[SidePosition];  // 色を場所に配置
 	//	}
+
 
 	//}
 
@@ -91,6 +111,9 @@ void HitAndBlow::Draw() const
 	}
 	DrawGraph(200, 100, HitImg, TRUE); // それぞれの色の駒を表示
 	DrawGraph(300, 100, BlowImg, TRUE); // それぞれの色の駒を表示
+	
+	DrawTriangle(300 + SidePosition * 100, 575, 350 + SidePosition * 100, 625, 300 + SidePosition * 100, 675, 0xff0000, TRUE); // どこの駒を指しているのか表示
+	DrawBox(150 + Turns * 100, 100 + WarpPosition * 75, 200 + Turns * 100, 175 + WarpPosition * 75, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 
 	/* 正解の駒表示 */
 	/* 重すぎてタスクの応答がなくなるため、コメントアウト中 */
@@ -99,7 +122,7 @@ void HitAndBlow::Draw() const
 	//	DrawGraph(1000, 170 + i * 75, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
 	//	DrawGraph(100 * Turns, 170 + i * 75, ColorImg[Reasoning[WarpPosition]], TRUE); // 予想を画像で表示
 	//}
-	
+
 }
 
 void HitAndBlow::RandomDecision() 
