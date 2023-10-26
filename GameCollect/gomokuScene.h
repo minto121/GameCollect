@@ -6,6 +6,8 @@ private:
 	int TitleImg;
 	int wTopImg;
 	int bTopImg;
+	int cX;
+	int cY;
 public:
 	gomokuScene();
 	~gomokuScene();
