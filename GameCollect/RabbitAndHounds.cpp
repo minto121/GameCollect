@@ -18,6 +18,6 @@ AbstractScene* RabbitAndHounds::Update()
 
 void RabbitAndHounds::Draw() const
 {
-	DrawRotaGraph(480, 110, 2, 0, Pieceimg, TRUE);
+
 }
 
