@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chekkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="Chekkermain.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hanahuda_GameMain.h" />
     <ClInclude Include="Mankara.h" />
