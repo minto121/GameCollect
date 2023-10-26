@@ -7,7 +7,7 @@
 Porker::Porker()
 {
     if ((Back = LoadGraph("../GameCollect/images/TexasHoldem/BG_Dummy.png"))) {}
-    /*if (LoadDivGraph("../GameCollect/images/TexasHoldem/", 52, 13, 4, 100, 150, Tranpu_Img,FALSE)) {}*/
+  /*  if (LoadDivGraph("../GameCollect/images/TexasHoldem/PlayingCards.png", 52, 14, 4, 64, 64, Tranpu_Img,FALSE)) {}*/
     a = 0;
     ps1 = 1000;
     es1 = 1000;
@@ -256,7 +256,7 @@ void Porker::Draw() const
 {
 
     //                   カードの表示               //
-
+  /*   DrawGraph(400, 600, Tranpu_Img[P_rand1], TRUE);*/
     DrawFormatString(400, 600, 0xffffff, "prand1: %d", P_rand1, TRUE); //プレイヤーのホールカード1
     DrawFormatString(600, 600, 0xffffff, "prand2: %d", P_rand2, TRUE); //プレイヤーのホールカード2
 
