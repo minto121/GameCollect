@@ -31,3 +31,6 @@
 ・Takoyaki		→	たこやき
 
 ・TexasHoldem		→	テキサスホールデム（テキサスポーカー）
+
+
+・OriginalMaterial	→	作成画像の元ファイル（この中のファイルは触らないように！）
