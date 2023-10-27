@@ -2,6 +2,8 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
+#include"RabbitAndHounds.h"
+
 GameSelect::GameSelect()
 {
 	Select = 0;
@@ -49,6 +51,13 @@ AbstractScene* GameSelect::Update()
 	{
 		Once = TRUE;
 	}
+
+	//デバック用
+	if (CheckHitKey(KEY_INPUT_A))
+	{
+		return new RabbitAndHounds();
+	}
+
 	return this;
 }
 

@@ -9,6 +9,7 @@ RabbitAndHounds::RabbitAndHounds()
 
 RabbitAndHounds::~RabbitAndHounds()
 {
+
 }
 
 AbstractScene* RabbitAndHounds::Update()
@@ -18,6 +19,6 @@ AbstractScene* RabbitAndHounds::Update()
 
 void RabbitAndHounds::Draw() const
 {
-
+	DrawString(10, 20, "ÉEÉTÉMÇ∆ó¬å¢", 0xffffff);
 }
 
