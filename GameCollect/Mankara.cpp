@@ -35,11 +35,11 @@ Mankara::Mankara()
 
 
 	for (int y = 0; y < 6; y++) {
-		P1Pocket[y];
+		P1Pocket[y] = 4;
 	}
 
 	for (int y = 0; y < 6; y++) {
-		P2Pocket[y];
+		P2Pocket[y] = 4;
 	}
 
 	 Pocket1 = 0;
@@ -79,6 +79,12 @@ Mankara::Mankara()
 
 void Mankara::Draw()const
 {
+	for (int i = 0; i < 6; i++) {
+		DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
+		DrawFormatString(400 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
+	}
+	
+
 	// ƒ^[ƒ“Ø‚è‘Ö‚¦
 	if (P2Turn == 1 ) {
 		DrawFormatString(200,200,GetColor(255,255,255),"2P TURN");
