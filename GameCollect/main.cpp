@@ -5,6 +5,7 @@
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
 #include "DotAndBox.h"
+#include "DrawLine.h"
 
 #define FRAMERATE 60.0 //フレームレート
 

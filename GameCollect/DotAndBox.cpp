@@ -25,6 +25,7 @@ void DotAndBox::DrawGridOfPoints(int startX, int startY, int gridSize, int rows,
 AbstractScene* DotAndBox::Update() {
     Line line;
     line.DrawLine();
+    line.Update();
 	return this;
 }
 
@@ -37,4 +38,7 @@ void DotAndBox::Draw() const {
     int columns = 3;    // óÒêî
 
     DrawGridOfPoints(startX, startY, gridSize, rows, columns);
+
+    Line line;
+    line.Draw();
 }
