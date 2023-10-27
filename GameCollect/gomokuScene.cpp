@@ -91,10 +91,10 @@ void gomokuScene::Draw() const
 	for (int y = 0; y < 13; y++) {
 		for (int x = 0; x < 13; x++) {
 			if (Banmen[x][y] == 1) {
-				DrawGraph(270 + (56 * x) + x * 1, -25 + (56 * y) + y * 1, bTopImg, TRUE);
+				DrawGraph(270 + (56 * x) + x, -25 + (56 * y) + y, bTopImg, TRUE);
 			}
 			else if (Banmen[x][y] == 2) {
-				DrawGraph(270 + (56 * x) + x * 1, -25 + (56 * y) + y * 1, wTopImg, TRUE);
+				DrawGraph(270 + (56 * x) + x , -25 + (56 * y) + y, wTopImg, TRUE);
 			}
 		}
 	}
