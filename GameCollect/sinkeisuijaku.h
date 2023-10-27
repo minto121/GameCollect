@@ -62,9 +62,20 @@ private:
 	int S_H9;
 	int S_H10;
 
+
+	int S_TD[10];
+	int S_TH[10];
+
+
 	int grid[4][5];
 	int shuffle_flg = 0;
 
-	int s;
+	int x;
+	int r;
+	int r2;
+	int count = 0;
+	int randend = 0;
+
+	int z[20];
 };
 

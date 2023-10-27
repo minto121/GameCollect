@@ -6,7 +6,7 @@
 
 
 AbstractScene* sinkeisuijaku::Update()
-{
+{	
 	S_timg = LoadGraph("../images/sinkensuijaku/ura.png");
 	S_back = LoadGraph("../images/sinkensuijaku/back.png");
 
@@ -39,7 +39,8 @@ AbstractScene* sinkeisuijaku::Update()
 	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	g_KeyFlg = g_NowKey & ~g_OldKey;
 
-
+	//カウントを増やす
+	count++;
 
 	//メニューカーソル移動処理
 	
@@ -88,30 +89,37 @@ AbstractScene* sinkeisuijaku::Update()
 	trumpflg = 0;
 
 
-	////トランプに値を入れる
-	//int x = 1;
-	//for (int j = 0; j < 4; j++) {
-	//	for (int i = 0; i < 5; i++) {
-	//		trumps[j][i].syurui = x++;
-	//	}
-	//}
+	//トランプに値を入れる
 
-	////トランプのシャッフル
-	//int y;
+	if (count < 2) {
+	int x = 1;
+	for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < 5; i++) {
+			trumps[j][i].syurui = x++;
+		}
+		}
+	}
 
-	//if (shuffle_flg == 0) {
-	//	for (int i = 0; i < 3; i++) {
-	//		srand((unsigned int)time(NULL));
-	//		s = (rand() % 5 ) + 1 ;
+	// 現在の時間を使って初期化
+	srand((unsigned int)time(NULL));
 
-	//		y = trumps[i][s].syurui;
-	//		trumps[i][s].syurui = trumps[s][i].syurui;
-	//		trumps[s][i].syurui = y;
 
-	//	}
-	//	shuffle_flg = 1;
-	//}
+	if (randend != 1) {
 
+		for (int i = 0; i < 20; i++) {
+			// 1または2をランダムに生成
+			r = (rand() % 4) + 1;
+			r2 = (rand() % 5) + 1;
+
+
+			trumps[0][1].syurui = trumps[0][0].syurui;
+			trumps[0][0].syurui = trumps[r][r2].syurui;
+			trumps[r][r2].syurui = trumps[0][1].syurui;
+		}
+	}
+	if (count >= 10 ) {
+		randend = 1;
+	}
 
 	return this;
 }
@@ -124,7 +132,9 @@ void sinkeisuijaku::Draw() const
 	DrawFormatString(100, 150, 0xfff00f, "%d %d", S_ber,S2_ber);
 
 	DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
-	DrawFormatString(100, 200, 0xfff00f, "%d", s);
+	DrawFormatString(100, 230, 0xfff00f, "count %d", count);
+	DrawFormatString(100, 260, 0xfff00f, "r%d", r);
+	DrawFormatString(100, 290, 0xfff00f, "randend	%d", randend);
 	//test 
 
 	if (first  == 1) {
@@ -166,3 +176,25 @@ void sinkeisuijaku::Select()
 
 }
 
+////トランプの画像
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/D1.png");
+	//S_TH[1] = LoadGraph("../images/sinkensuijaku/D2.png");
+	//S_TH[2] = LoadGraph("../images/sinkensuijaku/D3.png");
+	//S_TH[3] = LoadGraph("../images/sinkensuijaku/D4.png");
+	//S_TH[4] = LoadGraph("../images/sinkensuijaku/D5.png");
+	//S_TH[5] = LoadGraph("../images/sinkensuijaku/D6.png");
+	//S_TH[6] = LoadGraph("../images/sinkensuijaku/D7.png");
+	//S_TH[7] = LoadGraph("../images/sinkensuijaku/D8.png");
+	//S_TH[8] = LoadGraph("../images/sinkensuijaku/D9.png");
+	//S_TH[9] = LoadGraph("../images/sinkensuijaku/D10.png");
+
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H1.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H2.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H3.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H4.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H5.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H6.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H7.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H8.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H9.png");
+	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H10.png");
