@@ -4,12 +4,12 @@
 
 Reversi::Reversi()
 {
-	/*R_Img = LoadGraph("images/Reversi/banmen.png");*/
+	R_Img = LoadGraph("images/Reversi/banmen.png");
 	B_Rock_Img = LoadGraph("images/Reversi/osero(black).png");
 	W_Rock_Img = LoadGraph("images/Reversi/osero(white).png");
 	XOnce = TRUE;
 	XOnce = TRUE;
-	/*CursorPoint = { 0, 0 };*/
+	CursorPoint = { 0, 0 };
 
 	K_Flg = FALSE;
 
@@ -24,6 +24,13 @@ Reversi::~Reversi()
 void Reversi::board()
 {
 
+	for (int x = 0; x < 10;x++) {
+		for (int y = 0; y < 10; y++) {
+			Boa.typ[x][y] = 0;
+			Boa.x[x][y] = 0;
+			Boa.y[x][y] = 0;
+		}
+	}
 }
 
 
@@ -32,89 +39,89 @@ AbstractScene* Reversi::Update()
 {
 
 	disp();
-	////カーソルを上移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) || (PAD_INPUT::GetLStick().ThumbY > 10000 && YOnce == TRUE)) {
+	//カーソルを上移動させる
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) || (PAD_INPUT::GetLStick().ThumbY > 10000 && YOnce == TRUE)) {
 
-	//	//連続入力しないようにする
-	//	YOnce = FALSE;
+		//連続入力しないようにする
+		YOnce = FALSE;
 
-	//	//カーソルがはみ出ないように調整する
-	//	if (--CursorPoint.y < 0) {
-	//		if (CursorPoint.x == 10) {
-	//			CursorPoint.y = 3;
-	//		}
-	//		else {
-	//			CursorPoint.y = 4;
-	//		}
-	//		if (CursorPoint.x == 12) {
-	//			CursorPoint.x = 11;
-	//		}
-	//	}
-	//}
+		//カーソルがはみ出ないように調整する
+		if (--CursorPoint.y < 0) {
+			if (CursorPoint.x == 10) {
+				CursorPoint.y = 3;
+			}
+			else {
+				CursorPoint.y = 4;
+			}
+			if (CursorPoint.x == 12) {
+				CursorPoint.x = 11;
+			}
+		}
+	}
 
-	////カーソルを下移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) || (PAD_INPUT::GetLStick().ThumbY < -10000 && YOnce == TRUE)) {
+	//カーソルを下移動させる
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) || (PAD_INPUT::GetLStick().ThumbY < -10000 && YOnce == TRUE)) {
 
-	//	//連続入力しないようにする
-	//	YOnce = FALSE;
+		//連続入力しないようにする
+		YOnce = FALSE;
 
-	//	
+		
 
-	//	//カーソルがはみ出ないように調整する
-	//	if (++CursorPoint.y > 3 && CursorPoint.x == 10 || CursorPoint.y > 4) {
-	//		CursorPoint.y = 0;
-	//	}
-	//	if (CursorPoint.y > 3 && CursorPoint.x == 12) {
-	//		CursorPoint.x = 11;
-	//	}
+		//カーソルがはみ出ないように調整する
+		if (++CursorPoint.y > 3 && CursorPoint.x == 10 || CursorPoint.y > 4) {
+			CursorPoint.y = 0;
+		}
+		if (CursorPoint.y > 3 && CursorPoint.x == 12) {
+			CursorPoint.x = 11;
+		}
 
-	//}
+	}
 
-	////カーソルを右移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) || (PAD_INPUT::GetLStick().ThumbX > 10000 && XOnce == TRUE)) {
+	//カーソルを右移動させる
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) || (PAD_INPUT::GetLStick().ThumbX > 10000 && XOnce == TRUE)) {
 
-	//	//連続入力しないようにする
-	//	XOnce = FALSE;
+		//連続入力しないようにする
+		XOnce = FALSE;
 
-	//
+	
 
-	//	//カーソルがはみ出ないように調整する
-	//	if (++CursorPoint.x == 10 && CursorPoint.y > 3)
-	//	{
-	//		CursorPoint.x = 11;
-	//	}
-	//	if (CursorPoint.x > 11 && CursorPoint.y == 4) {
-	//		CursorPoint.x = 0;
-	//	}
-	//	if (CursorPoint.x > 12) {
-	//		CursorPoint.x = 0;
-	//	}
-	//}
+		//カーソルがはみ出ないように調整する
+		if (++CursorPoint.x == 10 && CursorPoint.y > 3)
+		{
+			CursorPoint.x = 11;
+		}
+		if (CursorPoint.x > 11 && CursorPoint.y == 4) {
+			CursorPoint.x = 0;
+		}
+		if (CursorPoint.x > 12) {
+			CursorPoint.x = 0;
+		}
+	}
 
-	////カーソルを左移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) || (PAD_INPUT::GetLStick().ThumbX < -10000 && XOnce == TRUE)) {
+	//カーソルを左移動させる
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) || (PAD_INPUT::GetLStick().ThumbX < -10000 && XOnce == TRUE)) {
 
-	//	//連続入力しないようにする
-	//	XOnce = FALSE;
+		//連続入力しないようにする
+		XOnce = FALSE;
 
-	//	//カーソルがはみ出ないように調整する
-	//	if (--CursorPoint.x < 0) {
-	//		if (CursorPoint.y > 3) {
-	//			CursorPoint.x = 11;
-	//		}
-	//		else {
-	//			CursorPoint.x = 12;
-	//		}
-	//	}
-	//	if (CursorPoint.x == 10 && CursorPoint.y == 4)
-	//	{
-	//		CursorPoint.x = 9;
-	//	}
-	//}
+		//カーソルがはみ出ないように調整する
+		if (--CursorPoint.x < 0) {
+			if (CursorPoint.y > 3) {
+				CursorPoint.x = 11;
+			}
+			else {
+				CursorPoint.x = 12;
+			}
+		}
+		if (CursorPoint.x == 10 && CursorPoint.y == 4)
+		{
+			CursorPoint.x = 9;
+		}
+	}
 
-	////Aボタンが押されたら
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-	//}
+	//Aボタンが押されたら
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	}
 	return this;
 }
 
