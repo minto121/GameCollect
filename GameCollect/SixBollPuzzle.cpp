@@ -9,7 +9,7 @@ SixBollPuzzle::SixBollPuzzle()
 	
 	//Ball_img = LoadGraph("../images/SixBallPuzzle/ball.png");
 
-	LoadDivGraph("../images/SixBallPuzzle/ball.png", 5, 1, 5, 70, 12, Ball_img);
+	LoadDivGraph("../images/SixBallPuzzle/ball.png", 4, 1, 5, 64, 64, Ball_img); //320px*64px
 
 }
 
@@ -27,5 +27,5 @@ void SixBollPuzzle::Draw() const
 {
 	//DrawGraph(0, 0, Back_Ground_img, FALSE);
 	//DrawGraph(0, 0, Ball_img, FALSE);
-	DrawGraph(50, 80, Ball_img[1], FALSE);
+	DrawGraph(50, 80, Ball_img[4], FALSE);
 }
