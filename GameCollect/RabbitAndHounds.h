@@ -10,6 +10,8 @@ private:
 	int Pieceimg; //@‹î
 	int back;
 
+	
+
 public:
 	RabbitAndHounds();
 
