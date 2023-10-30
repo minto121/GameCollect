@@ -29,5 +29,5 @@ void RabbitAndHounds::Draw() const
 	DrawString(800, 350, "—ÂŒ¢", 0xffffff);
 
 	Cursor_X = MenuNumber * 60;
-	DrawTriangle(510, 370 + Cursor_X, 540, 390 + Cursor_X, 510, 410 + Cursor_X, GetColor(255, 0, 0), TRUE);
+	DrawTriangle(260, 360 + Cursor_X, 290, 380 + Cursor_X, 260, 400 + Cursor_X, GetColor(255, 0, 0), TRUE);
 }
