@@ -11,28 +11,27 @@ AbstractScene* sinkeisuijaku::Update()
 	S_back = LoadGraph("../images/sinkensuijaku/back.png");
 
 	//トランプの画像
-	S_D1 = LoadGraph("../images/sinkensuijaku/D1.png");
-	S_D2 = LoadGraph("../images/sinkensuijaku/D2.png");
-	S_D3 = LoadGraph("../images/sinkensuijaku/D3.png");
-	S_D4 = LoadGraph("../images/sinkensuijaku/D4.png");
-	S_D5 = LoadGraph("../images/sinkensuijaku/D5.png");
-	S_D6 = LoadGraph("../images/sinkensuijaku/D6.png");
-	S_D7 = LoadGraph("../images/sinkensuijaku/D7.png");
-	S_D8 = LoadGraph("../images/sinkensuijaku/D8.png");
-	S_D9 = LoadGraph("../images/sinkensuijaku/D9.png");
-	S_D10 = LoadGraph("../images/sinkensuijaku/D10.png");
-	
-	S_H1 = LoadGraph("../images/sinkensuijaku/H1.png");
-	S_H2 = LoadGraph("../images/sinkensuijaku/H2.png");
-	S_H3 = LoadGraph("../images/sinkensuijaku/H3.png");
-	S_H4 = LoadGraph("../images/sinkensuijaku/H4.png");
-	S_H5 = LoadGraph("../images/sinkensuijaku/H5.png");
-	S_H6 = LoadGraph("../images/sinkensuijaku/H6.png");
-	S_H7 = LoadGraph("../images/sinkensuijaku/H7.png");
-	S_H8 = LoadGraph("../images/sinkensuijaku/H8.png");
-	S_H9 = LoadGraph("../images/sinkensuijaku/H9.png");
-	S_H10 = LoadGraph("../images/sinkensuijaku/H10.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/D1.png");
+	S_TH[1] = LoadGraph("../images/sinkensuijaku/D2.png");
+	S_TH[2] = LoadGraph("../images/sinkensuijaku/D3.png");
+	S_TH[3] = LoadGraph("../images/sinkensuijaku/D4.png");
+	S_TH[4] = LoadGraph("../images/sinkensuijaku/D5.png");
+	S_TH[5] = LoadGraph("../images/sinkensuijaku/D6.png");
+	S_TH[6] = LoadGraph("../images/sinkensuijaku/D7.png");
+	S_TH[7] = LoadGraph("../images/sinkensuijaku/D8.png");
+	S_TH[8] = LoadGraph("../images/sinkensuijaku/D9.png");
+	S_TH[9] = LoadGraph("../images/sinkensuijaku/D10.png");
 
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H1.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H2.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H3.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H4.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H5.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H6.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H7.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H8.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H9.png");
+	S_TH[0] = LoadGraph("../images/sinkensuijaku/H10.png");
 
 	// 入力キー取得
 	g_OldKey = g_NowKey;
@@ -100,6 +99,10 @@ AbstractScene* sinkeisuijaku::Update()
 		}
 	}
 
+
+	//先行後攻決め
+	Select();
+
 	// 現在の時間を使って初期化
 	srand((unsigned int)time(NULL));
 
@@ -121,6 +124,90 @@ AbstractScene* sinkeisuijaku::Update()
 		randend = 1;
 	}
 
+
+	if (trumps[S_ber][S2_ber].flg == 1) {
+		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TH[0], TRUE);
+	}
+
+	////ひっくり返したトランプ画像
+	//if (trumps[S_ber][S2_ber].flg == 1) {
+	//	int trump_num = trumps[S_ber][S2_ber].syurui;
+
+	//	// カードの "trump_num" に応じて、適切なカード画像を描画
+	//	if (trump_num >= 1 && trump_num <= 10) {
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TD[trump_num - 1], TRUE);
+	//	}
+	//	if (trump_num >= 1 && trump_num <= 10) {
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TH[trump_num - 1], TRUE);
+	//	}
+	//	}
+	//	switch (trump_num) {
+	//	case 1:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TD[0], TRUE);
+	//		break;
+	//	case 2:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TD[1], TRUE);
+	//		break;
+	//	case 3:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TD[3], TRUE);
+	//		break;
+	//	case 4:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 5:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 6:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 7:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 8:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 9:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 10:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 11:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TH[0], TRUE);
+	//		break;
+	//	case 12:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_TH[1], TRUE);
+	//		break;
+	//	case 13:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 14:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 15:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 16:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 17:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 18:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 19:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+	//	case 20:
+	//		DrawGraph(395 + S2_ber * 110, 70 + S_ber * 140, S_D1, TRUE);
+	//		break;
+
+	//	}
+	//}
+
+
+
 	return this;
 }
 
@@ -128,13 +215,13 @@ void sinkeisuijaku::Draw() const
 {
 //test
 
+	DrawFormatString(100, 100, 0xfff00f, "flg %d", trumps[S_ber][S2_ber].flg);
 
 	DrawFormatString(100, 150, 0xfff00f, "%d %d", S_ber,S2_ber);
 
 	DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
 	DrawFormatString(100, 230, 0xfff00f, "count %d", count);
-	DrawFormatString(100, 260, 0xfff00f, "r%d", r);
-	DrawFormatString(100, 290, 0xfff00f, "randend	%d", randend);
+	
 	//test 
 
 	if (first  == 1) {
@@ -148,21 +235,24 @@ void sinkeisuijaku::Draw() const
 	
 	for (int j = 1; j < 5; j++) {
 		for (int i = 0; i < 5; i++) {
-			DrawRotaGraph(450 + i * 110, 0+ j*140, 0.5, 0, S_timg, TRUE);
+			if (trumps[S_ber][S2_ber].flg == 0) {
+				DrawRotaGraph(450 + i * 110, 0 + j * 140, 0.5, 0, S_timg, TRUE);
+			}
+			else {
+				
+			}
 		}
 	}
 	DrawBox(395 + S2_ber * 110 , 70 +S_ber * 140 , 495 + S2_ber  * 110, 215 + S_ber * 140, 0x00ffff, TRUE);
 
 
 	//カーソルの四角
-	for (int j = 0; j < 4; j++) {
-		for (int i = 0; i < 5; i++) {
-			DrawBox(395 + i * 110, 70 + j * 140, 495 + i * 110, 215 + j * 140, 0x00ffff, FALSE);
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 5; i++) {
+				DrawBox(395 + i * 110, 70 + j * 140, 495 + i * 110, 215 + j * 140, 0x00ffff, FALSE);
+			}
 		}
 	}
-
-
-}
 
 void sinkeisuijaku::Select()
 {
@@ -176,25 +266,3 @@ void sinkeisuijaku::Select()
 
 }
 
-////トランプの画像
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/D1.png");
-	//S_TH[1] = LoadGraph("../images/sinkensuijaku/D2.png");
-	//S_TH[2] = LoadGraph("../images/sinkensuijaku/D3.png");
-	//S_TH[3] = LoadGraph("../images/sinkensuijaku/D4.png");
-	//S_TH[4] = LoadGraph("../images/sinkensuijaku/D5.png");
-	//S_TH[5] = LoadGraph("../images/sinkensuijaku/D6.png");
-	//S_TH[6] = LoadGraph("../images/sinkensuijaku/D7.png");
-	//S_TH[7] = LoadGraph("../images/sinkensuijaku/D8.png");
-	//S_TH[8] = LoadGraph("../images/sinkensuijaku/D9.png");
-	//S_TH[9] = LoadGraph("../images/sinkensuijaku/D10.png");
-
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H1.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H2.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H3.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H4.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H5.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H6.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H7.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H8.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H9.png");
-	//S_TH[0] = LoadGraph("../images/sinkensuijaku/H10.png");
