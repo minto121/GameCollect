@@ -28,6 +28,8 @@ private:
 	0, 2, 0, 2, 0, 2, 0, 2, };
 	int selectX;
 	int selectY;
+	int selectedPieceX = -1;
+	int selectedPieceY = -1;
 	int g_OldKey ;
 	int g_NowKey;
 	int g_KeyFlg ;

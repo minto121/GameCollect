@@ -71,23 +71,26 @@ void Checkermain::Draw() const
 {
 	
 	DrawGraph(0, 0, Checkerback, FALSE);	// 背景
-	DrawGraph(180, 0, Boardimg, TRUE);		// ボード
+	DrawGraph(300, 0, Boardimg, TRUE);		// ボード
 	// プレイヤー1の駒を描画
 	for (int y = 5; y < 8; y++) {
 		for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
 			/*DrawCircle(x * 75 + 400, y * 73 + 100, 20, GetColor(0, 0, 255), TRUE);*/
-			DrawRotaGraph(x * 73 + 400, y * 73 + 108, 2, 0, PieceB, TRUE);
+			DrawRotaGraph(x * 74 + 400, y * 72 + 108, 2, 0, PieceB, TRUE);
 		}
 	}
 
 	// プレイヤー2の駒を描画
 	for (int y = 0; y < 3; y++) {
 		for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
-			DrawCircle(x * 75 + 400, y * 80 + 100, 28, GetColor(255, 0, 0), TRUE);
+			DrawCircle(x * 73 + 400, y * 75 + 100, 28, GetColor(255, 0, 0), TRUE);
 			/*DrawRotaGraph(x * 75 + 400, y * 80 + 110, 2, 0, PieceW, TRUE);*/
 		}
 	}
-	
+	if (selectedPieceX != -1 && selectedPieceY != -1) {
+		DrawBox(selectedPieceX * 50, selectedPieceY * 50, (selectedPieceX + 1) * 50, (selectedPieceY + 1) * 50, GetColor(255, 255, 0), TRUE);
+	}
+
 	DrawFormatString(0, 0, 0x000000, "%d", selectY);		//カーソル移動Y
 	DrawFormatString(0,30, 0x000000, "%d", selectX);		//カーソル移動X
 	DrawBox(372 + (selectX*71), 72 + (selectY * 71), 445+ (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);    // 四角形を描画
