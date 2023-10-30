@@ -5,6 +5,7 @@
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
+#include"Hex_GameMain.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -33,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Chekkermain());
+		sceneMng = new SceneManager((AbstractScene*)new Hex());
 
 	}
 	catch (const char* err)

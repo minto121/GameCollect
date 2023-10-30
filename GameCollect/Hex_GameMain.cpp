@@ -2,7 +2,9 @@
 #include"Hex_GameMain.h"
 
 Hex::Hex() {
-	BackImg = LoadGraph("../images/Hex/BG_Dummy.png");
+	BanImg = LoadGraph("../images/Hex/Hex_11Å~11.png");
+	BlueHexImg = LoadGraph("../images/Hex/hexagon-B50.png");
+	RedHexImg = LoadGraph("../images/Hex/hexagon-R50.png");
 }
 
 AbstractScene* Hex::Update() {
@@ -10,5 +12,5 @@ AbstractScene* Hex::Update() {
 }
 
 void Hex::Draw()const {
-	DrawGraph(0, 0, BackImg, FALSE);
+	DrawGraph(0, 0, BanImg, FALSE);
 }

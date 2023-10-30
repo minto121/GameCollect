@@ -3,9 +3,10 @@
 
 class Hex:public AbstractScene {
 protected:
-	int BackImg;
-	//int BanImg;
-
+	//int BackImg;
+	int BanImg;
+	int RedHexImg;
+	int BlueHexImg;
 public:
 	Hex();
 
