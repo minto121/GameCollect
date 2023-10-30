@@ -4,12 +4,18 @@
 
 Checkermain::Checkermain() {
 
-	Boardimg = LoadGraph("../images/Checkers/banmen.png");
-	PieceB = LoadGraph("../images/Checkers/WK.png");
-	PieceW = LoadGraph("../images/Checkers/BK.png");
-	Checkerback = LoadGraph("../images/Checkers/back.png");
-	selectX = 0;
-	selectY = 0;
+	Boardimg = LoadGraph("../images/Checkers/banmen.png");		 // ボード
+	PieceB = LoadGraph("../images/Checkers/WK.png");			 // 駒黒
+	PieceW = LoadGraph("../images/Checkers/BK.png");			 // 駒白
+	Checkerback = LoadGraph("../images/Checkers/back.png");		 // 背景
+	selectX = 0;												 // カーソル移動X座標
+	selectY = 0;												 // カーソル移動Y座標
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			(board[i][j] == 0);
+
+		}
+	}
 }
 
 Checkermain::~Checkermain()
@@ -19,7 +25,6 @@ Checkermain::~Checkermain()
 
 AbstractScene* Checkermain::Update()
 {
-	InitBlock();
 	g_OldKey = g_NowKey;
 	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	g_KeyFlg = g_NowKey & ~g_OldKey;
@@ -65,26 +70,30 @@ AbstractScene* Checkermain::Update()
 void Checkermain::Draw() const
 {
 	
-	DrawGraph(0, 0, Checkerback, FALSE);
-	DrawGraph(180, 0, Boardimg, TRUE);
-	DrawRotaGraph(480, 110,2,0, PieceB, TRUE);
-	DrawRotaGraph(480, 610, 2, 0, PieceW, TRUE);
-	DrawFormatString(0, 0, 0x000000, "%d", selectY);
-	DrawFormatString(0,30, 0x000000, "%d", selectX);
+	DrawGraph(0, 0, Checkerback, FALSE);	// 背景
+	DrawGraph(180, 0, Boardimg, TRUE);		// ボード
+	// プレイヤー1の駒を描画
+	for (int y = 5; y < 8; y++) {
+		for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
+			/*DrawCircle(x * 75 + 400, y * 73 + 100, 20, GetColor(0, 0, 255), TRUE);*/
+			DrawRotaGraph(x * 73 + 400, y * 73 + 108, 2, 0, PieceB, TRUE);
+		}
+	}
+
+	// プレイヤー2の駒を描画
+	for (int y = 0; y < 3; y++) {
+		for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
+			DrawCircle(x * 75 + 400, y * 80 + 100, 28, GetColor(255, 0, 0), TRUE);
+			/*DrawRotaGraph(x * 75 + 400, y * 80 + 110, 2, 0, PieceW, TRUE);*/
+		}
+	}
+	
+	DrawFormatString(0, 0, 0x000000, "%d", selectY);		//カーソル移動Y
+	DrawFormatString(0,30, 0x000000, "%d", selectX);		//カーソル移動X
 	DrawBox(372 + (selectX*71), 72 + (selectY * 71), 445+ (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);    // 四角形を描画
 
 	
 }
 
-void Checkermain::InitBlock() const
-{
-	/*for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			if (board[x][y] == 0) {
-			
-			}
-		
-		}
-	}*/
-}
+
 
