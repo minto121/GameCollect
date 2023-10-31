@@ -4,14 +4,14 @@
 #include "Title.h"
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
-<<<<<<< HEAD
+
 
 #include "sinkeisuijaku.h"
 
-=======
+
 #include "Chekkermain.h"
 #include"Mankara.h"
->>>>>>> syuntest
+
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
@@ -39,11 +39,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-<<<<<<< HEAD
+
 		sceneMng = new SceneManager((AbstractScene*)new sinkeisuijaku/*Title*/());//Titleをテストのためにsinkensuijakuni変更してます
-=======
-		sceneMng = new SceneManager((AbstractScene*)new Mankara());
->>>>>>> syuntest
+
+		//sceneMng = new SceneManager((AbstractScene*)new Mankara());
+
 
 	}
 	catch (const char* err)

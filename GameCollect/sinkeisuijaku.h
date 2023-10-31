@@ -40,27 +40,7 @@ private:
 
 
 	//ƒgƒ‰ƒ“ƒv‚Ì‰æ‘œ—p•Ï”
-	int S_D1;
-	int S_D2;
-	int S_D3;
-	int S_D4;
-	int S_D5;
-	int S_D6;
-	int S_D7;
-	int S_D8;
-	int S_D9;
-	int S_D10;
-
-	int S_H1;
-	int S_H2;
-	int S_H3;
-	int S_H4;
-	int S_H5;
-	int S_H6;
-	int S_H7;
-	int S_H8;
-	int S_H9;
-	int S_H10;
+	int S_T[55];
 
 
 	int S_TD[10];
