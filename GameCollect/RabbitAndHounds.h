@@ -6,10 +6,12 @@ class RabbitAndHounds : public AbstractScene
 {
 
 private:
-	int Boardimg; //　盤
-	int Pieceimg; //　駒
-	int back;
+	int BackGroundImg;
+	int Board; //　盤
+	int Piece; //　駒
 
+	int HoundImg;    //猟犬画像
+	int RabbitImg;   //ウサギ画像
 	
 
 public:
