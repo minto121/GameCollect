@@ -33,7 +33,11 @@
     <ClCompile Include="GameSelect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="sinkeisuijaku.cpp">
+=======
+    <ClCompile Include="Chekkermain.cpp">
+>>>>>>> syuntest
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,7 +63,11 @@
     <ClInclude Include="GameSelect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="sinkeisuijaku.h">
+=======
+    <ClInclude Include="Chekkermain.h">
+>>>>>>> syuntest
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
