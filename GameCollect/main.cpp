@@ -4,6 +4,7 @@
 #include "Title.h"
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
+#include "takoyaki.h"
 #include "Chekkermain.h"
 
 #define FRAMERATE 60.0 //フレームレート
@@ -33,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Chekkermain());
+		sceneMng = new SceneManager((AbstractScene*)new Card());
 
 	}
 	catch (const char* err)

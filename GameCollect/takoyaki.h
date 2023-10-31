@@ -3,13 +3,15 @@
 
 class Card :
     public AbstractScene
-
 {
+  
 private:
-    int cards;  //カード
+   
+    int cardimg1;
+    int Cards_img[42];  //カード
+    int CursolImg; //カーソル画像
+    int select_X;
     
-
-
 public:
     //コンストラクタ
     Card();

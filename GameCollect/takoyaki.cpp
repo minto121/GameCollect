@@ -7,8 +7,10 @@
 
 Card::Card()
 {
-
-	
+	 Cards_img[42];
+	cardimg1=LoadGraph("../images/Takoyaki/PlayingCardsfake.png");
+	CursolImg=LoadGraph("../images/Takoyaki/cursor.png");
+	select_X = 0;
 }
 
 Card::~Card()
@@ -19,29 +21,23 @@ Card::~Card()
 AbstractScene*Card::Update()
 {
 
-	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))*/
-	if (CheckHitKey(KEY_INPUT_P))
-	{
-		//switch (static_cast<TITLE_MENU>(Select))
-		//{
-		//	//ゲーム画面へ
-		//case TITLE_MENU::GAME_START:
-		//	return new GameSelect();
-		//	break;
-		//default:
-		//	break;
-		//}
-		return new GameSelect();
-	}
-	return this;
+	select_X = PAD_INPUT::OnPressed(XINPUT_BUTTON__PAD_LEFT) * 52;
 }
 
 void Card::Draw()const
 {
+	
 	//タイトルの描画
 	//DrawGraph(0, 0, TitleImg, FALSE);
 	DrawString(350, 50, "main", 0xffffff, TRUE);
+
+	DrawGraph(70, 50,cardimg1,TRUE);
+	DrawGraph(190, 50, cardimg1, TRUE);
+
 	//カーソルの描画
-	//int select_y = 230 + Select * 80;
-	//DrawGraph(650, select_y, CursorImg, TRUE);
+	int select_x;
+	DrawGraph(75, 190, CursolImg, TRUE);
+   
+	
+    //DrawGraph(650, select_y, CursorImg, TRUE);
 }
