@@ -64,6 +64,29 @@ AbstractScene* Checkermain::Update()
 			selectX = 0;
 		}
 	}
+	if (g_KeyFlg & PAD_INPUT_1) {
+
+		bool IsMoveValid(int startX, int startY, int endX, int endY) {
+			// 移動の妥当性をチェックするロジックをここに追加
+			// 飛び越えるルールなども実装可能
+			if (endX < 0 || endY < 0 || endX >= 8 || endY >= 8) {
+				return false; // ボード外への移動は無効
+			}
+
+			if (board[endY][endX] != 0) {
+				return false; // 移動先に駒がある場合は無効
+			}
+
+			if (abs(endX - startX) == 1 && abs(endY - startY) == 1) {
+				return true; // 1つ前後左右に移動する場合
+			}
+
+			// 飛び越えるルールを追加するなど、他のカスタムルールを実装できます
+
+			return false;
+		}
+	}
+
 	return this;
 }
 
@@ -87,9 +110,7 @@ void Checkermain::Draw() const
 			/*DrawRotaGraph(x * 75 + 400, y * 80 + 110, 2, 0, PieceW, TRUE);*/
 		}
 	}
-	if (selectedPieceX != -1 && selectedPieceY != -1) {
-		DrawBox(selectedPieceX * 50, selectedPieceY * 50, (selectedPieceX + 1) * 50, (selectedPieceY + 1) * 50, GetColor(255, 255, 0), TRUE);
-	}
+
 
 	DrawFormatString(0, 0, 0x000000, "%d", selectY);		//カーソル移動Y
 	DrawFormatString(0,30, 0x000000, "%d", selectX);		//カーソル移動X
