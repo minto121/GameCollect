@@ -2,6 +2,10 @@
 #include<DxLib.h>
 #include "PadInput.h"
 
+#define WALL 0
+#define WHITE 1
+#define BLACK 2
+
 Reversi::Reversi()
 {
 	R_Img = LoadGraph("images/Reversi/banmen.png");
@@ -144,15 +148,17 @@ AbstractScene* Reversi::Update()
 
 void Reversi::disp()
 {
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)||CheckHitKey(KEY_INPUT_0)) {
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || CheckHitKey(KEY_INPUT_0)) {
 		K_Flg = TRUE;
-		/*switch(order) 
-		{
-			case Order::First;
-			DrawGraph(0, 0, B_Rock_Img, TRUE);
-			break;
 
-		}*/
+		if (WHITE)
+		{
+			DrawGraph(0, 0, W_Storn_Img, TRUE);
+		}
+		else if (BLACK)
+		{
+			DrawGraph(0, 0, B_Storn_Img, TRUE);
+		}
 	}
 }
 
@@ -168,16 +174,5 @@ void Reversi::Draw() const
 	//”Õ–Ê‚Ì•`‰æ
 	DrawGraph(340, 50, R_Img, TRUE);
 
-	/*switch (stage[i][j]) {
-	case STAGE:
-		DrawGraph(x, y, koma[0], TRUE);
-		break;
-	case KURO:
-		DrawGraph(x, y, koma[1], TRUE);
-		break;
-	case SIRO:
-		DrawGraph(x, y, koma[2], TRUE);
-		break;
-	}*/
 }
 
