@@ -24,9 +24,14 @@ private:
 
 	// 1P用ポケット
 	int P1Pocket[6];
-
+	int Pocket1P;
 	// 2P用ポケット
 	int P2Pocket[6];
+	int Pocket2P;
+
+	int P1BigPocket;
+	int P2BigPocket;
+
 public:
 	Mankara();
 	AbstractScene* Update();
