@@ -21,7 +21,7 @@ Card::~Card()
 AbstractScene*Card::Update()
 {
 
-	select_X = PAD_INPUT::OnPressed(XINPUT_BUTTON__PAD_LEFT) * 52;
+	select_X = PAD_INPUT::OnPressed(XINPUT_BUTTON_PAD_LEFT) * 52;
 }
 
 void Card::Draw()const
