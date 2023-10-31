@@ -72,14 +72,10 @@ AbstractScene* Title::Update()
 		//default:
 		//	break;
 		//}
-		return new GameSelect();
-	}
-
-	if (CheckHitKey(KEY_INPUT_SPACE))
-	{
-
 		return new Porker();
 	}
+
+	
 
 
 	return this;
