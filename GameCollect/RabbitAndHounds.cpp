@@ -17,6 +17,17 @@ RabbitAndHounds::~RabbitAndHounds()
 
 AbstractScene* RabbitAndHounds::Update()
 {
+	//十字キー→入力
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
+	{
+		Cursor_X
+	}
+	//十字キー←入力
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
+	{
+
+	}
+
 	return this;
 }
 
