@@ -6,9 +6,10 @@ class SixBollPuzzle:
 {
 
 private:
-	int Ball_img[4];		//　ボール
-	int Back_Ground_img;	//　背景画像
-	int e;
+	int Ball_img[4];		//ボール
+	int Back_Ground_img;	//背景画像
+	int FallingX;			//落下するブロックのX座標（固定位置）
+	int FallingY = 100;		//落下するブロックのY座標（初期位置）
 
 public:
 	SixBollPuzzle();
