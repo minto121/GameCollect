@@ -10,12 +10,17 @@ Checkermain::Checkermain() {
 	Checkerback = LoadGraph("../images/Checkers/back.png");		 // 背景
 	selectX = 0;												 // カーソル移動X座標
 	selectY = 0;												 // カーソル移動Y座標
-	for (int i = 0; i < 8; i++) {
-		for (int j = 0; j < 8; j++) {
-			(board[i][j] == 0);
 
-		}
-	}
+	int board[8][8] =
+	{
+	0, 1, 0, 1, 0, 1, 0, 1,
+	1, 0, 1, 0, 1, 0, 1, 0,
+	0, 1, 0, 1, 0, 1, 0, 1,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	0, 0, 0, 0, 0, 0, 0, 0,
+	2, 0, 2, 0, 2, 0, 2, 0,
+	0, 2, 0, 2, 0, 2, 0, 2,
+	2, 0, 2, 0, 2, 0, 2, 0, };
 }
 
 Checkermain::~Checkermain()
@@ -64,28 +69,19 @@ AbstractScene* Checkermain::Update()
 			selectX = 0;
 		}
 	}
-	if (g_KeyFlg & PAD_INPUT_1) {
-
-		bool IsMoveValid(int startX, int startY, int endX, int endY) {
-			// 移動の妥当性をチェックするロジックをここに追加
-			// 飛び越えるルールなども実装可能
-			if (endX < 0 || endY < 0 || endX >= 8 || endY >= 8) {
-				return false; // ボード外への移動は無効
-			}
-
-			if (board[endY][endX] != 0) {
-				return false; // 移動先に駒がある場合は無効
-			}
-
-			if (abs(endX - startX) == 1 && abs(endY - startY) == 1) {
-				return true; // 1つ前後左右に移動する場合
-			}
-
-			// 飛び越えるルールを追加するなど、他のカスタムルールを実装できます
-
-			return false;
-		}
+	
+	if (g_KeyFlg & PAD_INPUT_A) {
+		int padx, pady;
+		// カーソルの位置からクリックされたセルを特定
+		int clickedX = selectX;
+		int clickedY = selectY;
+		
+		// プレイヤーが選択した駒の座標が (selectedX, selectedY) にあります
+        // ここで移動の妥当性をチェックし、駒の移動を処理します
+		IsMoveValid(selectX,  selectY,  clickedX,  clickedY);
+	
 	}
+
 
 	return this;
 }
@@ -110,14 +106,46 @@ void Checkermain::Draw() const
 			/*DrawRotaGraph(x * 75 + 400, y * 80 + 110, 2, 0, PieceW, TRUE);*/
 		}
 	}
-
+	DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);    // 四角形を描画
 
 	DrawFormatString(0, 0, 0x000000, "%d", selectY);		//カーソル移動Y
 	DrawFormatString(0,30, 0x000000, "%d", selectX);		//カーソル移動X
-	DrawBox(372 + (selectX*71), 72 + (selectY * 71), 445+ (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);    // 四角形を描画
+	DrawFormatString(0, 100, 0x000000, "%d", F_select);
+
 
 	
 }
 
+void Checkermain::InitBoard()
+{
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			(board[i][j] == 0);
 
+		}
+	}
+}
+bool Checkermain::IsMoveValid(int startX, int startY, int endX, int endY)
+{
+	// 移動の妥当性をチェックするロジックをここに追加
+	// 飛び越えるルールなども実装可能
+
+	if (endX < 0 || endY < 0 || endX >= 8 || endY >= 8) {
+		return false; // ボード外への移動は無効
+	}
+
+	if (board[endY][endX] != 0) {
+		return false; // 移動先に駒がある場合は無効
+	}
+
+	// 1つ前後左右に移動する場合
+	if (abs(endX - startX) == 1 && abs(endY - startY) == 1) {
+		return true;
+	}
+
+	// 駒の移動ルールに合致しない場合もここでチェック
+	// 他のカスタムルールを実装するなど、他の条件にも従うことができます
+
+	return false; // デフォルトでは無効な移動として扱う
+}
 
