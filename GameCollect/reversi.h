@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 
-#define J 10
+#define SIZ 10
 
 enum class Order {
   First,
@@ -17,6 +17,7 @@ private:
 
     bool K_Flg;
     int R_Img;
+    int bor;
     int B_Storn_Img;
     int W_Storn_Img;
 
@@ -48,8 +49,8 @@ public:
 
    void turn();
    void Board();
-   void init_board(int board[J][J]);
-   void print_board(int board[J][J]);
+   void init_board(int board[SIZ][SIZ]);
+   void print_board(int board[SIZ][SIZ]);
 
    //char Board[10][10]{
    //{ -1 , -1, -1, -1, -1, -1, -1, -1, -1, -1},

@@ -6,9 +6,9 @@
 #define WHITE 1
 #define BLACK 2
 
-#define J 10
+#define SIZ 10
 
-int board[J][J];
+int board[SIZ][SIZ];
 
 Reversi::Reversi()
 {
@@ -20,6 +20,8 @@ Reversi::Reversi()
 	/*CursorPoint = { 0, 0 };*/
 
 	K_Flg = FALSE;
+
+	bor = board[SIZ][SIZ];
 
 	Board();
 }
@@ -136,27 +138,26 @@ void Reversi::Draw() const
 	//”Õ–Ê‚Ì•`‰æ
 	DrawGraph(340, 50, R_Img, TRUE);
 
-
 }
 
-void print_board(int board[J][J])
+void Reversi::print_board(int board[SIZ][SIZ])
 {
 	int i, j;
 
 	for (i = 1; i <= 8; i++) {
 		for (j = 1; j <= 8; j++) {
-			printf("%2d", board[i][j]);
+			DrawCircle(0,0,0x000fff, bor,TRUE);
 		}
 		printf("\n");
 	}
 }
 
-void init_board(int board[J][J])
+void Reversi::init_board(int board[SIZ][SIZ])
 {
 	int i, j;
 
-	for (i = 0; i < J; i++) {
-		for (j = 0; j < J; j++) {
+	for (i = 0; i < SIZ; i++) {
+		for (j = 0; j < SIZ; j++) {
 			board[i][j] = -1;
 		}
 	}
@@ -212,8 +213,8 @@ void Reversi::Board()
  { -1 , -1, -1, -1, -1, -1, -1, -1, -1, -1}
 	};
 
-	for (i = 0; i < J; i++) {
-		for (j = 0; j < J; j++) {
+	for (i = 0; i < SIZ; i++) {
+		for (j = 0; j < SIZ; j++) {
 			board[i][j] = initdata[i][j];
 		}
 	}
