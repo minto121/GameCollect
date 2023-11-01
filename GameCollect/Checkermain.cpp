@@ -10,17 +10,8 @@ Checkermain::Checkermain() {
 	Checkerback = LoadGraph("../images/Checkers/back.png");		 // 背景
 	selectX = 0;												 // カーソル移動X座標
 	selectY = 0;												 // カーソル移動Y座標
+	 board[8][8];
 
-	int board[8][8] =
-	{
-	0, 1, 0, 1, 0, 1, 0, 1,
-	1, 0, 1, 0, 1, 0, 1, 0,
-	0, 1, 0, 1, 0, 1, 0, 1,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	2, 0, 2, 0, 2, 0, 2, 0,
-	0, 2, 0, 2, 0, 2, 0, 2,
-	2, 0, 2, 0, 2, 0, 2, 0, };
 }
 
 Checkermain::~Checkermain()
@@ -69,8 +60,24 @@ AbstractScene* Checkermain::Update()
 			selectX = 0;
 		}
 	}
-	
-	if (g_KeyFlg & PAD_INPUT_A) {
+	for (int y = 0; y < 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			if (g_KeyFlg & PAD_INPUT_1) {
+
+				if (phase == 0 && board[x][y] == 1) {
+					F_select = TRUE;
+
+				}
+			}
+			if (F_select == TRUE && board[x-1][y-1]) {
+				board[x - 1][y - 1] = 1;
+				board[x][y] = 0;
+			}
+			if (F_select == TRUE && board[x - 1][y - 1]) {
+				board[x + 1][y + 1] = 1;
+				board[x][y] = 0;
+			}
+		}
 		int padx, pady;
 		// カーソルの位置からクリックされたセルを特定
 		int clickedX = selectX;
@@ -78,7 +85,7 @@ AbstractScene* Checkermain::Update()
 		
 		// プレイヤーが選択した駒の座標が (selectedX, selectedY) にあります
         // ここで移動の妥当性をチェックし、駒の移動を処理します
-		IsMoveValid(selectX,  selectY,  clickedX,  clickedY);
+		//IsMoveValid(selectX,  selectY,  clickedX,  clickedY);
 	
 	}
 
@@ -91,21 +98,27 @@ void Checkermain::Draw() const
 	
 	DrawGraph(0, 0, Checkerback, FALSE);	// 背景
 	DrawGraph(300, 0, Boardimg, TRUE);		// ボード
-	// プレイヤー1の駒を描画
-	for (int y = 5; y < 8; y++) {
-		for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
-			/*DrawCircle(x * 75 + 400, y * 73 + 100, 20, GetColor(0, 0, 255), TRUE);*/
+	 //プレイヤー1の駒を描画
+	for (int y = 0; y < 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			if(board[x][y]==2)
 			DrawRotaGraph(x * 74 + 400, y * 72 + 108, 2, 0, PieceB, TRUE);
 		}
 	}
-
 	// プレイヤー2の駒を描画
-	for (int y = 0; y < 3; y++) {
-		for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
-			DrawCircle(x * 73 + 400, y * 75 + 100, 28, GetColor(255, 0, 0), TRUE);
-			/*DrawRotaGraph(x * 75 + 400, y * 80 + 110, 2, 0, PieceW, TRUE);*/
+	for (int y = 0; y < 8; y++) {
+		for (int x = 0; x < 8; x++) {
+			if (board[x][y] == 1)
+				DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(255, 0, 0), TRUE);
 		}
 	}
+
+	//for (int y = 0; y < 3; y++) {
+	//	for (int x = (y % 2 == 0) ? 1 : 0; x < 8; x += 2) {
+	//		DrawCircle(x * 73 + 400, y * 75 + 100, 28, GetColor(255, 0, 0), TRUE);
+	//		/*DrawRotaGraph(x * 75 + 400, y * 80 + 110, 2, 0, PieceW, TRUE);*/
+	//	}
+	//}
 	DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);    // 四角形を描画
 
 	DrawFormatString(0, 0, 0x000000, "%d", selectY);		//カーソル移動Y
@@ -148,4 +161,6 @@ bool Checkermain::IsMoveValid(int startX, int startY, int endX, int endY)
 
 	return false; // デフォルトでは無効な移動として扱う
 }
+
+
 
