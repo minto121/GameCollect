@@ -40,7 +40,7 @@ AbstractScene* RabbitAndHounds::Update()
 
 void RabbitAndHounds::Draw() const
 {
-	DrawGraph(0, pa0, BackGroundImg, TRUE);
+	DrawGraph(0, 0, BackGroundImg, TRUE);
 
 	SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
 
