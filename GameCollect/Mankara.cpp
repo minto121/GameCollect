@@ -8,12 +8,16 @@ Mankara::Mankara()
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
-	Pocket1P = DrawCircle(P1Pocket[0] + 50, P1Pocket[0] + 50, GetColor(0, 0, 0),FALSE);
+	Pocket1P = DrawCircle(P1Pocket[0] + 50, P1Pocket[0] + 50, GetColor(255, 0, 0),TRUE);
 
-	/* RedStone = 1;
-	 BlueStone = 1;
-	 GreenStone = 1;
-	 YellowStone = 1;*/
+	for (int i = 0; i < 8; i++) {
+		Stone[i].x = 500;
+		Stone[i].y = 500;
+		Stone[i].detection = 1;
+		Stone[i].Event = 0;
+		Stone[i].count = 0;
+		Stone[i].Flg = 0;
+	}
 
 	for (int i = 0; i < 8; i++) {
 		redStone[i];
@@ -39,17 +43,13 @@ Mankara::Mankara()
 		whiteStone[i]=1;
 	}
 
-
-
 	for (int y = 0; y < 6; y++) {
-		P1Pocket[y]=10;
+		P1Pocket[y];
 	}
 
 	for (int y = 0; y < 6; y++) {
 		P2Pocket[y]=10;
 	}
-	
-	P1Pocket[0] = 0;
 
 }
 
@@ -67,10 +67,6 @@ Mankara::Mankara()
 		 P2Turn = 0;
 	 }
 
-
-
-
-
 	return this;
 }
 
@@ -78,20 +74,20 @@ void Mankara::Draw()const
 {
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
-	
+	DrawGraph(100, 100, P1Pocket[0], TRUE);
 	for (int i = 0; i < 8; i++) {
-		DrawFormatString(100 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", redStone[i]);
-		DrawFormatString(200 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", blueStone[i]);
-		DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", greenStone[i]);
-		DrawFormatString(400 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", yellowStone[i]);
-		DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", purpleStone[i]);
-		DrawFormatString(600 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", whiteStone[i]);
+		//DrawFormatString(100 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", redStone[i]);
+		//DrawFormatString(200 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", blueStone[i]);
+		//DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", greenStone[i]);
+		//DrawFormatString(400 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", yellowStone[i]);
+		//DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", purpleStone[i]);
+		//DrawFormatString(600 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", whiteStone[i]);
 
 	}
 
 	for (int i = 0; i < 6; i++) {
 		DrawFormatString(700 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
-		DrawFormatString(800 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
+		DrawFormatString(900 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
 	}
 	
 	DrawCircle(500, 500, GetColor(0, 0, 0), P1Pocket[0], FALSE);
@@ -104,9 +100,6 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 		DrawFormatString(200, 200, GetColor(255, 255, 255), "1P TURN");
 	}
-
-
-
 
 
 

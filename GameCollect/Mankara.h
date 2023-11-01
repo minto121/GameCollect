@@ -3,6 +3,18 @@
 class Mankara:public AbstractScene
 {
 private:
+
+	struct StoneSet 
+	{
+		float x;
+		float y;
+		float detection;
+		int img[6];
+		int count;
+		bool Flg;
+		int Event;
+	};
+	struct StoneSet Stone[8];
 	int Board;
 	int Background;
     int RedStone;
