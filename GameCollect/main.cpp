@@ -3,8 +3,9 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
-
+#include"Hanahuda_GameMain.h"
+#include "Chekkermain.h"
+#include"Mankara.h"
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
@@ -15,7 +16,8 @@
 /***********************************************
  * プログラムの開始
  ***********************************************/
-int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In_ int ii)
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
+	LPSTR lpCmdLine, int nCmdShow)
 {
 	SetMainWindowText("GameCollect");
 
@@ -23,17 +25,15 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);	//画面サイズの設定
 
-	if (DxLib_Init() == -1)
-	{
-		return -1;	// DXライブラリの初期化処理
-	}
+	if (DxLib_Init() == -1) return -1;	// DXライブラリの初期化処理
+
 	SetDrawScreen(DX_SCREEN_BACK);	// 描画先画面を裏にする
 
 	SceneManager* sceneMng;
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Title());
+		sceneMng = new SceneManager((AbstractScene*)new Mankara());
 
 	}
 	catch (const char* err)
