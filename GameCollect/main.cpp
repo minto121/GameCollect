@@ -6,8 +6,11 @@
 #include"Hanafuda_GameMain.h"
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
+<<<<<<< HEAD
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
+=======
+>>>>>>> parent of c99f340 (逕ｻ蜒上�ｮ霑ｽ蜉)
 #include"Mankara.h"
 #include"takoyaki.h"
 #define FRAMERATE 60.0 //フレームレート
