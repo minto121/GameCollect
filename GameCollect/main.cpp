@@ -7,6 +7,8 @@
 #include "Chekkermain.h"
 #include"Mankara.h"
 #include"takoyaki.h"
+#include"Hex_GameMain.h"
+
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)

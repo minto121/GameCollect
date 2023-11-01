@@ -20,9 +20,9 @@ AbstractScene* Hex::Update() {
 
 //ï`âÊÇÃÇ›
 void Hex::Draw()const {
-	//DrawGraph(0, 0, BanImg, FALSE);
+	DrawGraph(0, 0, BanImg, FALSE);
 	//DrawGraph(615, 335, RedHexImg, TRUE);
-	DrawStage();
+	//DrawStage();
 }
 
 //èâä˙âª
@@ -75,11 +75,11 @@ void Hex::DrawStage() const {
 		for (int j = 0; j < 13; j++) {
 			if (gStage[i][j].flg == 2) {
 				//DrawGraph(gStage[i][j].x, gStage[i][j].y, RedHexImg, TRUE);
-				DrawGraph(615, 335, RedHexImg, TRUE);
+				//DrawGraph(615, 335, RedHexImg, TRUE);
 
 			}
 			else if (gStage[i][j].flg == 3) {
-				DrawGraph(gStage[i][j].x, gStage[i][j].y, BlueHexImg, TRUE);
+				//DrawGraph(gStage[i][j].x, gStage[i][j].y, BlueHexImg, TRUE);
 			}
 		}
 	}
