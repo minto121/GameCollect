@@ -52,11 +52,7 @@ AbstractScene* GameSelect::Update()
 		Once = TRUE;
 	}
 
-	//デバック用
-	if (CheckHitKey(KEY_INPUT_A))
-	{
-		return new RabbitAndHounds();
-	}
+	
 
 	return this;
 }
