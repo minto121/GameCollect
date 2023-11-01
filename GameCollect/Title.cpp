@@ -62,7 +62,7 @@ AbstractScene* Title::Update()
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || PAD_INPUT::OnButton(XINPUT_BUTTON_B || CheckHitKey(KEY_INPUT_Z)))
 	{
-		return new Hanafuda();
+		return new GameSelect();
 	}
 	return this;
 }
