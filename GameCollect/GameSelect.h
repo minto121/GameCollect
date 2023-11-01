@@ -1,45 +1,11 @@
 #pragma once
 #include "AbstractScene.h"
-enum class  SELECT {
-    Mankara,
-    Hitblow,
-    Dotbox,
-    Checker,
-    Gomoku,
-    Osero,
-    Hekusu,
-    Hanafuda,
-    poker,
-    sixballpuzzle,
-    sinnkeisuizyaku,
-    takoyaaki,
-    rabbiitdog,
-    lastcard,
-    MENU_SIZE
-};
 class GameSelect :
     public AbstractScene
 {
-private:
-    const char* menu_items[static_cast<int>(SELECT::MENU_SIZE)] = {
-      "Mankara",
-      "Hitblow",
-      "Dotbox",
-      "Checker",
-      "Gomoku",
-      "Osero",
-      "Hekusu",
-      "Hanafuda",
-      "poker",
-      "sixballpuzzle",
-      "sinnkeisuizyaku",
-      "takoyaaki",
-      "rabbiitdog",
-      "lastcard"
-    };
-    int now_menu; //現在選択してるメニュー
-    int font_handle;  //フォント
-    int input_margin;  //操作時間間隔
+    int Select;
+    bool Once;
+
 public:
     //コンストラクタ
     GameSelect();
