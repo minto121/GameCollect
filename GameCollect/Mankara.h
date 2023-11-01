@@ -4,7 +4,7 @@ class Mankara:public AbstractScene
 {
 private:
 
-	struct StoneSet 
+	/*struct StoneSet 
 	{
 		float x;
 		float y;
@@ -14,7 +14,7 @@ private:
 		bool Flg;
 		int Event;
 	};
-	struct StoneSet Stone[8];
+	struct StoneSet Stone[8];*/
 	int Board;
 	int Background;
     int RedStone;

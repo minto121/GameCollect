@@ -10,14 +10,14 @@ Mankara::Mankara()
 	P2BigPocket = 0;
 	Pocket1P = DrawCircle(P1Pocket[0] + 50, P1Pocket[0] + 50, GetColor(255, 0, 0),TRUE);
 
-	for (int i = 0; i < 8; i++) {
-		Stone[i].x = 500;
-		Stone[i].y = 500;
-		Stone[i].detection = 1;
-		Stone[i].Event = 0;
-		Stone[i].count = 0;
-		Stone[i].Flg = 0;
-	}
+	//for (int i = 0; i < 8; i++) {
+	//	Stone[i].x = 500;
+	//	Stone[i].y = 500;
+	//	Stone[i].detection = 1;
+	//	Stone[i].Event = 0;
+	//	Stone[i].count = 0;
+	//	Stone[i].Flg = 0;
+	//}
 
 	for (int i = 0; i < 8; i++) {
 		redStone[i];
