@@ -11,8 +11,15 @@ gomokuScene::gomokuScene()
 	cY = 0;
 	for (int y = 0; y < 13; y++)
 		for (int x = 0; x < 13; x++) {
-			Banmen[x][y] = 0;
-		}
+			/*if (x == 6 && y == 6 || x == 7 && y == 7) {
+				Banmen[x][y] = 1;
+			}
+			else if (x == 6 && y == 7 || x == 7 && y == 6) {
+				Banmen[x][y] = 2;
+			}
+			else {*/
+				Banmen[x][y] = 0;
+			}
 	Phase = 0;
 	Battle = 0;
 }

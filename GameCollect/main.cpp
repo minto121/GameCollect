@@ -7,6 +7,7 @@
 #include "Chekkermain.h"
 #include"Mankara.h"
 #include"takoyaki.h"
+#include"gomokuScene.h"
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
@@ -34,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Title());
+		sceneMng = new SceneManager((AbstractScene*)new gomokuScene());
 
 	}
 	catch (const char* err)
