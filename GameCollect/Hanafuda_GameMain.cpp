@@ -155,7 +155,8 @@ void Hanafuda::shuffleFuda()
 	int range = 48;
 	int min = 0;
 	int a;
-	int x2, y2;
+	int x2 = 0;
+	int y2 = 0;
 	int s = 0;
 	int x = 0;
 	int y = 0;
