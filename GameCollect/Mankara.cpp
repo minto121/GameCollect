@@ -20,35 +20,38 @@ Mankara::Mankara()
 	//}
 
 	for (int i = 0; i < 8; i++) {
-		redStone[i];
+		redStone[i]++;
 	}
 
 	for (int i = 0; i < 8; i++) {
-		blueStone[i];
+		blueStone[i]++;
 	}
 
 	for (int i = 0; i < 8; i++) {
-		greenStone[i]=1;
+		greenStone[i]++;
 	}
 
 	for (int i = 0; i < 8; i++) {
-		yellowStone[i]=1;
+		yellowStone[i]++;
 	}
 	
 	for (int i = 0; i < 8; i++) {
-		purpleStone[i]=1;
+		purpleStone[i]++;
 	}
 	
 	for (int i = 0; i < 8; i++) {
-		whiteStone[i]=1;
+		whiteStone[i]++;
+	}
+
+	P1Pocket[0] = 1;
+	P2Pocket[0] = 1;
+
+	for (int y = 0; y < 6; y++) {
+		P1Pocket[y]+=1;
 	}
 
 	for (int y = 0; y < 6; y++) {
-		P1Pocket[y];
-	}
-
-	for (int y = 0; y < 6; y++) {
-		P2Pocket[y]=10;
+		P2Pocket[y]+=1;
 	}
 
 }
@@ -75,6 +78,10 @@ void Mankara::Draw()const
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
 	DrawGraph(100, 100, P1Pocket[0], TRUE);
+
+	DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
+	DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), TRUE);
+	DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), TRUE);
 	for (int i = 0; i < 8; i++) {
 		//DrawFormatString(100 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", redStone[i]);
 		//DrawFormatString(200 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", blueStone[i]);
@@ -156,6 +163,5 @@ void Mankara::Draw()const
 
 		}
 	}
-	
 	
 }
