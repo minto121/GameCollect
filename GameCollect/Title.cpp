@@ -1,9 +1,9 @@
 #include "DxLib.h"
 #include "Title.h"
-//#include "GameMain.h"
 #include "PadInput.h"
 #include "GameSelect.h"
 #include"reversi.h"
+#include"Hanafuda_GameMain.h"
 
 //タイトルメニュー
 enum class TITLE_MENU
@@ -74,19 +74,9 @@ Title::~Title()
 AbstractScene* Title::Update()
 {
 
-	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))*/
-	if(CheckHitKey(KEY_INPUT_P))
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || PAD_INPUT::OnButton(XINPUT_BUTTON_B || CheckHitKey(KEY_INPUT_Z)))
 	{
-		//switch (static_cast<TITLE_MENU>(Select))
-		//{
-		//	//ゲーム画面へ
-		//case TITLE_MENU::GAME_START:
-		//	return new GameSelect();
-		//	break;
-		//default:
-		//	break;
-		//}
-		return new Reversi();
+		return new GameSelect();
 	}
 	return this;
 }
