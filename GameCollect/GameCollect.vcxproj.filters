@@ -53,10 +53,10 @@
     <ClInclude Include="FpsController.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Hanafuda_GameMain.h">
+    <ClInclude Include="GameSelect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GameSelect.h">
+    <ClInclude Include="Hanafuda_GameMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
