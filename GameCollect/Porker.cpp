@@ -15,7 +15,7 @@ Porker::Porker()
     Bs = 0;
     P_FPS = 0;
     P_TEKI = 0;
-    b = 0;
+   
 
     BTN_flg = FALSE;
     Winflg = FALSE;
@@ -126,6 +126,8 @@ void Porker::PLAYER_RAISE()
 
 
 
+
+
 //敵のコールとレイズ
 void Porker::ENEMIE_CHOISE()
 {
@@ -151,14 +153,23 @@ void Porker::ENEMIE_CHOISE()
 }
 
 
+//カード判断
+void Porker::CARD_HANDAN()
+{
+    P_CARD1_A = P_rand1 % 14;
+    P_CARD1_S = P_rand1 / 14;
+    P_CARD2_A = P_rand2 % 14;
+    P_CARD2_S = P_rand2 / 14;
 
+
+}
 
 
 AbstractScene* Porker::Update()
 {
     if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER) && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
         return new Title;
-   }
+    }
 
     //               カードのかぶり防止               //
 
@@ -256,7 +267,6 @@ AbstractScene* Porker::Update()
         P_FPS++;
         if (P_FPS > 60) {
             WTRelese1 = TRUE;
-            b = b + 1;
             P_FPS = 0;
             WTflg1 = FALSE;
             P_Call_H_flg = FALSE;
@@ -277,7 +287,6 @@ AbstractScene* Porker::Update()
         P_FPS++;
         if (P_FPS > 60) {
             WTRelese2 = TRUE;
-            b = b + 1;
             P_FPS = 0;
             WTflg2 = FALSE;
             P_Call_H_flg = FALSE;
@@ -288,7 +297,6 @@ AbstractScene* Porker::Update()
         P_FPS++;
         if (P_FPS > 60) {
             WTRelese3 = TRUE;
-            b = b + 1;
             P_FPS = 0;
             WTflg3 = FALSE;
             P_Call_H_flg = FALSE;
@@ -660,7 +668,7 @@ void Porker::Draw() const
     if (G_Over_H_flg == TRUE && Drawflg == FALSE && Winflg == FALSE && Loseflg == FALSE) {
         DrawBox(470, 320, 700, 360, 0x4169e1, TRUE);
         SetFontSize(36);
-        DrawString(485, 320, "ゲーム終了", 0x000000, TRUE);
+        DrawString(495, 320, "ゲーム終了", 0x000000, TRUE);
     }
 
 

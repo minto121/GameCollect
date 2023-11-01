@@ -3,7 +3,7 @@
 class Porker : public AbstractScene
 {
 private:
-	int b;
+	
 	int a;
 	int wt;
 	int ps1;
@@ -12,6 +12,7 @@ private:
 	int BTN_flg;
 	int P_FPS;
 	int P_TEKI;
+
 	int Winflg;
 	int Loseflg;
 	int Drawflg;
@@ -55,7 +56,15 @@ private:
 	int C_flg2;
 	int C_flg3;
 
-	int Mark1;
+	int P_CARD1_S;//プレイヤーカード1の商格納用
+	int P_CARD2_S;//プレイヤーカード2の商格納用
+	int P_CARD1_A;//プレイヤーカード1の余り格納用
+	int P_CARD2_A;//プレイヤーカード2の余り格納用
+
+	int E_CARD1_S;//敵カード1の商格納用
+	int E_CARD2_S;//敵カード2の商格納用
+	int E_CARD1_A;//敵カード1の余り格納用
+	int E_CARD2_A;//敵カード2の余り格納用
 
 public:
 	Porker();
@@ -78,6 +87,6 @@ public:
 
 	void PLAYER_RAISE();
 
-	
+	void CARD_HANDAN();
 };
 
