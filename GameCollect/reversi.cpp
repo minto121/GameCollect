@@ -15,15 +15,15 @@ int board[SIZ][SIZ];
 
 Reversi::Reversi()
 {
-	R_Img = LoadGraph("images/Reversi/banmen.png");
-	B_Storn_Img = LoadGraph("images/Reversi/osero(black).png");
-	W_Storn_Img = LoadGraph("images/Reversi/osero(white).png");
+	Bac = LoadGraph("images/Reversi/banmen.png");
+	Bla = LoadGraph("images/Reversi/osero(black).png");
+	Whi= LoadGraph("images/Reversi/osero(white).png");
 	XOnce = TRUE;
 	XOnce = TRUE;
 	/*CursorPoint = { 0, 0 };*/
 
 	K_Flg = FALSE;
-	M_Flg = TRUE;
+
 	
 }
 
@@ -36,93 +36,6 @@ AbstractScene* Reversi::Update()
 {
 	turn();
 
-	if(GetMouseInput()&MOUSE_INPUT_LEFT)
-
-	////カーソルを上移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) || (PAD_INPUT::GetLStick().ThumbY > 10000 && YOnce == TRUE)) {
-
-	//	//連続入力しないようにする
-	//	YOnce = FALSE;
-
-	//	//カーソルがはみ出ないように調整する
-	//	if (--CursorPoint.y < 0) {
-	//		if (CursorPoint.x == 10) {
-	//			CursorPoint.y = 3;
-	//		}
-	//		else {
-	//			CursorPoint.y = 4;
-	//		}
-	//		if (CursorPoint.x == 12) {
-	//			CursorPoint.x = 11;
-	//		}
-	//	}
-	//}
-
-	////カーソルを下移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) || (PAD_INPUT::GetLStick().ThumbY < -10000 && YOnce == TRUE)) {
-
-	//	//連続入力しないようにする
-	//	YOnce = FALSE;
-
-	//	
-
-	//	//カーソルがはみ出ないように調整する
-	//	if (++CursorPoint.y > 3 && CursorPoint.x == 10 || CursorPoint.y > 4) {
-	//		CursorPoint.y = 0;
-	//	}
-	//	if (CursorPoint.y > 3 && CursorPoint.x == 12) {
-	//		CursorPoint.x = 11;
-	//	}
-
-	//}
-
-	////カーソルを右移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) || (PAD_INPUT::GetLStick().ThumbX > 10000 && XOnce == TRUE)) {
-
-	//	//連続入力しないようにする
-	//	XOnce = FALSE;
-
-	//
-
-	//	//カーソルがはみ出ないように調整する
-	//	if (++CursorPoint.x == 10 && CursorPoint.y > 3)
-	//	{
-	//		CursorPoint.x = 11;
-	//	}
-	//	if (CursorPoint.x > 11 && CursorPoint.y == 4) {
-	//		CursorPoint.x = 0;
-	//	}
-	//	if (CursorPoint.x > 12) {
-	//		CursorPoint.x = 0;
-	//	}
-	//}
-
-	////カーソルを左移動させる
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) || (PAD_INPUT::GetLStick().ThumbX < -10000 && XOnce == TRUE)) {
-
-	//	//連続入力しないようにする
-	//	XOnce = FALSE;
-
-	//	//カーソルがはみ出ないように調整する
-	//	if (--CursorPoint.x < 0) {
-	//		if (CursorPoint.y > 3) {
-	//			CursorPoint.x = 11;
-	//		}
-	//		else {
-	//			CursorPoint.x = 12;
-	//		}
-	//	}
-	//	if (CursorPoint.x == 10 && CursorPoint.y == 4)
-	//	{
-	//		CursorPoint.x = 9;
-	//	}
-	//}
-
-	////Aボタンが押されたら
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-	//}
-
-
 	return this;
 }
 
@@ -131,7 +44,7 @@ AbstractScene* Reversi::Update()
 void Reversi::Draw() const
 {
 	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", K_Flg);
-	DrawFormatString(0, 140, GetColor(255, 255, 255), " %d:click", );
+	
 	//駒の描画
 	if (K_Flg == TRUE)
 	{
@@ -143,18 +56,7 @@ void Reversi::Draw() const
 
 
 }
-//
-//void Reversi::print_board(int board[SIZ][SIZ])
-//{
-//	int i, j;
-//
-//	for (i = 1; i <= 8; i++) {
-//		for (j = 1; j <= 8; j++) {
-//			DrawCircle(0,0,0x000fff, bor,TRUE);
-//		}
-//		printf("\n");
-//	}
-//}
+
 
 void Reversi::init_board(int board[SIZ][SIZ])
 {
