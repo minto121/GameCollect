@@ -4,6 +4,7 @@
 #include "Title.h"
 #include "FpsController.h"
 #include"Hanafuda_GameMain.h"
+#include "takoyaki.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
