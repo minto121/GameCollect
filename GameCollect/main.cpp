@@ -5,8 +5,8 @@
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
-#include"Hex_GameMain.h"
-
+#include"Mankara.h"
+#include"takoyaki.h"
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Hex());
+		sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	}
 	catch (const char* err)
