@@ -3,6 +3,7 @@
 #include"PadInput.h"
 Mankara::Mankara()
 {
+	Board = LoadGraph("images/mancala/MancalaBoard.png");
 	/* RedStone = 1;
 	 BlueStone = 1;
 	 GreenStone = 1;
@@ -79,6 +80,8 @@ Mankara::Mankara()
 
 void Mankara::Draw()const
 {
+	DrawGraph(100,100,Board,TRUE);
+
 	for (int i = 0; i < 6; i++) {
 		DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
 		DrawFormatString(400 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);

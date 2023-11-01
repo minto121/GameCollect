@@ -3,6 +3,8 @@
 class Mankara:public AbstractScene
 {
 private:
+	int Board;
+
     int RedStone;
 	int BlueStone;
 	int GreenStone;
