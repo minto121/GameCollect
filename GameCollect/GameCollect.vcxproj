@@ -151,11 +151,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chekkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
+<<<<<<< HEAD
 <<<<<<< HEAD
     <ClCompile Include="Hanafuda_GameMain.cpp" />
 =======
 >>>>>>> parent of c99f340 (画像の追加)
+=======
+    <ClCompile Include="Hit&amp;Blow.cpp" />
+>>>>>>> parent of 414b5d5 (Merge branch 'main' into Yoshiki-Hit&Blow)
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -165,13 +170,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="Chekkermain.h" />
     <ClInclude Include="FpsController.h" />
+<<<<<<< HEAD
 <<<<<<< HEAD
     <ClInclude Include="Hanafuda_GameMain.h" />
 =======
     <ClInclude Include="Hanahuda_GameMain.h" />
     <ClInclude Include="Mankara.h" />
 >>>>>>> parent of c99f340 (画像の追加)
+=======
+    <ClInclude Include="Hanahuda_GameMain.h" />
+    <ClInclude Include="Hit&amp;Blow.h" />
+>>>>>>> parent of 414b5d5 (Merge branch 'main' into Yoshiki-Hit&Blow)
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
