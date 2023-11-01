@@ -95,8 +95,13 @@ AbstractScene* HitAndBlow::Update()
 		{
 			/* ƒWƒƒƒbƒWˆ—‚ð‘‚­ */
 			Judgment();
+<<<<<<< HEAD
 
 			/* F‚Ìƒf[ƒ^ˆø‚«Œp‚¬ */
+=======
+			
+			 /* F‚Ìƒf[ƒ^ˆø‚«Œp‚¬ */ 
+>>>>>>> parent of 2518dd8 (Revert "hitã¨blowã®å‡¦ç†ä½œæˆ")
 			SaveReasoning[SaveColor][0] = Reasoning[0];
 			SaveReasoning[SaveColor][1] = Reasoning[1];
 			SaveReasoning[SaveColor][2] = Reasoning[2];
@@ -104,7 +109,11 @@ AbstractScene* HitAndBlow::Update()
 
 			SaveColor++; // •`‰æ—ñ1’Ç‰Á
 			Turns++; // ƒ^[ƒ“”1‘‰Á
+<<<<<<< HEAD
 
+=======
+			
+>>>>>>> parent of 2518dd8 (Revert "hitã¨blowã®å‡¦ç†ä½œæˆ")
 			for (int i = 0; i < 4; i++) {
 				/* F‚ðƒŠƒZƒbƒg */
 				Reasoning[i] = -1;
@@ -140,7 +149,11 @@ void HitAndBlow::Draw() const
 	DrawBox(200 + Turns * 70, 100 + WarpPosition * 100, 280 + Turns * 70, 180 + WarpPosition * 100, 0x00ff00, FALSE); // ‚Ç‚±‚ÌêŠ‚ð–„‚ß‚æ‚¤‚Æ‚µ‚Ä‚¢‚é‚©•\Ž¦
 
 	//DrawFormatString(100, 600, 0xffffff, "Turns‚Í%d", Turns); // ƒfƒoƒbƒN—p
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> parent of 2518dd8 (Revert "hitã¨blowã®å‡¦ç†ä½œæˆ")
 	/* ³‰ð‚Ì‹î•\Ž¦ */
 	if (DecisionFlg == FALSE) { // ³‰ð‚ªŒˆ‚Ü‚Á‚Ä‚¢‚ÄA8ƒ^[ƒ“Œo‰ß‚©A4ƒqƒbƒg‚µ‚½‚ç•\Ž¦
 		for (int i = 0; i < 4; i++) {
@@ -163,6 +176,7 @@ void HitAndBlow::Draw() const
 		/* ‰ß‹Ž‚É“ü‚ê‚½F‚ð•\Ž¦ */
 		for (int i = 0; i < Turns; i++) {
 			if (SaveReasoning[i][0] >= 0) {
+<<<<<<< HEAD
 				DrawGraph(215 + i * 70, 115, ColorImg[SaveReasoning[i][0]], TRUE);
 			}
 			if (SaveReasoning[i][1] >= 0) {
@@ -173,6 +187,18 @@ void HitAndBlow::Draw() const
 			}
 			if (SaveReasoning[i][3] >= 0) {
 				DrawGraph(215 + i * 70, 115 + 3 * 100, ColorImg[SaveReasoning[i][3]], TRUE);
+=======
+				DrawGraph(215 + i * 70, 115, ColorImg[SaveReasoning[i][0]], TRUE); 
+			}
+			if (SaveReasoning[i][1] >= 0) {
+				DrawGraph(215 + i * 70, 115 + 1 * 100, ColorImg[SaveReasoning[i][1]], TRUE); 
+			}
+			if (SaveReasoning[i][2] >= 0) {
+				DrawGraph(215 + i * 70, 115 + 2 * 100, ColorImg[SaveReasoning[i][2]], TRUE); 
+			}
+			if (SaveReasoning[i][3] >= 0) {
+				DrawGraph(215 + i * 70, 115 + 3 * 100, ColorImg[SaveReasoning[i][3]], TRUE); 
+>>>>>>> parent of 2518dd8 (Revert "hitã¨blowã®å‡¦ç†ä½œæˆ")
 			}
 			/* ƒWƒƒƒbƒW—p‚Ì•`‰æˆ—‚ð‘‚­ */
 			for (int j = 0; j < SaveHit[i]; j++) {
