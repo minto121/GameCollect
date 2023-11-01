@@ -3,9 +3,7 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanahuda_GameMain.h"
-#include "Chekkermain.h"
-#include "SixBollPuzzle.h"
+#include"Hanafuda_GameMain.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
