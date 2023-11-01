@@ -3,20 +3,13 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-<<<<<<< HEAD
-<<<<<<< HEAD
 #include"Hanafuda_GameMain.h"
-=======
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
->>>>>>> parent of 414b5d5 (Merge branch 'main' into Yoshiki-Hit&Blow)
-
-=======
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
 #include"Mankara.h"
 #include"takoyaki.h"
->>>>>>> parent of c99f340 (逕ｻ蜒上�ｮ霑ｽ蜉)
 #define FRAMERATE 60.0 //フレームレート
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
