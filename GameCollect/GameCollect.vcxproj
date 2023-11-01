@@ -153,11 +153,12 @@
   <ItemGroup>
     <ClCompile Include="Chekkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
-    <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
+    <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -165,10 +166,11 @@
     <ClInclude Include="Chekkermain.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hanahuda_GameMain.h" />
-    <ClInclude Include="Hit&amp;Blow.h" />
+    <ClInclude Include="Mankara.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="takoyaki.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
