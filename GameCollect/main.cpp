@@ -6,6 +6,7 @@
 #include"Hanahuda_GameMain.h"
 #include "Chekkermain.h"
 #include "SixBollPuzzle.h"
+#include"Hit&Blow.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -35,7 +36,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Chekkermain());
+		sceneMng = new SceneManager((AbstractScene*)new HitAndBlow());
 
 	}
 	catch (const char* err)
