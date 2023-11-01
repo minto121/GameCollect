@@ -79,7 +79,7 @@ void Hex::DrawStage() const {
 
 			}
 			else if (gStage[i][j].flg == 3) {
-				//DrawGraph(gStage[i][j].x, gStage[i][j].y, BlueHexImg, TRUE);
+				DrawGraph(gStage[i][j].x, gStage[i][j].y, BlueHexImg, TRUE);
 			}
 		}
 	}

@@ -36,10 +36,10 @@
     <ClCompile Include="Chekkermain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Mankara.cpp">
+    <ClCompile Include="takoyaki.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="takoyaki.cpp">
+    <ClCompile Include="Hit&amp;Blow.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Hex_GameMain.cpp">
@@ -71,10 +71,10 @@
     <ClInclude Include="Chekkermain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Mankara.h">
+    <ClInclude Include="takoyaki.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="takoyaki.h">
+    <ClInclude Include="Hit&amp;Blow.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Hex_GameMain.h">
