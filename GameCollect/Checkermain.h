@@ -38,7 +38,6 @@ private:
 	int g_KeyFlg ;
 
 
-
 public:
 	Checkermain();
 
