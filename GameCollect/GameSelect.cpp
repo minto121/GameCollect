@@ -3,6 +3,7 @@
 #include"PadInput.h"
 #include "DxLib.h"
 #include"Hanafuda_GameMain.h"
+#include"takoyaki.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -163,7 +164,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	switch (current_selection)
 	{
 	case SELECT::Hanafuda:
-		return new Hanafuda();
+		return new Takoyaki();
 		break;
 	/*case LEVEL::NORMAL:
 	{
