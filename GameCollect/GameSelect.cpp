@@ -3,17 +3,13 @@
 #include"PadInput.h"
 #include "DxLib.h"
 #include"Hanafuda_GameMain.h"
-#include"takoyaki.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
-#include"RabbitAndHounds.h"
-#include "Porker.h"
-
 GameSelect::GameSelect()
 {
-	Select = 0;
-	Once = TRUE;
-
+	font_handle = CreateFontToHandle("HG明朝E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
+	now_menu = static_cast<int>(SELECT::Mankara);
+	input_margin = 0;
 }
 
 GameSelect::~GameSelect()
@@ -22,34 +18,17 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-	//十字キー↑入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
-	{
-		Select--;
-		if (Select < 0)Select = 3;
-	}
-	//十字キー↓入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
-	{
-		Select++;
-		if (Select > 3)Select = 0;
-	}
+// 操作間隔時間
+const int max_input_margin = 15;
+// スティックの感度
+const int stick_sensitivity = 20000;
 
-	//Lスティック上入力
-	if (PAD_INPUT::GetLStick().ThumbY > 10000 && Once == TRUE)
-	{
-		Select--;
-		if (Select < 0)Select = 3;
-		Once = FALSE;
-	}
-
-	//Lスティック下入力
-	if (PAD_INPUT::GetLStick().ThumbY < -10000 && Once == TRUE)
-	{
-		Select++;
-		if (Select > 3)Select = 0;
-		Once = FALSE;
-	}
+if (input_margin < max_input_margin) {
+	input_margin++;
+}
+else {
+	// スティックのY座標を取得
+	int stick_y = PAD_INPUT::GetLStick().ThumbY;
 
 	if (std::abs(stick_y) > stick_sensitivity) {
 		//playsoundmem
@@ -73,20 +52,48 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	switch (current_selection)
 	{
 	case SELECT::Hanafuda:
-		return new Takoyaki();
+		return new Hanafuda();
 		break;
 	/*case LEVEL::NORMAL:
-	//Lスティックが元に戻されたらOnceをリセット
-	if (Once == FALSE && PAD_INPUT::GetLStick().ThumbY < 10000 && PAD_INPUT::GetLStick().ThumbY > -10000)
 	{
-		Once = TRUE;
+		return new GameMain(current_selection);
+		break;
 	}
+	case LEVEL::HARD:
+		return new GameMain(current_selection);
+		break;*/
 
-
-	return this;
+	default:
+		printfDx("未実装な機能です。\n");
+		break;
+	}
 }
+
+return this;
+}
+
 
 void GameSelect::Draw() const
 {
-	DrawString(70, 240, "Select", 0xffffff);
+	for (int i = 0; i < static_cast<int>(SELECT::MENU_SIZE); i++)
+	{
+		// 文字列の最小Y座標
+		const int base_y = 0;
+
+		// 文字列のY座標間隔
+		const int margin_y = 50;
+
+		// 文字色
+		int color = 0xFFFFFF;
+		// 文字外枠色
+		int border_color = 0x000000;
+
+		// カーソルが合っている場合、文字色と文字外枠色を反転させる
+		if (now_menu == i) {
+			color = ~color;
+			border_color = ~border_color;
+		}
+		DrawStringToHandle(SCREEN_WIDTH / 2 - 100, i * margin_y + base_y, menu_items[i], color, font_handle, border_color);
+	}
+
 }

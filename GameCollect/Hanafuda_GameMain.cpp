@@ -29,7 +29,6 @@ Hanafuda::Hanafuda()
 	Playerflg = 0;
 	P_judge = 0;
 	E_judge = 0;
-	Partnerflg = 0;
 	shuffleflg = 0;
 	Phase = 0;
 	Monthflg = 0;
@@ -68,15 +67,13 @@ AbstractScene* Hanafuda::Update()
 }
 void Hanafuda::Draw()const
 {
-	//DrawRotaGraph(/*FudaX +*/ 280, /*FudaY +*/ 100, 0.7f, 0, Fuda.fuda[47], FALSE);
-	//DrawRotaGraph(400, 400, 0.7f, 0, Fuda.fuda[2], FALSE);
-	//DrawFormatString(0, 40, GetColor(255, 0, 0), "shuffle:%d", shuffleflg);
 	SetFontSize(12);
 	DrawFormatString(700, 60, GetColor(255, 0, 0), "Fieldflg:%d", Fieldflg);
 	DrawFormatString(700, 80, GetColor(255, 0, 0), "P_shuffleflg:%d", P_shuffleflg);
 	DrawFormatString(700, 100, GetColor(255, 0, 0), "P_shuffleflg:%d", P_shuffleflg);
 	DrawFormatString(700, 0, GetColor(255, 0, 0), "Phase:%d", Phase);
 	DrawFormatString(700, 20, GetColor(255, 0, 0), " マウス座標：X座標 %d Y座標 %d ", MouseX, MouseY);
+	DrawBox(700, 600, 1000, );
 	switch (Phase)
 	{
 	case 0: //親決め
@@ -94,9 +91,6 @@ void Hanafuda::Draw()const
 	case 1:
 	case 2:
 	case 3://札配布
-		//DrawFormatString(400, 150, GetColor(255, 0, 0), "P_numhand[0]:%d", P_numhand[0]);
-		//DrawFormatString(400, 400, GetColor(255, 0, 0), "P_numhand[1]:%d", P_numhand[1]);
-	 
 			//Player
 			DrawRotaGraph(80,  600, 0.6f, 0, P_numhand[0], TRUE);
 			DrawRotaGraph(160, 600, 0.6f, 0, P_numhand[1], TRUE);
@@ -155,7 +149,6 @@ void Hanafuda::shuffleFuda()
 	int range = 48;
 	int min = 0;
 	int a;
-	int x2, y2;
 	int s = 0;
 	int x = 0;
 	int y = 0;
@@ -204,7 +197,11 @@ void Hanafuda::shuffleFuda()
 			}
 		}
 	}*/
-}	
+}
+void Hanafuda::Oya()
+{
+
+}
 //void Hanafuda::Month() { //月判定
 //	//プレイヤー月判定
 //	switch (i) {
