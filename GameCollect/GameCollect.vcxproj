@@ -152,8 +152,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FpsController.cpp" />
-    <ClCompile Include="Hanahuda_GameMain.cpp" />
-    <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -163,10 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
-    <ClInclude Include="Chekkermain.h" />
     <ClInclude Include="FpsController.h" />
-    <ClInclude Include="Hanahuda_GameMain.h" />
-    <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
