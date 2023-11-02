@@ -2,6 +2,7 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
+#include "Porker.h"
 GameSelect::GameSelect()
 {
 	Select = 0;
@@ -49,6 +50,8 @@ AbstractScene* GameSelect::Update()
 	{
 		Once = TRUE;
 	}
+
+
 	return this;
 }
 
