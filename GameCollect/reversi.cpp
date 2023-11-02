@@ -2,16 +2,18 @@
 #include<DxLib.h>
 #include "PadInput.h"
 
-#define WALL 0
-#define WHITE 1
-#define BLACK 2
+#define WALL 0;
+#define WHITE 1;
+#define BLACK 2;
+
+#define SCREEN_HEIGHT 720	//âÊñ ÉTÉCÉY (èc)
+#define SCREEN_WIDTH 1280	//âÊñ ÉTÉCÉY (â°)
 
 //î’ñ 
-#define SIZ 10
-#define BOARD_IMG_SIZE 640;
-#define CELL_SIZE = BOARD_IMG_SIZE /SIZ;
+#define SIZ 8
+#define BOARD_IMG_SIZE 640
+#define CELL_SIZE = SCREEN_WIDTH /SIZ;
 
-int board[SIZ][SIZ];
 
 Reversi::Reversi()
 {
@@ -24,7 +26,32 @@ Reversi::Reversi()
 
 	K_Flg = FALSE;
 
-	
+	for (int y = 0; y < 8; y = y++)
+	{
+		for (int x = 0; x < 8; x = x++)
+		{
+			Sto.Typ[x][y] = 0;
+			Sto.X[x][y] = 0;
+			Sto.Y[x][y] = 0;
+		}
+	}
+
+	Sto.Typ[3][3] = 1;
+	Sto.X[3][3] = 3 * 100;
+	Sto.Y[3][3] = 3 * 100;
+
+	Sto.Typ[4][4] = 1;
+	Sto.X[4][4] = 4 * 100;
+	Sto.Y[4][4] = 4 * 100;
+
+	Sto.Typ[3][4] = 1;
+	Sto.X[3][4] = 3 * 100;
+	Sto.Y[3][4] = 4 * 100;
+
+	Sto.Typ[4][3] = 1;
+	Sto.X[4][3] = 4 * 100;
+	Sto.Y[4][3] = 3 * 100;
+
 }
 
 Reversi::~Reversi()
@@ -34,7 +61,9 @@ Reversi::~Reversi()
 
 AbstractScene* Reversi::Update()
 {
-	turn();
+
+
+	/*turn();*/
 
 	return this;
 }
@@ -44,37 +73,47 @@ AbstractScene* Reversi::Update()
 void Reversi::Draw() const
 {
 	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", K_Flg);
-	
+	DrawGraph(0, 0, Bac, FALSE);
+	for (int y = 0; y < 8; y++)
+	{
+		for (int x = 0; x < 8; x++)
+		{
+			int i = x * 1280 / 8;
+			 int j = y * 1280 / 8;
+		}
+	}
+
+
 	//ãÓÇÃï`âÊ
 	if (K_Flg == TRUE)
 	{
 		DrawGraph(0, 0, W_Storn_Img, TRUE);
 	}
 
-	//î’ñ ÇÃï`âÊ
-	DrawGraph(340, 50, R_Img, TRUE);
+	////î’ñ ÇÃï`âÊ
+	//DrawGraph(340, 50, R_Img, TRUE);
 
 
 }
 
 
-void Reversi::init_board(int board[SIZ][SIZ])
-{
-	int i, j;
-
-	for (i = 0; i < SIZ; i++) {
-		for (j = 0; j < SIZ; j++) {
-			board[i][j] = -1;
-		}
-	}
-	for (i = 1; i <= 8; i++) {
-		for (j = 1; j <= 8; j++) {
-			board[i][j] = 0;
-		}
-	}
-	board[4][5] = board[5][4] = 1;
-	board[4][4] = board[5][5] = 2;
-}
+//void Reversi::init_board(int board[SIZ][SIZ])
+//{
+//	int i, j;
+//
+//	for (i = 0; i < SIZ; i++) {
+//		for (j = 0; j < SIZ; j++) {
+//			board[i][j] = -1;
+//		}
+//	}
+//	for (i = 1; i <= 8; i++) {
+//		for (j = 1; j <= 8; j++) {
+//			board[i][j] = 0;
+//		}
+//	}
+//	board[4][5] = board[5][4] = 1;
+//	board[4][4] = board[5][5] = 2;
+//}
 
 //void Reversi::Board()
 //{
@@ -129,21 +168,21 @@ void Reversi::init_board(int board[SIZ][SIZ])
 //
 //}
 
-
-
-void Reversi::turn()
-{
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || CheckHitKey(KEY_INPUT_0)) {
-		K_Flg = TRUE;
-
-		if (WHITE)
-		{
-			DrawGraph(0, 0, W_Storn_Img, TRUE);
-		}
-		else if (BLACK)
-		{
-			DrawGraph(0, 0, B_Storn_Img, TRUE);
-		}
-	}
-}
+//
+//
+//void Reversi::turn()
+//{
+//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || CheckHitKey(KEY_INPUT_0)) {
+//		K_Flg = TRUE;
+//
+//		if (WHITE)
+//		{
+//			DrawGraph(0, 0, W_Storn_Img, TRUE);
+//		}
+//		else if (BLACK)
+//		{
+//			DrawGraph(0, 0, B_Storn_Img, TRUE);
+//		}
+//	}
+//}
 

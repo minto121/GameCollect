@@ -5,6 +5,7 @@
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
 #include"Reversi.h"
+#include"Title.h"
 
 
 #define FRAMERATE 60.0 //フレームレート
@@ -34,7 +35,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Reversi());
+		sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	}
 	catch (const char* err)
