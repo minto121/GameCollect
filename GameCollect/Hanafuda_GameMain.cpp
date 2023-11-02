@@ -168,7 +168,7 @@ void Hanafuda::shuffleFuda()
 						for (y = 0; y < x; y++) {
 								if (Field[x] == Field[y]) break;
 								}
-					} while (x != x2);
+					} while (x != y);
 				}
 			}
 
@@ -185,7 +185,7 @@ void Hanafuda::shuffleFuda()
 						if(P_numhand[x] == P_numhand[y] || P_numhand[x] == Field[y] || P_numhand[x] == E_numhand[y]
 							|| E_numhand[x] == E_numhand[y] || E_numhand[x] == P_numhand[y] || E_numhand[x] == Field[y])break;
 					}
-				} while (x != x2);
+				} while (x != y);
 			}
 		}
 	}
