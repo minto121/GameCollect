@@ -2,6 +2,7 @@
 
 LastCard::LastCard()
 {
+	Card;
 }
 
 LastCard::~LastCard()

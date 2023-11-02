@@ -4,6 +4,8 @@
 class LastCard : public AbstractScene
 {
 private:
+    int Card[2][2]= { {1,1}, {1,1} };
+
 
 public:
     //コンストラクタ
