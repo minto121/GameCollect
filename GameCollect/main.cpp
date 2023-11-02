@@ -4,17 +4,13 @@
 #include "Title.h"
 #include "FpsController.h"
 
-#include"Hanahuda_GameMain.h"
+
 
 
 #include "sinkeisuijaku.h"
 
 
 #include "Chekkermain.h"
-#include"Mankara.h"
-
-#include"Hanafuda_GameMain.h"
-#include "Checkermain.h"
 #include "SixBollPuzzle.h"
 #include "GameSelect.h"
 
