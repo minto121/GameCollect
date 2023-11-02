@@ -3,7 +3,6 @@
 //#include "GameMain.h"
 #include "PadInput.h"
 #include "GameSelect.h"
-#include"reversi.h"
 
 //タイトルメニュー
 enum class TITLE_MENU
@@ -51,19 +50,6 @@ Title::Title()
 	//{
 	//	PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP);
 	//}
-
-	//Select = 0;     //選択数
-	//OldKey = 0;		//前の入力キー
-	//NowKey = 0;	//今の入力キー
-	//KeyFlg = 0;		//入力キー情報
-
-	//MenuFont = 0;; //メニュー用のフォント
-
-	//TitleBGM = 0;     //BGM用
-	//MenuSE = 0;       //選択SE用
-	//TitleImg = 0;     //タイトル画像
-	//CursorImg = 0;   //カーソル画像
-
 }
 
 Title::~Title()
@@ -86,7 +72,7 @@ AbstractScene* Title::Update()
 		//default:
 		//	break;
 		//}
-		return new Reversi();
+		return new GameSelect();
 	}
 	return this;
 }
