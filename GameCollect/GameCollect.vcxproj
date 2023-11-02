@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="Hanafuda_GameMain.cpp" />
     <ClCompile Include="main.cpp" />
@@ -161,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hanafuda_GameMain.h" />
     <ClInclude Include="SceneManager.h" />
