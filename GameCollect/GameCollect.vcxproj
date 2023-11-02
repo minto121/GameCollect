@@ -152,25 +152,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="FpsController.cpp" />
-    <ClCompile Include="Hanahuda_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="Title.cpp" />
-    <ClCompile Include="RabbitAndHounds.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FpsController.h" />
-    <ClInclude Include="Hanahuda_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
     <ClInclude Include="Title.h" />
-    <ClInclude Include="RabbitAndHounds.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
