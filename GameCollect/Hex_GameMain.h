@@ -28,7 +28,7 @@ public:
 
 	void Select();
 
-	virtual ~Hex() {};
+	~Hex() {};
 
 	virtual AbstractScene* Update()override;
 

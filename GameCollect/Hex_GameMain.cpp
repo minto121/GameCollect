@@ -9,11 +9,12 @@ Hex::Hex() {
 	RedHexImg = LoadGraph("../images/Hex/hexagon-R50.png");
 	SelectX = 615;
 	SelectY = 335;
-	GameInit();
+	//GameInit();
 }
 
 //•`‰æˆÈŠO
 AbstractScene* Hex::Update() {
+	//GameInit();
 
 	return this;
 }
