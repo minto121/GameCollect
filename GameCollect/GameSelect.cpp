@@ -2,6 +2,10 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
+#include"Hanafuda_GameMain.h"
+#include"takoyaki.h"
+#include<iostream>
+#define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
 {
 	Select = 0;
@@ -36,8 +40,31 @@ AbstractScene* GameSelect::Update()
 		Once = FALSE;
 	}
 
-	//Lスティック下入力
-	if (PAD_INPUT::GetLStick().ThumbY < -10000 && Once == TRUE)
+	if (std::abs(stick_y) > stick_sensitivity) {
+		//playsoundmem
+		// スティックが上に移動した場合
+		if (stick_y > 0) {
+			// メニュー選択肢を一つ前に移動
+			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
+		}
+		// スティックが下に移動した場合
+		else if (stick_y < 0) {
+			// メニュー選択肢を一つ次に移動
+			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
+		}
+		input_margin = 0;
+	}
+}
+if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+{
+	input_margin = 0;
+	SELECT current_selection = static_cast<SELECT>(now_menu);
+	switch (current_selection)
+	{
+	case SELECT::Hanafuda:
+		return new Takoyaki();
+		break;
+	/*case LEVEL::NORMAL:
 	{
 		Select++;
 		if (Select > 3)Select = 0;
