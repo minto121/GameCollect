@@ -1,5 +1,4 @@
 #include"DxLib.h"
-#include"main.h"
 #include"Hanahuda_GameMain.h"
 #include"Math.h"
 
@@ -12,11 +11,12 @@ Hanahuda::~Hanahuda()
 {
 }
 
-Hanahuda::Update()
+AbstractScene* Hanahuda::Update()
 {
+	return NULL;
 }
 
-Hanahuda::Draw()
+void Hanahuda::Draw() const
 {
 	DrawFormatString(0, 0,GetColor(255, 0, 0), "‰ÔŽD");
 }
