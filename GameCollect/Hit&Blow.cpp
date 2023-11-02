@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include<time.h>
 
-HitAndBlow::HitAndBlow() 
+HitAndBlow::HitAndBlow()
 {
 	// ヒットした時の画像読込
 	HitImg = LoadGraph("../images/HitAndBlow/HitPin.png");
@@ -12,7 +12,7 @@ HitAndBlow::HitAndBlow()
 	BlowImg = LoadGraph("../images/HitAndBlow/BlowPin.png");
 
 	LoadDivGraph("../images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
-	
+
 	DecisionFlg = TRUE;
 
 	WarpPosition = 0;
@@ -34,7 +34,7 @@ HitAndBlow::HitAndBlow()
 
 HitAndBlow::~HitAndBlow()
 {
-	
+
 }
 
 AbstractScene* HitAndBlow::Update()
@@ -86,8 +86,8 @@ AbstractScene* HitAndBlow::Update()
 			Turns = 0;
 		}
 	}
-	
-	
+
+
 	/* ここに自分が駒を入れる処理を書く */
 	if (Turns < 8)
 	{
@@ -95,8 +95,8 @@ AbstractScene* HitAndBlow::Update()
 		{
 			/* ジャッジ処理を書く */
 			Judgment();
-			
-			 /* 色のデータ引き継ぎ */ 
+
+			/* 色のデータ引き継ぎ */
 			SaveReasoning[SaveColor][0] = Reasoning[0];
 			SaveReasoning[SaveColor][1] = Reasoning[1];
 			SaveReasoning[SaveColor][2] = Reasoning[2];
@@ -104,7 +104,7 @@ AbstractScene* HitAndBlow::Update()
 
 			SaveColor++; // 描画列1追加
 			Turns++; // ターン数1増加
-			
+
 			for (int i = 0; i < 4; i++) {
 				/* 色をリセット */
 				Reasoning[i] = -1;
@@ -127,7 +127,7 @@ AbstractScene* HitAndBlow::Update()
 	else {
 		/* 答えを出す処理追加 */
 	}
-		
+
 	return this;
 }
 
@@ -140,7 +140,7 @@ void HitAndBlow::Draw() const
 	DrawBox(200 + Turns * 70, 100 + WarpPosition * 100, 280 + Turns * 70, 180 + WarpPosition * 100, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 
 	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Turns); // デバック用
-	
+
 	/* 正解の駒表示 */
 	if (DecisionFlg == FALSE) { // 正解が決まっていて、8ターン経過か、4ヒットしたら表示
 		for (int i = 0; i < 4; i++) {
@@ -163,16 +163,16 @@ void HitAndBlow::Draw() const
 		/* 過去に入れた色を表示 */
 		for (int i = 0; i < Turns; i++) {
 			if (SaveReasoning[i][0] >= 0) {
-				DrawGraph(215 + i * 70, 115, ColorImg[SaveReasoning[i][0]], TRUE); 
+				DrawGraph(215 + i * 70, 115, ColorImg[SaveReasoning[i][0]], TRUE);
 			}
 			if (SaveReasoning[i][1] >= 0) {
-				DrawGraph(215 + i * 70, 115 + 1 * 100, ColorImg[SaveReasoning[i][1]], TRUE); 
+				DrawGraph(215 + i * 70, 115 + 1 * 100, ColorImg[SaveReasoning[i][1]], TRUE);
 			}
 			if (SaveReasoning[i][2] >= 0) {
-				DrawGraph(215 + i * 70, 115 + 2 * 100, ColorImg[SaveReasoning[i][2]], TRUE); 
+				DrawGraph(215 + i * 70, 115 + 2 * 100, ColorImg[SaveReasoning[i][2]], TRUE);
 			}
 			if (SaveReasoning[i][3] >= 0) {
-				DrawGraph(215 + i * 70, 115 + 3 * 100, ColorImg[SaveReasoning[i][3]], TRUE); 
+				DrawGraph(215 + i * 70, 115 + 3 * 100, ColorImg[SaveReasoning[i][3]], TRUE);
 			}
 			/* ジャッジ用の描画処理を書く */
 			for (int j = 0; j < SaveHit[i]; j++) {
@@ -185,7 +185,7 @@ void HitAndBlow::Draw() const
 	}
 }
 
-void HitAndBlow::RandomDecision() 
+void HitAndBlow::RandomDecision()
 {
 	/* 答えの配列をランダムに設定する */
 	srand((unsigned int)time(NULL));

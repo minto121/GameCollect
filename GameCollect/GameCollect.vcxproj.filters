@@ -33,7 +33,10 @@
     <ClCompile Include="GameSelect.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Chekkermain.cpp">
+    <ClCompile Include="Hanafuda_GameMain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SixBollPuzzle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="RabbitAndHounds.cpp">
@@ -56,13 +59,13 @@
     <ClInclude Include="FpsController.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Hanahuda_GameMain.h">
+    <ClInclude Include="Hanafuda_GameMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="GameSelect.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Chekkermain.h">
+    <ClInclude Include="SixBollPuzzle.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="RabbitAndHounds.h">
