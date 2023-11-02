@@ -4,11 +4,15 @@
 #include <stdlib.h>
 #include <time.h>
 
+sinkeisuijaku::sinkeisuijaku()
+{
+}
+
 AbstractScene* sinkeisuijaku::Update()
 {
    
     // トランプの画像を分割読み込み
-    LoadDivGraph("../images/Concentration/PlayingCards.png", 56, 14, 4, 120, 200, S_T);
+    LoadDivGraph("images/Concentration/PlayingCards.png", 56, 14, 4, 120, 200, S_T);
 
     // キー入力処理
     // 入力キー取得
@@ -100,11 +104,11 @@ void sinkeisuijaku::Draw() const
     // トランプの表示
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 5; i++) {
-            if (trumps[j][i].flg == 0) {
+          /*  if (trumps[j][i].flg == 0) */{
                 // カードが選択されていない場合、カードの表を表示
                 DrawRotaGraph(430 + i * 120, 100 + j * 150, 1, 0, S_T[0], TRUE);
-            }
-            else {
+         //   }
+    //        else {
                 // カードが選択されている場合、カードの裏面（非表示）を表示
                 //DrawGraph(430 + i * 120, 0 + j * 150, S_T[4], TRUE);
             }

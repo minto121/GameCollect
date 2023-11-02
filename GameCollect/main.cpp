@@ -9,7 +9,6 @@
 //#include "Checkermain.h"
 #include "SixBollPuzzle.h"
 #include "GameSelect.h"
-#include"Hanahuda_GameMain.h"
 #include"Reversi.h"
 #include"Title.h"
 
