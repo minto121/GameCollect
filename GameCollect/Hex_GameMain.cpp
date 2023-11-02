@@ -4,9 +4,9 @@
 
 //ÉRÉìÉXÉgÉâÉNÉ^
 Hex::Hex() {
-	BanImg = LoadGraph("../images/Hex/Hex_11Å~11.png");
-	BlueHexImg = LoadGraph("../images/Hex/hexagon-B50.png");
-	RedHexImg = LoadGraph("../images/Hex/hexagon-R50.png");
+	BanImg = LoadGraph("images/Hex/Hex_11Å~11.png");
+	BlueHexImg = LoadGraph("images/Hex/hexagon-B50.png");
+	RedHexImg = LoadGraph("images/Hex/hexagon-R50.png");
 	SelectX = 615;
 	SelectY = 335;
 	//GameInit();
@@ -21,7 +21,7 @@ AbstractScene* Hex::Update() {
 //ï`âÊÇÃÇ›
 void Hex::Draw()const {
 	DrawGraph(0, 0, BanImg, FALSE);
-	//DrawGraph(615, 335, RedHexImg, TRUE);
+	DrawGraph(615, 335, RedHexImg, TRUE);
 	//DrawStage();
 }
 
@@ -41,11 +41,11 @@ void Hex::GameInit() {
 			}
 			else {
 				gStage[i][j].flg = 1;
-				gStage[i][j].x = (j - 1) * 50;
-				gStage[i][j].y = (i - 1) * 50;
-				gStage[i][j].w = 50;
-				gStage[i][j].h = 50;
 			}
+			gStage[i][j].x = (j - 1) * 50;
+			gStage[i][j].y = (i - 1) * 50;
+			gStage[i][j].w = 50;
+			gStage[i][j].h = 50;
 		}
 	}
 }

@@ -159,7 +159,6 @@
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
-    <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
