@@ -9,12 +9,11 @@ Hex::Hex() {
 	RedHexImg = LoadGraph("../images/Hex/hexagon-R50.png");
 	SelectX = 615;
 	SelectY = 335;
-	GameInit();
+	//GameInit();
 }
 
 //描画以外
 AbstractScene* Hex::Update() {
-	//GameInit();
 
 	return this;
 }
@@ -31,7 +30,7 @@ void Hex::GameInit() {
 	//ステージ初期化
 	for (int i = 0; i < 13; i++) {
 		for (int j = 0; j < 13; j++) {
-			if ((j == 0 && i == 0) || (j == 12 && i == 12)) {
+			if (j == 0 && i == 0 || j == 12 && i == 12) {
 				gStage[i][j].flg = 4;	//黒
 			}
 			else if (j == 0 || j == 12) {
