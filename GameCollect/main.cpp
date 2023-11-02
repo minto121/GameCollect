@@ -3,7 +3,7 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-<<<<<<< HEAD
+
 #include"Hanahuda_GameMain.h"
 
 
@@ -12,12 +12,12 @@
 
 #include "Chekkermain.h"
 #include"Mankara.h"
-=======
+
 #include"Hanafuda_GameMain.h"
 #include "Checkermain.h"
 #include "SixBollPuzzle.h"
 #include "GameSelect.h"
->>>>>>> yafuso/magetest
+
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -47,15 +47,15 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-<<<<<<< HEAD
+
 
 		sceneMng = new SceneManager((AbstractScene*)new sinkeisuijaku/*Title*/());//Titleをテストのためにsinkensuijakuni変更してます
 
 		//sceneMng = new SceneManager((AbstractScene*)new Mankara());
 
-=======
+
 		sceneMng = new SceneManager((AbstractScene*)new GameSelect());
->>>>>>> yafuso/magetest
+
 
 	}
 	catch (const char* err)
