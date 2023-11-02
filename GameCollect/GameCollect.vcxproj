@@ -154,6 +154,7 @@
     <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
+    <ClCompile Include="LastCard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="SceneManager.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
+    <ClInclude Include="LastCard.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />

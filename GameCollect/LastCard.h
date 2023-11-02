@@ -1,17 +1,16 @@
 #pragma once
 #include "AbstractScene.h"
-class GameSelect :
-    public AbstractScene
+
+class LastCard : public AbstractScene
 {
-    int Select;
-    bool Once;
+private:
 
 public:
     //コンストラクタ
-    GameSelect();
+    LastCard();
 
     //デストラクタ
-    ~GameSelect();
+    ~LastCard();
 
     //描画以外の更新を実行
     AbstractScene* Update() override;
