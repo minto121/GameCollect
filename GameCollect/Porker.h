@@ -58,13 +58,28 @@ private:
 
 	int P_CARD1_S;//プレイヤーカード1の商格納用
 	int P_CARD2_S;//プレイヤーカード2の商格納用
+
 	int P_CARD1_A;//プレイヤーカード1の余り格納用
 	int P_CARD2_A;//プレイヤーカード2の余り格納用
 
 	int E_CARD1_S;//敵カード1の商格納用
 	int E_CARD2_S;//敵カード2の商格納用
+
 	int E_CARD1_A;//敵カード1の余り格納用
 	int E_CARD2_A;//敵カード2の余り格納用
+
+	int C_CARD1_S;//場に出ているカード1の商格納用
+	int C_CARD2_S;//場に出ているカード2の商格納用
+	int C_CARD3_S;//場に出ているカード3の商格納用
+	int C_CARD4_S;//場に出ているカード4の商格納用
+	int C_CARD5_S;//場に出ているカード5の商格納用
+
+	int C_CARD1_A;//場に出ているカード1の余り格納用
+	int C_CARD2_A;//場に出ているカード2の余り格納用
+	int C_CARD3_A;//場に出ているカード3の余り格納用
+	int C_CARD4_A;//場に出ているカード4の余り格納用
+	int C_CARD5_A;//場に出ているカード5の余り格納用
+	int P_PEA_FLG;//プレイヤーのペアのフラグ
 
 public:
 	Porker();
@@ -81,12 +96,14 @@ public:
 
 	void ROUND_INIT();
 
-	void P_CALL();
-
-	void ENEMIE_CHOISE();
+	void PLAYER_CALL();
 
 	void PLAYER_RAISE();
 
-	void CARD_HANDAN();
+	void ENEMIE_CHOISE();
+
+	void CARD_ANALYSIS();
+
+	void CARD_YAKU();
 };
 
