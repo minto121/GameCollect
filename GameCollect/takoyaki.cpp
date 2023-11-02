@@ -9,10 +9,10 @@ Takoyaki::Takoyaki()
 {
 	Select = 0;
 	Cards_img[42];
-	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCardsfake.png");//カード画像読み込み
+	cardimg = LoadGraph("../images/Takoyaki/PlayingCardsfake.png");//カード画像読み込み
 	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");//カーソル画像読み込み
 	select_X = 0;
-	BackCard_img = LoadGraph("../image/Takoyaki/card_back.png");
+	BackCard_Img = LoadGraph("../image/Takoyaki/card_back.png");
 }
 
 Takoyaki::~Takoyaki() {
@@ -33,7 +33,7 @@ AbstractScene* Takoyaki::Update()
 		select_X += 5;
 	}
 	if (PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-	cardFlipped=!cardFlipped
+		cardFlipped = !cardFlipped;
 	}
 	return this;
 }
@@ -47,10 +47,10 @@ void Takoyaki::Draw()const
 
 	//カード画像描画
 	if (cardFlipped) {
-		DrawGraph(70,50,BackCard_Img,TRUE)
+		DrawGraph(70, 50, BackCard_Img, TRUE);
 	}
-	DrawGraph(70, 50, cardimg1, TRUE);
-	DrawGraph(190, 50, cardimg1, TRUE);
+	DrawGraph(70, 50, cardimg, TRUE);
+	DrawGraph(190, 50, cardimg, TRUE);
 
 	//カーソルの描画
 	DrawGraph(select_X, 150, CursolImg, TRUE);

@@ -6,11 +6,12 @@ class Takoyaki :
 {
 
 private:
+    int cardimg;
     int Select;     //選択数 
     int Cards_img[42];  //カード
     int CursolImg; //カーソル画像
     int select_X;//カードごとのカーソル位置を保持
-    int BackCard_img;
+    int BackCard_Img;
     bool cardFlipped;//カードの裏返し
 
 public:
