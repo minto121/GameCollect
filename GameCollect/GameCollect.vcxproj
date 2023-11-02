@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Porker.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
+    <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="SceneManager.h" />
