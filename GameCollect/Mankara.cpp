@@ -81,7 +81,7 @@ void Mankara::Draw()const
 
 	DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
 
-	DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), TRUE);
+    DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), TRUE);
 	DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), TRUE);
 	DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), TRUE);
 	DrawBox(645, 385, 745, 600, GetColor(255, 0, 0), TRUE);
