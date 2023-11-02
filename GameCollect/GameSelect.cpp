@@ -3,6 +3,7 @@
 #include"PadInput.h"
 #include "DxLib.h"
 #include"RabbitAndHounds.h"
+#include "Porker.h"
 
 GameSelect::GameSelect()
 {
@@ -52,7 +53,6 @@ AbstractScene* GameSelect::Update()
 		Once = TRUE;
 	}
 
-	
 
 	return this;
 }
