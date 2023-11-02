@@ -10,8 +10,6 @@ Checkermain::Checkermain() {
 	Checkerback = LoadGraph("../images/Checkers/back.png");		 // 背景
 	selectX = 0;												 // カーソル移動X座標
 	selectY = 0;												 // カーソル移動Y座標
-	 board[8][8];
-
 }
 
 Checkermain::~Checkermain()
