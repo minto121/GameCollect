@@ -151,10 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Chekkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="Hanafuda_GameMain.cpp" />
+    <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
@@ -163,10 +163,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
-    <ClInclude Include="Chekkermain.h" />
     <ClInclude Include="FpsController.h" />
-    <ClInclude Include="Hanahuda_GameMain.h" />
-    <ClInclude Include="Mankara.h" />
+    <ClInclude Include="Hanafuda_GameMain.h" />
+    <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
