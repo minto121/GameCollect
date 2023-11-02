@@ -3,8 +3,8 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
-#include "Checkermain.h"
+//#include"Hanafuda_GameMain.h"
+//#include "Checkermain.h"
 #include "SixBollPuzzle.h"
 #include "GameSelect.h"
 
