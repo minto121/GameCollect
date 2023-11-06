@@ -29,14 +29,17 @@ private:
 	int yellowStone[8];
 	int purpleStone[8];
 	int whiteStone[8];
-
+	int RINE;
+	int i;
+	int j;
 	int P1Turn;
 	int P2Turn;
 
 
 	// 1P用ポケット
 	int P1Pocket[6];
-	int Pocket1P;
+	
+	int Pocket1[1][5];
 	// 2P用ポケット
 	int P2Pocket[6];
 	int Pocket2P;

@@ -3,13 +3,11 @@
 #include"PadInput.h"
 Mankara::Mankara()
 {
-	Board = LoadGraph("../images/mancala/MancalaBoard.png");
-	Background = LoadGraph("../images/Mancala/BackGround02.png");
+	Board = LoadGraph("images/mancala/MancalaBoard.png");
+	Background = LoadGraph("images/Mancala/BackGround02.png");
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
-	Pocket1P = DrawCircle(P1Pocket[0] + 50, P1Pocket[0] + 50, GetColor(255, 0, 0),TRUE);
-
 	//for (int i = 0; i < 8; i++) {
 	//	Stone[i].x = 500;
 	//	Stone[i].y = 500;br
@@ -45,6 +43,8 @@ Mankara::Mankara()
 
 	P1Pocket[0] = 1;
 	P2Pocket[0] = 1;
+	RINE = 1;
+	Pocket1[i][j];
 
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
@@ -70,6 +70,16 @@ Mankara::Mankara()
 		 P2Turn = 0;
 	 }
 
+	 for (int i = 0; i < 2; i++) {
+		 for (RINE; RINE < 6; j++) {
+			 if (Pocket1 > 0) {
+				 Pocket1[1][RINE] += 1;
+				 // putnember
+			 }
+		 }
+	 }
+
+
 	return this;
 }
 
@@ -79,7 +89,7 @@ void Mankara::Draw()const
 	DrawGraph(30,30,Board,TRUE);
 	DrawGraph(100, 100, P1Pocket[0], TRUE);
 
-	DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
+	/*DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
 
     DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), TRUE);
 	DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), TRUE);
@@ -96,7 +106,7 @@ void Mankara::Draw()const
 	DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), TRUE);
 	DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), TRUE);
 	DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), TRUE);
-	DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), TRUE);
+	DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), TRUE);*/
 
 
 	for (int i = 0; i < 8; i++) {
@@ -125,6 +135,10 @@ void Mankara::Draw()const
 		DrawFormatString(200, 200, GetColor(255, 255, 255), "1P TURN");
 	}
 
+
+
+
+	
 
 
 	// 1p—pÎ‚ÌˆÚ“®
