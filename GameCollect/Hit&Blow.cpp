@@ -6,12 +6,13 @@
 
 HitAndBlow::HitAndBlow()
 {
-	// ヒットした時の画像読込
-	HitImg = LoadGraph("../images/HitAndBlow/HitPin.png");
-	// ブローした時の画像読込
-	BlowImg = LoadGraph("../images/HitAndBlow/BlowPin.png");
+	//// ヒットした時の画像読込
+	//HitImg = LoadGraph("../images/HitAndBlow/HitPin.png");
+	//// ブローした時の画像読込
+	//BlowImg = LoadGraph("../images/HitAndBlow/BlowPin.png");
 
 	LoadDivGraph("../images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
+	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
 
 	DecisionFlg = TRUE;
 
@@ -176,10 +177,10 @@ void HitAndBlow::Draw() const
 			}
 			/* ジャッジ用の描画処理を書く */
 			for (int j = 0; j < SaveHit[i]; j++) {
-				DrawGraph(215 + (j % 2) * 35 + i * 80, 50 + (j / 2) * 40, HitImg, TRUE);
+				DrawGraph(215 + (j % 2) * 35 + i * 80, 50 + (j / 2) * 40, HitBlowImg[1], TRUE);
 			}
 			for (int k = 0; k < SaveBlow[i]; k++) {
-				DrawGraph(215 + ((SaveHit[i] + k) % 2) * 35 + i * 80, 50 + ((SaveHit[i] + k) / 2) * 40, BlowImg, TRUE);
+				DrawGraph(215 + ((SaveHit[i] + k) % 2) * 35 + i * 80, 50 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
 			}
 		}
 	}

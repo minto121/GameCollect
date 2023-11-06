@@ -5,9 +5,10 @@ class HitAndBlow : public AbstractScene {
 private:
 	/* 画像読み込み */
 	int ColorImg[6]; // 色の駒の画像配列
-	int HitImg;  // ヒットピンの画像表示
-	int BlowImg; // ブローピンの画像表示
-
+	int HitBlowImg[2]; // ヒットピンとブローピンの画像表示
+	//int HitImg;  // ヒットピンの画像表示
+	//int BlowImg; // ブローピンの画像表示
+	
 	/* 変数 */
 	int Color[6]; // 色の駒を入れる配列
 	int Answer[4];  // 色と場所を当てる配列
