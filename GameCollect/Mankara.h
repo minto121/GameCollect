@@ -1,10 +1,10 @@
 #pragma once
 #include "AbstractScene.h"
-class Mankara:public AbstractScene
+class Mankara :public AbstractScene
 {
 private:
 
-	/*struct StoneSet 
+	/*struct StoneSet
 	{
 		float x;
 		float y;
@@ -17,12 +17,15 @@ private:
 	struct StoneSet Stone[8];*/
 	int Board;
 	int Background;
-    int RedStone;
+	int RedStone;
 	int BlueStone;
 	int GreenStone;
 	int YellowStone;
 	int PurpleStone;
 	int WhiteStone;
+
+	int Stone[6][8];
+
 	int redStone[8];
 	int blueStone[8];
 	int greenStone[8];
@@ -42,7 +45,7 @@ private:
 	int Pocket1[1][5];
 	// 2P用ポケット
 	int P2Pocket[6];
-	int Pocket2P;
+	
 
 	int P1BigPocket;
 	int P2BigPocket;
