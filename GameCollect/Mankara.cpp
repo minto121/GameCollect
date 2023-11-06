@@ -46,8 +46,6 @@ Mankara::Mankara()
 	RINE = 1;
 	Pocket1[i][j];
 
-
-
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
 	}
@@ -60,7 +58,6 @@ Mankara::Mankara()
 
  AbstractScene* Mankara:: Update()
 {
-
 	 // 相手のターンはプレイヤーは動かない
 	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
 		 P2Turn = 1;
@@ -72,6 +69,15 @@ Mankara::Mankara()
 		 P2Turn = 0;
 	 }
 
+	 if (P1Turn == 1) {
+		 if (PAD_INPUT::OnPressed(KEY_INPUT_D)) {
+			 P1Pocket[i + 1];
+			 if (PAD_INPUT::OnPressed(KEY_INPUT_Z)) {
+				 P1Pocket[i] = TRUE;
+			 }
+		 }
+	 }
+	 
 	return this;
 }
 
@@ -80,29 +86,35 @@ void Mankara::Draw()const
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
 	DrawGraph(100, 100, P1Pocket[0], TRUE);
+	
+	//DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
+	if (P1Turn == 1) {
+		if (PAD_INPUT::OnPressed(KEY_INPUT_D)) {
+			DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), TRUE);
+		}
+		else {
+			DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), FALSE);
+		}
+	}
+	
+	//DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), TRUE);
+	//DrawBox(645, 385, 745, 600, GetColor(255, 0, 0), TRUE);
+	//DrawBox(770, 385, 870, 600, GetColor(255, 0, 0), TRUE);
+	//DrawBox(900, 385, 1000, 600, GetColor(255, 0, 0), TRUE);
 
-	/*DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
 
-    DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), TRUE);
-	DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), TRUE);
-	DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), TRUE);
-	DrawBox(645, 385, 745, 600, GetColor(255, 0, 0), TRUE);
-	DrawBox(770, 385, 870, 600, GetColor(255, 0, 0), TRUE);
-	DrawBox(900, 385, 1000, 600, GetColor(255, 0, 0), TRUE);
+	//DrawBox(1030, 150, 1160, 600, GetColor(255, 0, 0), TRUE);
 
-
-	DrawBox(1030, 150, 1160, 600, GetColor(255, 0, 0), TRUE);
-
-	DrawBox(255, 85, 355, 300, GetColor(255, 0, 0), TRUE);
-	DrawBox(385, 85, 485, 300, GetColor(255, 0, 0), TRUE);
-	DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), TRUE);
-	DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), TRUE);
-	DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), TRUE);
-	DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), TRUE);*/
+	//DrawBox(255, 85, 355, 300, GetColor(255, 0, 0), TRUE);
+	//DrawBox(385, 85, 485, 300, GetColor(255, 0, 0), TRUE);
+	//DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), TRUE);
+	//DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), TRUE);
+	//DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), TRUE);
+	//DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), TRUE);
 
 	for (int i = 0; i < 2; i++) {
 		for (int RINE = 0; RINE < 6; RINE++) {
-			//if (putnember > 0) { b
+			//if (putnember > 0) { 
 			   /* Pocket1[1][RINE] += 1;*/
 				// putnember--;
 			//}
@@ -146,6 +158,7 @@ void Mankara::Draw()const
 	// 1p用石の移動
 
 	if (P1Turn == 1) {
+
 		if (P1Pocket[0] == TRUE) {
 
 		}
