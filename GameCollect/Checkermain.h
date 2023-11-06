@@ -10,25 +10,39 @@
 class Checkermain:public AbstractScene
 {
 
-private:
+private:	
+
+bool F_select = FALSE;
+
 	int Boardimg; //　盤
 	int PieceB; //　駒黒
 	int PieceW; // 駒白
 	int Checkerback; // 背景
 	int size = 100;
 	
-	int board[8][8] =
+	 int  board[8][8] =
+	//{
+	//0, 1, 0, 1, 0, 1, 0, 1,
+	//1, 0, 1, 0, 1, 0, 1, 0,
+	//0, 1, 0, 1, 0, 1, 0, 1,
+	//0, 0, 0, 0, 0, 0, 0, 0,
+	//0, 0, 0, 0, 0, 0, 0, 0,
+	//2, 0, 2, 0, 2, 0, 2, 0,
+	//0, 2, 0, 2, 0, 2, 0, 2,
+	//2, 0, 2, 0, 2, 0, 2, 0, };
 	{
-	0, 1, 0, 1, 0, 1, 0, 1,
-	1, 0, 1, 0, 1, 0, 1, 0,
-	0, 1, 0, 1, 0, 1, 0, 1,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	0, 0, 0, 0, 0, 0, 0, 0,
-	2, 0, 2, 0, 2, 0, 2, 0,
-	0, 2, 0, 2, 0, 2, 0, 2,
-	2, 0, 2, 0, 2, 0, 2, 0, };
+		0, 1, 0, 0, 0, 2, 0, 2,
+		1, 0, 1, 0, 0, 0, 2, 0,
+		0, 1, 0, 0, 0, 2, 0, 2,
+		1, 0, 1, 0, 0, 0, 2, 0,
+		0, 1, 0, 0, 0, 2, 0, 2,
+		1, 0, 1, 0, 0, 0, 2, 0,
+		0, 1, 0, 0, 0, 2, 0, 2,
+		1, 0, 1, 0, 0, 0, 2, 0,
+	};
 
-	bool F_select = FALSE;
+
+	bool F_put = FALSE;
 	bool phase;
 	int selectX;
 	int selectY;
@@ -52,9 +66,9 @@ public:
 	// チェッカーボードの初期状態を設定
 	void InitBoard();
 
-	bool IsMoveValid(int selectX, int selectY, int clickedX, int clickedY);
+	bool IsMoveValid(int startX, int startY, int SelectX, int SelectY);
 
-	
+	bool IsPlaceValid(int i, int j);
 
 };
 
