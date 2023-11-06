@@ -10,14 +10,10 @@ private:
 
 
 	struct TRUMPS {
-		int flg;
+		int flg = 0;
 		int syurui;
 	};
 	
-	 struct Card{
-		int cardValue;//カードの値
-		int flg;//カードが選択されたかどうか
-	};
 
 	TRUMPS trumps[10][10];
 
@@ -26,7 +22,6 @@ private:
 	virtual AbstractScene* Update()override;
 	void Draw()const override;
 
-	void Select();
 
 	int first;
 
@@ -58,6 +53,8 @@ private:
 	int count = 0;
 	int randend = 0;
 
-	int z[20];
+	int T_Draw[10];
+	int rCount = 0;
+	int r2Count = 0;
 };
 
