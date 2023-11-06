@@ -1,9 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 
-class Title :
-    public AbstractScene
-
+class Title : public AbstractScene
 {
 private:
     int Select;     //‘I‘ğ”
