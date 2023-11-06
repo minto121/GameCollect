@@ -9,6 +9,8 @@ gomokuScene::gomokuScene()
 	bTopImg = LoadGraph("../images/Gomoku/WK.png");
 	cX = 0;
 	cY = 0;
+	bCount = 0;
+	wCount = 0;
 	for (int y = 0; y < 13; y++)
 		for (int x = 0; x < 13; x++) {
 			/*if (x == 6 && y == 6 || x == 7 && y == 7) {
@@ -54,8 +56,8 @@ AbstractScene* gomokuScene::Update()
 		// まだ石が置かれていない盤面に石を置き、手番を交代する
 		if (g_KeyFlg & PAD_INPUT_1 && gomoku_Banmen[cX][cY] == 0) {
 			if (gomoku_Phase == 0) {
+				bCount += 1;
 				gomoku_Banmen[cX][cY] = 1;
-				gomoku_Phase = 1;
 			}
 			/*else {
 				gomoku_Banmen[cX][cY] = 2;
@@ -67,28 +69,7 @@ AbstractScene* gomokuScene::Update()
 				gomoku_Phase = 0;
 			}*/
 		}
-		// ここからAI
-		/*if (gomoku_Phase == 1) {*/
-			for (int y = 0; y < 13; y++)
-				for (int x = 0; x < 13; x++) {
-					//// 盤面に黒が三つ並んでいて、両端に石が置かれていない場合白を置くプログラミング
-					//if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] && gomoku_Banmen[x][y + 3] ||
-					//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] && gomoku_Banmen[x + 3][y] ||
-					//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] && gomoku_Banmen[x + 3][y + 3] ||
-					//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] && gomoku_Banmen[x - 3][y - 3] ||
-					//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] && gomoku_Banmen[x + 3][y - 3] ||
-					//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] && gomoku_Banmen[x - 3][y + 3]) {
-					if (gomoku_Banmen[x][y] == 0 && gomoku_Phase == 1) {
-						gomoku_Banmen[x][y] = 2;
-						gomoku_Phase = 0;
-					}
-					/*}
-					else if()*/
-				}
-		/*}*/
-
-		// 黒(Banmen[x][y] = 1)と白(Banmen[x][y] = 2)の勝利判定
-		for (int y = 0; y < 13; y++)
+		for (int y = 0; y < 13; y++) {
 			for (int x = 0; x < 13; x++) {
 				// 黒(Banmen[x][y] = 1)の勝利判定
 				if (gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 && gomoku_Banmen[x + 4][y] == 1 ||
@@ -99,8 +80,31 @@ AbstractScene* gomokuScene::Update()
 					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 1) {
 					Battle = 1;
 				}
+			}
+		}
+		// ここからAI
+				/*if (gomoku_Phase == 1) {*/
+		for (int y = 0; y < 13; y++)
+			for (int x = 0; x < 13; x++) {
+				//// 盤面に黒が三つ並んでいて、両端に石が置かれていない場合白を置くプログラミング
+				//if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] && gomoku_Banmen[x][y + 3] ||
+				//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] && gomoku_Banmen[x + 3][y] ||
+				//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] && gomoku_Banmen[x + 3][y + 3] ||
+				//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] && gomoku_Banmen[x - 3][y - 3] ||
+				//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] && gomoku_Banmen[x + 3][y - 3] ||
+				//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] && gomoku_Banmen[x - 3][y + 3]) {
+				if (gomoku_Banmen[x][y] == 0 && gomoku_Phase == 1) {
+					wCount += 1;
+					gomoku_Banmen[x][y] = 2;
+				}
+				/*}
+				else if()*/
+			}
+		/*}*/
+		for (int y = 0; y < 13; y++) {
+			for (int x = 0; x < 13; x++) {
 				// 白(Banmen[x][y] = 2)の勝利判定
-				else if (gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 2 ||
+				if (gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 2 ||
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 && gomoku_Banmen[x][y + 4] == 2 ||
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 && gomoku_Banmen[x + 4][y + 4] == 2 ||
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 2 ||
@@ -108,7 +112,9 @@ AbstractScene* gomokuScene::Update()
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 2) {
 					Battle = 2;
 				}
+				
 			}
+		}
 		return this;
 	}
 }
@@ -119,6 +125,8 @@ void gomokuScene::Draw() const
 	DrawGraph(180, 0, TitleImg, TRUE);
 	for (int y = 0; y < 13; y++) {
 		for (int x = 0; x < 13; x++) {
+			DrawFormatString(50, 300, 0xffffff, "%d", bCount);
+			DrawFormatString(50, 400, 0xffffff, "%d", wCount);
 			if (gomoku_Banmen[x][y] == 1) {
 				DrawGraph(270 + (56 * x) + x, -25 + (56 * y) + y, bTopImg, TRUE);
 			}
