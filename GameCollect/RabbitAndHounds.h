@@ -20,6 +20,8 @@ private:
 	int hound_X;   //—ÂŒ¢XÀ•W
 	int hound_Y;   //—ÂŒ¢YÀ•W
 	int houndSpeed;
+
+
 	
 
 public:

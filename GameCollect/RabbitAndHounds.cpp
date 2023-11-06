@@ -31,18 +31,22 @@ RabbitAndHounds::~RabbitAndHounds()
 
 AbstractScene* RabbitAndHounds::Update()
 {
-	//十字キー→入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
-	{
-	
-	}
-	//十字キー←入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
-	{
+	// スティックのY座標を取得
+	int stick_y = PAD_INPUT::GetLStick().ThumbY;
 
+	if (std::abs(stick_y) > stick_sensitivity) {
+		// スティックが上に移動した場合
+		if (stick_y > 0) {
+			// メニュー選択肢を一つ前に移動
+			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
+		}
+		// スティックが下に移動した場合
+		else if (stick_y < 0) {
+			// メニュー選択肢を一つ次に移動
+			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
+		}
 	}
-
-	return this;
+		return this;
 }
 
 void RabbitAndHounds::RabbitPiece()

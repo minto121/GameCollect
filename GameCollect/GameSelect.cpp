@@ -4,6 +4,7 @@
 #include "DxLib.h"
 #include "sinkeisuijaku.h"
 //#include"Hanafuda_GameMain.h"
+#include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
