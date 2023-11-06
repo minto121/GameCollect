@@ -50,6 +50,9 @@ private:
 	int P1BigPocket;
 	int P2BigPocket;
 
+
+	int StoneImg[6];
+
 public:
 	Mankara();
 	AbstractScene* Update();

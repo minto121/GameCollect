@@ -3,6 +3,7 @@
 #include"PadInput.h"
 Mankara::Mankara()
 {
+	StoneImg[6] = LoadDivGraph("images/Mancala/MancalaStone.png", 6, 6, 1, 32, 32, StoneImg);
 	Board = LoadGraph("images/mancala/MancalaBoard.png");
 	Background = LoadGraph("images/Mancala/BackGround02.png");
 
@@ -85,12 +86,19 @@ void Mankara::Draw()const
 {
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
-	DrawGraph(100, 100, P1Pocket[0], TRUE);
-	
+
+	DrawGraph(300, 430, StoneImg[0], TRUE);
+	DrawGraph(300, 450, StoneImg[1], TRUE);
+	DrawGraph(300, 470, StoneImg[2], TRUE);
+	DrawGraph(300, 490, StoneImg[3], TRUE);
+	DrawGraph(300, 510, StoneImg[4], TRUE);
+	DrawGraph(300, 530, StoneImg[5], TRUE);
+
 	//DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
 	if (P1Turn == 1) {
-		if (PAD_INPUT::OnPressed(KEY_INPUT_D)) {
-			DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), TRUE);
+		// ç∂Ç…à⁄ìÆ
+		if (PAD_INPUT::OnButton(KEY_INPUT_H)) {
+			DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
 		}
 		else {
 			DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), FALSE);
@@ -125,16 +133,6 @@ void Mankara::Draw()const
 		for (int j = 0; j < 8; j++) {
 
 		}
-	}
-
-	for (int i = 0; i < 8; i++) {
-		//DrawFormatString(100 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", redStone[i]);
-		//DrawFormatString(200 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", blueStone[i]);
-		//DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", greenStone[i]);
-		//DrawFormatString(400 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", yellowStone[i]);
-		//DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", purpleStone[i]);
-		//DrawFormatString(600 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", whiteStone[i]);
-
 	}
 
 	for (int i = 0; i < 6; i++) {
