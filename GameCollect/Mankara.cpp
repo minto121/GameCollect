@@ -72,10 +72,10 @@ Mankara::Mankara()
 
 	 for (int i = 0; i < 2; i++) {
 		 for (RINE; RINE < 6; j++) {
-			 if (Pocket1 > 0) {
-				 Pocket1[1][RINE] += 1;
+			 //if (putnember > 0) {
+				/* Pocket1[1][RINE] += 1;*/
 				 // putnember
-			 }
+			 //}
 		 }
 	 }
 
