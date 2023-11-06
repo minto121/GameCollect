@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "Title.h"
-//#include "GameMain.h"
+#include "Porker.h"
 #include "PadInput.h"
 #include "GameSelect.h"
 
@@ -72,8 +72,12 @@ AbstractScene* Title::Update()
 		//default:
 		//	break;
 		//}
-		return new GameSelect();
+		return new Porker();
 	}
+
+	
+
+
 	return this;
 }
 
