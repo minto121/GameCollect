@@ -1,6 +1,7 @@
 #include"RabbitAndHounds.h"
 #include "DxLib.h"
 #include "PadInput.h"
+#include<iostream>
 
 static int MenuNumber = 0;
 int Cursor_X = 0;
@@ -12,14 +13,17 @@ RabbitAndHounds::RabbitAndHounds()
 	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
 	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
 
-	//ウサギ座標
-	rabbit_X = 100, rabbit_Y = 100;
+	////ウサギ座標
+	//rabbit_X = 100, rabbit_Y = 100;
+	//rabbitSpeed = 2;
 
-	rabbitSpeed = 2;
+	////猟犬座標
+	//hound_X = 400, hound_Y = 400;
+	//houndSpeed = 1;
 
-	//猟犬座標
-	hound_X = 400, hound_Y = 400;
-	houndSpeed = 1;
+	Cursor_X = 0;
+
+	Player = 0;
 }
 
 RabbitAndHounds::~RabbitAndHounds()
@@ -31,74 +35,74 @@ RabbitAndHounds::~RabbitAndHounds()
 
 AbstractScene* RabbitAndHounds::Update()
 {
-	// スティックのY座標を取得
-	int stick_y = PAD_INPUT::GetLStick().ThumbY;
-
-	if (std::abs(stick_y) > stick_sensitivity) {
-		// スティックが上に移動した場合
-		if (stick_y > 0) {
-			// メニュー選択肢を一つ前に移動
-			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+		Cursor_X = 480;
+		if (CheckHitKey(KEY_INPUT_A) && XINPUT_BUTTON_A)
+		{
+			Player = 1;
 		}
-		// スティックが下に移動した場合
-		else if (stick_y < 0) {
-			// メニュー選択肢を一つ次に移動
-			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
+	}
+	
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+		Cursor_X = -10;
+		if (CheckHitKey(KEY_INPUT_A) && XINPUT_BUTTON_A)
+		{
+			Player = 2;
 		}
 	}
 		return this;
 }
 
-void RabbitAndHounds::RabbitPiece()
-{
-	//ウサギ座標
-	rabbit_X = 100, rabbit_Y = 100;
-
-	// ウサギを移動
-	if (CheckHitKey(KEY_INPUT_UP)) {
-		rabbit_Y -= rabbitSpeed;
-	}
-	if (CheckHitKey(KEY_INPUT_DOWN)) {
-		rabbit_Y += rabbitSpeed;
-	}
-	if (CheckHitKey(KEY_INPUT_LEFT)) {
-		rabbit_X -= rabbitSpeed;
-	}
-	if (CheckHitKey(KEY_INPUT_RIGHT)) {
-		rabbit_X += rabbitSpeed;
-	}
-}
-
-void RabbitAndHounds::HoundIPiece()
-{
-	// 猟犬を移動
-	if (rabbit_X < hound_X) {
-		hound_X -= houndSpeed;
-	}
-	if (rabbit_X > hound_X) {
-		hound_X += houndSpeed;
-	}
-	if (rabbit_Y < hound_Y) {
-		hound_Y -= houndSpeed;
-	}
-	if (rabbit_Y > hound_Y) {
-		hound_Y += houndSpeed;
-	}
-}
+//void RabbitAndHounds::RabbitPiece()
+//{
+//	//ウサギ座標
+//	rabbit_X = 100, rabbit_Y = 100;
+//
+//	// ウサギを移動
+//	if (CheckHitKey(KEY_INPUT_UP)) {
+//		rabbit_Y -= rabbitSpeed;
+//	}
+//	if (CheckHitKey(KEY_INPUT_DOWN)) {
+//		rabbit_Y += rabbitSpeed;
+//	}
+//	if (CheckHitKey(KEY_INPUT_LEFT)) {
+//		rabbit_X -= rabbitSpeed;
+//	}
+//	if (CheckHitKey(KEY_INPUT_RIGHT)) {
+//		rabbit_X += rabbitSpeed;
+//	}
+//}
+//
+//void RabbitAndHounds::HoundIPiece()
+//{
+//	// 猟犬を移動
+//	if (rabbit_X < hound_X) {
+//		hound_X -= houndSpeed;
+//	}
+//	if (rabbit_X > hound_X) {
+//		hound_X += houndSpeed;
+//	}
+//	if (rabbit_Y < hound_Y) {
+//		hound_Y -= houndSpeed;
+//	}
+//	if (rabbit_Y > hound_Y) {
+//		hound_Y += houndSpeed;
+//	}
+//}
 
 void RabbitAndHounds::Draw() const
 {
 	DrawGraph(0, 0, BackGroundImg, TRUE);
 
-	//SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
+	SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
 
-	//// 画面に映る位置に３Ｄモデルを移動
-	//MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
-	//MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
+	// 画面に映る位置に３Ｄモデルを移動
+	MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
+	MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
 
-	////3Dモデルの描画
-	//MV1DrawModel(HoundImg);
-	//MV1DrawModel(RabbitImg);
+	//3Dモデルの描画
+	MV1DrawModel(HoundImg);
+	MV1DrawModel(RabbitImg);
 
 	// ウサギと猟犬を描画
 	DrawBox(rabbit_X, rabbit_Y, rabbit_X-1, rabbit_Y-1, GetColor(0, 0, 255), TRUE);
@@ -106,11 +110,19 @@ void RabbitAndHounds::Draw() const
 
 	DrawString(10, 20, "ウサギと猟犬", 0xffffff);
 	// 描画する文字列のサイズを設定
-	/*SetFontSize(50);
+	SetFontSize(50);
 	DrawString(300, 350, "ウサギ", 0xffffff);
-	DrawString(800, 350, "猟犬", 0xffffff);*/
+	DrawString(800, 350, "猟犬", 0xffffff);
 
 	//カーソル描画
-	/*Cursor_X = MenuNumber * 60;
-	DrawTriangle(260, 360 + Cursor_X, 290, 380 + Cursor_X, 260, 400 + Cursor_X, GetColor(255, 0, 0), TRUE);*/
+	DrawTriangle(260 + Cursor_X, 360, 290 + Cursor_X, 380, 260 + Cursor_X, 400, GetColor(255, 0, 0), TRUE);
+
+	//プレイヤー操作
+	if (Player == 1) {
+		DrawString(100, 100, "プレイヤーはウサギ", 0xffffff);
+	}
+	else {
+		DrawString(300, 100, "プレイヤーは猟犬", 0xffffff);
+	}
+
 }

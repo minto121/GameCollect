@@ -14,6 +14,7 @@
     <ClCompile Include="sinkeisuijaku.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
+    <ClCompile Include="Rabbit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
@@ -28,5 +29,6 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="RabbitAndHounds.h" />
   </ItemGroup>
 </Project>
