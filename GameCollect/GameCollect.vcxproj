@@ -157,6 +157,7 @@
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Porker.cpp" />
+    <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
