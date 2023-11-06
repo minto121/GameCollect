@@ -176,10 +176,10 @@ void HitAndBlow::Draw() const
 			}
 			/* ジャッジ用の描画処理を書く */
 			for (int j = 0; j < SaveHit[i]; j++) {
-				DrawGraph(215 + (j % 2) * 40 + i * 80, 50 + (j / 2) * 40, HitImg, TRUE);
+				DrawGraph(215 + (j % 2) * 35 + i * 80, 50 + (j / 2) * 40, HitImg, TRUE);
 			}
 			for (int k = 0; k < SaveBlow[i]; k++) {
-				DrawGraph(215 + ((SaveHit[i] + k) % 2) * 40 + i * 80, 50 + ((SaveHit[i] + k) / 2) * 40, BlowImg, TRUE);
+				DrawGraph(215 + ((SaveHit[i] + k) % 2) * 35 + i * 80, 50 + ((SaveHit[i] + k) / 2) * 40, BlowImg, TRUE);
 			}
 		}
 	}
@@ -208,10 +208,36 @@ void HitAndBlow::Judgment()
 		if (Reasoning[i] == Answer[i]) {
 			Hit++; // hitに１を足す
 		}
-		else if (Reasoning[i] == Answer[(i + 1) % 4] || Reasoning[i] == Answer[(i + 2) % 4] || Reasoning[i] == Answer[(i + 3) % 4]) {
-			Blow++; // blowに１を足す
+		else if (Reasoning[i] == Answer[(i + 1) % 4] || Reasoning[i] == Answer[(i + 2) % 4] || Reasoning[i] == Answer[(i + 3) % 4]) { // 色だけが当たっているとき、
+			/* 色がどこかしら被っていた時の処理 */
+			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) {	
+				if (Reasoning[i] == Reasoning[(i + 1) % 4] && Reasoning[(i + 1) % 4] != Answer[(i + 1) % 4]) {// 被っている場所の色がヒットしていないか確認	
+					if (Reasoning[(i + 1) % 4] != Reasoning[(i + 2) % 4] && Reasoning[(i + 1) % 4] != Reasoning[(i + 3) % 4]) {// 2重に判定していないか確認
+						if ((i + 1) / 4 == 0) {// ブローが２重に加算されていなければ、
+							Blow++; // blowに１を足す
+						}
+					}
+				}
+				// その場所の色がヒットしていなくて、ブローが２重に加算されていなければ、
+				if (Reasoning[i] == Reasoning[(i + 2) % 4] && Reasoning[(i + 2) % 4] != Answer[(i + 2) % 4]) {
+					if (Reasoning[(i + 2) % 4] != Reasoning[(i + 3) % 4]) { // 2重に判定していないか確認
+						if ((i + 2) / 4 == 0) {// ブローが２重に加算されていなければ、
+							Blow++; // blowに１を足す
+						}
+					}
+				}
+				// その場所の色がヒットしていなくて、ブローが２重に加算されていなければ、
+				if (Reasoning[i] == Reasoning[(i + 3) % 4] && Reasoning[(i + 3) % 4] != Answer[(i + 3) % 4]) {
+					if ((i + 3) / 4 == 0) {// ブローが２重に加算されていなければ、
+						Blow++; // blowに１を足す
+					}	
+				}
+			}
+			else { // 他の色被っていなければ
+				Blow++; // blowに１を足す
+			}
 		}
 	}
-	SaveHit[Turns] = Hit;
-	SaveBlow[Turns] = Blow;
+	SaveHit[Turns] = Hit; // そのターンのヒットした数を格納
+	SaveBlow[Turns] = Blow;// そのターンのブローした数を格納
 }

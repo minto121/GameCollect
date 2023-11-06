@@ -3,6 +3,7 @@
 #include"PadInput.h"
 #include "DxLib.h"
 #include "sinkeisuijaku.h"
+#include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
@@ -66,6 +67,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case LEVEL::HARD:
 		return new GameMain(current_selection);
 		break;*/
+	case SELECT::Hitblow:
+		return new HitAndBlow();
+		break;
 
 	default:
 		printfDx("ñ¢é¿ëïÇ»ã@î\Ç≈Ç∑ÅB\n");
