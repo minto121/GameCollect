@@ -25,14 +25,39 @@ Mankara::Mankara()
 		P2Pocket[y]+=1;
 	}
 
+	for (int i = 0; i < 8; i++) {
+		redStone[i] = StoneImg[1];
+	}
+
+	for (int i = 0; i < 8; i++) {
+		blueStone[i] = StoneImg[5];
+	}
+
+	for (int i = 0; i < 8; i++) {
+		greenStone[i] = StoneImg[3];
+	}
+
+	for (int i = 0; i < 8; i++) {
+		yellowStone[i] = StoneImg[0];
+	}
+
+	for (int i = 0; i < 8; i++) {
+		purpleStone[i] = StoneImg[2];
+	}
+
+	for (int i = 0; i < 8; i++) {
+		whiteStone[i] = StoneImg[4];
+	}
+
+
+
+
 }
 
  AbstractScene* Mankara:: Update()
 {
 
-	 /****************************
-	 * プレイヤー行動制限
-	 *****************************/ 
+	
 	 // 相手のターンはプレイヤーは動かない
 	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
 		 P2Turn = 1;
@@ -44,9 +69,7 @@ Mankara::Mankara()
 		 P2Turn = 0;
 	 }
 
-	 /****************************
-	* プレイヤーポケット選択
-	*****************************/
+	
 	 if (P1Turn == 1) {
 		 // ポケットの選択
 		 // 右に移動
@@ -81,9 +104,7 @@ Mankara::Mankara()
 		 }
 	 }
 
-	 /****************************
-	* プレイヤー 石の移動処理
-	*****************************/
+	
 	 //1P用石の移動処理
 	 if (P1Turn == 1) {
 		 if (Pocket_cnt == 0) {
@@ -222,12 +243,37 @@ void Mankara::Draw()const
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
 
-	DrawGraph(300, 430, StoneImg[0], TRUE);
-	DrawGraph(300, 450, StoneImg[1], TRUE);
-	DrawGraph(300, 470, StoneImg[2], TRUE);
-	DrawGraph(300, 490, StoneImg[3], TRUE);
-	DrawGraph(300, 510, StoneImg[4], TRUE);
-	DrawGraph(300, 530, StoneImg[5], TRUE);
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300+i*120, 430, redStone[i], TRUE);
+
+	}
+	
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300+i*120, 450, blueStone[i], TRUE);
+	}
+
+
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300+i*120, 470, greenStone[i], TRUE);
+	}
+	
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300+i*120, 490, yellowStone[i], TRUE);
+
+	}
+	
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300+i*20, 510, purpleStone[i], TRUE);
+
+	}
+	
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300+i*20, 530, whiteStone[i], TRUE);
+
+	}
+	
+
+	
 
     // 1Pターン時のポケット移動
 	if (P1Turn == 1) {
@@ -236,16 +282,16 @@ void Mankara::Draw()const
 				
 			}
 			else if (Pocket_cnt == 2) {
-				DrawBox(385 + 100, 385, 485 + 100, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), FALSE);
 
 			}else if (Pocket_cnt == 3) {
-				DrawBox(385 + 200, 385, 485 + 200, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(645, 385, 745, 600, GetColor(255, 0, 0), FALSE);
 
 			}else if (Pocket_cnt == 4) {
-				DrawBox(385 + 300, 385, 485 + 300, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(770, 385, 870, 600, GetColor(255, 0, 0), FALSE);
 
 			}else if (Pocket_cnt == 5) {
-				DrawBox(385 + 400, 385, 485 + 400, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(900, 385, 1000, 600, GetColor(255, 0, 0), FALSE);
 
 			}
 			else {
@@ -286,8 +332,6 @@ void Mankara::Draw()const
 		DrawFormatString(900 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
 	}
 	
-	DrawCircle(500, 500, GetColor(0, 0, 0), P1Pocket[0], FALSE);
-
 	// ターン切り替え
 	if (P2Turn == 1 ) {
 		DrawFormatString(200,200,GetColor(255,255,255),"2P TURN");
