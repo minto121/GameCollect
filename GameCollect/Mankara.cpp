@@ -10,38 +10,7 @@ Mankara::Mankara()
 	P1BigPocket = 0;
 	P2BigPocket = 0;
 	Pocket_cnt = 0;
-	//for (int i = 0; i < 8; i++) {
-	//	Stone[i].x = 500;
-	//	Stone[i].y = 500;br
-	//	Stone[i].detection = 1;
-	//	Stone[i].Event = 0;
-	//	Stone[i].count = 0;
-	//	Stone[i].Flg = 0;
-	//}
-
-	/*for (int i = 0; i < 8; i++) {
-		redStone[i]++;
-	}
-
-	for (int i = 0; i < 8; i++) {
-		blueStone[i]++;
-	}
-
-	for (int i = 0; i < 8; i++) {
-		greenStone[i]++;
-	}
-
-	for (int i = 0; i < 8; i++) {
-		yellowStone[i]++;
-	}
 	
-	for (int i = 0; i < 8; i++) {
-		purpleStone[i]++;
-	}
-	
-	for (int i = 0; i < 8; i++) {
-		whiteStone[i]++;
-	}*/
 	Stone[i][j];
 	P1Pocket[0] = 1;
 	P2Pocket[0] = 1;
@@ -60,6 +29,10 @@ Mankara::Mankara()
 
  AbstractScene* Mankara:: Update()
 {
+
+	 /****************************
+	 * プレイヤー行動制限
+	 *****************************/ 
 	 // 相手のターンはプレイヤーは動かない
 	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
 		 P2Turn = 1;
@@ -71,37 +44,176 @@ Mankara::Mankara()
 		 P2Turn = 0;
 	 }
 
+	 /****************************
+	* プレイヤーポケット選択
+	*****************************/
 	 if (P1Turn == 1) {
-		 if (PAD_INPUT::OnPressed(KEY_INPUT_D)) {
-			 P1Pocket[i + 1];
-			 if (PAD_INPUT::OnPressed(KEY_INPUT_Z)) {
-				 P1Pocket[i] = TRUE;
+		 // ポケットの選択
+		 // 右に移動
+		 if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			 Pocket_cnt++;
+			 if (Pocket_cnt > 5) {
+				 Pocket_cnt = 0;
+			 }
+		 } // 左に移動
+		 else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+			 Pocket_cnt--;
+			 if (Pocket_cnt < 0) {
+				 Pocket_cnt = 5;
+			 }
+		 }
+	 }
+
+	 if (P2Turn == 1) {
+		 // ポケットの選択
+		 // 右に移動
+		 if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			 Pocket_cnt++;
+			 if (Pocket_cnt > 5) {
+				 Pocket_cnt = 0;
+			 }
+		 } // 左に移動
+		 else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+			 Pocket_cnt--;
+			 if (Pocket_cnt < 0) {
+				 Pocket_cnt = 5;
+			 }
+		 }
+	 }
+
+	 /****************************
+	* プレイヤー 石の移動処理
+	*****************************/
+	 //1P用石の移動処理
+	 if (P1Turn == 1) {
+		 if (Pocket_cnt == 0) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P1Pocket[0] = TRUE;
+				 P1Pocket[1] = FALSE;
+				 P1Pocket[2] = FALSE;
+				 P1Pocket[3] = FALSE;
+				 P1Pocket[4] = FALSE;
+				 P1Pocket[5] = FALSE;
+
+			 }
+		 }
+		 else if (Pocket_cnt == 1) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P1Pocket[0] = FALSE;
+				 P1Pocket[1] = TRUE;
+				 P1Pocket[2] = FALSE;
+				 P1Pocket[3] = FALSE;
+				 P1Pocket[4] = FALSE;
+				 P1Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 2) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P1Pocket[0] = FALSE;
+				 P1Pocket[1] = FALSE;
+				 P1Pocket[2] = TRUE;
+				 P1Pocket[3] = FALSE;
+				 P1Pocket[4] = FALSE;
+				 P1Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 3) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P1Pocket[0] = FALSE;
+				 P1Pocket[1] = FALSE;
+				 P1Pocket[2] = FALSE;
+				 P1Pocket[3] = TRUE;
+				 P1Pocket[4] = FALSE;
+				 P1Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 4) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P1Pocket[0] = FALSE;
+				 P1Pocket[1] = FALSE;
+				 P1Pocket[2] = FALSE;
+				 P1Pocket[3] = FALSE;
+				 P1Pocket[4] = TRUE;
+				 P1Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 5) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P1Pocket[0] = FALSE;
+				 P1Pocket[1] = FALSE;
+				 P1Pocket[2] = FALSE;
+				 P1Pocket[3] = FALSE;
+				 P1Pocket[4] = FALSE;
+				 P1Pocket[5] = TRUE;
+			 }
+		 }
+	 }
+
+	 //2P用石の移動処理
+	 if (P2Turn == 1) {
+		 if (Pocket_cnt == 0) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P2Pocket[0] = TRUE;
+				 P2Pocket[1] = FALSE;
+				 P2Pocket[2] = FALSE;
+				 P2Pocket[3] = FALSE;
+				 P2Pocket[4] = FALSE;
+				 P2Pocket[5] = FALSE;
+
+			 }
+		 }
+		 else if (Pocket_cnt == 1) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P2Pocket[0] = FALSE;
+				 P2Pocket[1] = TRUE;
+				 P2Pocket[2] = FALSE;
+				 P2Pocket[3] = FALSE;
+				 P2Pocket[4] = FALSE;
+				 P2Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 2) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P2Pocket[0] = FALSE;
+				 P2Pocket[1] = FALSE;
+				 P2Pocket[2] = TRUE;
+				 P2Pocket[3] = FALSE;
+				 P2Pocket[4] = FALSE;
+				 P2Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 3) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P2Pocket[0] = FALSE;
+				 P2Pocket[1] = FALSE;
+				 P2Pocket[2] = FALSE;
+				 P2Pocket[3] = TRUE;
+				 P2Pocket[4] = FALSE;
+				 P2Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 4) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P2Pocket[0] = FALSE;
+				 P2Pocket[1] = FALSE;
+				 P2Pocket[2] = FALSE;
+				 P2Pocket[3] = FALSE;
+				 P2Pocket[4] = TRUE;
+				 P2Pocket[5] = FALSE;
+			 }
+		 }
+		 else if (Pocket_cnt == 5) {
+			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 P2Pocket[0] = FALSE;
+				 P2Pocket[1] = FALSE;
+				 P2Pocket[2] = FALSE;
+				 P2Pocket[3] = FALSE;
+				 P2Pocket[4] = FALSE;
+				 P2Pocket[5] = TRUE;
 			 }
 		 }
 	 }
 	 
-	 // ポケットの選択
-	 // 右に移動
-	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-		 Pocket_cnt++;
-		 if (Pocket_cnt > 5) {
-			 Pocket_cnt = 0;
-		 }
-	 } // 左に移動
-	 else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-		 Pocket_cnt--;
-		 if (Pocket_cnt < 0) {
-			 Pocket_cnt = 5;
-		 }
-	 }
-
-
-	 if (Pocket_cnt == 1) {
-		 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-			 P1Pocket[0] = TRUE;
-		 }
-	 }
-
 	return this;
 }
 
@@ -117,7 +229,7 @@ void Mankara::Draw()const
 	DrawGraph(300, 510, StoneImg[4], TRUE);
 	DrawGraph(300, 530, StoneImg[5], TRUE);
 
-
+    // 1Pターン時のポケット移動
 	if (P1Turn == 1) {
 			if (Pocket_cnt == 1) {
 				DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
@@ -140,22 +252,33 @@ void Mankara::Draw()const
 				DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), FALSE);
 			}
 	}
-	
-	//DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), TRUE);
-	//DrawBox(645, 385, 745, 600, GetColor(255, 0, 0), TRUE);
-	//DrawBox(770, 385, 870, 600, GetColor(255, 0, 0), TRUE);
-	//DrawBox(900, 385, 1000, 600, GetColor(255, 0, 0), TRUE);
 
 
-	//DrawBox(1030, 150, 1160, 600, GetColor(255, 0, 0), TRUE);
+	// 2Pターン時のポケット移動
+	if (P2Turn == 1) {
+		if (Pocket_cnt == 1) {
+			DrawBox(255, 85, 355, 300, GetColor(255, 0, 0), FALSE);
+		}
+		else if (Pocket_cnt == 2) {
+			DrawBox(385, 85, 485, 300, GetColor(255, 0, 0), FALSE);
 
-	//DrawBox(255, 85, 355, 300, GetColor(255, 0, 0), TRUE);
-	//DrawBox(385, 85, 485, 300, GetColor(255, 0, 0), TRUE);
-	//DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), TRUE);
-	//DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), TRUE);
-	//DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), TRUE);
-	//DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), TRUE);
+		}
+		else if (Pocket_cnt == 3) {
+			DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), FALSE);
 
+		}
+		else if (Pocket_cnt == 4) {
+			DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), FALSE);
+
+		}
+		else if (Pocket_cnt == 5) {
+			DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), FALSE);
+
+		}
+		else {
+			DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), FALSE);
+		}
+	}
 	
 
 	for (int i = 0; i < 6; i++) {
@@ -181,24 +304,30 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 
 		if (P1Pocket[0] == TRUE) {
-
+			DrawFormatString(100, 100, GetColor(255, 255, 255),"1P TRUE");
 		}
 		else if (P1Pocket[1] == TRUE) {
+			DrawFormatString(100, 100, GetColor(255, 0, 0), "1P TRUE");
 
 		}
 		else if (P1Pocket[2] == TRUE) {
+			DrawFormatString(100, 100, GetColor(0, 255, 0), "1P TRUE");
 
 		}
 		else if (P1Pocket[3] == TRUE) {
+			DrawFormatString(100, 100, GetColor(0, 0, 255), "1P TRUE");
 
 		}
 		else if (P1Pocket[4] == TRUE) {
+			DrawFormatString(100, 100, GetColor(255, 255, 0), "1P TRUE");
 
 		}
 		else if (P1Pocket[5] == TRUE) {
-		
+			DrawFormatString(100, 100, GetColor(255, 0, 255), "1P TRUE");
+
 		}
 		else if (P1Pocket[6] == TRUE) {
+			DrawFormatString(100, 100, GetColor(0, 255, 255), "1P TRUE");
 
 		}
 
@@ -209,24 +338,31 @@ void Mankara::Draw()const
 	if (P2Turn == 1) {
 
 		if (P2Pocket[0] == TRUE) {
+			DrawFormatString(100, 100, GetColor(255, 255, 255), "2P TRUE");
 
 		}
 		else if (P2Pocket[1] == TRUE) {
+			DrawFormatString(100, 100, GetColor(255, 0, 0), "2P TRUE");
 
 		}
 		else if (P2Pocket[2] == TRUE) {
+			DrawFormatString(100, 100, GetColor(0, 255, 0), "2P TRUE");
 
 		}
 		else if (P2Pocket[3] == TRUE) {
+			DrawFormatString(100, 100, GetColor(0, 0, 255), "2P TRUE");
 
 		}
 		else if (P2Pocket[4] == TRUE) {
+			DrawFormatString(100, 100, GetColor(255, 255, 0), "2P TRUE");
 
 		}
 		else if (P2Pocket[5] == TRUE) {
-		
+			DrawFormatString(100, 100, GetColor(255, 0, 255), "2P TRUE");
+
 		}
 		else if (P2Pocket[6] == TRUE) {
+			DrawFormatString(100, 100, GetColor(0, 255, 255), "2P TRUE");
 
 		}
 	}
