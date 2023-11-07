@@ -9,6 +9,7 @@ Mankara::Mankara()
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
+	Pocket_cnt = 0;
 	//for (int i = 0; i < 8; i++) {
 	//	Stone[i].x = 500;
 	//	Stone[i].y = 500;br
@@ -79,6 +80,28 @@ Mankara::Mankara()
 		 }
 	 }
 	 
+	 // ポケットの選択
+	 // 右に移動
+	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+		 Pocket_cnt++;
+		 if (Pocket_cnt > 5) {
+			 Pocket_cnt = 0;
+		 }
+	 } // 左に移動
+	 else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+		 Pocket_cnt--;
+		 if (Pocket_cnt < 0) {
+			 Pocket_cnt = 5;
+		 }
+	 }
+
+
+	 if (Pocket_cnt == 1) {
+		 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+			 P1Pocket[0] = TRUE;
+		 }
+	 }
+
 	return this;
 }
 
@@ -94,15 +117,28 @@ void Mankara::Draw()const
 	DrawGraph(300, 510, StoneImg[4], TRUE);
 	DrawGraph(300, 530, StoneImg[5], TRUE);
 
-	//DrawBox(100, 100, 225, 550, GetColor(255, 0, 0), TRUE);
+
 	if (P1Turn == 1) {
-		// 左に移動
-		if (PAD_INPUT::OnButton(KEY_INPUT_H)) {
-			DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
-		}
-		else {
-			DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), FALSE);
-		}
+			if (Pocket_cnt == 1) {
+				DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
+				
+			}
+			else if (Pocket_cnt == 2) {
+				DrawBox(385 + 100, 385, 485 + 100, 600, GetColor(255, 0, 0), FALSE);
+
+			}else if (Pocket_cnt == 3) {
+				DrawBox(385 + 200, 385, 485 + 200, 600, GetColor(255, 0, 0), FALSE);
+
+			}else if (Pocket_cnt == 4) {
+				DrawBox(385 + 300, 385, 485 + 300, 600, GetColor(255, 0, 0), FALSE);
+
+			}else if (Pocket_cnt == 5) {
+				DrawBox(385 + 400, 385, 485 + 400, 600, GetColor(255, 0, 0), FALSE);
+
+			}
+			else {
+				DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), FALSE);
+			}
 	}
 	
 	//DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), TRUE);
@@ -120,20 +156,7 @@ void Mankara::Draw()const
 	//DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), TRUE);
 	//DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), TRUE);
 
-	for (int i = 0; i < 2; i++) {
-		for (int RINE = 0; RINE < 6; RINE++) {
-			//if (putnember > 0) { 
-			   /* Pocket1[1][RINE] += 1;*/
-				// putnember--;
-			//}
-		}
-	}
-
-	for (int i = 0; i < 6; i++) {
-		for (int j = 0; j < 8; j++) {
-
-		}
-	}
+	
 
 	for (int i = 0; i < 6; i++) {
 		DrawFormatString(700 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);

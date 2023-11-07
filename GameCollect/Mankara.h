@@ -53,6 +53,8 @@ private:
 
 	int StoneImg[6];
 
+	int Pocket_cnt;
+
 public:
 	Mankara();
 	AbstractScene* Update();
