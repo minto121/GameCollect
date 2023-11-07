@@ -3,6 +3,7 @@
 LastCard::LastCard()
 {
 	Card;
+	CardImg;
 }
 
 LastCard::~LastCard()
