@@ -133,7 +133,7 @@ AbstractScene* HitAndBlow::Update()
 
 void HitAndBlow::Draw() const
 {
-	DrawGraph(0, 0, TableBgImg, TRUE); // 背景画像表示
+	DrawGraph(0, 0, TableBgImg, FALSE); // 背景画像表示(透明OFF)
 
 	DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
 
@@ -143,50 +143,51 @@ void HitAndBlow::Draw() const
 	DrawTriangle(300 + SidePosition * 100, 575, 350 + SidePosition * 100, 625, 300 + SidePosition * 100, 675, 0xff0000, TRUE); // どこの駒を指しているのか表示
 	DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 
-	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Turns); // デバック用
+	DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Hit); // デバック用
 
 	/* 正解の駒表示 */
-	if (DecisionFlg == FALSE) { // 正解が決まっていて、8ターン経過か、4ヒットしたら表示
+	if (DecisionFlg == FALSE && SaveHit[Turns - 1] == 4 || Turns == 8) { // 正解が決まっていて、8ターン経過か、4ヒットしたら表示
 		for (int i = 0; i < 4; i++) {
-			DrawGraph(1100, 170 + i * 75, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
-		}
-		//DrawFormatString(100, 700, 0xffffff, "Turnsは%d", Reasoning[WarpPosition]); // デバック用
-		/* 予想したカラーを表示する */
-		if (ColorFlg == TRUE || Reasoning[WarpPosition % 4] >= 0) {
-			DrawGraph(92 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
-		}
-		if (ColorFlg == TRUE || Reasoning[(WarpPosition + 1) % 4] >= 0) {
-			DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
-		}
-		if (ColorFlg == TRUE || Reasoning[(WarpPosition + 2) % 4] >= 0) {
-			DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
-		}
-		if (ColorFlg == TRUE || Reasoning[(WarpPosition + 3) % 4] >= 0) {
-			DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
-		}
-		/* 過去に入れた色を表示 */
-		for (int i = 0; i < Turns; i++) {
-			if (SaveReasoning[i][0] >= 0) {
-				DrawGraph(92 + i * 130, 222, ColorImg[SaveReasoning[i][0]], TRUE);
-			}
-			if (SaveReasoning[i][1] >= 0) {
-				DrawGraph(92 + i * 130, 222 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
-			}
-			if (SaveReasoning[i][2] >= 0) {
-				DrawGraph(92 + i * 130, 222 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
-			}
-			if (SaveReasoning[i][3] >= 0) {
-				DrawGraph(92 + i * 130, 222 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
-			}
-			/* ジャッジ用の描画処理を書く */
-			for (int j = 0; j < SaveHit[i]; j++) {
-				DrawGraph(80 + (j % 2) * 35 + i * 130, 100 + (j / 2) * 40, HitBlowImg[1], TRUE);
-			}
-			for (int k = 0; k < SaveBlow[i]; k++) {
-				DrawGraph(80 + ((SaveHit[i] + k) % 2) * 35 + i * 130, 100 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
-			}
+			DrawGraph(1100, 220 + i * 80, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
 		}
 	}
+	//DrawFormatString(100, 700, 0xffffff, "Turnsは%d", Reasoning[WarpPosition]); // デバック用
+	/* 予想したカラーを表示する */
+	if (ColorFlg == TRUE || Reasoning[WarpPosition % 4] >= 0) {
+		DrawGraph(92 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
+	}
+	if (ColorFlg == TRUE || Reasoning[(WarpPosition + 1) % 4] >= 0) {
+		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
+	}
+	if (ColorFlg == TRUE || Reasoning[(WarpPosition + 2) % 4] >= 0) {
+		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
+	}
+	if (ColorFlg == TRUE || Reasoning[(WarpPosition + 3) % 4] >= 0) {
+		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
+	}
+	/* 過去に入れた色を表示 */
+	for (int i = 0; i < Turns; i++) {
+		if (SaveReasoning[i][0] >= 0) {
+			DrawGraph(92 + i * 130, 222, ColorImg[SaveReasoning[i][0]], TRUE);
+		}
+		if (SaveReasoning[i][1] >= 0) {
+			DrawGraph(92 + i * 130, 222 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
+		}
+		if (SaveReasoning[i][2] >= 0) {
+			DrawGraph(92 + i * 130, 222 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
+		}
+		if (SaveReasoning[i][3] >= 0) {
+			DrawGraph(92 + i * 130, 222 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
+		}
+		/* ジャッジ用の描画処理を書く */
+		for (int j = 0; j < SaveHit[i]; j++) {
+			DrawGraph(80 + (j % 2) * 35 + i * 130, 100 + (j / 2) * 40, HitBlowImg[1], TRUE);
+		}
+		for (int k = 0; k < SaveBlow[i]; k++) {
+			DrawGraph(80 + ((SaveHit[i] + k) % 2) * 35 + i * 130, 100 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
+		}
+	}
+	
 }
 
 void HitAndBlow::RandomDecision()
