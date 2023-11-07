@@ -1,4 +1,5 @@
 #include"RabbitAndHounds.h"
+#include "Rabbit.h"
 #include "DxLib.h"
 #include "PadInput.h"
 #include<iostream>
@@ -35,42 +36,31 @@ RabbitAndHounds::~RabbitAndHounds()
 
 AbstractScene* RabbitAndHounds::Update()
 {
+	//十字キー右 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 		Cursor_X = 480;
-		if (XINPUT_BUTTON_A)
-		{
-			Player = 1;
-		}
+		Player = 1;
 	}
-	
+	//十字キー左
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 		Cursor_X = -10;
-		if (XINPUT_BUTTON_A)
-		{
-			Player = 2;
-		}
+		Player = 2;
+	}
+	
+	//Aボタンを押してプレイヤーの操作する方を選ぶ
+	if (Cursor_X <= 300 && PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+	{
+		return new Rabbit();
+	}
+	else if (Cursor_X >= 300 && PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+	{
 	}
 		return this;
 }
 
 //void RabbitAndHounds::RabbitPiece()
 //{
-//	//ウサギ座標
-//	rabbit_X = 100, rabbit_Y = 100;
-//
-//	// ウサギを移動
-//	if (CheckHitKey(KEY_INPUT_UP)) {
-//		rabbit_Y -= rabbitSpeed;
-//	}
-//	if (CheckHitKey(KEY_INPUT_DOWN)) {
-//		rabbit_Y += rabbitSpeed;
-//	}
-//	if (CheckHitKey(KEY_INPUT_LEFT)) {
-//		rabbit_X -= rabbitSpeed;
-//	}
-//	if (CheckHitKey(KEY_INPUT_RIGHT)) {
-//		rabbit_X += rabbitSpeed;
-//	}
+//	
 //}
 //
 //void RabbitAndHounds::HoundIPiece()
@@ -97,19 +87,19 @@ void RabbitAndHounds::Draw() const
 	//背景画像
 	DrawGraph(0, 0, BackGroundImg, TRUE);
 
-	SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
+	//SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
 
-	// 画面に映る位置に３Ｄモデルを移動
-	MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
-	MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
+	//// 画面に映る位置に３Ｄモデルを移動
+	//MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
+	//MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
 
-	//3Dモデルの描画
-	MV1DrawModel(HoundImg);
-	MV1DrawModel(RabbitImg);
+	////3Dモデルの描画
+	//MV1DrawModel(HoundImg);
+	//MV1DrawModel(RabbitImg);
 
 	// ウサギと猟犬を描画
-	DrawBox(rabbit_X, rabbit_Y, rabbit_X-1, rabbit_Y-1, GetColor(0, 0, 255), TRUE);
-	DrawCircle(hound_X, hound_Y, hound_X-1, hound_Y-1, GetColor(0, 0, 255), TRUE);
+	/*DrawBox(rabbit_X, rabbit_Y, rabbit_X-1, rabbit_Y-1, GetColor(0, 0, 255), TRUE);
+	DrawCircle(hound_X, hound_Y, hound_X-1, hound_Y-1, GetColor(0, 0, 255), TRUE);*/
 
 	
 
@@ -125,7 +115,8 @@ void RabbitAndHounds::Draw() const
 	if (Player != 1) {
 		DrawString(100, 100, "プレイヤーはウサギ", 0xffffff);
 	}
-	else {
+	else
+	{
 		DrawString(600, 100, "プレイヤーは猟犬", 0xffffff);
 	}
 

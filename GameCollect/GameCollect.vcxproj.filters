@@ -30,5 +30,6 @@
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="RabbitAndHounds.h" />
+    <ClInclude Include="Rabbit.h" />
   </ItemGroup>
 </Project>

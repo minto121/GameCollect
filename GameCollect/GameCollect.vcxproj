@@ -173,6 +173,7 @@
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
+    <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
