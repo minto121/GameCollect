@@ -6,10 +6,9 @@
 
 HitAndBlow::HitAndBlow()
 {
-	//// ヒットした時の画像読込
-	//HitImg = LoadGraph("../images/HitAndBlow/HitPin.png");
-	//// ブローした時の画像読込
-	//BlowImg = LoadGraph("../images/HitAndBlow/BlowPin.png");
+	TableBgImg = LoadGraph("../images/HitAndBlow/BackGround02.png");
+
+	BoardImg = LoadGraph("../images/HitAndBlow/HitBlowBoard.png");
 
 	LoadDivGraph("../images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
 	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
@@ -122,7 +121,7 @@ AbstractScene* HitAndBlow::Update()
 			ColorDecision = WarpPosition; // 入れたい縦の位置を保存
 			Reasoning[ColorDecision] = SidePosition;  // 色を場所に配置
 			WarpPosition++;
-			if (WarpPosition > 3) WarpPosition = 3; // 位置が3を超えたら、3にする
+			if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、3にする
 		}
 	}
 	else {
@@ -134,11 +133,15 @@ AbstractScene* HitAndBlow::Update()
 
 void HitAndBlow::Draw() const
 {
-	for (int i = 0; i < 7; i++) { // 駒を表示
+	DrawGraph(0, 0, TableBgImg, TRUE); // 背景画像表示
+
+	DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
+
+	for (int i = 0; i < 6; i++) { // 駒を表示
 		DrawGraph(350 + i * 100, 600, ColorImg[i], TRUE); // それぞれの色の駒を表示(位置は決定)
 	}
 	DrawTriangle(300 + SidePosition * 100, 575, 350 + SidePosition * 100, 625, 300 + SidePosition * 100, 675, 0xff0000, TRUE); // どこの駒を指しているのか表示
-	DrawBox(200 + Turns * 70, 100 + WarpPosition * 100, 280 + Turns * 70, 180 + WarpPosition * 100, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
+	DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 
 	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Turns); // デバック用
 
@@ -150,37 +153,37 @@ void HitAndBlow::Draw() const
 		//DrawFormatString(100, 700, 0xffffff, "Turnsは%d", Reasoning[WarpPosition]); // デバック用
 		/* 予想したカラーを表示する */
 		if (ColorFlg == TRUE || Reasoning[WarpPosition % 4] >= 0) {
-			DrawGraph(215 + Turns * 70, 115 + WarpPosition * 100, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
+			DrawGraph(92 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
 		}
 		if (ColorFlg == TRUE || Reasoning[(WarpPosition + 1) % 4] >= 0) {
-			DrawGraph(215 + Turns * 70, 115 + (WarpPosition + 1) % 4 * 100, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
+			DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
 		}
 		if (ColorFlg == TRUE || Reasoning[(WarpPosition + 2) % 4] >= 0) {
-			DrawGraph(215 + Turns * 70, 115 + (WarpPosition + 2) % 4 * 100, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
+			DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
 		}
 		if (ColorFlg == TRUE || Reasoning[(WarpPosition + 3) % 4] >= 0) {
-			DrawGraph(215 + Turns * 70, 115 + (WarpPosition + 3) % 4 * 100, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
+			DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
 		}
 		/* 過去に入れた色を表示 */
 		for (int i = 0; i < Turns; i++) {
 			if (SaveReasoning[i][0] >= 0) {
-				DrawGraph(215 + i * 70, 115, ColorImg[SaveReasoning[i][0]], TRUE);
+				DrawGraph(92 + i * 130, 222, ColorImg[SaveReasoning[i][0]], TRUE);
 			}
 			if (SaveReasoning[i][1] >= 0) {
-				DrawGraph(215 + i * 70, 115 + 1 * 100, ColorImg[SaveReasoning[i][1]], TRUE);
+				DrawGraph(92 + i * 130, 222 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
 			}
 			if (SaveReasoning[i][2] >= 0) {
-				DrawGraph(215 + i * 70, 115 + 2 * 100, ColorImg[SaveReasoning[i][2]], TRUE);
+				DrawGraph(92 + i * 130, 222 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
 			}
 			if (SaveReasoning[i][3] >= 0) {
-				DrawGraph(215 + i * 70, 115 + 3 * 100, ColorImg[SaveReasoning[i][3]], TRUE);
+				DrawGraph(92 + i * 130, 222 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
 			}
 			/* ジャッジ用の描画処理を書く */
 			for (int j = 0; j < SaveHit[i]; j++) {
-				DrawGraph(215 + (j % 2) * 35 + i * 80, 50 + (j / 2) * 40, HitBlowImg[1], TRUE);
+				DrawGraph(80 + (j % 2) * 35 + i * 130, 100 + (j / 2) * 40, HitBlowImg[1], TRUE);
 			}
 			for (int k = 0; k < SaveBlow[i]; k++) {
-				DrawGraph(215 + ((SaveHit[i] + k) % 2) * 35 + i * 80, 50 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
+				DrawGraph(80 + ((SaveHit[i] + k) % 2) * 35 + i * 130, 100 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
 			}
 		}
 	}
@@ -228,7 +231,7 @@ void HitAndBlow::Judgment()
 					}
 				}
 				// その場所の色がヒットしていなくて、ブローが２重に加算されていなければ、
-				if (Reasoning[i] == Reasoning[(i + 3) % 4] && Reasoning[(i + 3) % 4] != Answer[(i + 3) % 4]) {
+				if (Reasoning[i] == Reasoning[(i + 3) % 4] && Reasoning[(i + 3) % 4] != Answer[(i + 3) % 4] && Reasoning[(i + 2) % 4] != Answer[(i + 2) % 4] && Reasoning[(i + 1) % 4] != Answer[(i + 1) % 4]) {
 					if ((i + 3) / 4 == 0) {// ブローが２重に加算されていなければ、
 						Blow++; // blowに１を足す
 					}	
