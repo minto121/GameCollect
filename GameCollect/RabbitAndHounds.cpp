@@ -37,7 +37,7 @@ AbstractScene* RabbitAndHounds::Update()
 {
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 		Cursor_X = 480;
-		if (CheckHitKey(KEY_INPUT_A) && XINPUT_BUTTON_A)
+		if (XINPUT_BUTTON_A)
 		{
 			Player = 1;
 		}
@@ -45,7 +45,7 @@ AbstractScene* RabbitAndHounds::Update()
 	
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 		Cursor_X = -10;
-		if (CheckHitKey(KEY_INPUT_A) && XINPUT_BUTTON_A)
+		if (XINPUT_BUTTON_A)
 		{
 			Player = 2;
 		}
@@ -92,6 +92,9 @@ AbstractScene* RabbitAndHounds::Update()
 
 void RabbitAndHounds::Draw() const
 {
+	//タイトル
+	DrawString(10, 20, "ウサギと猟犬", 0xffffff);
+	//背景画像
 	DrawGraph(0, 0, BackGroundImg, TRUE);
 
 	SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
@@ -108,7 +111,8 @@ void RabbitAndHounds::Draw() const
 	DrawBox(rabbit_X, rabbit_Y, rabbit_X-1, rabbit_Y-1, GetColor(0, 0, 255), TRUE);
 	DrawCircle(hound_X, hound_Y, hound_X-1, hound_Y-1, GetColor(0, 0, 255), TRUE);
 
-	DrawString(10, 20, "ウサギと猟犬", 0xffffff);
+	
+
 	// 描画する文字列のサイズを設定
 	SetFontSize(50);
 	DrawString(300, 350, "ウサギ", 0xffffff);
@@ -117,12 +121,12 @@ void RabbitAndHounds::Draw() const
 	//カーソル描画
 	DrawTriangle(260 + Cursor_X, 360, 290 + Cursor_X, 380, 260 + Cursor_X, 400, GetColor(255, 0, 0), TRUE);
 
-	//プレイヤー操作
-	if (Player == 1) {
+	//プレイヤー操作決め
+	if (Player != 1) {
 		DrawString(100, 100, "プレイヤーはウサギ", 0xffffff);
 	}
 	else {
-		DrawString(300, 100, "プレイヤーは猟犬", 0xffffff);
+		DrawString(600, 100, "プレイヤーは猟犬", 0xffffff);
 	}
 
 }
