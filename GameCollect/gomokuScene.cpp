@@ -23,7 +23,7 @@ gomokuScene::gomokuScene()
 				gomoku_Banmen[x][y] = 0;
 			}
 	gomoku_Phase = 0;
-	Battle = 0;
+	gomoku_Battle = 0;
 }
 
 gomokuScene::~gomokuScene()
@@ -31,7 +31,7 @@ gomokuScene::~gomokuScene()
 
 AbstractScene* gomokuScene::Update()
 {
-	if (Battle == 0) { // 試合中なら実行する
+	if (gomoku_Battle == 0) { // 試合中なら実行する
 
 		g_OldKey = g_NowKey;
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -39,17 +39,29 @@ AbstractScene* gomokuScene::Update()
 
 		// カーソルを動かす処理
 		if (gomoku_Phase == 0) {
-			if (g_KeyFlg & PAD_INPUT_RIGHT && cX < 12) {
+			if (g_KeyFlg & PAD_INPUT_RIGHT && cX < 13) {
 				cX += 1;
+				if (g_KeyFlg & PAD_INPUT_RIGHT && cX == 13) {
+					cX = 0;
+				}
 			}
-			if (g_KeyFlg & PAD_INPUT_LEFT && cX > 0) {
+			if (g_KeyFlg & PAD_INPUT_LEFT && cX > -1) {
 				cX -= 1;
+				if (g_KeyFlg & PAD_INPUT_LEFT && cX == -1) {
+					cX = 12;
+				}
 			}
-			if (g_KeyFlg & PAD_INPUT_DOWN && cY < 12) {
+			if (g_KeyFlg & PAD_INPUT_DOWN && cY < 13) {
 				cY += 1;
+				if (g_KeyFlg & PAD_INPUT_DOWN && cY == 13) {
+					cY = 0;
+				}
 			}
-			if (g_KeyFlg & PAD_INPUT_UP && cY > 0) {
+			if (g_KeyFlg & PAD_INPUT_UP && cY > -1) {
 				cY -= 1;
+				if (g_KeyFlg & PAD_INPUT_UP && cY == -1) {
+					cY = 12;
+				}
 			}
 		}
 
@@ -58,6 +70,7 @@ AbstractScene* gomokuScene::Update()
 			if (gomoku_Phase == 0) {
 				bCount += 1;
 				gomoku_Banmen[cX][cY] = 1;
+				gomoku_Phase = 1;
 			}
 			/*else {
 				gomoku_Banmen[cX][cY] = 2;
@@ -78,14 +91,15 @@ AbstractScene* gomokuScene::Update()
 					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 && gomoku_Banmen[x - 4][y - 4] == 1 ||
 					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 && gomoku_Banmen[x + 4][y - 4] == 1 ||
 					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 1) {
-					Battle = 1;
+					gomoku_Battle = 1;
 				}
 			}
 		}
 		// ここからAI
-				/*if (gomoku_Phase == 1) {*/
+		if (gomoku_Battle == 0)
 		for (int y = 0; y < 13; y++)
-			for (int x = 0; x < 13; x++) {
+			for (int x = 0; x < 13; x++) 
+				if(gomoku_Phase == 1)
 				//// 盤面に黒が三つ並んでいて、両端に石が置かれていない場合白を置くプログラミング
 				//if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] && gomoku_Banmen[x][y + 3] ||
 				//	gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] && gomoku_Banmen[x + 3][y] ||
@@ -96,11 +110,12 @@ AbstractScene* gomokuScene::Update()
 				if (gomoku_Banmen[x][y] == 0 && gomoku_Phase == 1) {
 					wCount += 1;
 					gomoku_Banmen[x][y] = 2;
+					gomoku_Phase = 0;
 				}
 				/*}
 				else if()*/
-			}
 		/*}*/
+		
 		for (int y = 0; y < 13; y++) {
 			for (int x = 0; x < 13; x++) {
 				// 白(Banmen[x][y] = 2)の勝利判定
@@ -110,7 +125,7 @@ AbstractScene* gomokuScene::Update()
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 2 ||
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 && gomoku_Banmen[x + 4][y - 4] == 2 ||
 					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 2) {
-					Battle = 2;
+					gomoku_Battle = 2;
 				}
 				
 			}
@@ -135,22 +150,22 @@ void gomokuScene::Draw() const
 			}
 		}
 	}
-	if (gomoku_Phase == 0 && Battle == 0) {
+	if (gomoku_Phase == 0 && gomoku_Battle == 0) {
 		SetFontSize(60);
 		DrawFormatString(50, 300, 0xfffffff, "黒の手番");
 	}
-	if (gomoku_Phase == 1 && Battle == 0) {
+	if (gomoku_Phase == 1 && gomoku_Battle == 0) {
 		SetFontSize(60);
 		DrawFormatString(50, 300, 0xfffffff, "白の手番");
 	}
-	if (Battle == 0) {
+	if (gomoku_Battle == 0) {
 		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
 	}
-	if (Battle == 1) {
+	if (gomoku_Battle == 1) {
 		SetFontSize(80);
 		DrawFormatString(600, 300, 0xFF00FF, ("黒の勝ち"));
 	}
-	else if (Battle == 2) {
+	else if (gomoku_Battle == 2) {
 		SetFontSize(80);
 		DrawFormatString(600, 300, 0xFF00FF, ("白の勝ち"));
 	}
