@@ -99,21 +99,33 @@ AbstractScene* sinkeisuijaku::Update()
         randend = 1;
     }
 
+    //トランプの選択3回目で裏面に戻す
 
-
-    //カードが揃ったら盤面から...
     if (rCount % 3 == 0) {
-        r2Count = 1;
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+                    trumps[j][i].flg = 0;
+            }
+        }
     }
+
+  
 
     return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
-  
-    DrawFormatString(100, 260, 0xfff00f, "rCount %d", rCount);
-    DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);
+    //00と01でそろったの文字でたからあとは数字が揃ったら似したい
+    if (trumps[0][1].flg == 1 && trumps[0][2].flg == 1) {
+        DrawFormatString(100, 100, 0x0000ff, "そろったぜ！");
+    }
+
+
+  DrawFormatString(100, 260, 0xfff00f, "flg %d", trumps[0][1].flg);
+
+    /*DrawFormatString(100, 260, 0xfff00f, "rCount %d", rCount);
+    DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
 
     // トランプの表示
     for (int j = 0; j < 4; j++) {

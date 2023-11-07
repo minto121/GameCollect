@@ -12,6 +12,7 @@ private:
 	struct TRUMPS {
 		int flg = 0;
 		int syurui;
+
 	};
 	
 
