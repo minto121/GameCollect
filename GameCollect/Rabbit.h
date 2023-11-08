@@ -1,6 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 
+
 class Rabbit : public AbstractScene
 {
 private:
