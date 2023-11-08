@@ -17,6 +17,8 @@ Mankara::Mankara()
 	RINE = 1;
 	Pocket1[i][j];
 
+	Stone_cnt = 4;
+
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
 	}
@@ -234,6 +236,7 @@ Mankara::Mankara()
 			 }
 		 }
 	 }
+
 	 
 	return this;
 }
@@ -244,34 +247,51 @@ void Mankara::Draw()const
 	DrawGraph(30,30,Board,TRUE);
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300+i*120, 430, redStone[i], TRUE);
+		DrawGraph(300 + i * 125, 430, redStone[i], TRUE);
 
 	}
 	
+	DrawGraph(300, 160, redStone[6], TRUE);
+	DrawGraph(300 + 125, 160, redStone[7], TRUE);
+
+
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300+i*120, 450, blueStone[i], TRUE);
+		DrawGraph(300 + i * 125, 460, blueStone[i], TRUE);
 	}
 
+	DrawGraph(300, 190, blueStone[6], TRUE);
+	DrawGraph(300 + 125, 190, blueStone[7], TRUE);
+
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300+i*120, 470, greenStone[i], TRUE);
-	}
-	
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300+i*120, 490, yellowStone[i], TRUE);
-
-	}
-	
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300+i*20, 510, purpleStone[i], TRUE);
-
+		DrawGraph(300 + i * 125, 490, greenStone[i], TRUE);
 	}
 	
+	DrawGraph(300+125*2, 160, greenStone[6], TRUE);
+	DrawGraph(300 + 125*3, 160, greenStone[7], TRUE);
+
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300+i*20, 530, whiteStone[i], TRUE);
+		DrawGraph(300 + i * 125, 520, yellowStone[i], TRUE);
 
 	}
 	
+	DrawGraph(300+125*2, 190, yellowStone[6], TRUE);
+	DrawGraph(300 + 125*3, 190, yellowStone[7], TRUE);
+
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 100, purpleStone[i], TRUE);
+
+	}
+	
+	DrawGraph(300 + 125 * 4, 190, purpleStone[6], TRUE);
+	DrawGraph(300 + 125 * 5, 190, purpleStone[7], TRUE);
+
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 130, whiteStone[i], TRUE);
+
+	}
+	DrawGraph(300 + 125 * 4, 160, whiteStone[6], TRUE);
+	DrawGraph(300 + 125 * 5, 160, whiteStone[7], TRUE);
 
 	
 
@@ -279,7 +299,6 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 			if (Pocket_cnt == 1) {
 				DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
-				
 			}
 			else if (Pocket_cnt == 2) {
 				DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), FALSE);
@@ -348,7 +367,10 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 
 		if (P1Pocket[0] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 255, 255),"1P TRUE");
+			DrawGraph(300 + 125 , 550, redStone[0], TRUE);
+			DrawGraph(300 + 125 * 2 , 550, blueStone[0], TRUE);
+			DrawGraph(300 + 125 * 3,550, greenStone[0], TRUE);
+			DrawGraph(300 + 125*4, 550, yellowStone[0], TRUE);
 		}
 		else if (P1Pocket[1] == TRUE) {
 			DrawFormatString(100, 100, GetColor(255, 0, 0), "1P TRUE");
