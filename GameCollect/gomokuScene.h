@@ -9,6 +9,8 @@ private:
 	int gomoku_BackImg;
 	int cX;
 	int cY;
+	int enemyX;
+	int enemyY;
 	int g_OldKey;
 	int g_NowKey;
 	int g_KeyFlg;
