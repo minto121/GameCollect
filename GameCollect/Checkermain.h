@@ -2,73 +2,61 @@
 #include "AbstractScene.h"
 #include <DxLib.h>
 
-
-#define Speace 0
-#define Black 1
-#define White 2
-
-class Checkermain:public AbstractScene
+class Checkermain : public AbstractScene
 {
+private:
+    int Boardimg;     // 盤の画像
+    int PieceB;       // 駒黒の画像
+    int PieceW;       // 駒白の画像
+    int Checkerback;  // 背景の画像
+    int size = 100;   // 画像のサイズ
 
-private:	
+    int board[8][8] = {
+        // チェッカーボードの初期配置
+        0, 1, 0, 0, 0, 2, 0, 2,
+        1, 0, 1, 0, 0, 0, 2, 0,
+        0, 1, 0, 0, 0, 2, 0, 2,
+        1, 0, 1, 0, 0, 0, 2, 0,
+        0, 1, 0, 0, 0, 2, 0, 2,
+        1, 0, 1, 0, 0, 0, 2, 0,
+        0, 1, 0, 0, 0, 2, 0, 2,
+        1, 0, 1, 0, 0, 0, 2, 0
+    };
 
-bool F_select = FALSE;
+    bool F_select = false;  // 選択中の駒があるかどうか
+    bool phase;             // 先攻（0）後攻（1）を表す
 
-	int Boardimg; //　盤
-	int PieceB; //　駒黒
-	int PieceW; // 駒白
-	int Checkerback; // 背景
-	int size = 100;
-	
-	 int  board[8][8] =
-	//{
-	//0, 1, 0, 1, 0, 1, 0, 1,
-	//1, 0, 1, 0, 1, 0, 1, 0,
-	//0, 1, 0, 1, 0, 1, 0, 1,
-	//0, 0, 0, 0, 0, 0, 0, 0,
-	//0, 0, 0, 0, 0, 0, 0, 0,
-	//2, 0, 2, 0, 2, 0, 2, 0,
-	//0, 2, 0, 2, 0, 2, 0, 2,
-	//2, 0, 2, 0, 2, 0, 2, 0, };
-	{
-		0, 1, 0, 0, 0, 2, 0, 2,
-		1, 0, 1, 0, 0, 0, 2, 0,
-		0, 1, 0, 0, 0, 2, 0, 2,
-		1, 0, 1, 0, 0, 0, 2, 0,
-		0, 1, 0, 0, 0, 2, 0, 2,
-		1, 0, 1, 0, 0, 0, 2, 0,
-		0, 1, 0, 0, 0, 2, 0, 2,
-		1, 0, 1, 0, 0, 0, 2, 0,
-	};
+    int selectX;    // カーソルのX座標
+    int selectY;    // カーソルのY座標
 
+    int g_OldKey;   // 前回のキー入力状態
+    int g_NowKey;   // 現在のキー入力状態
+    int g_KeyFlg;   // キーの変化を示すフラグ
 
-	bool F_put = FALSE;
-	bool phase;
-	int selectX;
-	int selectY;
-
-	int g_OldKey ;
-	int g_NowKey;
-	int g_KeyFlg ;
-
+    int StartX;     // 移動させたい駒の座標X
+    int StartY;     // 移動させたい駒の座標Y
+    int SelectX;    // 駒を移動させい座標X
+    int SelectY;    // 駒を移動させい座標Y
+    int jumpedX;
+    int jumpedY;
 
 public:
-	Checkermain();
+    Checkermain();
 
-	~Checkermain();
+    ~Checkermain();
 
-	//描画以外の更新を実行
-	AbstractScene* Update() override;
+    // 描画以外の更新を実行
+    AbstractScene* Update() override;
 
-	//描画に関することを実装
-	void Draw() const override;
+    // 描画に関することを実装
+    void Draw() const override;
 
-	// チェッカーボードの初期状態を設定
-	void InitBoard();
+    // チェッカーボードの初期状態を設定
+    void InitBoard();
 
-	bool IsMoveValid(int startX, int startY, int SelectX, int SelectY);
+    // 移動判定
+    bool IsMoveValid(int startX, int startY, int SelectX, int SelectY);
 
-	bool IsPlaceValid(int i, int j);
+    void Gameover();
 
 };
-
