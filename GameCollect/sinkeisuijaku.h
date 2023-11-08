@@ -11,8 +11,8 @@ private:
 
 	struct TRUMPS {
 		int flg = 0;
-		int syurui;
-
+		int syurui = 0;
+		int syunflg = 0;
 	};
 	
 
@@ -57,5 +57,12 @@ private:
 	int T_Draw[10];
 	int rCount = 0;
 	int r2Count = 0;
+
+
+	int syun1;
+	int syun2;
+	int syuncount = 0;
+
+
 };
 

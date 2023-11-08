@@ -63,14 +63,26 @@ AbstractScene* sinkeisuijaku::Update()
         if (g_KeyFlg & PAD_INPUT_1) {
             trumpflg = 1;
             rCount++;
+            syuncount++;
         }
         if (trumpflg == 1) {
             trumps[S_ber][S2_ber].flg = 1;
+            //test
+           
         }
-      
+        //カードを選択したときの種類を２回まで記録
+        if (syuncount == 1) {
+            syun1 = trumps[S_ber][S2_ber].syurui;
+        }
+        if (syuncount == 2) {
+            syun2 = trumps[S_ber][S2_ber].syurui;
+        }
+     
     }
     trumpflg = 0;
-
+    if (syuncount >= 3) {
+        syuncount = 0;
+    }
     // トランプに値を入れる
     if (count < 2) {
         int x = 1;
@@ -109,7 +121,12 @@ AbstractScene* sinkeisuijaku::Update()
         }
     }
 
-  
+    if (rCount % 2 == 0) {
+
+    }
+    //for (int j = 0; j < 4; j++) {
+    //    for (int i = 0; i < 5; i++) {
+    //        if (trumps[j][i].syurui == trumps[j][i].syurui +10)
 
     return this;
 }
@@ -121,11 +138,10 @@ void sinkeisuijaku::Draw() const
         DrawFormatString(100, 100, 0x0000ff, "そろったぜ！");
     }
 
+    DrawFormatString(100, 260, 0xfff00f, "syun1 %d", syun1);
+    DrawFormatString(100, 280, 0xfff00f, "syun2 %d", syun2);
 
-  DrawFormatString(100, 260, 0xfff00f, "flg %d", trumps[0][1].flg);
-
-    /*DrawFormatString(100, 260, 0xfff00f, "rCount %d", rCount);
-    DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
+   // DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
 
     // トランプの表示
     for (int j = 0; j < 4; j++) {
