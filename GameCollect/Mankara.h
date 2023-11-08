@@ -4,26 +4,11 @@ class Mankara :public AbstractScene
 {
 private:
 
-	/*struct StoneSet
-	{
-		float x;
-		float y;
-		float detection;
-		int img[6];
-		int count;
-		bool Flg;
-		int Event;
-	};
-	struct StoneSet Stone[8];*/
+	
+
 	int Board;
 	int Background;
-	int RedStone;
-	int BlueStone;
-	int GreenStone;
-	int YellowStone;
-	int PurpleStone;
-	int WhiteStone;
-
+	
 	int Stone[6][8];
 
 	int redStone[8];
@@ -37,6 +22,42 @@ private:
 	int j;
 	int P1Turn;
 	int P2Turn;
+
+	struct 
+	{
+		int flg;
+		int img[8];
+	}RedStone ;
+
+	struct
+	{
+		int flg;
+		int img[8];
+	}BlueStone;
+
+	struct
+	{
+		int flg;
+		int img[8];
+	}GreenStone;
+
+	struct
+	{
+		int flg;
+		int img[8];
+	}YellowStone;
+
+	struct
+	{
+		int flg;
+		int img[8];
+	}PurpleStone;
+
+	struct
+	{
+		int flg;
+		int img[8];
+	}WhiteStone;
 
 
 	// 1P用ポケット

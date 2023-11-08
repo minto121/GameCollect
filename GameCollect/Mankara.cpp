@@ -28,31 +28,29 @@ Mankara::Mankara()
 	}
 
 	for (int i = 0; i < 8; i++) {
-		redStone[i] = StoneImg[1];
+		RedStone.img[i] = StoneImg[1];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		blueStone[i] = StoneImg[5];
+		BlueStone.img[i] = StoneImg[5];
+		
 	}
 
 	for (int i = 0; i < 8; i++) {
-		greenStone[i] = StoneImg[3];
+		GreenStone.img[i] = StoneImg[3];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		yellowStone[i] = StoneImg[0];
+		YellowStone.img[i] = StoneImg[0];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		purpleStone[i] = StoneImg[2];
+		PurpleStone.img[i] = StoneImg[2];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		whiteStone[i] = StoneImg[4];
+		WhiteStone.img[i] = StoneImg[4];
 	}
-
-
-
 
 }
 
@@ -105,6 +103,7 @@ Mankara::Mankara()
 			 }
 		 }
 	 }
+
 
 	
 	 //1P—pÎ‚ÌˆÚ“®ˆ—
@@ -245,53 +244,47 @@ void Mankara::Draw()const
 {
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
-
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 430, redStone[i], TRUE);
+		DrawGraph(300 + i * 125, 430, RedStone.img[i], TRUE);
 
 	}
-	
-	DrawGraph(300, 160, redStone[6], TRUE);
-	DrawGraph(300 + 125, 160, redStone[7], TRUE);
+	DrawGraph(300, 160, RedStone.img[6], TRUE);
+	DrawGraph(300 + 125, 160, RedStone.img[7], TRUE);
 
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 460, blueStone[i], TRUE);
+		DrawGraph(300 + i * 125, 460, BlueStone.img[i], TRUE);
 	}
-
-	DrawGraph(300, 190, blueStone[6], TRUE);
-	DrawGraph(300 + 125, 190, blueStone[7], TRUE);
+	DrawGraph(300, 190, BlueStone.img[6], TRUE);
+	DrawGraph(300 + 125, 190, BlueStone.img[7], TRUE);
 
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 490, greenStone[i], TRUE);
+		DrawGraph(300 + i * 125, 490, GreenStone.img[i], TRUE);
 	}
-	
-	DrawGraph(300+125*2, 160, greenStone[6], TRUE);
-	DrawGraph(300 + 125*3, 160, greenStone[7], TRUE);
+	DrawGraph(300+125*2, 160, GreenStone.img[6], TRUE);
+	DrawGraph(300 + 125*3, 160, GreenStone.img[7], TRUE);
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 520, yellowStone[i], TRUE);
-
+		DrawGraph(300 + i * 125, 520, YellowStone.img[i], TRUE);
 	}
-	
-	DrawGraph(300+125*2, 190, yellowStone[6], TRUE);
-	DrawGraph(300 + 125*3, 190, yellowStone[7], TRUE);
+	DrawGraph(300+125*2, 190, YellowStone.img[6], TRUE);
+	DrawGraph(300 + 125*3, 190, YellowStone.img[7], TRUE);
+
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 100, purpleStone[i], TRUE);
-
+		DrawGraph(300 + i * 125, 100, PurpleStone.img[i], TRUE);
 	}
-	
-	DrawGraph(300 + 125 * 4, 190, purpleStone[6], TRUE);
-	DrawGraph(300 + 125 * 5, 190, purpleStone[7], TRUE);
+	DrawGraph(300 + 125 * 4, 190, PurpleStone.img[6], TRUE);
+	DrawGraph(300 + 125 * 5, 190, PurpleStone.img[7], TRUE);
+
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 130, whiteStone[i], TRUE);
+		DrawGraph(300 + i * 125, 130, WhiteStone.img[i], TRUE);
 
 	}
-	DrawGraph(300 + 125 * 4, 160, whiteStone[6], TRUE);
-	DrawGraph(300 + 125 * 5, 160, whiteStone[7], TRUE);
+	DrawGraph(300 + 125 * 4, 160, WhiteStone.img[6], TRUE);
+	DrawGraph(300 + 125 * 5, 160, WhiteStone.img[7], TRUE);
 
 	
 
@@ -367,10 +360,7 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 
 		if (P1Pocket[0] == TRUE) {
-			DrawGraph(300 + 125 , 550, redStone[0], TRUE);
-			DrawGraph(300 + 125 * 2 , 550, blueStone[0], TRUE);
-			DrawGraph(300 + 125 * 3,550, greenStone[0], TRUE);
-			DrawGraph(300 + 125*4, 550, yellowStone[0], TRUE);
+
 		}
 		else if (P1Pocket[1] == TRUE) {
 			DrawFormatString(100, 100, GetColor(255, 0, 0), "1P TRUE");
