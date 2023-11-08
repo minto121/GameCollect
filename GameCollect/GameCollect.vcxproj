@@ -155,6 +155,7 @@
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="Title.h" />

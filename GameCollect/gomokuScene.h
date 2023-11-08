@@ -6,6 +6,7 @@ private:
 	int TitleImg;
 	int wTopImg;
 	int bTopImg;
+	int gomoku_BackImg;
 	int cX;
 	int cY;
 	int g_OldKey;
