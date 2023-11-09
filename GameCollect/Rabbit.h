@@ -8,7 +8,9 @@ private:
 	int BackGroundImg;
 
 	int HoundImg;    //猟犬画像
+
 	int RabbitImg;   //ウサギ画像
+	int R_texture;
 
 	int rabbit_X;  //ウサギX座標
 	int rabbit_Y;  //ウサギY座標
