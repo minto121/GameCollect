@@ -6,7 +6,7 @@
 
 Porker::Porker()
 {
-    if ((Back = LoadGraph("../GameCollect/images/TexasHoldem/BG_Dummy.png"))) {}
+  /*  if ((Back = LoadGraph("../GameCollect/images/TexasHoldem/BG_Dummy.png"))) {}*/
     if (LoadDivGraph("../GameCollect/images/TexasHoldem/PlayingCards.png", 56, 14, 4, 128, 256, Tranpu_Img,FALSE)) {}
     a = 0;
     wt = 0;
@@ -15,8 +15,6 @@ Porker::Porker()
     Bs = 0;
     P_FPS = 0;
     P_TEKI = 0;
-   
-
     BTN_flg = FALSE;
     Winflg = FALSE;
     Loseflg = FALSE;
@@ -25,18 +23,13 @@ Porker::Porker()
     P_Call_H_flg = FALSE;
     P_Raise_H_flg = FALSE;
     P_Fould_H_flg = FALSE;
-    WTflg1 = FALSE;
-    WTflg2 = FALSE;
-    WTflg3 = FALSE;
-    WTRelese1 = FALSE;
-    WTRelese2 = FALSE;
-    WTRelese3 = FALSE;
-    BTN_RELESE_FLG1 = FALSE;
-    BTN_RELESE_FLG2 = FALSE;
-    BTN_RELESE_FLG3 = FALSE;
-    BTN_RELESE_FLG4 = FALSE;
-    BTN_RELESE_FLG5 = FALSE;
-    BTN_RELESE_FLG6 = FALSE;
+    WTflg[2] = FALSE;
+    
+    WTRelese[2] = FALSE;
+   
+    BTN_RELESE_FLG[5] = FALSE;
+   
+
     P_Call_H_flg = FALSE;
     P_Raise_H_flg = FALSE;
     RC_H_flg = FALSE;
@@ -53,21 +46,21 @@ Porker::~Porker()
 void Porker::ROUND_INIT() 
 {
     if (Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
-        P_rand1 = GetRand(51);   //プレイヤーのホールカード1
-        P_rand2 = GetRand(51);   //プレイヤーのホールカード2
+        P_rand[0] = GetRand(55);   //プレイヤーのホールカード1
+        P_rand[1] = GetRand(55);   //プレイヤーのホールカード2
 
-        E_rand1 = GetRand(51);   //敵のホールカード1
-        E_rand2 = GetRand(51);   //敵のホールカード2
+        E_rand[0] = GetRand(55);   //敵のホールカード1
+        E_rand[1] = GetRand(55);   //敵のホールカード2
 
-        C_rand1 = GetRand(51);   //コミュニティカード1
-        C_rand2 = GetRand(51);   //コミュニティカード2
-        C_rand3 = GetRand(51);   //コミュニティカード3
-        C_rand4 = GetRand(51);   //コミュニティカード4
-        C_rand5 = GetRand(51);   //コミュニティカード5
+        C_rand[0] = GetRand(55);   //コミュニティカード1
+        C_rand[1] = GetRand(55);   //コミュニティカード2
+        C_rand[2] = GetRand(55);   //コミュニティカード3
+        C_rand[3] = GetRand(55);   //コミュニティカード4
+        C_rand[4] = GetRand(55);   //コミュニティカード5
 
-        C_flg1 = FALSE;          //コールかレイズした時の判断用1
-        C_flg2 = FALSE;          //コールかレイズした時の判断用2
-        C_flg3 = FALSE;          //コールかレイズした時の判断用3
+        C_flg[0] = FALSE;          //コールかレイズした時の判断用1
+        C_flg[1] = FALSE;          //コールかレイズした時の判断用2
+        C_flg[2] = FALSE;          //コールかレイズした時の判断用3
         
         E_Fouldflg = FALSE;      //敵がフォールドしたかどうかの判断用
         E_CAllflg = FALSE;       //敵がコールしたかどうかの判断用
@@ -76,25 +69,51 @@ void Porker::ROUND_INIT()
         Winflg = FALSE;
         Loseflg = FALSE;
         Drawflg = FALSE;
-        WTflg1 = FALSE;
-        WTflg2 = FALSE;
-        WTflg3 = FALSE;
-        WTRelese1 = FALSE;
-        WTRelese2 = FALSE;
-        WTRelese3 = FALSE;
-        BTN_RELESE_FLG1 = FALSE;
-        BTN_RELESE_FLG2 = FALSE;
-        BTN_RELESE_FLG3 = FALSE;
-        BTN_RELESE_FLG4 = FALSE;
-        BTN_RELESE_FLG5 = FALSE;
-        BTN_RELESE_FLG6 = FALSE;
+        WTflg[0] = FALSE;
+        WTflg[1] = FALSE;
+        WTflg[2] = FALSE;
+        WTRelese[0] = FALSE;
+        WTRelese[1] = FALSE;
+        WTRelese[2] = FALSE;
+        BTN_RELESE_FLG[0] = FALSE;
+        BTN_RELESE_FLG[1] = FALSE;
+        BTN_RELESE_FLG[2] = FALSE;
+        BTN_RELESE_FLG[3] = FALSE;
+        BTN_RELESE_FLG[4] = FALSE;
+        BTN_RELESE_FLG[5] = FALSE;
         BTN_flg = FALSE;
         RC_H_flg = FALSE;
         P_Fould_H_flg = FALSE;
         E_Fould_H_flg = FALSE;
         G_Over_H_flg = FALSE;
         CARD_URA_H_flg = TRUE;
-        P_PEA_FLG = FALSE;
+      
+        P_2PEA_FLG = FALSE;
+        P_THREE_FLG = FALSE;
+        P_FH_FLG = FALSE;
+
+        WP_FLG[0] = FALSE;
+        WP_FLG[1] = FALSE;
+
+        P_PEA_FLG[0] = FALSE;
+        P_PEA_FLG[1] = FALSE;
+        P_PEA_FLG[2] = FALSE;
+        P_PEA_FLG[3] = FALSE;
+
+        YP[0] = 0;
+        YP[1] = 0;
+        YP[2] = 0;
+        YP[3] = 0;
+
+        YP2[0] = 0;
+        YP2[1] = 0;
+        YP2[2] = 0;
+        YP2[3] = 0;
+
+        YE[0] = 0;
+        YE[1] = 0;
+        YE[2] = 0;
+        YE[3] = 0;
     }
 }
 
@@ -157,40 +176,142 @@ void Porker::ENEMIE_CHOISE()
 //カード分析
 void Porker::CARD_ANALYSIS()
 {
-    P_CARD1_A = P_rand1 % 14;
-    P_CARD1_S = P_rand1 / 14;
-    P_CARD2_A = P_rand2 % 14;
-    P_CARD2_S = P_rand2 / 14;
+    for (int i = 0; i < 2; i++) {
+         P_CARD_A[i] = P_rand[i] % 14;
+         P_CARD_S[i] = P_rand[i] / 14;
+    }
 
-    E_CARD1_A = E_rand1 % 14;
-    E_CARD1_S = E_rand1 / 14;
-    E_CARD2_A = E_rand2 % 14;
-    E_CARD2_S = E_rand2 / 14;
-
-    C_CARD1_A = C_rand1 % 14;
-    C_CARD1_S = C_rand1 / 14;
-    C_CARD2_A = C_rand2 % 14;
-    C_CARD2_S = C_rand2 / 14;
-    C_CARD3_A = C_rand3 % 14;
-    C_CARD3_S = C_rand3 / 14;
-    C_CARD4_A = C_rand4 % 14;
-    C_CARD4_S = C_rand4 / 14;
-    C_CARD5_A = C_rand5 % 14;
-    C_CARD5_S = C_rand5 / 14;
+    for (int j = 0; j < 2; j++) {
+        E_CARD_A[j] = E_rand[j] % 14;
+        E_CARD_S[j] = E_rand[j] / 14;
+    }
+    for (int c = 0; c < 5; c++) {
+        C_CARD_A[c] = C_rand[c] % 14;
+        C_CARD_S[c] = C_rand[c] / 14;
+    }
+   
 }
 
-void Porker::CARD_YAKU()
+void Porker::P_CARD_YAKU()
 {
-    if (P_CARD1_A == P_CARD2_A || P_CARD1_A == C_CARD1_A|| P_CARD1_A == C_CARD2_A || P_CARD1_A == C_CARD3_A || P_CARD1_A == C_CARD4_A || P_CARD1_A == C_CARD5_A ) {
-        P_PEA_FLG = TRUE;
-    }
-    else if (P_CARD2_A == C_CARD1_A || P_CARD2_A == C_CARD2_A || P_CARD2_A == C_CARD3_A || P_CARD2_A == C_CARD4_A || P_CARD2_A == C_CARD5_A) {
-        P_PEA_FLG = TRUE;
+
+    if (WP_FLG[0] == FALSE) {
+       
+        //プレイヤーのカードからのペア判断
+        if (P_CARD_A[0] == P_CARD_A[1]) {
+            P_PEA_FLG[0] = TRUE;
+            YP[1] = YP[1] + 1;
+        }
+
+        for (YP[0] = 0; YP[0] < 2; YP[0]++) {
+            int b = 0;
+            for (b = 0; b < 5; b++) {
+
+                if (P_CARD_A[YP[0]] == C_CARD_A[b]) {
+                    P_PEA_FLG[1] = TRUE;
+                    YP[1] = YP[1] + 1;
+                  
+                }
+            }         
+        }
+
+        //場に出ているカードからのペア判断
+        for (YP[2] = 0; YP[2] < 4;  YP[2]++) {
+            int b = 0;
+            for ( b = YP[2] + 1; b < 5; b++) {
+                if (C_CARD_A[YP[2]] == C_CARD_A[b]) {
+                    P_PEA_FLG[2] = TRUE;
+                    YP[3] = YP[3] + 1;
+                   
+                }
+            }
+        }
+
+
+
+        //2ペア判定
+        if (YP[1]==2 || YP[3] == 2 || YP[1] == 1 && YP[3] == 1) {
+            P_PEA_FLG[0] = FALSE;
+            P_PEA_FLG[1] = FALSE;
+            P_PEA_FLG[2] = FALSE;
+            P_2PEA_FLG = TRUE;
+        }
+
+
+
+
+        if (YP[0] == 2 && YP[2] == 4) {
+            WP_FLG[0] = TRUE;
+        }
     }
 }
 
 
+void Porker::P_CARD_YAKU3CARD()
+{
+    int c = 0;
+    if (WP_FLG[1] == FALSE) {
 
+        if (P_PEA_FLG[0] == TRUE&& P_PEA_FLG[1] == FALSE) {
+            for (int a = 0; a < 5; a++) {
+                if (P_CARD_A[0] == C_CARD_A[a]) {
+                    P_THREE_FLG = TRUE;
+                }
+            }
+        }
+
+
+        for (YP2[0] = 0; YP2[0] < 5; YP2[0]++) {
+
+            for (int b = YP2[0] + 1; b < 5; b++) {
+
+                if (C_CARD_A[YP2[0]] == C_CARD_A[b]) {
+
+                    YP2[1] = YP2[1] + 1;
+
+                    for (c = b + 1; c < 5; c++ ) {
+
+                        if (C_CARD_A[b] == C_CARD_A[c]) {
+
+                            YP2[2] = YP2[2] + 1;
+                            P_THREE_FLG = TRUE;
+                        }
+                    }
+                }
+            }
+        }
+       
+
+        for (YP2[2] = 0; YP2[2] < 2; YP2[2]++) {
+            int d = 0;
+            for (d = 0; d < 5; d++) {
+
+                if (P_CARD_A[YP2[2]] == C_CARD_A[d]) {
+                    for (int e = d + 1; e < 5; e++) {
+                        if (C_CARD_A[d] == C_CARD_A[e]) {
+                            P_THREE_FLG = TRUE;
+                        }
+                    }
+                }
+            }
+        }
+
+        
+
+        if (YP2[0] == 5) {
+            WP_FLG[1] = TRUE;
+        }
+    }
+
+
+}
+
+
+void Porker::P_CARD_FULLHOUSE() {
+    if (P_THREE_FLG == TRUE && P_2PEA_FLG == TRUE) {
+        P_FH_FLG = TRUE;
+    }
+}
 
 
 AbstractScene* Porker::Update()
@@ -201,105 +322,73 @@ AbstractScene* Porker::Update()
 
     //               カードのかぶり防止               //
 
-    //ホールカード1がかぶった時やり直し用(プレイヤー)
-    if (P_rand2 == P_rand1) {
-        P_rand2 = GetRand(54);
+    //ホールカード1,2がかぶった時やり直し用(プレイヤー)
+    if (P_rand[0] == 0 || P_rand[0] == 14 || P_rand[0] == 28 || P_rand[0] == 42) {
+        P_rand[0] = GetRand(55);
     }
-   
-    //ホールカード1がかぶった時やり直し用(敵)
-    if (E_rand1 == P_rand1 || E_rand1 == P_rand2) {
-        E_rand1 = GetRand(54);
+    if (P_rand[1] == 0 || P_rand[1] == 14 || P_rand[1] == 28 || P_rand[1] == 42 || P_rand[1] == P_rand[0]) {
+        P_rand[1] = GetRand(55);
     }
-    //ホールカード2がかぶった時やり直し用(敵)
-    if (E_rand2 == P_rand1 || E_rand2 == P_rand2|| E_rand2 == E_rand1) {
-        E_rand2 = GetRand(54);
+
+
+    //ホールカード1,2がかぶった時やり直し用(敵)
+    if (E_rand[0] == 0 || E_rand[0] == 14 || E_rand[0] == 28 || E_rand[0] == 42 || E_rand[0] == P_rand[0] || 
+        E_rand[0] == P_rand[1]) {
+        E_rand[0] = GetRand(55);
+    }
+    if (E_rand[1] == 0 || E_rand[1] == 14 || E_rand[1] == 28 || E_rand[1] == 42 || E_rand[1] == P_rand[0] || 
+        E_rand[1] == P_rand[1] || E_rand[1] == E_rand[0]) {
+        E_rand[1] = GetRand(55);
     }
     
+
     //コミュニティカードがかぶった時やり直し用(1回目)
-    if (C_rand1 == P_rand1 || C_rand1 == P_rand2 || C_rand1 == E_rand1 || C_rand1 == E_rand2) {
-        C_rand1 = GetRand(54);
+    if (C_rand[0] == 0 || C_rand[0] == 14 || C_rand[0] == 28 || C_rand[0] == 42|| C_rand[0] == P_rand[0] || 
+        C_rand[0] == P_rand[1] || C_rand[0] == E_rand[0] || C_rand[0] == E_rand[1]) {
+        C_rand[0] = GetRand(55);
     }
-
     //コミュニティカードがかぶった時やり直し用(2回目)
-    if (C_rand2== P_rand1 || C_rand2 == P_rand2 || C_rand2 == E_rand1 || C_rand2 == E_rand2 || C_rand2 == C_rand1) {
-        C_rand2 = GetRand(54);
+    if (C_rand[1] == 0 || C_rand[1] == 14 || C_rand[1] == 28 || C_rand[1] == 42 || C_rand[1] == P_rand[0] || 
+        C_rand[1] == P_rand[1] || C_rand[1] == E_rand[0] || C_rand[1] == E_rand[1] || C_rand[1] == C_rand[0]) {
+        C_rand[1] = GetRand(55);
     }
-
     //コミュニティカードがかぶった時やり直し用(3回目)
-    if (C_rand3 == P_rand1 || C_rand3 == P_rand2 || C_rand3 == E_rand1 || C_rand3 == E_rand2 || C_rand3 == C_rand1 || C_rand3==C_rand2) {
-        C_rand3 = GetRand(54);
+    if (C_rand[2] == 0 || C_rand[2] == 14 || C_rand[2] == 28 || C_rand[2] == 42 || C_rand[2] == P_rand[0] || 
+        C_rand[2] == P_rand[1] || C_rand[2] == E_rand[0] || C_rand[2] == E_rand[1] || C_rand[2] == C_rand[0] || 
+        C_rand[2] == C_rand[1]) {
+        C_rand[2] = GetRand(55);
     }
-
     //コミュニティカードがかぶった時やり直し用(4回目)
-    if (C_rand4 == P_rand1 || C_rand4 == P_rand2 || C_rand4 == E_rand1 || C_rand4 == E_rand2 || C_rand4 == C_rand1 || C_rand4 == C_rand2||C_rand4 == C_rand3) {
-        C_rand4 = GetRand(54);
+    if (C_rand[3] == 0 || C_rand[3] == 14 || C_rand[3] == 28 || C_rand[3] == 42 || C_rand[3] == P_rand[0] ||
+        C_rand[3] == P_rand[1] || C_rand[3] == E_rand[0] || C_rand[3] == E_rand[1] || C_rand[3] == C_rand[0] ||
+        C_rand[3] == C_rand[1] || C_rand[3] == C_rand[2] ) {
+        C_rand[3] = GetRand(55);
     }
-
     //コミュニティカードがかぶった時やり直し用(5回目)
-    if (C_rand5 == P_rand1 || C_rand5 == P_rand2 || C_rand5 == E_rand1 || C_rand5 == E_rand2 || C_rand5 == C_rand1 || C_rand5 == C_rand2 || C_rand5 == C_rand3||C_rand5==C_rand4) {
-        C_rand5 = GetRand(54);
+    if (C_rand[4] == 0 || C_rand[4] == 14 || C_rand[4] == 28 || C_rand[4] == 42 || C_rand[4] == P_rand[0] || 
+        C_rand[4] == P_rand[1] || C_rand[4] == E_rand[0] || C_rand[4] == E_rand[1] || C_rand[4] == C_rand[0] || 
+        C_rand[4] == C_rand[1] || C_rand[4] == C_rand[2] || C_rand[4] == C_rand[3]) {
+        C_rand[4] = GetRand(55);
     }
 
-
-
-    //           カード配列調整用            //
-    //カードの配列番号がいらんやつだったらやり直し
-
-    if (P_rand1 == 0 || P_rand1 == 14 || P_rand1 == 28 || P_rand1 == 42) {
-        P_rand1 = GetRand(54);
-    }
-
-    if (P_rand2 == 0 || P_rand2 == 14 || P_rand2 == 28 || P_rand2 == 42) {
-        P_rand1 = GetRand(54);
-    }
-
-    if (E_rand1 == 0 || E_rand1 == 14 || E_rand1 == 28 || E_rand1 == 42) {
-        E_rand1 = GetRand(54);
-    }
-
-    if (E_rand2 == 0 || E_rand2 == 14 || E_rand2 == 28 || E_rand2 == 42) {
-        E_rand2 = GetRand(54);
-    }
-
-    if (E_rand2 == 0 || E_rand2 == 14 || E_rand2 == 28 || E_rand2 == 42) {
-        E_rand2 = GetRand(54);
-    }
-
-    if (C_rand1 == 0 || C_rand1 == 14 || C_rand1 == 28 || C_rand1 == 42) {
-        C_rand1 = GetRand(54);
-    }
-
-    if (C_rand2 == 0 || C_rand2 == 14 || C_rand2 == 28 || C_rand2 == 42) {
-        C_rand2 = GetRand(54);
-    }
-
-    if (C_rand3 == 0 || C_rand3 == 14 || C_rand3 == 28 || C_rand3 == 42) {
-        C_rand3 = GetRand(54);
-    }
-
-    if (C_rand4 == 0 || C_rand4 == 14 || C_rand4 == 28 || C_rand4 == 42) {
-        C_rand4 = GetRand(54);
-    }
-
-    if (C_rand5 == 0 || C_rand5 == 14 || C_rand5 == 28 || C_rand5 == 42) {
-        C_rand5 = GetRand(54);
-    }
 
 
     CARD_ANALYSIS();
-    CARD_YAKU();
-
+    P_CARD_FULLHOUSE();
+    P_CARD_YAKU();
+    P_CARD_YAKU3CARD();
+    P_CARD_FULLHOUSE();
 
     //待ち時間
-    if (WTflg1 == TRUE) {
+    if (WTflg[0] == TRUE) {
         P_FPS++;
         if (P_FPS > 60) {
-            WTRelese1 = TRUE;
+            WTRelese[0] = TRUE;
             P_FPS = 0;
-            WTflg1 = FALSE;
+            WTflg[0] = FALSE;
             P_Call_H_flg = FALSE;
             P_Raise_H_flg = FALSE;
-            BTN_RELESE_FLG5 = FALSE;
+            BTN_RELESE_FLG[4] = FALSE;
             //ラウンドチェンジ用
             if (RC_H_flg == TRUE || P_Fould_H_flg == TRUE) {
             
@@ -311,22 +400,22 @@ AbstractScene* Porker::Update()
            
         }
     }
-    if (WTflg2 == TRUE) {
+    if (WTflg[1] == TRUE) {
         P_FPS++;
         if (P_FPS > 60) {
-            WTRelese2 = TRUE;
+            WTRelese[1] = TRUE;
             P_FPS = 0;
-            WTflg2 = FALSE;
+            WTflg[1] = FALSE;
             P_Call_H_flg = FALSE;
             P_Raise_H_flg = FALSE;
         }
     }
-    if (WTflg3 == TRUE) {
+    if (WTflg[2] == TRUE) {
         P_FPS++;
         if (P_FPS > 60) {
-            WTRelese3 = TRUE;
+            WTRelese[2] = TRUE;
             P_FPS = 0;
-            WTflg3 = FALSE;
+            WTflg[2] = FALSE;
             P_Call_H_flg = FALSE;
             P_Raise_H_flg = FALSE;
             CARD_URA_H_flg = FALSE;
@@ -334,22 +423,22 @@ AbstractScene* Porker::Update()
     }
 
     //待ち時間終了後の処理
-    if (WTRelese1 == TRUE) {
-        C_flg1 = TRUE;
+    if (WTRelese[0] == TRUE) {
+        C_flg[0] = TRUE;
         ENEMIE_CHOISE();
-        WTRelese1 = FALSE;
+        WTRelese[0] = FALSE;
         BTN_flg = FALSE;
     }
-    if (WTRelese2 == TRUE) {
-        C_flg2 = TRUE;
+    if (WTRelese[1] == TRUE) {
+        C_flg[1] = TRUE;
         ENEMIE_CHOISE();
-        WTRelese2 = FALSE;
+        WTRelese[1] = FALSE;
         BTN_flg = FALSE;
     }
-    if (WTRelese3 == TRUE) {
-        C_flg3 = TRUE;
+    if (WTRelese[2] == TRUE) {
+        C_flg[2] = TRUE;
         ENEMIE_CHOISE();
-        WTRelese3 = FALSE;
+        WTRelese[2] = FALSE;
         BTN_flg = FALSE;
     }
 
@@ -358,43 +447,42 @@ AbstractScene* Porker::Update()
     //           コール処理              //
 
     //コール1(今はY押す)
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && C_flg1 == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && P_Call_H_flg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && C_flg[0] == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && P_Call_H_flg == FALSE) {
         PLAYER_CALL();
         BTN_flg = TRUE;
-        BTN_RELESE_FLG1 = TRUE;
+        BTN_RELESE_FLG[0] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_Y) && BTN_RELESE_FLG1 == TRUE) {
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_Y) && BTN_RELESE_FLG[0] == TRUE) {
         P_Call_H_flg = TRUE;
-        WTflg1 = TRUE;
+        WTflg[0] = TRUE;
         BTN_flg = FALSE;
-        BTN_RELESE_FLG1 = FALSE;
+        BTN_RELESE_FLG[0] = FALSE;
     }
 
     //コール2(今はY押す)
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && C_flg1 ==TRUE && C_flg2 == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && P_Call_H_flg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && C_flg[0] ==TRUE && C_flg[1] == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && P_Call_H_flg == FALSE) {
         PLAYER_CALL();
         BTN_flg = TRUE;
-        BTN_RELESE_FLG2 = TRUE;
+        BTN_RELESE_FLG[1] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_Y)&&BTN_RELESE_FLG2 == TRUE) {
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_Y)&&BTN_RELESE_FLG[1] == TRUE) {
         P_Call_H_flg = TRUE;
-        WTflg2 = TRUE;
+        WTflg[1] = TRUE;
         BTN_flg = FALSE;
-        BTN_RELESE_FLG2 = FALSE;
-    }
+        BTN_RELESE_FLG[1] = FALSE;
+    }  
 
     //コール3(今はY押す)
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && C_flg2 == TRUE && C_flg3 == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && P_Call_H_flg == FALSE 
-        && P_Call_H_flg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && C_flg[1] == TRUE && C_flg[2] == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && P_Call_H_flg == FALSE ){
         PLAYER_CALL();
         BTN_flg = TRUE;
-        BTN_RELESE_FLG3 = TRUE;
+        BTN_RELESE_FLG[2] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_Y)&&BTN_RELESE_FLG3 == TRUE && P_Call_H_flg == FALSE) {
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_Y)&&BTN_RELESE_FLG[2] == TRUE && P_Call_H_flg == FALSE) {
         P_Call_H_flg = TRUE;
-        WTflg3 = TRUE;
+        WTflg[2] = TRUE;
         BTN_flg = FALSE;
-        BTN_RELESE_FLG3 = FALSE;
+        BTN_RELESE_FLG[2] = FALSE;
        
     }
 
@@ -404,39 +492,39 @@ AbstractScene* Porker::Update()
     //               レイズ               //
 
     //レイズ1(今はB押す)
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && C_flg1 == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && C_flg[0] == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
         PLAYER_RAISE();
         BTN_flg = TRUE;
-        BTN_RELESE_FLG1 = TRUE;
+        BTN_RELESE_FLG[0] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_B) && BTN_RELESE_FLG1 == TRUE) {
-        WTflg1 = TRUE;
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_B) && BTN_RELESE_FLG[0] == TRUE) {
+        WTflg[0] = TRUE;
         BTN_flg = FALSE;
-        BTN_RELESE_FLG1 = FALSE;
+        BTN_RELESE_FLG[0] = FALSE;
     }
     
     //レイズ2(今はB押す)
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && C_flg1 == TRUE && C_flg2 == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && C_flg[0] == TRUE && C_flg[1] == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
         PLAYER_RAISE();
         BTN_flg = TRUE;
-        BTN_RELESE_FLG2 = TRUE;
+        BTN_RELESE_FLG[1] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_B) && BTN_RELESE_FLG2 == TRUE) {
-        WTflg2 = TRUE;
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_B) && BTN_RELESE_FLG[1] == TRUE) {
+        WTflg[1] = TRUE;
         BTN_flg = FALSE;
-        BTN_RELESE_FLG2 = FALSE;
+        BTN_RELESE_FLG[1] = FALSE;
     }
 
     //レイズ3(今はB押す)
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && C_flg2 == TRUE && C_flg3 == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_B) && C_flg[1] == TRUE && C_flg[2] == FALSE && BTN_flg == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
         PLAYER_RAISE();
         BTN_flg = TRUE;
-        BTN_RELESE_FLG3 = TRUE;
+        BTN_RELESE_FLG[2] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_B) && BTN_RELESE_FLG3 == TRUE) {
-        WTflg3 = TRUE;
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_B) && BTN_RELESE_FLG[2] == TRUE) {
+        WTflg[2] = TRUE;
         BTN_flg = FALSE;
-        BTN_RELESE_FLG3 = FALSE;
+        BTN_RELESE_FLG[2] = FALSE;
     }
 
 
@@ -448,23 +536,23 @@ AbstractScene* Porker::Update()
     //         ラウンドを変える(3回目でタイトル)          //
 
     //ラウンドチェンジ
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && C_flg3 == TRUE && a <= 3) {
-        BTN_RELESE_FLG4 = TRUE;
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3) {
+        BTN_RELESE_FLG[3] = TRUE;
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg3 == TRUE && a <= 3 && BTN_RELESE_FLG4 == TRUE) {
+    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3 && BTN_RELESE_FLG[3] == TRUE) {
         a++;
         RC_H_flg = TRUE;
-        WTflg1 = TRUE;
-        BTN_RELESE_FLG4 = FALSE;
+        WTflg[0] = TRUE;
+        BTN_RELESE_FLG[3] = FALSE;
     }
 
 
     //フォールド用
-     if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg3 == FALSE && a <= 3 && BTN_RELESE_FLG5 == FALSE) {
-         BTN_RELESE_FLG5 = TRUE;
+     if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg[2] == FALSE && a <= 3 && BTN_RELESE_FLG[4] == FALSE) {
+         BTN_RELESE_FLG[4] = TRUE;
         a++;
         P_Fould_H_flg = TRUE;
-        WTflg1 = TRUE;
+        WTflg[0] = TRUE;
         
      }
 
@@ -479,7 +567,7 @@ AbstractScene* Porker::Update()
     {
         P_Fould_H_flg = FALSE;
          G_Over_H_flg = TRUE;
-         WTflg1 = TRUE;
+         WTflg[0] = TRUE;
     }
 
 
@@ -532,17 +620,17 @@ void Porker::Draw() const
 
     //                   カードの表示               //
     if (Drawflg == FALSE && Winflg == FALSE && Loseflg == FALSE) {
-        DrawFormatString(400, 600, 0xffffff, "prand1: %d", P_rand1, TRUE); //プレイヤーのホールカード1
-        DrawFormatString(600, 600, 0xffffff, "prand2: %d", P_rand2, TRUE); //プレイヤーのホールカード2
-        DrawGraph(400, 500, Tranpu_Img[P_rand1], TRUE);
-        DrawGraph(600, 500, Tranpu_Img[P_rand2], TRUE);
+        DrawFormatString(400, 600, 0xffffff, "prand1: %d", P_rand[0], TRUE); //プレイヤーのホールカード1
+        DrawFormatString(600, 600, 0xffffff, "prand2: %d", P_rand[1], TRUE); //プレイヤーのホールカード2
+        DrawGraph(400, 500, Tranpu_Img[P_rand[0]], TRUE);
+        DrawGraph(600, 500, Tranpu_Img[P_rand[1]], TRUE);
 
-        DrawFormatString(400, 50, 0xffffff, "erand1: %d", E_rand1, TRUE); //敵のホールカード1
-        DrawFormatString(600, 50, 0xffffff, "erand2: %d", E_rand2, TRUE); //敵のホールカード2
+        //DrawFormatString(400, 50, 0xffffff, "erand1: %d", E_rand[1], TRUE); //敵のホールカード1
+        //DrawFormatString(600, 50, 0xffffff, "erand2: %d", E_rand[2], TRUE); //敵のホールカード2
         //敵カード裏
         if (CARD_URA_H_flg == FALSE) {
-            DrawGraph(400, 0, Tranpu_Img[E_rand1], TRUE);
-            DrawGraph(600, 0, Tranpu_Img[E_rand2], TRUE);
+            DrawGraph(400, 0, Tranpu_Img[E_rand[0]], TRUE);
+            DrawGraph(600, 0, Tranpu_Img[E_rand[1]], TRUE);
         }
         //敵カード表
         if (CARD_URA_H_flg == TRUE) {
@@ -553,45 +641,45 @@ void Porker::Draw() const
 
 
         //1回目コールした時コミュニティカードを三枚出す
-        if (C_flg1 == TRUE) {
-            DrawFormatString(100, 300, 0xffffff, "crand1: %d", C_rand1, TRUE); //コミュニティカード1
-            DrawFormatString(300, 300, 0xffffff, "crand2: %d", C_rand2, TRUE); //コミュニティカード2
-            DrawFormatString(500, 300, 0xffffff, "crand3: %d", C_rand3, TRUE); //コミュニティカード3
-            DrawGraph(100, 250, Tranpu_Img[C_rand1], TRUE);
-            DrawGraph(300, 250, Tranpu_Img[C_rand2], TRUE);
-            DrawGraph(500, 250, Tranpu_Img[C_rand3], TRUE);
+        if (C_flg[0] == TRUE) {
+            //DrawFormatString(100, 300, 0xffffff, "crand1: %d", C_rand1, TRUE); //コミュニティカード1
+            //DrawFormatString(300, 300, 0xffffff, "crand2: %d", C_rand2, TRUE); //コミュニティカード2
+            //DrawFormatString(500, 300, 0xffffff, "crand3: %d", C_rand3, TRUE); //コミュニティカード3
+            DrawGraph(100, 250, Tranpu_Img[C_rand[0]], TRUE);
+            DrawGraph(300, 250, Tranpu_Img[C_rand[1]], TRUE);
+            DrawGraph(500, 250, Tranpu_Img[C_rand[2]], TRUE);
         }
 
         //2回目コールした時コミュニティカードを1枚出す
-        if (C_flg2 == TRUE) {
-            DrawFormatString(700, 300, 0xffffff, "crand4: %d", C_rand4, TRUE); //コミュニティカード4
-            DrawGraph(700, 250, Tranpu_Img[C_rand4], TRUE);
+        if (C_flg[1] == TRUE) {
+            //DrawFormatString(700, 300, 0xffffff, "crand4: %d", C_rand4, TRUE); //コミュニティカード4
+            DrawGraph(700, 250, Tranpu_Img[C_rand[3]], TRUE);
 
         }
 
         //3回目コールした時コミュニティカードを1枚出す
-        if (C_flg3 == TRUE) {
-            DrawFormatString(900, 300, 0xffffff, "crand5: %d", C_rand5, TRUE); //コミュニティカード4
-            DrawGraph(900, 250, Tranpu_Img[C_rand5], TRUE);
+        if (C_flg[2] == TRUE) {
+            //DrawFormatString(900, 300, 0xffffff, "crand5: %d", C_rand5, TRUE); //コミュニティカード4
+            DrawGraph(900, 250, Tranpu_Img[C_rand[4]], TRUE);
         }
 
 
 
         //               キー表示              //
 
-        if (C_flg3 == FALSE) {
+        if (C_flg[2] == FALSE) {
             DrawString(100, 600, "[Y]BUTTONでコール", 0xffffff, TRUE);
         }
 
-        if (C_flg3 == FALSE) {
+        if (C_flg[2] == FALSE) {
             DrawString(100, 640, "[B]BUTTONでレイズ", 0xffffff, TRUE);
         }
 
-        if (C_flg3 == FALSE) {
+        if (C_flg[2] == FALSE) {
             DrawString(100, 680, "[X]BUTTONでフォールド", 0xffffff, TRUE);
         }
 
-        if (C_flg3 == TRUE) {
+        if (C_flg[2] == TRUE) {
             DrawString(100, 650, "[X]BUTTONでROUND終了", 0xffffff, TRUE);
         }
 
@@ -711,16 +799,29 @@ void Porker::Draw() const
     DrawFormatString(1100, 650, 0xffffff, "敵乱数: %d", P_TEKI, TRUE);
     DrawFormatString(1100, 670, 0xffffff, "B: %d", b, TRUE);*/
 
-   /* DrawFormatString(1100, 640, 0xffffff, "P2A: %d", P_CARD2_A, TRUE);
-    DrawFormatString(1100, 660, 0xffffff, "P1A: %d", P_CARD1_A, TRUE); 
-    DrawFormatString(1100, 580, 0xffffff, "P2S: %d", P_CARD2_S, TRUE);
-    DrawFormatString(1100, 560, 0xffffff, "P1S: %d", P_CARD1_S, TRUE);*/
 
-    DrawFormatString(1100, 10, 0xffffff, "E2A: %d", E_CARD2_A, TRUE);
-    DrawFormatString(1100, 30, 0xffffff, "E1A: %d", E_CARD1_A, TRUE);
-    DrawFormatString(1100, 50, 0xffffff, "E2S: %d", E_CARD2_S, TRUE);
-    DrawFormatString(1100, 70, 0xffffff, "E1S: %d", E_CARD1_S, TRUE);
-    DrawFormatString(1100, 560, 0xffffff, "PEA: %d", P_PEA_FLG, TRUE);
+    DrawFormatString(1100, 10, 0xffffff, "E2A: %d", E_CARD_A[1], TRUE);
+    DrawFormatString(1100, 30, 0xffffff, "E1A: %d", E_CARD_A[0], TRUE);
+    DrawFormatString(1100, 50, 0xffffff, "E2S: %d", E_CARD_S[1], TRUE);
+    DrawFormatString(1100, 70, 0xffffff, "E1S: %d", E_CARD_S[0], TRUE);
+    DrawFormatString(1100, 350, 0xffffff, "P_PEA: %d", P_PEA_FLG[0], TRUE);
+    DrawFormatString(1100, 370, 0xffffff, "P_PEA2: %d", P_PEA_FLG[1], TRUE);
+    DrawFormatString(1100, 390, 0xffffff, "C_PEA: %d", P_PEA_FLG[2], TRUE);
+    DrawFormatString(1100, 410, 0xffffff, "2PEA: %d", P_2PEA_FLG, TRUE);
+    DrawFormatString(1100, 430, 0xffffff, "THR: %d", P_THREE_FLG, TRUE);
+    DrawFormatString(1100, 450, 0xffffff, "YP[1]: %d", YP[1], TRUE);
+    DrawFormatString(1100, 470, 0xffffff, "YP[3]: %d", YP[3], TRUE);
+
+
+    DrawFormatString(1100, 540, 0xffffff, "P1A: %d", P_CARD_A[0], TRUE);
+    DrawFormatString(1100, 560, 0xffffff, "P2A: %d", P_CARD_A[1], TRUE);
+    DrawFormatString(100, 520, 0xffffff, "C1A: %d", C_CARD_A[0], TRUE);
+    DrawFormatString(300, 520, 0xffffff, "C2A: %d", C_CARD_A[1], TRUE);
+    DrawFormatString(500, 520, 0xffffff, "C3A: %d", C_CARD_A[2], TRUE);
+    DrawFormatString(700, 520, 0xffffff, "C4A: %d", C_CARD_A[3], TRUE);
+    DrawFormatString(900, 520, 0xffffff, "C5A: %d", C_CARD_A[4], TRUE);
+    
+
    /* DrawGraph(0, 0, Back, TRUE);*/
    
     
