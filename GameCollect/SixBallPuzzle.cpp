@@ -13,7 +13,7 @@ SixBallPuzzle::SixBallPuzzle()
 	//ボールの分割読込
 	LoadDivGraph("../images/SixBallPuzzle/ball.png", 5, 5, 1, 64, 64, Ball_img);	//画像の全体サイズ：320px*64px
 
-	// 乱数生成器を初期化
+	//乱数生成器を初期化
 	//srand(static_cast<unsigned int>(time(0)));
 }
 
@@ -39,7 +39,7 @@ AbstractScene* SixBallPuzzle::Update()
 
 void SixBallPuzzle::Draw() const{
 
-	// 選択したランダムなボールを描画
+	//選択したランダムなボールを描画
 	//DrawGraph(100, FallingY, Ball_img[randomBallIndex], TRUE);
 
 	//背景画像の描画
