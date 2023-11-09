@@ -61,8 +61,12 @@ private:
 
 	int syun1;
 	int syun2;
+	int syun3;
+
+	int testcount = 0;
+
 	int syuncount = 0;
 
-
+	int Time = 0;
 };
 

@@ -58,26 +58,52 @@ AbstractScene* sinkeisuijaku::Update()
         }
     }
 
-    if (count >= 10) {
-        // カード選択
-        if (g_KeyFlg & PAD_INPUT_1) {
-            trumpflg = 1;
-            rCount++;
-            syuncount++;
+    if (testcount == 0) {
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+                syun1 = trumps[j][i].syurui;
+            }
         }
-        if (trumpflg == 1) {
+    }
+    //カーソルの値を格納
+
+
+    if (count >= 10) {
+            // カード選択
+            if (g_KeyFlg & PAD_INPUT_1) {
+                trumpflg = 1;
+                rCount++;
+                syuncount++;
+            }
+        if (trumpflg == 1 && rCount <= 2) {
             trumps[S_ber][S2_ber].flg = 1;
             //test
-           
+
         }
-        //カードを選択したときの種類を２回まで記録
+
+
+      
+        
+
+
+
+        // カードを選択したときの種類を2回まで記録
         if (syuncount == 1) {
             syun1 = trumps[S_ber][S2_ber].syurui;
+            testcount += 1;
         }
-        if (syuncount == 2) {
-            syun2 = trumps[S_ber][S2_ber].syurui;
+        if (testcount = 0) {
+            syun3 = syun1;
         }
-     
+        if (testcount = 2) {
+            syun2 = syun3;
+        }
+
+        else if (syuncount == 2) {
+            if (syun1 != trumps[S_ber][S2_ber].syurui) {
+                syun2 = trumps[S_ber][S2_ber].syurui;
+            }
+        }
     }
     trumpflg = 0;
     if (syuncount >= 3) {
@@ -113,33 +139,35 @@ AbstractScene* sinkeisuijaku::Update()
 
     //トランプの選択3回目で裏面に戻す
 
-    if (rCount % 3 == 0) {
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 5; i++) {
+    if (rCount >= 2) {
+        Time = Time += 1;
+        if (Time % 50 == 0) {
+
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 5; i++) {
                     trumps[j][i].flg = 0;
+                }
             }
+            syun1 = 21;
+            syun2 = 21;
+            rCount = 0;
+            syuncount = 0;
         }
     }
-
-    if (rCount % 2 == 0) {
-
-    }
-    //for (int j = 0; j < 4; j++) {
-    //    for (int i = 0; i < 5; i++) {
-    //        if (trumps[j][i].syurui == trumps[j][i].syurui +10)
-
+    
     return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
-    //00と01でそろったの文字でたからあとは数字が揃ったら似したい
-    if (trumps[0][1].flg == 1 && trumps[0][2].flg == 1) {
-        DrawFormatString(100, 100, 0x0000ff, "そろったぜ！");
-    }
+    
+        DrawFormatString(100, 100, 0x0000ff,"rcount %d",rCount);
+    
+        DrawFormatString(100, 240, 0xfff00f,"test %d", testcount);
 
     DrawFormatString(100, 260, 0xfff00f, "syun1 %d", syun1);
     DrawFormatString(100, 280, 0xfff00f, "syun2 %d", syun2);
+    DrawFormatString(100, 300, 0xffff0f, "syun3 %d", syun3);
 
    // DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
 
