@@ -11,11 +11,11 @@ Checkermain::Checkermain() {
     selectX = 0;                                             // カーソル移動X座標
     selectY = 0;                                             // カーソル移動Y座標
     phase = 0;                                               // 先攻後攻のフラグ
-    F_select = false; // 駒の選択状態を初期化
-    StartX = 0;      // 移動元X座標
-    StartY = 0;      // 移動元Y座標
-    SelectX = 0;     // 移動先X座標
-    SelectY = 0;     // 移動先Y座標
+    F_select = false;                                        // 駒の選択状態を初期化
+    StartX = 0;                                              // 移動元X座標
+    StartY = 0;                                              // 移動元Y座標
+    SelectX = 0;                                             // 移動先X座標
+    SelectY = 0;                                             // 移動先Y座標
     jumpedX = 0;
     jumpedY = 0;
 }
@@ -81,14 +81,8 @@ AbstractScene* Checkermain::Update() {
                     }
                 }
             }
-            // ゲームオーバー
-            if (board[x][y] == 0) {
-
-            }
         }
-      
     }
-   
 
     return this;
 }
@@ -116,15 +110,23 @@ void Checkermain::Draw() const {
             }
         }
     }
+
     // 成金の駒を描画
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             if (board[x][y] == 3) {
-                DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(255,255, 0), TRUE);
+                DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(255, 255, 0), TRUE);
             }
         }
     }
-
+    // 成金の駒を描画
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            if (board[x][y] == 4) {
+                DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(0, 255, 0), TRUE);
+            }
+        }
+    }
     // カーソルの位置に四角形を描画
     DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);
 
@@ -132,6 +134,8 @@ void Checkermain::Draw() const {
     DrawFormatString(0, 0, 0x000000, "Y: %d", selectY); // カーソル移動Y
     DrawFormatString(0, 30, 0x000000, "X: %d", selectX); // カーソル移動X
     DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
+    DrawFormatString(0, 150, 0x000000, "Phase: %d", phase);
+    DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
 }
 
 void Checkermain::InitBoard() {
@@ -154,8 +158,14 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
         return false;
     }
 
-   
+    // 駒が自陣地の端に到達したら成金になる
+    if (SelectY == 0&& board[StartX][StartY] == 1) {
+        board[StartX][StartY] = 0;
+        board[SelectX][SelectY] = 3; // 3は成金を表す
+        return false;
+    }
 
+  
     // 移動先が隣接している場合（通常の移動）
     if (abs(SelectX - startX) == 1 && SelectY - startY == 1) {
         // 1つ前に進むことが許可される条件を追加
@@ -181,12 +191,14 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
             return true;
         }
     }
+
     // 移動先が斜めに1つずつ移動する場合（成金の移動）
     if (abs(SelectX - startX) == 1 && abs(SelectY - startY) == 1) {
         if (board[startX][startY] == 3) {
             return true;
         }
     }
+
     // 移動先が斜めに2つ飛び越える場合（ジャンプ）
     if (abs(SelectX - startX) == 2 && abs(SelectY - startY) == 2) {
         jumpedX = (SelectX + startX) / 2;
@@ -198,13 +210,16 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
             board[jumpedX][jumpedY] = 0;
 
             // 駒が自陣地の端に到達したら成金になる
-            if (SelectY == 0 || SelectY==7) {
+            if (SelectY == 0) {
+                board[StartX][StartY] = 0;
                 board[SelectX][SelectY] = 3; // 3は成金を表す
+                return false;
             }
 
+       
             return true;
         }
     }
-   
+
     return false; // 上記の条件に該当しない場合、無効な移動
 }
