@@ -4,7 +4,7 @@
 #include "Title.h"
 #include "FpsController.h"
 #include"Hanahuda_GameMain.h"
-#include "DotAndBox.h"
+#include "GameMain.h"
 #include "DrawLine.h"
 
 #define FRAMERATE 60.0 //フレームレート
@@ -34,7 +34,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new DotAndBox());
+		sceneMng = new SceneManager((AbstractScene*)new GameMain());
 
 	}
 	catch (const char* err)
