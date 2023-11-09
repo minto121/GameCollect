@@ -7,7 +7,7 @@ class Takoyaki :
 
 private:
     int Select;     //選択数 
-    int Cards_img[42];  //カード
+    int Cards_img[56];  //カード
     int CursolImg; //カーソル画像
     int select_X;//カードごとのカーソル位置を保持
     int BackCard_Img;
