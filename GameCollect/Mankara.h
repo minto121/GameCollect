@@ -23,42 +23,53 @@ private:
 	int P1Turn;
 	int P2Turn;
 
-	struct 
+	struct REDSTONE
 	{
-		int flg;
+		int flg = 1;
 		int img[8];
-	}RedStone ;
+	} ;
 
-	struct
+	struct REDSTONE RedStone;
+
+	struct BLUESTONE
 	{
-		int flg;
+		int flg = 1;
 		int img[8];
-	}BlueStone;
+	};
 
-	struct
+	struct BLUESTONE BlueStone;
+
+	struct GREENSTONE
 	{
-		int flg;
+		int flg = 1;
 		int img[8];
-	}GreenStone;
+	};
 
-	struct
+	struct GREENSTONE GreenStone;
+
+	struct YELLOWSTONE
 	{
-		int flg;
+		int flg = 1;
 		int img[8];
-	}YellowStone;
+	};
 
-	struct
+	struct YELLOWSTONE YellowStone;
+
+	struct PURPLESTONE
 	{
-		int flg;
+		int flg = 1;
 		int img[8];
-	}PurpleStone;
+	};
 
-	struct
+	struct PURPLESTONE PurpleStone;
+
+	struct WHITESTONE
 	{
-		int flg;
+		int flg = 1;
 		int img[8];
-	}WhiteStone;
+	};
 
+	struct WHITESTONE WhiteStone;
 
 	// 1P用ポケット
 	int P1Pocket[6];

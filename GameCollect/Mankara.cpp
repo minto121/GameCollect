@@ -360,7 +360,7 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 
 		if (P1Pocket[0] == TRUE) {
-
+		
 		}
 		else if (P1Pocket[1] == TRUE) {
 			DrawFormatString(100, 100, GetColor(255, 0, 0), "1P TRUE");
