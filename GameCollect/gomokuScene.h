@@ -9,6 +9,8 @@ private:
 	int gomoku_BackImg;
 	int cX;
 	int cY;
+	int gomoku_AI_MoveX;
+	int gomoku_AI_MoveY;
 	int enemyX;
 	int enemyY;
 	int g_OldKey;
@@ -19,6 +21,7 @@ private:
 	int gomoku_Banmen[13][13];
 	bool gomoku_Phase; // æU:0 ŒãU:1
 	int gomoku_Battle; // ‡’†:0	•‚ÌŸ‚¿:1 ”’‚ÌŸ‚¿:2
+	int gomoku_AImove_Point;
 public:
 	gomokuScene();
 	~gomokuScene();
