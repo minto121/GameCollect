@@ -1,6 +1,8 @@
 #pragma once
 #include "AbstractScene.h"
 
+const int MaxBalls = 10;
+
 class SixBallPuzzle:
 	public AbstractScene
 {
@@ -11,8 +13,13 @@ private:
 	int FallingX;			//落下するブロックのX座標（固定位置）
 	int FallingY = 100;		//落下するブロックのY座標（初期位置）
 	int randomBallIndex;
-	/*int BallX;
-	int BallY;*/
+	
+	float ballX[MaxBalls];     // X座標の配列
+	float ballY[MaxBalls];     // Y座標の配列
+	float ballSpeed[MaxBalls]; // 落下速度の配列
+	bool ballActive[MaxBalls];  // ボールがアクティブかどうかの配列
+	int ScreenHeight;
+	int ScreenWidth;
 
 public:
 	SixBallPuzzle();
