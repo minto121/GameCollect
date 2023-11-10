@@ -159,7 +159,7 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
     }
 
     // 駒が自陣地の端に到達したら成金になる
-    if (SelectY == 0&& board[StartX][StartY] == 1) {
+    if (SelectY == 0) {
         board[StartX][StartY] = 0;
         board[SelectX][SelectY] = 3; // 3は成金を表す
         return false;
