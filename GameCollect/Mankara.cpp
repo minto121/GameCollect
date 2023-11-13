@@ -11,13 +11,11 @@ Mankara::Mankara()
 	P2BigPocket = 0;
 	Pocket_cnt = 0;
 	
-	Stone[i][j];
 	P1Pocket[0] = 1;
 	P2Pocket[0] = 1;
-	RINE = 1;
-	Pocket1[i][j];
-
 	Stone_cnt = 4;
+
+	sideAddition = 0;
 
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
@@ -234,6 +232,14 @@ Mankara::Mankara()
 				 P2Pocket[5] = TRUE;
 			 }
 		 }
+	 }
+
+
+
+	 while (Stonenum <0)
+	 {
+		 sideAddition++;
+
 	 }
 
 	 

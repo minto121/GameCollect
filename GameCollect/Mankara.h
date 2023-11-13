@@ -6,20 +6,9 @@ private:
 
 	
 
-	int Board;
-	int Background;
-	
-	int Stone[6][8];
+	int Board; // ゲームボードの画像
+	int Background; // 背景画像
 
-	int redStone[8];
-	int blueStone[8];
-	int greenStone[8];
-	int yellowStone[8];
-	int purpleStone[8];
-	int whiteStone[8];
-	int RINE;
-	int i;
-	int j;
 	int P1Turn;
 	int P2Turn;
 
@@ -43,22 +32,23 @@ private:
 
 	// 1P用ポケット
 	int P1Pocket[6];
-	
-	int Pocket1[1][5];
 	// 2P用ポケット
 	int P2Pocket[6];
 	
 
-	int P1BigPocket;
-	int P2BigPocket;
+	int P1BigPocket; //1Pのゴール
+	int P2BigPocket; //2Pのゴール
 
 
-	int StoneImg[6];
+	int StoneImg[6]; // 石の画像
 
 	int Pocket_cnt;
 
 	int Stone_cnt;
 
+	int StonePocket[2][6]; // 石入れてるポケット
+	int sideAddition;      // 移動させるための処理
+	int Stonenum;          // 配列の中の石の総数
 public:
 	Mankara();
 	AbstractScene* Update();
