@@ -68,5 +68,7 @@ private:
 	int syuncount = 0;
 
 	int Time = 0;
+
+	int testflg = 0;
 };
 

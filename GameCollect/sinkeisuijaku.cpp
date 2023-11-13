@@ -5,6 +5,7 @@
 
 sinkeisuijaku::sinkeisuijaku()
 {
+    testflg = 0;
 }
 
 AbstractScene* sinkeisuijaku::Update()
@@ -79,10 +80,11 @@ AbstractScene* sinkeisuijaku::Update()
             trumps[S_ber][S2_ber].flg = 1;
             //test
 
+            trumps[S_ber][S2_ber].syunflg = trumps[S_ber][S2_ber].syurui;
+
         }
 
-
-      
+   
         
 
 
@@ -118,7 +120,57 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
     }
+    if (count >= 10) {
+        // カード選択
+        if (g_KeyFlg & PAD_INPUT_1) {
+            if (trumpflg == 0) {
+                // カードを選択したときの種類を1回目に記録
+                syun1 = trumps[S_ber][S2_ber].syurui;
+                testcount++;
+            }
+            else if (rCount < 2) {
+                // 2回目のカード選択時に揃っているか判定
+                syun2 = trumps[S_ber][S2_ber].syurui;
+                rCount++;
 
+                // 揃った場合の処理
+                if (syun1 == syun2) {
+                    // 揃った場合、揃ったフラグを設定
+                    for (int j = 0; j < 4; j++) {
+                        for (int i = 0; i < 5; i++) {
+                            if (trumps[j][i].flg == 1) {
+                                trumps[j][i].syunflg = trumps[j][i].syurui;
+                            }
+                        }
+                    }
+                }
+
+                // カードを裏返す
+                for (int j = 0; j < 4; j++) {
+                    for (int i = 0; i < 5; i++) {
+                        trumps[j][i].flg = 0;
+                    }
+                }
+                rCount = 0;
+            }
+
+            // カードが裏の状態であれば、表にする
+            if (trumpflg == 0) {
+                trumps[S_ber][S2_ber].flg = 1;
+                trumpflg = 1;
+            }
+        }
+
+        // カードを選択したときの種類を2回まで記録
+        if (testcount == 1) {
+            syun1 = trumps[S_ber][S2_ber].syurui;
+            testcount++;
+        }
+        else if (testcount == 3) {
+            syun2 = trumps[S_ber][S2_ber].syurui;
+            testcount = 0;
+        }
+    }
     // 先行後攻決め
     srand((unsigned int)time(NULL)); // 現在の時間を使って初期化
     first = (rand() % 2) + 1; // 1または2をランダムに生成
@@ -160,15 +212,16 @@ AbstractScene* sinkeisuijaku::Update()
 
 void sinkeisuijaku::Draw() const
 {
+  
     
         DrawFormatString(100, 100, 0x0000ff,"rcount %d",rCount);
     
         DrawFormatString(100, 240, 0xfff00f,"test %d", testcount);
 
-    DrawFormatString(100, 260, 0xfff00f, "syun1 %d", syun1);
-    DrawFormatString(100, 280, 0xfff00f, "syun2 %d", syun2);
-    DrawFormatString(100, 300, 0xffff0f, "syun3 %d", syun3);
+    DrawFormatString(100, 260, 0xfff00f, "syunflg %d", trumps[0][0].syunflg);
+    DrawFormatString(100, 280, 0xfff00f, "syunflg %d", trumps[0][1].syunflg);
 
+ 
    // DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
 
     // トランプの表示
@@ -192,6 +245,23 @@ void sinkeisuijaku::Draw() const
 
     // 選択中のトランプにハイライトを表示
     DrawBox(355 + S2_ber * 120, 55 + S_ber * 150, 450 + S2_ber * 120, 200 + S_ber * 150, 0xff0000, FALSE);
+
+
+    // 揃ったカードの確認とメッセージ表示
+    for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 5; i++) {
+            if (trumps[j][i].flg == 1 && trumps[j][i].syunflg != 0) {
+                for (int k = 0; k < 4; k++) {
+                    for (int l = 0; l < 5; l++) {
+                        if (trumps[j][i].syunflg + 10 == trumps[k][l].syunflg || trumps[j][i].syunflg - 10 == trumps[k][l].syunflg) {
+                            DrawFormatString(100, 120, 0x00ffff, "そろった %");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     // その他の情報表示
     DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
