@@ -14,6 +14,8 @@ private:
 	int Answer[4];  // 色と場所を当てる配列
 	int Reasoning[4];  // 色と場所を推理する配列
 	int SaveReasoning[8][4]; // 色と場所を決定した配列
+	int SaveHit[8]; // そのターンのヒットした数を格納
+	int SaveBlow[8];// そのターンのブローした数を格納
 	int SaveColor; // 確定した色を表示
 	int ColorDecision; // 色の場所決定変数
 	int DecisionFlg;  // 答え決定フラグ
@@ -24,8 +26,9 @@ private:
 	int Change;  // 交換する時に使う変数
 	int Turns; // ターン数を数える変数
 	int ColorFlg; // 色を入れたか確認するフラグ
-	int SaveHit[8];
-	int SaveBlow[8];
+	int EChoiceFlg; // エネミーが選択したかどうか確認するフラグ
+	int count; // 時間管理する変数
+	int ChangeColor; // 色が全部分かった時、順番だけを入れ替えるための変数
 
 public:
 	// インクリメント
@@ -40,6 +43,9 @@ public:
 	// ランダムに正解の色と場所決める関数
 	void RandomDecision();
 
-	//// 判定の関数
+	// 判定の関数
 	void Judgment();
+
+	// 敵の予想をする関数
+	void ERandomChoice();
 };

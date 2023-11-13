@@ -1,6 +1,9 @@
 #include"Hit&Blow.h"
 #include"DxLib.h"
 #include"PadInput.h"
+#include"GameSelect.h"
+#include"Title.h"
+#include"FpsController.h"
 #include<stdlib.h>
 #include<time.h>
 
@@ -14,6 +17,7 @@ HitAndBlow::HitAndBlow()
 	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
 
 	DecisionFlg = TRUE;
+	EChoiceFlg = TRUE;
 
 	WarpPosition = 0;
 	SidePosition = 0;
@@ -30,6 +34,8 @@ HitAndBlow::HitAndBlow()
 
 	Hit = 0;  // ヒットの数を初期化
 	Blow = 0;  // ブローの数を初期化
+
+	count = 0; // カウントの初期化
 }
 
 HitAndBlow::~HitAndBlow()
@@ -45,14 +51,14 @@ AbstractScene* HitAndBlow::Update()
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
 	{
 		WarpPosition--;
-		if (WarpPosition < 0) WarpPosition = 0; // 位置が0未満なら、0にする
+		if (WarpPosition < 0) WarpPosition = 3; // 位置が0未満なら、0にする
 	}
 
 	// 十字キー↓入力
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
 	{
 		WarpPosition++;
-		if (WarpPosition > 3) WarpPosition = 3; // 位置が3を超えたら、3にする
+		if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、3にする
 	}
 
 	// 十字キー←入力
@@ -91,6 +97,40 @@ AbstractScene* HitAndBlow::Update()
 	/* ここに自分が駒を入れる処理を書く */
 	if (Turns < 8)
 	{
+		if ((Turns % 2) == 0) { // 敵がやる処理
+			ERandomChoice();
+			Judgment();
+
+			if (SaveHit[Turns - 1] == 4) {
+				/* 何秒か待つ処理を作る */
+				while (count < 1200) {
+					count++;
+				}
+				count = 0; // カウントをリセット
+				//return new GameSelect();// 遷移場所は一旦置いてるだけ
+			}
+
+			/* 色のデータ引き継ぎ */
+			SaveReasoning[SaveColor][0] = Reasoning[0];
+			SaveReasoning[SaveColor][1] = Reasoning[1];
+			SaveReasoning[SaveColor][2] = Reasoning[2];
+			SaveReasoning[SaveColor][3] = Reasoning[3];
+
+			SaveColor++; // 描画列1追加
+			Turns++; // ターン数1増加
+
+			for (int i = 0; i < 4; i++) {
+				/* 色をリセット */
+				Reasoning[i] = -1;
+			}
+
+			WarpPosition = 0;
+
+			Hit = 0;
+			Blow = 0;
+
+
+		}else
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && Reasoning[0] != -1 && Reasoning[1] != -1 && Reasoning[2] != -1 && Reasoning[3] != -1) // 色が入っている時
 		{
 			/* ジャッジ処理を書く */
@@ -123,9 +163,26 @@ AbstractScene* HitAndBlow::Update()
 			WarpPosition++;
 			if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、3にする
 		}
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+			ColorDecision = WarpPosition;
+			Reasoning[ColorDecision] = -1;
+		}
 	}
 	else {
-		/* 答えを出す処理追加 */
+		/* 何秒か待つ処理を作る */
+		if (SaveHit[Turns - 1] == 4) {
+			/* 何秒か待つ処理を作る */
+			while (count < 1200) {
+				count++;
+			}
+			count = 0; // カウントをリセット
+			//return new GameSelect(); // 遷移場所は一旦置いてるだけ
+		}else
+		while (count < 1200) {
+			count++;
+		}
+		count = 0; // カウントをリセット
+		//return new Title();// 遷移場所は一旦置いてるだけ
 	}
 
 	return this;
@@ -143,7 +200,7 @@ void HitAndBlow::Draw() const
 	DrawTriangle(300 + SidePosition * 100, 575, 350 + SidePosition * 100, 625, 300 + SidePosition * 100, 675, 0xff0000, TRUE); // どこの駒を指しているのか表示
 	DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 
-	DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Hit); // デバック用
+	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Hit); // デバック用
 
 	/* 正解の駒表示 */
 	if (DecisionFlg == FALSE && SaveHit[Turns - 1] == 4 || Turns == 8) { // 正解が決まっていて、8ターン経過か、4ヒットしたら表示
@@ -156,14 +213,29 @@ void HitAndBlow::Draw() const
 	if (ColorFlg == TRUE || Reasoning[WarpPosition % 4] >= 0) {
 		DrawGraph(92 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
 	}
+	else {
+		/*DeleteGraph(ColorImg[Reasoning[WarpPosition % 4]]);*/
+	}
+
 	if (ColorFlg == TRUE || Reasoning[(WarpPosition + 1) % 4] >= 0) {
 		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
 	}
+	else {
+		/*DeleteGraph(ColorImg[Reasoning[(WarpPosition + 1) % 4]]);*/
+	}
+
 	if (ColorFlg == TRUE || Reasoning[(WarpPosition + 2) % 4] >= 0) {
 		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
 	}
+	else {
+		/*DeleteGraph(ColorImg[Reasoning[(WarpPosition + 2) % 4]]);*/
+	}
+
 	if (ColorFlg == TRUE || Reasoning[(WarpPosition + 3) % 4] >= 0) {
 		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
+	}
+	else {
+		/*DeleteGraph(ColorImg[Reasoning[(WarpPosition + 3) % 4]]);*/
 	}
 	/* 過去に入れた色を表示 */
 	for (int i = 0; i < Turns; i++) {
@@ -207,6 +279,39 @@ void HitAndBlow::RandomDecision()
 
 }
 
+void HitAndBlow::ERandomChoice()
+{
+	/* 答えの配列をランダムに設定する */
+	srand((unsigned int)time(NULL));
+
+	EChoiceFlg = TRUE;
+
+	if (EChoiceFlg == TRUE) {
+		for (int i = 0; i < 4; i++) {
+			/*for (int j = 0; j < Turns; j++) {*/
+				if (SaveHit[Turns-1] + SaveBlow[Turns-1] == 4) {// ヒットとブローの合計の数が４つになったら
+					ChangeColor = rand() % 4;
+					Reasoning[i] = SaveReasoning[Turns][ChangeColor];
+					if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 順番被ってたら
+						i--; // iの抽選やり直す
+					}
+				}else
+					Reasoning[i] = rand() % 6;
+				if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 色が重なったら
+					i--; // 選別をやり直す
+				}
+				// 1ターン目に当たるのを阻止
+				if (Turns / 2 == 0 && Reasoning[0] == Answer[0] && Reasoning[1] == Answer[1] && Reasoning[2] == Answer[2] && Reasoning[3] == Answer[3]) {
+					i = 0;
+				}
+			/*}*/
+			
+		}
+		EChoiceFlg = FALSE;
+	}
+
+}
+
 void HitAndBlow::Judgment()
 {
 	for (int i = 0; i < 4; i++) {
@@ -232,7 +337,8 @@ void HitAndBlow::Judgment()
 					}
 				}
 				// その場所の色がヒットしていなくて、ブローが２重に加算されていなければ、
-				if (Reasoning[i] == Reasoning[(i + 3) % 4] && Reasoning[(i + 3) % 4] != Answer[(i + 3) % 4] && Reasoning[(i + 2) % 4] != Answer[(i + 2) % 4] && Reasoning[(i + 1) % 4] != Answer[(i + 1) % 4]) {
+				if (Reasoning[i] == Reasoning[(i + 3) % 4] && Reasoning[(i + 3) % 4] != Answer[(i + 3) % 4] 
+					&& Reasoning[(i + 2) % 4] != Answer[(i + 2) % 4] && Reasoning[(i + 1) % 4] != Answer[(i + 1) % 4]) {
 					if ((i + 3) / 4 == 0) {// ブローが２重に加算されていなければ、
 						Blow++; // blowに１を足す
 					}	
@@ -244,5 +350,6 @@ void HitAndBlow::Judgment()
 		}
 	}
 	SaveHit[Turns] = Hit; // そのターンのヒットした数を格納
-	SaveBlow[Turns] = Blow;// そのターンのブローした数を格納
+	SaveBlow[Turns] = Blow; // そのターンのブローした数を格納
 }
+
