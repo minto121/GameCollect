@@ -28,28 +28,28 @@ Mankara::Mankara()
 	}
 
 	for (int i = 0; i < 8; i++) {
-		RedStone.img[i] = StoneImg[1];
+		gStone.redimg[i] = StoneImg[1];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		BlueStone.img[i] = StoneImg[5];
+		gStone.blueimg[i] = StoneImg[5];
 		
 	}
 
 	for (int i = 0; i < 8; i++) {
-		GreenStone.img[i] = StoneImg[3];
+		gStone.greenimg[i] = StoneImg[3];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		YellowStone.img[i] = StoneImg[0];
+		gStone.yellowimg[i] = StoneImg[0];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		PurpleStone.img[i] = StoneImg[2];
+		gStone.purpleimg[i] = StoneImg[2];
 	}
 
 	for (int i = 0; i < 8; i++) {
-		WhiteStone.img[i] = StoneImg[4];
+		gStone.whiteimg[i] = StoneImg[4];
 	}
 
 }
@@ -245,46 +245,47 @@ void Mankara::Draw()const
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 430, RedStone.img[i], TRUE);
+		DrawGraph(300 + i * 125, 430, gStone.redimg[i], TRUE);
 
 	}
-	DrawGraph(300, 160, RedStone.img[6], TRUE);
-	DrawGraph(300 + 125, 160, RedStone.img[7], TRUE);
+	DrawGraph(300, 160, gStone.redimg[6], TRUE);
+	DrawGraph(300 + 125, 160, gStone.redimg[7], TRUE);
 
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 460, BlueStone.img[i], TRUE);
+		DrawGraph(300 + i * 125, 460, gStone.blueimg[i], TRUE);
 	}
-	DrawGraph(300, 190, BlueStone.img[6], TRUE);
-	DrawGraph(300 + 125, 190, BlueStone.img[7], TRUE);
+	DrawGraph(300, 190, gStone.blueimg[6], TRUE);
+	DrawGraph(300 + 125, 190, gStone.blueimg[7], TRUE);
 
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 490, GreenStone.img[i], TRUE);
+		DrawGraph(300 + i * 125, 490, gStone.greenimg[i], TRUE);
 	}
-	DrawGraph(300+125*2, 160, GreenStone.img[6], TRUE);
-	DrawGraph(300 + 125*3, 160, GreenStone.img[7], TRUE);
-
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 520, YellowStone.img[i], TRUE);
-	}
-	DrawGraph(300+125*2, 190, YellowStone.img[6], TRUE);
-	DrawGraph(300 + 125*3, 190, YellowStone.img[7], TRUE);
+	DrawGraph(300+125*2, 160, gStone.greenimg[6], TRUE);
+	DrawGraph(300 + 125*3, 160, gStone.greenimg[7], TRUE);
 
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 100, PurpleStone.img[i], TRUE);
+		DrawGraph(300 + i * 125, 520, gStone.yellowimg[i], TRUE);
 	}
-	DrawGraph(300 + 125 * 4, 190, PurpleStone.img[6], TRUE);
-	DrawGraph(300 + 125 * 5, 190, PurpleStone.img[7], TRUE);
+	DrawGraph(300+125*2, 190, gStone.yellowimg[6], TRUE);
+	DrawGraph(300 + 125*3, 190, gStone.yellowimg[7], TRUE);
 
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 130, WhiteStone.img[i], TRUE);
+		DrawGraph(300 + i * 125, 100, gStone.purpleimg[i], TRUE);
+	}
+	DrawGraph(300 + 125 * 4, 190, gStone.purpleimg[6], TRUE);
+	DrawGraph(300 + 125 * 5, 190, gStone.purpleimg[7], TRUE);
+
+
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 130, gStone.whiteimg[i], TRUE);
 
 	}
-	DrawGraph(300 + 125 * 4, 160, WhiteStone.img[6], TRUE);
-	DrawGraph(300 + 125 * 5, 160, WhiteStone.img[7], TRUE);
+	DrawGraph(300 + 125 * 4, 160, gStone.whiteimg[6], TRUE);
+	DrawGraph(300 + 125 * 5, 160, gStone.whiteimg[7], TRUE);
 
 	
 
