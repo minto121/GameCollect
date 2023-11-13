@@ -11,8 +11,8 @@ RabbitAndHounds::RabbitAndHounds()
 {
 	BackGroundImg = LoadGraph("images/RabbitAndHounds/BackGround01.png");
 	//3Dモデルの読込
-	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
-	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
+	//HoundImg = MV1LoadModel("Dog_Model.mv1");
+	//RabbitImg = MV1LoadModel("Rabbit_Model.mv1");
 
 	////ウサギ座標
 	//rabbit_X = 100, rabbit_Y = 100;

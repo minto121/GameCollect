@@ -13,6 +13,10 @@ Rabbit::Rabbit()
 
 	// テクスチャの読み込み
 	R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
+
+	rabbit_X = 0;
+	rabbit_Y = 0;
+	
 }
 
 Rabbit::~Rabbit()
@@ -24,14 +28,6 @@ Rabbit::~Rabbit()
 
 AbstractScene* Rabbit::Update()
 {
-	while (CheckHitKey(KEY_INPUT_A)) {
-		// 3D描画の開始
-		//ClearDrawScreen();
-
-		// 画面の更新
-		//
-		ScreenFlip();
-	}
 
 	////ウサギ座標
 	//rabbit_X = 100, rabbit_Y = 100;
@@ -42,19 +38,18 @@ AbstractScene* Rabbit::Update()
 	//}
 
 	// ウサギを移動
-	/*if (CheckHitKey(KEY_INPUT_UP)) {
-		rabbit_Y -= rabbitSpeed;
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+		rabbit_Y -= 200;
 	}
-	if (CheckHitKey(KEY_INPUT_DOWN)) {
-		rabbit_Y += rabbitSpeed;
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+		rabbit_Y += 200;
 	}
-	if (CheckHitKey(KEY_INPUT_LEFT)) {
-		rabbit_X -= rabbitSpeed;
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+		rabbit_X -= 200;
 	}
-	if (CheckHitKey(KEY_INPUT_RIGHT)) {
-		rabbit_X += rabbitSpeed;
-	}*/
-	
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+		rabbit_X += 200;
+	}
 
 	return this;
 }
@@ -87,6 +82,16 @@ void Rabbit::Draw() const
 	/*DrawBox(200 + rabbit_X, 250 + rabbit_Y, 300 + rabbit_X - 1, 350 + rabbit_Y - 1, GetColor(0, 0, 255), RabbitImg);
 	DrawCircle(hound_X, hound_Y, hound_X - 1, hound_Y - 1, GetColor(0, 0, 255), HoundImg);*/
 
-	/*DrawBox(300, 350, 400, 450, GetColor(255, 0, 0), RabbitImg);
-	DrawCircle(900, 400, 60, GetColor(0, 0, 255), TRUE);*/
+
+	DrawCircle(325, 375, 50, 0x00ff00, TRUE);
+
+	
+
+	//猟犬の駒(仮)
+	DrawBox(890, 140, 960, 210, 0x0000ff, TRUE);     //上
+	DrawBox(1100, 350, 1150, 400, 0x0000ff, TRUE);   //真ん中
+	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
+
+	//ウサギの駒(仮)
+	DrawBox(100 + rabbit_X, 350 + rabbit_Y, 150 + rabbit_X, 400 + rabbit_Y, 0xff0000, RabbitImg);
 }
