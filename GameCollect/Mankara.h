@@ -15,13 +15,7 @@ private:
 	struct STONE
 	{
 		int flg = 1;
-		int redimg[8];
-		int blueimg[8];
-		int greenimg[8];
-		int yellowimg[8];
-		int purpleimg[8];
-		int whiteimg[8];
-
+		int img[6][8];
 	} ;
 
 	struct STONE gStone;
@@ -44,11 +38,14 @@ private:
 
 	int Pocket_cnt;
 
+	int InitialStone;
 	int Stone_cnt;
+	int movePocket;
 
-	int StonePocket[2][6]; // 石入れてるポケット
+	int StonePocket[12]; // 石入れてるポケット
 	int sideAddition;      // 移動させるための処理
 	int Stonenum;          // 配列の中の石の総数
+
 public:
 	Mankara();
 	AbstractScene* Update();

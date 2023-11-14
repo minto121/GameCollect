@@ -9,12 +9,14 @@ Mankara::Mankara()
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
+
 	Pocket_cnt = 0;
 	
 	P1Pocket[0] = 1;
 	P2Pocket[0] = 1;
-	Stone_cnt = 4;
-
+	InitialStone = 4;
+	Stone_cnt = 1;
+	movePocket = 0;
 	sideAddition = 0;
 
 	for (int y = 0; y < 6; y++) {
@@ -25,31 +27,20 @@ Mankara::Mankara()
 		P2Pocket[y]+=1;
 	}
 
+	// 石の画像処理
 	for (int i = 0; i < 8; i++) {
-		gStone.redimg[i] = StoneImg[1];
+		gStone.img[0][i] = StoneImg[1];//赤
+		gStone.img[1][i] = StoneImg[5];//青
+		gStone.img[2][i] = StoneImg[3];//緑
+		gStone.img[3][i] = StoneImg[0];//黄
+		gStone.img[4][i] = StoneImg[2];//紫
+		gStone.img[5][i] = StoneImg[4];//白
+
 	}
 
-	for (int i = 0; i < 8; i++) {
-		gStone.blueimg[i] = StoneImg[5];
-		
+	for (int i = 0; i < 12; i++) {
+		StonePocket[i] = InitialStone; // 2P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
 	}
-
-	for (int i = 0; i < 8; i++) {
-		gStone.greenimg[i] = StoneImg[3];
-	}
-
-	for (int i = 0; i < 8; i++) {
-		gStone.yellowimg[i] = StoneImg[0];
-	}
-
-	for (int i = 0; i < 8; i++) {
-		gStone.purpleimg[i] = StoneImg[2];
-	}
-
-	for (int i = 0; i < 8; i++) {
-		gStone.whiteimg[i] = StoneImg[4];
-	}
-
 }
 
  AbstractScene* Mankara:: Update()
@@ -57,11 +48,22 @@ Mankara::Mankara()
 
 	
 	 // 相手のターンはプレイヤーは動かない
+	 if (P2Turn == 1) {
+		 P1Turn = 0;
+	 }
+
+	 // ターン切り替え
 	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
 		 P2Turn = 1;
 		 P1Turn = 0;
 	 }
+
 	 // プレイヤーのターンは相手は動かない
+	 if (P1Turn == 1) {
+		 P2Turn = 0;
+	 }
+
+	 // ターン切り替え
 	 if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)) {
 		 P1Turn = 1;
 		 P2Turn = 0;
@@ -234,15 +236,150 @@ Mankara::Mankara()
 		 }
 	 }
 
+	 if (P1Turn == 1) {
+		 if (P1Pocket[0] == TRUE) {
+			 if (Stone_cnt > 0) {
+				 StonePocket[1] += Stone_cnt;
+				 StonePocket[2] += Stone_cnt;
+				 StonePocket[3] += Stone_cnt;
+				 StonePocket[4] += Stone_cnt;
+					 Stone_cnt-=1;
+			 }
+			 P2Turn = 1;
+		 }
+		 else if (P1Pocket[1] == TRUE) {
+			 movePocket = 1;
+			 if (Stone_cnt > 0) {
+				 StonePocket[1 + movePocket] += Stone_cnt;
+				 StonePocket[2 + movePocket] += Stone_cnt;
+				 StonePocket[3 + movePocket] += Stone_cnt;
+				 StonePocket[4 + movePocket] += Stone_cnt;
+				 Stone_cnt -= 1;
+			 }
+			 P2Turn = 1;
+		 }
+		 else if (P1Pocket[2] == TRUE) {
+			 movePocket = 2;
+			 if (Stone_cnt > 0) {
+				 StonePocket[1 + movePocket] += Stone_cnt;
+				 StonePocket[2 + movePocket] += Stone_cnt;
+				 StonePocket[3 + movePocket] += Stone_cnt;
+				 StonePocket[4 + movePocket] += Stone_cnt;
+				 P1BigPocket++;
+				 Stone_cnt -= 2;
+			 }
+			 P1Turn = 1;
+
+		 }
+		 else if (P1Pocket[3] == TRUE) {
+			 movePocket = 3;
+			 if (Stone_cnt > 0) {
+				 StonePocket[1 + movePocket] += Stone_cnt;
+				 StonePocket[2 + movePocket] += Stone_cnt;
+				 P1BigPocket++;
+				 StonePocket[3 + movePocket] += Stone_cnt;
+				 Stone_cnt -= 3;
+			 }
+			 P2Turn = 1;
+		 }
+		 else if (P1Pocket[4] == TRUE) {
+			 movePocket = 4;
+			 if (Stone_cnt > 0) {
+				 StonePocket[1 + movePocket] += Stone_cnt;
+				 StonePocket[2 + movePocket] += Stone_cnt;
+				 P1BigPocket++;
+				 StonePocket[3 + movePocket] += Stone_cnt;
+				 Stone_cnt -= 4;
+			 }
+			 P2Turn = 1;
+		 }
+		 else if (P1Pocket[5] == TRUE) {
+			 movePocket = 5;
+			 if (Stone_cnt > 0) {
+				 StonePocket[1 + movePocket] += Stone_cnt;
+				 StonePocket[2 + movePocket] += Stone_cnt;
+				 P1BigPocket++;
+				 StonePocket[3 + movePocket] += Stone_cnt;
+				 Stone_cnt -= 5;
+			 }
+			 P2Turn = 1;
+		 }
+	 }
 
 
-	 while (Stonenum <0)
-	 {
-		 sideAddition++;
+
+	 // ２P用石の移動
+	 if (P2Turn == 1) {
+
+		 if (P2Pocket[0] == TRUE) {
+			 
+			 if (Stone_cnt > 0) {
+				 StonePocket[7 + movePocket] += Stone_cnt;
+				 StonePocket[8 + movePocket] += Stone_cnt;
+				 StonePocket[9 + movePocket] += Stone_cnt;
+				 StonePocket[10 + movePocket] += Stone_cnt;
+				 Stone_cnt -= 1;
+			 }
+			 P1Turn = 1;
+		 }
+		 else if (P2Pocket[1] == TRUE) {
+			 movePocket = 1;
+			 if (Stone_cnt > 0) {
+				 StonePocket[7 + movePocket] += Stone_cnt;
+				 StonePocket[8 + movePocket] += Stone_cnt;
+				 StonePocket[9 + movePocket] += Stone_cnt;
+				 StonePocket[10 + movePocket] += Stone_cnt;
+				 Stone_cnt -= 1;
+			 }
+			 P1Turn = 1;
+		 }
+		 else if (P2Pocket[2] == TRUE) {
+			 movePocket = 2;
+			 if (Stone_cnt > 0) {
+				 StonePocket[7 + movePocket] += Stone_cnt;
+				 StonePocket[8 + movePocket] += Stone_cnt;
+				 StonePocket[9 + movePocket] += Stone_cnt;
+				 P2BigPocket++;
+				 Stone_cnt -= 2;
+			 }
+			 P1Turn = 2;
+		 }
+		 else if (P2Pocket[3] == TRUE) {
+			 movePocket = 3;
+			 if (Stone_cnt > 0) {
+				 StonePocket[7 + movePocket] += Stone_cnt;
+				 StonePocket[8 + movePocket] += Stone_cnt;
+				 P2BigPocket++;
+				 StonePocket[0] += Stone_cnt;
+				 Stone_cnt -= 3;
+			 }
+			 P1Turn = 1;
+		 }
+		 else if (P2Pocket[4] == TRUE) {
+			 movePocket = 4;
+			 if (Stone_cnt > 0) {
+				 StonePocket[7 + movePocket] += Stone_cnt;
+				 P2BigPocket++;
+				 StonePocket[0] += Stone_cnt;
+				 StonePocket[1] += Stone_cnt;
+				 Stone_cnt -= 4;
+			 }
+			 P1Turn = 1;
+		 }
+		 else if (P2Pocket[5] == TRUE) {
+			 movePocket = 5;
+			 if (Stone_cnt > 0) {
+				 P2BigPocket++;
+				 StonePocket[0] += Stone_cnt;
+				 StonePocket[1] += Stone_cnt;
+				 StonePocket[2] += Stone_cnt;
+				 Stone_cnt -= 5;
+			 }
+			 P1Turn = 1;
+		 }
 
 	 }
 
-	 
 	return this;
 }
 
@@ -250,48 +387,51 @@ void Mankara::Draw()const
 {
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
+
+	// 石（赤）の初期配置
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 430, gStone.redimg[i], TRUE);
+		DrawGraph(300 + i * 125, 430, gStone.img[0][i], TRUE);
 
 	}
-	DrawGraph(300, 160, gStone.redimg[6], TRUE);
-	DrawGraph(300 + 125, 160, gStone.redimg[7], TRUE);
+	DrawGraph(300, 160, gStone.img[0][6], TRUE);
+	DrawGraph(300 + 125, 160, gStone.img[0][7], TRUE);
 
+	// 石（青）の初期配置
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 460, gStone.img[1][i], TRUE);
+	}
+	DrawGraph(300, 190, gStone.img[1][6], TRUE);
+	DrawGraph(300 + 125, 190, gStone.img[1][7], TRUE);
+
+	// 石（緑）の初期配置
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 490, gStone.img[2][i], TRUE);
+	}
+	DrawGraph(300+125*2, 160, gStone.img[2][6], TRUE);
+	DrawGraph(300 + 125*3, 160, gStone.img[2][7], TRUE);
+
+	// 石（黄）の初期配置
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 520, gStone.img[3][i], TRUE);
+	}
+	DrawGraph(300+125*2, 190, gStone.img[3][6], TRUE);
+	DrawGraph(300 + 125*3, 190, gStone.img[3][7], TRUE);
+
+	// 石（紫）の初期配置
+	for (int i = 0; i < 6; i++) {
+		DrawGraph(300 + i * 125, 100, gStone.img[4][i], TRUE);
+	}
+	DrawGraph(300 + 125 * 4, 190, gStone.img[4][6], TRUE);
+	DrawGraph(300 + 125 * 5, 190, gStone.img[4][7], TRUE);
+
+	// 石（白）の初期配置
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 460, gStone.blueimg[i], TRUE);
-	}
-	DrawGraph(300, 190, gStone.blueimg[6], TRUE);
-	DrawGraph(300 + 125, 190, gStone.blueimg[7], TRUE);
-
-
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 490, gStone.greenimg[i], TRUE);
-	}
-	DrawGraph(300+125*2, 160, gStone.greenimg[6], TRUE);
-	DrawGraph(300 + 125*3, 160, gStone.greenimg[7], TRUE);
-
-
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 520, gStone.yellowimg[i], TRUE);
-	}
-	DrawGraph(300+125*2, 190, gStone.yellowimg[6], TRUE);
-	DrawGraph(300 + 125*3, 190, gStone.yellowimg[7], TRUE);
-
-
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 100, gStone.purpleimg[i], TRUE);
-	}
-	DrawGraph(300 + 125 * 4, 190, gStone.purpleimg[6], TRUE);
-	DrawGraph(300 + 125 * 5, 190, gStone.purpleimg[7], TRUE);
-
-
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 130, gStone.whiteimg[i], TRUE);
+		DrawGraph(300 + i * 125, 130, gStone.img[5][i], TRUE);
 
 	}
-	DrawGraph(300 + 125 * 4, 160, gStone.whiteimg[6], TRUE);
-	DrawGraph(300 + 125 * 5, 160, gStone.whiteimg[7], TRUE);
+	DrawGraph(300 + 125 * 4, 160, gStone.img[5][6], TRUE);
+	DrawGraph(300 + 125 * 5, 160, gStone.img[5][7], TRUE);
 
 	
 
@@ -345,10 +485,10 @@ void Mankara::Draw()const
 		}
 	}
 	
-
+	//ポケットの中に値が入っているか
 	for (int i = 0; i < 6; i++) {
-		DrawFormatString(700 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
-		DrawFormatString(900 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
+		DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
+		DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
 	}
 	
 	// ターン切り替え
@@ -362,72 +502,5 @@ void Mankara::Draw()const
 	
 
 
-	// 1p用石の移動
-
-	if (P1Turn == 1) {
-
-		if (P1Pocket[0] == TRUE) {
-		
-		}
-		else if (P1Pocket[1] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 0, 0), "1P TRUE");
-
-		}
-		else if (P1Pocket[2] == TRUE) {
-			DrawFormatString(100, 100, GetColor(0, 255, 0), "1P TRUE");
-
-		}
-		else if (P1Pocket[3] == TRUE) {
-			DrawFormatString(100, 100, GetColor(0, 0, 255), "1P TRUE");
-
-		}
-		else if (P1Pocket[4] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 255, 0), "1P TRUE");
-
-		}
-		else if (P1Pocket[5] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 0, 255), "1P TRUE");
-
-		}
-		else if (P1Pocket[6] == TRUE) {
-			DrawFormatString(100, 100, GetColor(0, 255, 255), "1P TRUE");
-
-		}
-
-	} 
-	
-	// ２P用石の移動
-
-	if (P2Turn == 1) {
-
-		if (P2Pocket[0] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 255, 255), "2P TRUE");
-
-		}
-		else if (P2Pocket[1] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 0, 0), "2P TRUE");
-
-		}
-		else if (P2Pocket[2] == TRUE) {
-			DrawFormatString(100, 100, GetColor(0, 255, 0), "2P TRUE");
-
-		}
-		else if (P2Pocket[3] == TRUE) {
-			DrawFormatString(100, 100, GetColor(0, 0, 255), "2P TRUE");
-
-		}
-		else if (P2Pocket[4] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 255, 0), "2P TRUE");
-
-		}
-		else if (P2Pocket[5] == TRUE) {
-			DrawFormatString(100, 100, GetColor(255, 0, 255), "2P TRUE");
-
-		}
-		else if (P2Pocket[6] == TRUE) {
-			DrawFormatString(100, 100, GetColor(0, 255, 255), "2P TRUE");
-
-		}
-	}
 	
 }
