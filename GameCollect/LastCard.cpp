@@ -8,7 +8,7 @@ LastCard::LastCard()
 
 	CardImg;
 
-	LoadDivGraph("images/LastCard.png", 65, 13, 5, 128, 256, CardImg);
+	LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
 }
 
 LastCard::~LastCard()
