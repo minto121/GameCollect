@@ -12,7 +12,7 @@ private:
         {4,0,0,0,0,0,0,0,0,0,0,0,0}
     };
 
-    int CardImg;
+    int CardImg[65];
 
 
 public:

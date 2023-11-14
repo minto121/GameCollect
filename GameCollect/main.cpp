@@ -3,14 +3,8 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
-#include "takoyaki.h"
-//#include"Hanafuda_GameMain.h"
-//#include "Checkermain.h"
-#include "SixBollPuzzle.h"
-#include "GameSelect.h"
-#include"Hanahuda_GameMain.h"
-#include"Reversi.h"
+
+
 #include"Title.h"
 
 
@@ -42,7 +36,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new GameSelect());
+		sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	}
 	catch (const char* err)
