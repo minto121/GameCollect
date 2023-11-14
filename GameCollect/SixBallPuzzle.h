@@ -8,8 +8,11 @@ class SixBallPuzzle:
 {
 
 private:
+	int ScreenHeight = 720;
+	int ScreenWidth = 1280;
+
 	int Ball_img[4];		//ボール
-	int Back_Ground_img;	//背景画像
+	int Back_Ground;	//背景画像
 	int FallingX;			//落下するブロックのX座標（固定位置）
 	int FallingY = 100;		//落下するブロックのY座標（初期位置）
 	int randomBallIndex;
@@ -18,8 +21,7 @@ private:
 	float ballY[MaxBalls];     // Y座標の配列
 	float ballSpeed[MaxBalls]; // 落下速度の配列
 	bool ballActive[MaxBalls];  // ボールがアクティブかどうかの配列
-	int ScreenHeight;
-	int ScreenWidth;
+	
 
 public:
 	SixBallPuzzle();
