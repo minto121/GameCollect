@@ -4,6 +4,16 @@ class gomokuScene : public AbstractScene
 {
 private:
 	int TitleImg;
+	int wTopImg;
+	int bTopImg;
+	int cX;
+	int cY;
+	int g_OldKey;
+	int g_NowKey;
+	int g_KeyFlg;
+	int Banmen[13][13];
+	bool Phase; // æU:0 ŒãU:1
+	int Battle; // ‡’†:0	•‚ÌŸ‚¿:1 ”’‚ÌŸ‚¿:2
 public:
 	gomokuScene();
 	~gomokuScene();
