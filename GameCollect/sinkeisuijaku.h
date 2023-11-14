@@ -13,6 +13,7 @@ private:
 		int flg = 0;
 		int syurui = 0;
 		int syunflg = 0;
+		int  visible = 0; // カードを画面に表示するかどうかのフラグ
 	};
 	
 
@@ -70,5 +71,7 @@ private:
 	int Time = 0;
 
 	int testflg = 0;
+
+	int pea = 0;
 };
 

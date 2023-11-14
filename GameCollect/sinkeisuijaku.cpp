@@ -133,33 +133,42 @@ AbstractScene* sinkeisuijaku::Update()
                 syun2 = trumps[S_ber][S2_ber].syurui;
                 rCount++;
 
-                // 揃った場合の処理
-                if (syun1 == syun2) {
-                    // 揃った場合、揃ったフラグを設定
-                    for (int j = 0; j < 4; j++) {
-                        for (int i = 0; i < 5; i++) {
-                            if (trumps[j][i].flg == 1) {
-                                trumps[j][i].syunflg = trumps[j][i].syurui;
-                            }
-                        }
-                    }
-                }
-
                 // カードを裏返す
                 for (int j = 0; j < 4; j++) {
                     for (int i = 0; i < 5; i++) {
                         trumps[j][i].flg = 0;
                     }
                 }
+
+                // カードが裏の状態であれば、表にする
+                if (trumpflg == 0) {
+                    trumps[S_ber][S2_ber].flg = 1;
+                    trumpflg = 1;
+                }
+
+                // 揃ったかどうかの判定
+                if (syun1 == syun2) {
+                    // 揃った場合、揃ったフラグを設定
+                    for (int j = 0; j < 4; j++) {
+                        for (int i = 0; i < 5; i++) {
+                            if (trumps[j][i].flg == 1) {
+                                trumps[j][i].syunflg = trumps[j][i].syurui;
+
+                            }
+                        }
+                    }
+                }
+
+                // カード選択時に rCount が2より大きい場合でも連続して裏返せないようにリセット
                 rCount = 0;
             }
-
-            // カードが裏の状態であれば、表にする
-            if (trumpflg == 0) {
-                trumps[S_ber][S2_ber].flg = 1;
-                trumpflg = 1;
-            }
         }
+
+           
+    
+
+
+
 
         // カードを選択したときの種類を2回まで記録
         if (testcount == 1) {
@@ -198,6 +207,7 @@ AbstractScene* sinkeisuijaku::Update()
             for (int j = 0; j < 4; j++) {
                 for (int i = 0; i < 5; i++) {
                     trumps[j][i].flg = 0;
+                    trumps[j][i].syunflg = 21;
                 }
             }
             syun1 = 21;
@@ -206,28 +216,49 @@ AbstractScene* sinkeisuijaku::Update()
             syuncount = 0;
         }
     }
-    
+
+
+
+
+
+    // 揃ったカードの確認とメッセージ表示
+    for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 5; i++) {
+            if (trumps[j][i].flg == 1 && trumps[j][i].syunflg != 0) {
+                for (int k = 0; k < 4; k++) {
+                    for (int l = 0; l < 5; l++) {
+                        if (trumps[j][i].syunflg + 10 == trumps[k][l].syunflg || trumps[j][i].syunflg - 10 == trumps[k][l].syunflg) {
+                            trumps[j][i].visible = 1;
+                            pea = 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    pea = 0;
+
     return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
+
+    DrawFormatString(100, 260, 0xfff00f, "visible %d", trumps[S_ber][S2_ber].visible);
   
-    
-        DrawFormatString(100, 100, 0x0000ff,"rcount %d",rCount);
-    
-        DrawFormatString(100, 240, 0xfff00f,"test %d", testcount);
+    if (pea == 1) {
+        DrawFormatString(100, 120, 0x00ffff, "そろった ");
+    }
 
-    DrawFormatString(100, 260, 0xfff00f, "syunflg %d", trumps[0][0].syunflg);
-    DrawFormatString(100, 280, 0xfff00f, "syunflg %d", trumps[0][1].syunflg);
 
- 
-   // DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
+    // DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
 
-    // トランプの表示
+     // トランプの表示
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 5; i++) {
-            if (trumps[j][i].flg == 0 ) {
+            if (trumps[j][i].visible == 0) {
+            if (trumps[j][i].flg == 0) {
                 // カードが選択されていない場合、カードの裏を表示
                 DrawRotaGraph(400 + i * 120, 130 + j * 150, 1, 0, S_T[0], TRUE);
             }
@@ -241,26 +272,18 @@ void sinkeisuijaku::Draw() const
                 }
             }
         }
+            if (trumps[j][i].visible == 1) {
+                DrawGraph(340 + i * 120, 0 + j * 150, S_T[42], TRUE);
+
+            }
     }
+}
 
     // 選択中のトランプにハイライトを表示
     DrawBox(355 + S2_ber * 120, 55 + S_ber * 150, 450 + S2_ber * 120, 200 + S_ber * 150, 0xff0000, FALSE);
 
 
-    // 揃ったカードの確認とメッセージ表示
-    for (int j = 0; j < 4; j++) {
-        for (int i = 0; i < 5; i++) {
-            if (trumps[j][i].flg == 1 && trumps[j][i].syunflg != 0) {
-                for (int k = 0; k < 4; k++) {
-                    for (int l = 0; l < 5; l++) {
-                        if (trumps[j][i].syunflg + 10 == trumps[k][l].syunflg || trumps[j][i].syunflg - 10 == trumps[k][l].syunflg) {
-                            DrawFormatString(100, 120, 0x00ffff, "そろった %");
-                        }
-                    }
-                }
-            }
-        }
-    }
+ 
 
 
     // その他の情報表示
