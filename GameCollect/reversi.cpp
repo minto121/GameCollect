@@ -12,12 +12,11 @@
 //盤面
 #define SIZ 8
 #define BOARD_IMG_SIZE 640
-#define CELL_SIZE = SCREEN_WIDTH /SIZ;
 
 
 Reversi::Reversi()
 {
-	Bac = LoadGraph("images/Reversi/banmen.png");
+	Bac = LoadGraph("images/Reversi/banmen_4.png");
 	Bla = LoadGraph("images/Reversi/osero(black).png");
 	Whi= LoadGraph("images/Reversi/osero(white).png");
 	XOnce = TRUE;
@@ -26,9 +25,19 @@ Reversi::Reversi()
 
 	K_Flg = FALSE;
 
-	for (int y = 0; y < 8; y = y++)
+	//フラグ初期化
+	Fla.Xr = 0;
+	Fla.Xl = 0;
+	Fla.Yu = 0;
+	Fla.Yd = 0;
+	Fla.button = 0;
+
+	Tur = 0;
+
+	//配列の初期値
+	for (int y = 0; y < 8; y = y + 1)
 	{
-		for (int x = 0; x < 8; x = x++)
+		for (int x = 0; x < 8; x = x + 1)
 		{
 			Sto.Typ[x][y] = 0;
 			Sto.X[x][y] = 0;
@@ -36,35 +45,42 @@ Reversi::Reversi()
 		}
 	}
 
+	//左上黒
 	Sto.Typ[3][3] = 1;
-	Sto.X[3][3] = 3 * 100;
-	Sto.Y[3][3] = 3 * 100;
+	Sto.X[3][3] = 3 * 188;
+	Sto.Y[3][3] = 3 * 100 - 5;
 
+	//右下黒
 	Sto.Typ[4][4] = 1;
-	Sto.X[4][4] = 4 * 100;
-	Sto.Y[4][4] = 4 * 100;
+	Sto.X[4][4] = 4 * 165;
+	Sto.Y[4][4] = 4 * 100 - 6;
 
-	Sto.Typ[3][4] = 1;
-	Sto.X[3][4] = 3 * 100;
-	Sto.Y[3][4] = 4 * 100;
+	//左下白
+	Sto.Typ[3][4] = 2;
+	Sto.X[3][4] = 3 * 190;
+	Sto.Y[3][4] = 4 * 100 - 5;
 
-	Sto.Typ[4][3] = 1;
-	Sto.X[4][3] = 4 * 100;
-	Sto.Y[4][3] = 3 * 100;
+	//右上白
+	Sto.Typ[4][3] = 2;
+	Sto.X[4][3] = 4 * 165;
+	Sto.Y[4][3] = 3 * 100 - 6;
 
+	Cur.X = 310;
+	Cur.Y = 20;
 }
 
 Reversi::~Reversi()
 {
+
 }
 
 
 AbstractScene* Reversi::Update()
 {
+	Cursor();
+	turn();
 
-
-	/*turn();*/
-
+	
 	return this;
 }
 
@@ -72,117 +88,132 @@ AbstractScene* Reversi::Update()
 
 void Reversi::Draw() const
 {
-	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", K_Flg);
-	DrawGraph(0, 0, Bac, FALSE);
-	for (int y = 0; y < 8; y++)
+	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
+	for (int y = 0; y < 8; y = y + 1)
 	{
-		for (int x = 0; x < 8; x++)
+		for (int x = 0; x < 8; x = x + 1)
 		{
-			int i = x * 1280 / 8;
-			 int j = y * 1280 / 8;
+			DrawGraph(x * 85 + 310, y * 85 + 20, Bac, TRUE);
 		}
 	}
 
-
-	//駒の描画
-	if (K_Flg == TRUE)
+	for (int y = 0; y < 8; y = y + 1)
 	{
-		DrawGraph(0, 0, W_Storn_Img, TRUE);
+		for (int x = 0; x < 8; x = x + 1)
+		{
+			switch (Sto.Typ[x][y])
+			{
+			case 0:
+				break;
+			case 1:
+				DrawGraph(Sto.X[x][y], Sto.Y[x][y], Bla, TRUE);
+				break;
+			case 2:
+				DrawGraph(Sto.X[x][y], Sto.Y[x][y], Whi, TRUE);
+				break;
+			}
+		}
 	}
 
-	////盤面の描画
-	//DrawGraph(340, 50, R_Img, TRUE);
+	DrawFormatString(0, 120, GetColor(255, 255, 255), "Cur.X,Cur.Y=(%d,%d)", Cur.X, Cur.Y);
+	DrawFormatString(0, 140, GetColor(255, 255, 255), "Tur,%d", Tur);
 
+	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
+
+	if (Tur % 2 == 0)
+	{
+		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn Black", Tur);
+	}
+	else
+	{
+		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn White", Tur);
+
+	}
 
 }
 
+void Reversi::Cursor()
+{
+	
+	//カーソルを上移動させる
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP) || (PAD_INPUT::GetLStick().ThumbY > 10000 && YOnce == TRUE)) {
+		Cur.Y -= 85;
+		//連続入力しないようにする
+		YOnce = FALSE;
 
-//void Reversi::init_board(int board[SIZ][SIZ])
-//{
-//	int i, j;
-//
-//	for (i = 0; i < SIZ; i++) {
-//		for (j = 0; j < SIZ; j++) {
-//			board[i][j] = -1;
-//		}
-//	}
-//	for (i = 1; i <= 8; i++) {
-//		for (j = 1; j <= 8; j++) {
-//			board[i][j] = 0;
-//		}
-//	}
-//	board[4][5] = board[5][4] = 1;
-//	board[4][4] = board[5][5] = 2;
-//}
+	}
+	//カーソルを右移動させる
+	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT) || (PAD_INPUT::GetLStick().ThumbX > 10000 && YOnce == TRUE)) {
+		Cur.X += 85;
+		//連続入力しないようにする
+		YOnce = FALSE;
 
-//void Reversi::Board()
-//{
-//
-//	int i;
-//	int j;
-//
-//	//for (int x = 0; x < 10;x++) {
-//	//	for (int y = 0; y < 10; y++) {
-//	//		Boa.typ[x][y] = 0;
-//	//		Boa.x[x][y] = 0;
-//	//		Boa.y[x][y] = 0;
-//	//	}
-//	//}
-//
-//	//Boa.typ[3][3] = 1;
-//	//Boa.x[3][3] = 3 * 100;
-//	//Boa.y[3][3] = 3 * 100;
-//
-//	//Boa.typ[4][4] = 1;
-//	//Boa.x[4][4] = 4 * 100;
-//	//Boa.y[4][4] = 4 * 100;
-//
-//	//Boa.typ[3][4] = 2;
-//	//Boa.x[3][4] = 4 * 100;
-//	//Boa.y[3][4] = 4 * 100;
-//
-//	//Boa.typ[4][3] = 2;
-//	//Boa.x[4][3] = 4 * 100;
-//	//Boa.y[4][3] = 3 * 100;
-//
-//	static int initdata[10][10]{
-// { -1 , -1, -1, -1, -1, -1, -1, -1, -1, -1},
-// { -1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 1 , 2 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 2 , 1 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -1},
-// { -1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , -1},
-// { -1 , -1, -1, -1, -1, -1, -1, -1, -1, -1}
-//	};
-//
-//	for (i = 0; i < SIZ; i++) {
-//		for (j = 0; j < SIZ; j++) {
-//			board[i][j] = initdata[i][j];
-//		}
-//	}
-//	board[3][3] = board[4][4] = 1;
-//	board[3][4] = board[4][3] = 2;
-//
-//}
+	}
+	//カーソルを下移動させる
+	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN) || (PAD_INPUT::GetLStick().ThumbY < -10000 && YOnce == TRUE)) {
+		Cur.Y += 85;
+		//連続入力しないようにする
+		YOnce = FALSE;
 
-//
-//
-//void Reversi::turn()
-//{
-//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || CheckHitKey(KEY_INPUT_0)) {
-//		K_Flg = TRUE;
-//
-//		if (WHITE)
-//		{
-//			DrawGraph(0, 0, W_Storn_Img, TRUE);
-//		}
-//		else if (BLACK)
-//		{
-//			DrawGraph(0, 0, B_Storn_Img, TRUE);
-//		}
-//	}
-//}
+	}
+	//カーソルを左移動させる
+	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT) || (PAD_INPUT::GetLStick().ThumbX < -10000 && YOnce == TRUE)) {
+		Cur.X -= 85;
+
+		//連続入力しないようにする
+		YOnce = FALSE;
+
+	}
+
+	//カーソルが盤面の外に行かないようにする
+	if (Cur.Y < 20) {
+		Cur.Y = 20;
+	}
+	if (Cur.Y > 615) {
+		Cur.Y = 615;
+	}
+	if (Cur.X < 310) {
+		Cur.X = 310;
+	}
+	if (Cur.X > 905) {
+		Cur.X = 905;
+	}
+
+}
+
+void Reversi::turn()
+{
+
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	{
+		Fla.button = 1;
+	}
+
+	for (int y = 0; y < 8; y = y + 1)
+	{
+		for (int x = 0; x < 8; x = x + 1)
+		{
+			Fla.button = 0;
+			if (Cur.X == 85 * x  + 310 && Cur.Y == 85 * y + 20 &&
+				Fla.button == 1 && Sto.Typ[x][y] == 0)
+			{
+				Tur = Tur + 1;
+				Sto.X[x][y] = Cur.X;
+				Sto.Y[x][y] = Cur.Y;
+				if (Tur % 2 == 0)
+				{
+					Sto.Typ[x][y] = 2;
+				}
+				else
+				{
+					Sto.Typ[x][y] = 1;
+				}
+
+			}
+		}
+	}
+
+	
+	
+}
 
