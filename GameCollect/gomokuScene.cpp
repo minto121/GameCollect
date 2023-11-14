@@ -17,6 +17,9 @@ gomokuScene::gomokuScene()
 	gomoku_AImove_Point = 0;
 	gomoku_AI_MoveX = 0;
 	gomoku_AI_MoveY = 0;
+	g_OldKey = 0;
+	g_NowKey = 0;
+	g_KeyFlg = 0;
 	for (int y = 0; y < 13; y++)
 		for (int x = 0; x < 13; x++) {
 			/*if (x == 6 && y == 6 || x == 7 && y == 7) {
@@ -89,16 +92,20 @@ AbstractScene* gomokuScene::Update()
 			/*else {
 				gomoku_Phase = 0;
 			}*/
+
+			// x < 8 y < 8
 		}
 		for (int y = 0; y < 13; y++) {
 			for (int x = 0; x < 13; x++) {
 				// 黒(Banmen[x][y] = 1)の勝利判定
-				if (gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 && gomoku_Banmen[x + 4][y] == 1 ||
-					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 && gomoku_Banmen[x][y + 4] == 1 ||
-					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 && gomoku_Banmen[x + 4][y + 4] == 1 ||
-					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 && gomoku_Banmen[x - 4][y - 4] == 1 ||
-					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 && gomoku_Banmen[x + 4][y - 4] == 1 ||
-					gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 1) {
+				if ( x < 8 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 && gomoku_Banmen[x + 4][y] == 1 ||
+					x > 3 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y] == 1 && gomoku_Banmen[x - 2][y] == 1 && gomoku_Banmen[x - 3][y] == 1 && gomoku_Banmen[x - 4][y] == 1 ||
+					y < 8 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 && gomoku_Banmen[x][y + 4] == 1 ||
+					y > 3 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x][y - 1] == 1 && gomoku_Banmen[x][y - 2] == 1 && gomoku_Banmen[x][y - 3] == 1 && gomoku_Banmen[x][y - 4] == 1 ||
+					x < 8 && y < 8 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 && gomoku_Banmen[x + 4][y + 4] == 1 ||
+				    x > 3 && y > 3 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 && gomoku_Banmen[x - 4][y - 4] == 1 ||
+					x < 8 && y > 3 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 && gomoku_Banmen[x + 4][y - 4] == 1 ||
+					x > 3 && y < 8 && gomoku_Banmen[x][y] == 1 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 1) {
 					gomoku_Battle = 1;
 				}
 			}
@@ -123,85 +130,123 @@ AbstractScene* gomokuScene::Update()
 			for (int y = 0; y < 13; y++) {
 				for (int x = 0; x < 13; x++) {
 					// 盤面に黒がつ四つ並んでいて、端のどちらかに石が置かれていない場合白を置くプログラミング
-					if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 && gomoku_Banmen[x][y + 4] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 1 && gomoku_Banmen[x][y - 2] == 1 && gomoku_Banmen[x][y - 3] == 1 && gomoku_Banmen[x][y - 4] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 && gomoku_Banmen[x + 4][y] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 1 && gomoku_Banmen[x - 2][y] == 1 && gomoku_Banmen[x - 3][y] == 1 && gomoku_Banmen[x - 4][y] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 && gomoku_Banmen[x + 4][y + 4] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 && gomoku_Banmen[x - 4][y - 4] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 && gomoku_Banmen[x + 4][y - 4] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 1) {
-						if (gomoku_AImove_Point < 5)
-							gomoku_AImove_Point = 4;
-						    gomoku_AI_MoveX = x;
-					    	gomoku_AI_MoveY = y;
+					if (y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 && gomoku_Banmen[x][y + 4] == 1 ||
+						y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 1 && gomoku_Banmen[x][y - 2] == 1 && gomoku_Banmen[x][y - 3] == 1 && gomoku_Banmen[x][y - 4] == 1 ||
+						x < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 && gomoku_Banmen[x + 4][y] == 1 ||
+						x > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 1 && gomoku_Banmen[x - 2][y] == 1 && gomoku_Banmen[x - 3][y] == 1 && gomoku_Banmen[x - 4][y] == 1 ||
+						x < 8 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 && gomoku_Banmen[x + 4][y + 4] == 1 ||
+						x > 3 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 && gomoku_Banmen[x - 4][y - 4] == 1 ||
+						x < 8 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 && gomoku_Banmen[x + 4][y - 4] == 1 ||
+						x > 3 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 1) {
+						if (gomoku_AImove_Point < 6)
+							gomoku_AImove_Point = 6;
+						gomoku_AI_MoveX = x;
+						gomoku_AI_MoveY = y;
 					}// 盤面に白がつ四つ並んでいて、端のどちらかに石が置かれていない場合白を置くプログラミング
-					else if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 && gomoku_Banmen[x][y + 4] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 2 && gomoku_Banmen[x][y - 2] == 2 && gomoku_Banmen[x][y - 3] == 2 && gomoku_Banmen[x][y - 4] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 2 && gomoku_Banmen[x - 2][y] == 2 && gomoku_Banmen[x - 3][y] == 2 && gomoku_Banmen[x - 4][y] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 && gomoku_Banmen[x + 4][y + 4] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 && gomoku_Banmen[x + 4][y - 4] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 2) {
-						gomoku_AImove_Point = 5;
+					else if (y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 && gomoku_Banmen[x][y + 4] == 2 ||
+						y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 2 && gomoku_Banmen[x][y - 2] == 2 && gomoku_Banmen[x][y - 3] == 2 && gomoku_Banmen[x][y - 4] == 2 ||
+						x < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 2 ||
+						x > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 2 && gomoku_Banmen[x - 2][y] == 2 && gomoku_Banmen[x - 3][y] == 2 && gomoku_Banmen[x - 4][y] == 2 ||
+						x < 8 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 && gomoku_Banmen[x + 4][y + 4] == 2 ||
+						x > 3 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 2 ||
+						x < 8 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 && gomoku_Banmen[x + 4][y - 4] == 2 ||
+						x > 3 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 2) {
+						gomoku_AImove_Point = 7;
 						gomoku_AI_MoveX = x;
 						gomoku_AI_MoveY = y;
 					}// 盤面に白が三つ並んでいて、両端に石が置かれていない場合白を置くプログラミング
-					else if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 2 && gomoku_Banmen[x][y - 2] == 2 && gomoku_Banmen[x][y - 3] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 2 && gomoku_Banmen[x - 2][y] == 2 && gomoku_Banmen[x - 3][y] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2) {
-						if (gomoku_AImove_Point < 4)
-							gomoku_AImove_Point = 3;
-						    gomoku_AI_MoveX = x;
-						    gomoku_AI_MoveY = y;
+					else if (y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 && gomoku_Banmen[x][y + 4] == 0 ||
+						y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 2 && gomoku_Banmen[x][y - 2] == 2 && gomoku_Banmen[x][y - 3] == 2 && gomoku_Banmen[x][y - 4] == 0 ||
+						x < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 0 ||
+						x > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 2 && gomoku_Banmen[x - 2][y] == 2 && gomoku_Banmen[x - 3][y] == 2 && gomoku_Banmen[x - 4][y] == 0 ||
+						x < 8 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 && gomoku_Banmen[x + 4][y + 4] == 0 ||
+						x > 3 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 0 ||
+						x < 8 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 && gomoku_Banmen[x + 4][y - 4] == 0 ||
+						x > 3 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 0) {
+						if (gomoku_AImove_Point < 5)
+							gomoku_AImove_Point = 5;
+						gomoku_AI_MoveX = x;
+						gomoku_AI_MoveY = y;
 					}// 盤面に黒が三つ並んでいて、両端に石が置かれていない場合白を置くプログラミング
-					else if (gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 1 && gomoku_Banmen[x][y - 2] == 1 && gomoku_Banmen[x][y - 3] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 1 && gomoku_Banmen[x - 2][y] == 1 && gomoku_Banmen[x - 3][y] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 ||
-						gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1) {
+					else if (y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 && gomoku_Banmen[x][y + 4] == 0 ||
+						y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 1 && gomoku_Banmen[x][y - 2] == 1 && gomoku_Banmen[x][y - 3] == 1 && gomoku_Banmen[x][y - 4] == 0 ||
+						x < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 1 && gomoku_Banmen[x + 3][y] == 1 && gomoku_Banmen[x + 4][y] == 0 ||
+						x > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 1 && gomoku_Banmen[x - 2][y] == 1 && gomoku_Banmen[x - 3][y] == 1 && gomoku_Banmen[x - 4][y] == 0 ||
+						x < 8 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 && gomoku_Banmen[x + 4][y + 4] == 0 ||
+						x > 3 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 && gomoku_Banmen[x - 4][y - 4] == 0 ||
+						x < 8 && y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 && gomoku_Banmen[x + 4][y - 4] == 0 ||
+						x > 3 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1 && gomoku_Banmen[x - 4][y + 4] == 0) {
+						if (gomoku_AImove_Point < 4)
+							gomoku_AImove_Point = 4;
+						gomoku_AI_MoveX = x;
+						gomoku_AI_MoveY = y;
+					}// 盤面に白が三つ並んでいて、端のどちらかに石が置かれていない場合白を置くプログラミング
+					else if (y < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 ||
+						y > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 2 && gomoku_Banmen[x][y - 2] == 2 && gomoku_Banmen[x][y - 3] == 2 ||
+						x < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 ||
+						x > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 2 && gomoku_Banmen[x - 2][y] == 2 && gomoku_Banmen[x - 3][y] == 2 ||
+						x < 9 && y < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 ||
+						x > 2 && y > 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 ||
+						x < 9 && y > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 ||
+						x > 2 && y < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2) {
 						if (gomoku_AImove_Point < 3)
+							gomoku_AImove_Point = 3;
+						gomoku_AI_MoveX = x;
+						gomoku_AI_MoveY = y;
+					}// 盤面に黒が三つ並んでいて、端のどちらかに石が置かれていない場合白を置くプログラミング
+					else if (y < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == 1 && gomoku_Banmen[x][y + 2] == 1 && gomoku_Banmen[x][y + 3] == 1 ||
+						y > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == 1 && gomoku_Banmen[x][y - 2] == 1 && gomoku_Banmen[x][y - 3] == 1 ||
+						x < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == 1 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 1 ||
+						x > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == 1 && gomoku_Banmen[x - 2][y] == 2 && gomoku_Banmen[x - 3][y] == 1 ||
+						x < 9 && y < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == 1 && gomoku_Banmen[x + 2][y + 2] == 1 && gomoku_Banmen[x + 3][y + 3] == 1 ||
+						x > 2 && y > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y - 1] == 1 && gomoku_Banmen[x - 2][y - 2] == 1 && gomoku_Banmen[x - 3][y - 3] == 1 ||
+						x < 9 && y > 2 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y - 1] == 1 && gomoku_Banmen[x + 2][y - 2] == 1 && gomoku_Banmen[x + 3][y - 3] == 1 ||
+						x > 2 && y < 9 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y + 1] == 1 && gomoku_Banmen[x - 2][y + 2] == 1 && gomoku_Banmen[x - 3][y + 3] == 1) {
+						if (gomoku_AImove_Point < 2)
 							gomoku_AImove_Point = 2;
-						    gomoku_AI_MoveX = x;
-						    gomoku_AI_MoveY = y;
+						gomoku_AI_MoveX = x;
+						gomoku_AI_MoveY = y;
 					}
 				}
 			}
-			if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0) {
+			if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == 1) {
 				gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = 2;
-			}
-			else if (gomoku_AI_MoveX > 12 && gomoku_AI_MoveY < 12) {
-				gomoku_AI_MoveY++;
 				gomoku_AI_MoveX = 0;
+				gomoku_AI_MoveY = 0;
+				gomoku_Phase = 0;
+			}
+			for (int r = 0; r < 144 && gomoku_Phase == 1; r++) {
+				if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == 1) {
+					gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = 2;
+					gomoku_Phase = 0;
+				}
+				else {
+					gomoku_AI_MoveX++;
+				}
+				if (gomoku_AI_MoveX > 12 && gomoku_AI_MoveY < 12) {
+					gomoku_AI_MoveY++;
+					gomoku_AI_MoveX = 0;
+				}
 			}
 			gomoku_AI_MoveX = 0;
 			gomoku_AI_MoveY = 0;
+			gomoku_AImove_Point = 0;
 			gomoku_Phase = 0;
 		}
-		for (int y = 0; y < 13; y++) {
-			for (int x = 0; x < 13; x++) {
-				// 白(Banmen[x][y] = 2)の勝利判定
-				if (gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 2 ||
-					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 && gomoku_Banmen[x][y + 4] == 2 ||
-					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 && gomoku_Banmen[x + 4][y + 4] == 2 ||
-					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 2 ||
-					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 && gomoku_Banmen[x + 4][y - 4] == 2 ||
-					gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 2) {
-					gomoku_Battle = 2;
-				}
-
-			}
-		}
 		
+				for (int y = 0; y < 13; y++) {
+					for (int x = 0; x < 13; x++) {
+						// 白(Banmen[x][y] = 2)の勝利判定
+						if (gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y] == 2 && gomoku_Banmen[x + 2][y] == 2 && gomoku_Banmen[x + 3][y] == 2 && gomoku_Banmen[x + 4][y] == 2 ||
+							gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x][y + 1] == 2 && gomoku_Banmen[x][y + 2] == 2 && gomoku_Banmen[x][y + 3] == 2 && gomoku_Banmen[x][y + 4] == 2 ||
+							gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y + 1] == 2 && gomoku_Banmen[x + 2][y + 2] == 2 && gomoku_Banmen[x + 3][y + 3] == 2 && gomoku_Banmen[x + 4][y + 4] == 2 ||
+							gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y - 1] == 2 && gomoku_Banmen[x - 2][y - 2] == 2 && gomoku_Banmen[x - 3][y - 3] == 2 && gomoku_Banmen[x - 4][y - 4] == 2 ||
+							gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x + 1][y - 1] == 2 && gomoku_Banmen[x + 2][y - 2] == 2 && gomoku_Banmen[x + 3][y - 3] == 2 && gomoku_Banmen[x + 4][y - 4] == 2 ||
+							gomoku_Banmen[x][y] == 2 && gomoku_Banmen[x - 1][y + 1] == 2 && gomoku_Banmen[x - 2][y + 2] == 2 && gomoku_Banmen[x - 3][y + 3] == 2 && gomoku_Banmen[x - 4][y + 4] == 2) {
+							gomoku_Battle = 2;
+						}
+					}
+				}
 	}
 	return this;
 }
