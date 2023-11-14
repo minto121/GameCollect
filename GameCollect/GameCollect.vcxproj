@@ -164,6 +164,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="Select.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

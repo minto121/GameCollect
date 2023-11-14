@@ -7,7 +7,9 @@ class Checkermain : public AbstractScene
 private:
     int Boardimg;     // ”Õ‚Ì‰æ‘œ
     int PieceB;       // ‹î•‚Ì‰æ‘œ
-    int PieceW;       // ‹î”’‚Ì‰æ‘œ
+    int PieceR;       // ‹îÔ‚Ì‰æ‘œ
+    int PieceBK;
+    int PieceRK;
     int Checkerback;  // ”wŒi‚Ì‰æ‘œ
     int size = 100;   // ‰æ‘œ‚ÌƒTƒCƒY
 
@@ -40,6 +42,9 @@ private:
     int jumpedX;
     int jumpedY;
 
+    int player1Pieces;
+    int player2Pieces;
+
 public:
     Checkermain();
 
@@ -58,5 +63,6 @@ public:
     bool IsMoveValid(int startX, int startY, int SelectX, int SelectY);
 
     void Gameover();
+    bool CanTakeMore(int x, int y);
 
 };

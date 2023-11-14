@@ -6,7 +6,9 @@ Checkermain::Checkermain() {
     // 画像を読み込み、初期化
     Boardimg = LoadGraph("../images/Checkers/banmen.png");    // ボード
     PieceB = LoadGraph("../images/Checkers/WK.png");         // 駒黒
-    PieceW = LoadGraph("../images/Checkers/BK.png");         // 駒白
+    PieceR = LoadGraph("../images/Checkers/RD.png");         // 駒赤
+    PieceBK = LoadGraph("../images/Checkers/KB.png");
+    PieceRK=LoadGraph("../images/Checkers/KR.png");
     Checkerback = LoadGraph("../images/Checkers/back.png");  // 背景
     selectX = 0;                                             // カーソル移動X座標
     selectY = 0;                                             // カーソル移動Y座標
@@ -18,6 +20,8 @@ Checkermain::Checkermain() {
     SelectY = 0;                                             // 移動先Y座標
     jumpedX = 0;
     jumpedY = 0;
+    player1Pieces = 12; // プレイヤー1の駒の数
+    player2Pieces = 12; // プレイヤー2の駒の数
 }
 
 Checkermain::~Checkermain() {
@@ -25,6 +29,8 @@ Checkermain::~Checkermain() {
 }
 
 AbstractScene* Checkermain::Update() {
+
+    /*Gameover();*/
     // キー入力の状態を更新
     g_OldKey = g_NowKey;
     g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -48,42 +54,43 @@ AbstractScene* Checkermain::Update() {
     for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
             if (phase == 0) {
-                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 1) {
+                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 1 || board[selectX][selectY] == 3) {
                     StartX = selectX;
                     StartY = selectY;
                     F_select = true;
                 }
-                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0) {
+                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0 || board[selectX][selectY] == 3) {
                     SelectX = selectX;
                     SelectY = selectY;
                     F_select = false;
                     if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-                        board[SelectX][SelectY] = 1;
+                        board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
                         phase = 1;
                     }
                 }
-            }
-            else if (phase == 1) {
-                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 2) {
-                    StartX = selectX;
-                    StartY = selectY;
-                    F_select = true;
-                }
-                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0) {
-                    SelectX = selectX;
-                    SelectY = selectY;
-                    F_select = false;
-                    if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-                        board[SelectX][SelectY] = 2;
-                        board[StartX][StartY] = 0;
-                        phase = 0;
+                else if (phase == 1) {
+                    if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 2 || board[selectX][selectY] == 4) {
+                        StartX = selectX;
+                        StartY = selectY;
+                        F_select = true;
+                    }
+                    if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 2 || board[selectX][selectY] == 4) {
+                        SelectX = selectX;
+                        SelectY = selectY;
+                        F_select = false;
+                        if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
+                            board[SelectX][SelectY] = board[StartX][StartY];
+                            board[StartX][StartY] = 0;
+                            phase = 0;
+                        }
                     }
                 }
             }
+
+
         }
     }
-
     return this;
 }
 
@@ -106,7 +113,7 @@ void Checkermain::Draw() const {
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             if (board[x][y] == 1) {
-                DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(255, 0, 0), TRUE);
+                DrawRotaGraph(x * 73 + 400, y * 72 + 108, 2,0, PieceR, TRUE);
             }
         }
     }
@@ -115,7 +122,7 @@ void Checkermain::Draw() const {
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             if (board[x][y] == 3) {
-                DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(255, 255, 0), TRUE);
+                DrawRotaGraph(x * 73 + 400, y * 72 + 108, 2, 0, PieceBK, TRUE);
             }
         }
     }
@@ -123,10 +130,13 @@ void Checkermain::Draw() const {
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
             if (board[x][y] == 4) {
-                DrawCircle(x * 74 + 400, y * 72 + 105, 28, GetColor(0, 255, 0), TRUE);
+                DrawRotaGraph(x * 73 + 400, y * 72 + 108, 2, 0, PieceRK, TRUE);
             }
         }
     }
+
+   
+
     // カーソルの位置に四角形を描画
     DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);
 
@@ -136,6 +146,8 @@ void Checkermain::Draw() const {
     DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
     DrawFormatString(0, 150, 0x000000, "Phase: %d", phase);
     DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
+    DrawFormatString(0, 300, 0x000000, " player1Pieces: %d", player1Pieces);
+    DrawFormatString(0, 350, 0x000000, " player2Pieces: %d", player2Pieces);
 }
 
 void Checkermain::InitBoard() {
@@ -145,6 +157,8 @@ void Checkermain::InitBoard() {
             board[i][j] = 0;
         }
     }
+    player1Pieces = 12; // プレイヤー1の駒の数
+    player2Pieces = 12; // プレイヤー2の駒の数
 }
 
 bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) {
@@ -158,13 +172,18 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
         return false;
     }
 
-    // 駒が自陣地の端に到達したら成金になる
-    if (SelectY == 0) {
+    // 黒駒が敵陣地の端に到達したら成金になる
+    if (SelectY == 0 &&  board[startX][startY] == 2) {
         board[StartX][StartY] = 0;
         board[SelectX][SelectY] = 3; // 3は成金を表す
         return false;
     }
-
+    // 赤駒が敵陣地の端に到達したら成金になる
+    if (SelectY == 7 && board[startX][startY] == 1) {
+        board[StartX][StartY] = 0;
+        board[SelectX][SelectY] = 4; // 4は成金を表す
+        return false;
+    }
   
     // 移動先が隣接している場合（通常の移動）
     if (abs(SelectX - startX) == 1 && SelectY - startY == 1) {
@@ -209,10 +228,23 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
             // 飛び越えた相手の駒を削除
             board[jumpedX][jumpedY] = 0;
 
-            // 駒が自陣地の端に到達したら成金になる
-            if (SelectY == 0) {
+            // 相手の駒を取った後、さらに取れるか再帰的に確認
+          /*  if (IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY + 2) ||  
+                IsMoveValid(SelectX, SelectY, SelectX - 2, SelectY + 2) ||
+                IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY - 2) ||
+                IsMoveValid(SelectX, SelectY, SelectX - 2, SelectY - 2)) {
+                return true;
+            }*/
+            // 黒駒が敵陣地の端に到達したら成金になる
+            if (SelectY == 0 && board[startX][startY] == 2) {
                 board[StartX][StartY] = 0;
                 board[SelectX][SelectY] = 3; // 3は成金を表す
+                return false;
+            }
+            // 赤駒が敵陣地の端に到達したら成金になる
+            if (SelectY == 7 && board[startX][startY] == 1) {
+                board[StartX][StartY] = 0;
+                board[SelectX][SelectY] = 4; // 4は成金を表す
                 return false;
             }
 
@@ -223,3 +255,38 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
 
     return false; // 上記の条件に該当しない場合、無効な移動
 }
+
+void Checkermain::Gameover()
+{
+    // プレイヤー1の駒の数を更新
+    player1Pieces = 0;
+    // プレイヤー2の駒の数を更新
+    player2Pieces = 0;
+
+    for (int x = 0; x < 8; x++) {
+        for (int y = 0; y < 8; y++) {
+            if (board[x][y] == 1 || board[x][y] == 3) {
+                player1Pieces++;
+            }
+            else if (board[x][y] == 2 || board[x][y] == 4) {
+                player2Pieces++;
+            }
+        }
+    }
+    // どちらかのプレイヤーが駒を持っていない場合、勝敗がついたと判定
+    if (player1Pieces == 0) {
+        // プレイヤー2の勝利
+        printf("bbb");
+        // または、必要に応じて別の処理を追加
+    }
+    else if (player2Pieces == 0) {
+        // プレイヤー1の勝利
+        printf("aaaa");
+        // または、必要に応じて別の処理を追加
+    }
+}
+
+
+
+
+
