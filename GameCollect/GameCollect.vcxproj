@@ -155,6 +155,7 @@
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
+    <ClCompile Include="Hound.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="Rabbit.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
+    <ClInclude Include="Hound.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />

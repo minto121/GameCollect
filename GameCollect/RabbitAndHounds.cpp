@@ -1,5 +1,6 @@
 #include"RabbitAndHounds.h"
 #include "Rabbit.h"
+#include "Hound.h"
 #include "DxLib.h"
 #include "PadInput.h"
 #include<iostream>
@@ -54,6 +55,7 @@ AbstractScene* RabbitAndHounds::Update()
 	}
 	else if (Cursor_X >= 300 && PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 	{
+		return new Hound();
 	}
 		return this;
 }
