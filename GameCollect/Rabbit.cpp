@@ -85,7 +85,6 @@ void Rabbit::Draw() const
 
 	DrawCircle(325, 375, 50, 0x00ff00, TRUE);
 
-	
 
 	//ó¬å¢ÇÃãÓ(âº)
 	DrawBox(890, 140, 960, 210, 0x0000ff, TRUE);     //è„
