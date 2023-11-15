@@ -29,14 +29,6 @@ Rabbit::~Rabbit()
 AbstractScene* Rabbit::Update()
 {
 
-	////ウサギ座標
-	//rabbit_X = 100, rabbit_Y = 100;
-
-	//if (PAD_INPUT::OnButton(KEY_INPUT_RIGHT) == true)
-	//{
-	//	rabbit_X = 200;
-	//}
-
 	// ウサギを移動
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		rabbit_Y -= 200;
