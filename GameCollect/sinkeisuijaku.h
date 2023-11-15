@@ -4,6 +4,8 @@ class sinkeisuijaku :public AbstractScene
 {
 public:
 
+	sinkeisuijaku();
+
 private:
 
 

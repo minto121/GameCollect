@@ -3,20 +3,23 @@
   <ItemGroup>
     <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
-    <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="sinkeisuijaku.cpp" />
+    <ClCompile Include="Hex_GameMain.cpp" />
+    <ClCompile Include="RabbitAndHounds.cpp" />
+    <ClCompile Include="Rabbit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
-    <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="SceneManager.h" />
@@ -24,5 +27,9 @@
     <ClInclude Include="GameSelect.h" />
     <ClInclude Include="takoyaki.h" />
     <ClInclude Include="Title.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="RabbitAndHounds.h" />
+    <ClInclude Include="Rabbit.h" />
   </ItemGroup>
 </Project>

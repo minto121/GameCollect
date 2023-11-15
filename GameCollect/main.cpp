@@ -8,11 +8,10 @@
 //#include"Hanafuda_GameMain.h"
 //#include "Checkermain.h"
 #include "SixBollPuzzle.h"
+#include "RabbitAndHounds.h"
 #include "GameSelect.h"
-//#include"Hanahuda_GameMain.h"
 #include"Reversi.h"
-//#include"Title.h"
-#include"Hex_GameMain.h"
+#include"Title.h"
 
 
 #define FRAMERATE 60.0 //フレームレート
@@ -43,7 +42,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Hex/*GameSelect*/());
+		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
 
 	}
 	catch (const char* err)
