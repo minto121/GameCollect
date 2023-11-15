@@ -75,7 +75,11 @@ void Rabbit::Draw() const
 	DrawCircle(hound_X, hound_Y, hound_X - 1, hound_Y - 1, GetColor(0, 0, 255), HoundImg);*/
 
 
-	DrawCircle(325, 375, 50, 0x00ff00, TRUE);
+	DrawCircle(125, 375, 50, 0x00ff00, TRUE);
+	DrawCircle(425, 375, 50, 0x00ff00, TRUE);
+	DrawCircle(625, 375, 50, 0x00ff00, TRUE);
+	DrawCircle(825, 375, 50, 0x00ff00, TRUE);
+	DrawCircle(1125, 375, 50, 0x00ff00, TRUE);
 
 
 	//—ÂŒ¢‚Ì‹î(‰¼)
