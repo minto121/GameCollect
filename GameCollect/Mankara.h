@@ -21,7 +21,7 @@ private:
 	struct STONE gStone;
 
 
-
+	int PlayerPocket;
 
 
 	// 1P用ポケット

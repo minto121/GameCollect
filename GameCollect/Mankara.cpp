@@ -77,10 +77,12 @@ Mankara::Mankara()
 			 Pocket_cnt++;
 			 if (Pocket_cnt > 5) {
 				 Pocket_cnt = 0;
+			
 			 }
 		 } // ç∂Ç…à⁄ìÆ
 		 else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 			 Pocket_cnt--;
+
 			 if (Pocket_cnt < 0) {
 				 Pocket_cnt = 5;
 			 }
@@ -110,6 +112,7 @@ Mankara::Mankara()
 	 if (P1Turn == 1) {
 		 if (Pocket_cnt == 0) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 PlayerPocket = 0;
 				 P1Pocket[0] = TRUE;
 				 P1Pocket[1] = FALSE;
 				 P1Pocket[2] = FALSE;
@@ -121,6 +124,7 @@ Mankara::Mankara()
 		 }
 		 else if (Pocket_cnt == 1) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 PlayerPocket = 1;
 				 P1Pocket[0] = FALSE;
 				 P1Pocket[1] = TRUE;
 				 P1Pocket[2] = FALSE;
@@ -131,6 +135,7 @@ Mankara::Mankara()
 		 }
 		 else if (Pocket_cnt == 2) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 PlayerPocket = 2;
 				 P1Pocket[0] = FALSE;
 				 P1Pocket[1] = FALSE;
 				 P1Pocket[2] = TRUE;
@@ -141,6 +146,7 @@ Mankara::Mankara()
 		 }
 		 else if (Pocket_cnt == 3) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 PlayerPocket = 3;
 				 P1Pocket[0] = FALSE;
 				 P1Pocket[1] = FALSE;
 				 P1Pocket[2] = FALSE;
@@ -151,6 +157,7 @@ Mankara::Mankara()
 		 }
 		 else if (Pocket_cnt == 4) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 PlayerPocket = 4;
 				 P1Pocket[0] = FALSE;
 				 P1Pocket[1] = FALSE;
 				 P1Pocket[2] = FALSE;
@@ -161,6 +168,7 @@ Mankara::Mankara()
 		 }
 		 else if (Pocket_cnt == 5) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 PlayerPocket = 5;
 				 P1Pocket[0] = FALSE;
 				 P1Pocket[1] = FALSE;
 				 P1Pocket[2] = FALSE;
@@ -169,6 +177,9 @@ Mankara::Mankara()
 				 P1Pocket[5] = TRUE;
 			 }
 		 }
+	 }
+	 else {
+		 PlayerPocket = 0;
 	 }
 
 	 //2PópêŒÇÃà⁄ìÆèàóù
@@ -236,7 +247,61 @@ Mankara::Mankara()
 		 }
 	 }
 
+
 	 if (P1Turn == 1) {
+		 int i = 0;
+
+		 if (P1Pocket[PlayerPocket] == TRUE) {
+			 switch (P1Pocket[PlayerPocket])
+			 {
+			 case 0:
+				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+					 StonePocket[i + y] += Stone_cnt;
+						 DrawGraph(300 + y * 125, 430, gStone.img[y][0], TRUE);
+				 }
+				 break;
+			 case 1:
+				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+					 StonePocket[i + y] += Stone_cnt;
+					 DrawGraph(300 + y * 125, 430, gStone.img[y][1], TRUE);
+
+				 }
+				 break;
+			 case 2:
+				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+					 StonePocket[i + y] += Stone_cnt;
+					 DrawGraph(300 + y * 125, 430, gStone.img[y][2], TRUE);
+
+				 }				 break;
+			 case 3:
+				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+					 StonePocket[i + y] += Stone_cnt;
+					 DrawGraph(300 + y * 125, 430, gStone.img[y][3], TRUE);
+
+				 }
+				 break;
+			 case 4:
+				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+					 StonePocket[i + y] += Stone_cnt;
+					 DrawGraph(300 + y * 125, 430 , gStone.img[y][4], TRUE);
+
+				 }
+				 break;
+			 case 5:
+				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+					 StonePocket[i + y] += Stone_cnt;
+					 DrawGraph(300 + y * 125, 430, gStone.img[y][5], TRUE);
+
+				 }
+				 break;
+			 default:
+				 
+				 break;
+			 }
+		 }
+	 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
+	 /*if (P1Turn == 1) {
 		 if (P1Pocket[0] == TRUE) {
 			 if (Stone_cnt > 0) {
 				 StonePocket[1] += Stone_cnt;
@@ -246,6 +311,7 @@ Mankara::Mankara()
 					 Stone_cnt-=1;
 			 }
 			 P2Turn = 1;
+			 P1Turn = 0;
 		 }
 		 else if (P1Pocket[1] == TRUE) {
 			 movePocket = 1;
@@ -257,6 +323,7 @@ Mankara::Mankara()
 				 Stone_cnt -= 1;
 			 }
 			 P2Turn = 1;
+			 P1Turn = 0;
 		 }
 		 else if (P1Pocket[2] == TRUE) {
 			 movePocket = 2;
@@ -268,6 +335,7 @@ Mankara::Mankara()
 				 P1BigPocket++;
 				 Stone_cnt -= 2;
 			 }
+			 P2Turn = 0;
 			 P1Turn = 1;
 
 		 }
@@ -281,6 +349,7 @@ Mankara::Mankara()
 				 Stone_cnt -= 3;
 			 }
 			 P2Turn = 1;
+			 P1Turn = 0;
 		 }
 		 else if (P1Pocket[4] == TRUE) {
 			 movePocket = 4;
@@ -292,6 +361,7 @@ Mankara::Mankara()
 				 Stone_cnt -= 4;
 			 }
 			 P2Turn = 1;
+			 P1Turn = 0;
 		 }
 		 else if (P1Pocket[5] == TRUE) {
 			 movePocket = 5;
@@ -303,82 +373,89 @@ Mankara::Mankara()
 				 Stone_cnt -= 5;
 			 }
 			 P2Turn = 1;
+			 P1Turn = 0;
 		 }
-	 }
+	 }*/
 
 
 
-	 // ÇQPópêŒÇÃà⁄ìÆ
-	 if (P2Turn == 1) {
+	 //// ÇQPópêŒÇÃà⁄ìÆ
+	 //if (P2Turn == 1) {
 
-		 if (P2Pocket[0] == TRUE) {
-			 
-			 if (Stone_cnt > 0) {
-				 StonePocket[7 + movePocket] += Stone_cnt;
-				 StonePocket[8 + movePocket] += Stone_cnt;
-				 StonePocket[9 + movePocket] += Stone_cnt;
-				 StonePocket[10 + movePocket] += Stone_cnt;
-				 Stone_cnt -= 1;
-			 }
-			 P1Turn = 1;
-		 }
-		 else if (P2Pocket[1] == TRUE) {
-			 movePocket = 1;
-			 if (Stone_cnt > 0) {
-				 StonePocket[7 + movePocket] += Stone_cnt;
-				 StonePocket[8 + movePocket] += Stone_cnt;
-				 StonePocket[9 + movePocket] += Stone_cnt;
-				 StonePocket[10 + movePocket] += Stone_cnt;
-				 Stone_cnt -= 1;
-			 }
-			 P1Turn = 1;
-		 }
-		 else if (P2Pocket[2] == TRUE) {
-			 movePocket = 2;
-			 if (Stone_cnt > 0) {
-				 StonePocket[7 + movePocket] += Stone_cnt;
-				 StonePocket[8 + movePocket] += Stone_cnt;
-				 StonePocket[9 + movePocket] += Stone_cnt;
-				 P2BigPocket++;
-				 Stone_cnt -= 2;
-			 }
-			 P1Turn = 2;
-		 }
-		 else if (P2Pocket[3] == TRUE) {
-			 movePocket = 3;
-			 if (Stone_cnt > 0) {
-				 StonePocket[7 + movePocket] += Stone_cnt;
-				 StonePocket[8 + movePocket] += Stone_cnt;
-				 P2BigPocket++;
-				 StonePocket[0] += Stone_cnt;
-				 Stone_cnt -= 3;
-			 }
-			 P1Turn = 1;
-		 }
-		 else if (P2Pocket[4] == TRUE) {
-			 movePocket = 4;
-			 if (Stone_cnt > 0) {
-				 StonePocket[7 + movePocket] += Stone_cnt;
-				 P2BigPocket++;
-				 StonePocket[0] += Stone_cnt;
-				 StonePocket[1] += Stone_cnt;
-				 Stone_cnt -= 4;
-			 }
-			 P1Turn = 1;
-		 }
-		 else if (P2Pocket[5] == TRUE) {
-			 movePocket = 5;
-			 if (Stone_cnt > 0) {
-				 P2BigPocket++;
-				 StonePocket[0] += Stone_cnt;
-				 StonePocket[1] += Stone_cnt;
-				 StonePocket[2] += Stone_cnt;
-				 Stone_cnt -= 5;
-			 }
-			 P1Turn = 1;
-		 }
+		// if (P2Pocket[0] == TRUE) {
+		//	 
+		//	 if (Stone_cnt > 0) {
+		//		 StonePocket[7 + movePocket] += Stone_cnt;
+		//		 StonePocket[8 + movePocket] += Stone_cnt;
+		//		 StonePocket[9 + movePocket] += Stone_cnt;
+		//		 StonePocket[10 + movePocket] += Stone_cnt;
+		//		 Stone_cnt -= 1;
+		//	 }
+		//	 P2Turn = 0;
+		//	 P1Turn = 1;
+		// }
+		// else if (P2Pocket[1] == TRUE) {
+		//	 movePocket = 1;
+		//	 if (Stone_cnt > 0) {
+		//		 StonePocket[7 + movePocket] += Stone_cnt;
+		//		 StonePocket[8 + movePocket] += Stone_cnt;
+		//		 StonePocket[9 + movePocket] += Stone_cnt;
+		//		 StonePocket[10 + movePocket] += Stone_cnt;
+		//		 Stone_cnt -= 1;
+		//	 }
+		//	 P2Turn = 0;
+		//	 P1Turn = 1;
+		// }
+		// else if (P2Pocket[2] == TRUE) {
+		//	 movePocket = 2;
+		//	 if (Stone_cnt > 0) {
+		//		 StonePocket[7 + movePocket] += Stone_cnt;
+		//		 StonePocket[8 + movePocket] += Stone_cnt;
+		//		 StonePocket[9 + movePocket] += Stone_cnt;
+		//		 P2BigPocket++;
+		//		 Stone_cnt -= 2;
+		//	 }
+		//	 P2Turn = 0;
+		//	 P1Turn = 1;
+		// }
+		// else if (P2Pocket[3] == TRUE) {
+		//	 movePocket = 3;
+		//	 if (Stone_cnt > 0) {
+		//		 StonePocket[7 + movePocket] += Stone_cnt;
+		//		 StonePocket[8 + movePocket] += Stone_cnt;
+		//		 P2BigPocket++;
+		//		 StonePocket[0] += Stone_cnt;
+		//		 Stone_cnt -= 3;
+		//	 }
+		//	 P2Turn = 1;
+		//	 P1Turn = 0;
+		// }
+		// else if (P2Pocket[4] == TRUE) {
+		//	 movePocket = 4;
+		//	 if (Stone_cnt > 0) {
+		//		 StonePocket[7 + movePocket] += Stone_cnt;
+		//		 P2BigPocket++;
+		//		 StonePocket[0] += Stone_cnt;
+		//		 StonePocket[1] += Stone_cnt;
+		//		 Stone_cnt -= 4;
+		//	 }
+		//	 P2Turn = 0;
+		//	 P1Turn = 1;
+		// }
+		// else if (P2Pocket[5] == TRUE) {
+		//	 movePocket = 5;
+		//	 if (Stone_cnt > 0) {
+		//		 P2BigPocket++;
+		//		 StonePocket[0] += Stone_cnt;
+		//		 StonePocket[1] += Stone_cnt;
+		//		 StonePocket[2] += Stone_cnt;
+		//		 Stone_cnt -= 5;
+		//	 }
+		//	 P2Turn = 0;
+		//	 P1Turn = 1;
+		// }
 
-	 }
+	 //}
 
 	return this;
 }
