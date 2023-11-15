@@ -22,6 +22,8 @@ private:
 	bool gomoku_Phase; // æU:0 ŒãU:1
 	int gomoku_Battle; // ‡’†:0	•‚ÌŸ‚¿:1 ”’‚ÌŸ‚¿:2
 	int gomoku_AImove_Point;
+	int gomoku_AI_think;
+	int Key_Count = 0;
 public:
 	gomokuScene();
 	~gomokuScene();

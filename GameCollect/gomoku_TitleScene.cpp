@@ -3,6 +3,11 @@
 gomokuTitle::gomokuTitle()
 {
 	gomokuTitle_Back = LoadGraph("../images/Gomoku/BackGround02.png");
+    gomokuMenuNumber = 0;
+    gomokuMenuY = 0;
+    g_OldKey = 0;
+    g_NowKey = 0;
+    g_KeyFlg = 0;
 }
 
 gomokuTitle::~gomokuTitle()
