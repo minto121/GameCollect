@@ -8,6 +8,12 @@ public:
 
 private:
 
+	int isPlayerTurn = 1;  // プレイヤーのターンかどうかを示すフラグ
+	int  isComputerTurn = 0;  // コンピューターのターンかどうかを示すフラグ
+
+	struct PLAYER {
+		int player = 0;
+	};
 
 	struct TRUMPS {
 		int flg = 0;
@@ -16,7 +22,7 @@ private:
 		int  visible = 0; // カードを画面に表示するかどうかのフラグ
 	};
 	
-
+	PLAYER player[2];
 	TRUMPS trumps[10][10];
 
 	int trumpflg = 0;
@@ -24,6 +30,9 @@ private:
 	virtual AbstractScene* Update()override;
 	void Draw()const override;
 
+
+	void ComputerTurn();
+	void CheckMatched();
 
 	int first;
 

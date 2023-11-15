@@ -22,42 +22,7 @@ AbstractScene* sinkeisuijaku::Update()
     // ゲームロジック
     count++;
 
-    // メニューカーソル移動処理
-    // 上移動
-    if (g_KeyFlg & PAD_INPUT_UP) {
-        if (S_ber >= 0 && S_ber <= 4) {
-            S_ber = S_ber - 1;
-        }
-        if (S_ber < 0) {
-            S_ber = 3;
-        }
-    }
-
-    // 下移動
-    if (g_KeyFlg & PAD_INPUT_DOWN) {
-        if (S_ber >= 0 && S_ber <= 4) {
-            S_ber = S_ber + 1;
-        }
-        if (S_ber >= 4) {
-            S_ber = 0;
-        }
-    }
-
-    // 右移動
-    if (g_KeyFlg & PAD_INPUT_RIGHT) {
-        S2_ber = S2_ber + 1;
-        if (S2_ber == 5 || S2_ber == 9 || S2_ber == 14 || S2_ber == 19 || S2_ber == 24) {
-            S2_ber = S2_ber - 5;
-        }
-    }
-
-    // 左移動
-    if (g_KeyFlg & PAD_INPUT_LEFT) {
-        S2_ber = S2_ber - 1;
-        if (S2_ber == -1 || S2_ber == 6 || S2_ber == 11 || S2_ber == 16 || S2_ber == 21) {
-            S2_ber = S2_ber + 5;
-        }
-    }
+  
 
     if (testcount == 0) {
         for (int j = 0; j < 4; j++) {
@@ -120,66 +85,7 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
     }
-    if (count >= 10) {
-        // カード選択
-        if (g_KeyFlg & PAD_INPUT_1) {
-            if (trumpflg == 0) {
-                // カードを選択したときの種類を1回目に記録
-                syun1 = trumps[S_ber][S2_ber].syurui;
-                testcount++;
-            }
-            else if (rCount < 2) {
-                // 2回目のカード選択時に揃っているか判定
-                syun2 = trumps[S_ber][S2_ber].syurui;
-                rCount++;
-
-                // カードを裏返す
-                for (int j = 0; j < 4; j++) {
-                    for (int i = 0; i < 5; i++) {
-                        trumps[j][i].flg = 0;
-                    }
-                }
-
-                // カードが裏の状態であれば、表にする
-                if (trumpflg == 0) {
-                    trumps[S_ber][S2_ber].flg = 1;
-                    trumpflg = 1;
-                }
-
-                // 揃ったかどうかの判定
-                if (syun1 == syun2) {
-                    // 揃った場合、揃ったフラグを設定
-                    for (int j = 0; j < 4; j++) {
-                        for (int i = 0; i < 5; i++) {
-                            if (trumps[j][i].flg == 1) {
-                                trumps[j][i].syunflg = trumps[j][i].syurui;
-
-                            }
-                        }
-                    }
-                }
-
-                // カード選択時に rCount が2より大きい場合でも連続して裏返せないようにリセット
-                rCount = 0;
-            }
-        }
-
-           
-    
-
-
-
-
-        // カードを選択したときの種類を2回まで記録
-        if (testcount == 1) {
-            syun1 = trumps[S_ber][S2_ber].syurui;
-            testcount++;
-        }
-        else if (testcount == 3) {
-            syun2 = trumps[S_ber][S2_ber].syurui;
-            testcount = 0;
-        }
-    }
+  
     // 先行後攻決め
     srand((unsigned int)time(NULL)); // 現在の時間を使って初期化
     first = (rand() % 2) + 1; // 1または2をランダムに生成
@@ -194,65 +100,195 @@ AbstractScene* sinkeisuijaku::Update()
             trumps[r][r2].syurui = trumps[4][6].syurui;
         }
     }
-    if (count >= 10) {
-        randend = 1;
-    }
 
-    //トランプの選択3回目で裏面に戻す
 
-    if (rCount >= 2) {
-        Time = Time += 1;
-        if (Time % 50 == 0) {
 
-            for (int j = 0; j < 4; j++) {
-                for (int i = 0; i < 5; i++) {
-                    trumps[j][i].flg = 0;
-                    trumps[j][i].syunflg = 21;
+    if (isPlayerTurn == 1) {
+        // プレイヤーのターン
+        // ここにプレイヤーのターンの処理を実装します。
+        // キー入力などを利用してプレイヤーの操作を受け付ける処理が考えられます。
+          // メニューカーソル移動処理
+    // 上移動
+        if (g_KeyFlg & PAD_INPUT_UP) {
+            if (S_ber >= 0 && S_ber <= 4) {
+                S_ber = S_ber - 1;
+            }
+            if (S_ber < 0) {
+                S_ber = 3;
+            }
+        }
+
+        // 下移動
+        if (g_KeyFlg & PAD_INPUT_DOWN) {
+            if (S_ber >= 0 && S_ber <= 4) {
+                S_ber = S_ber + 1;
+            }
+            if (S_ber >= 4) {
+                S_ber = 0;
+            }
+        }
+
+        // 右移動
+        if (g_KeyFlg & PAD_INPUT_RIGHT) {
+            S2_ber = S2_ber + 1;
+            if (S2_ber == 5 || S2_ber == 9 || S2_ber == 14 || S2_ber == 19 || S2_ber == 24) {
+                S2_ber = S2_ber - 5;
+            }
+        }
+
+        // 左移動
+        if (g_KeyFlg & PAD_INPUT_LEFT) {
+            S2_ber = S2_ber - 1;
+            if (S2_ber == -1 || S2_ber == 6 || S2_ber == 11 || S2_ber == 16 || S2_ber == 21) {
+                S2_ber = S2_ber + 5;
+            }
+        }
+
+
+
+        if (count >= 10) {
+            // カード選択
+            if (g_KeyFlg & PAD_INPUT_1) {
+                if (trumpflg == 0) {
+                    // カードを選択したときの種類を1回目に記録
+                    syun1 = trumps[S_ber][S2_ber].syurui;
+                    testcount++;
+                }
+                else if (rCount < 2) {
+                    // 2回目のカード選択時に揃っているか判定
+                    syun2 = trumps[S_ber][S2_ber].syurui;
+                    rCount++;
+
+                    // カードを裏返す
+                    for (int j = 0; j < 4; j++) {
+                        for (int i = 0; i < 5; i++) {
+                            trumps[j][i].flg = 0;
+
+                        }
+                    }
+
+                    // カードが裏の状態であれば、表にする
+                    if (trumpflg == 0) {
+                        trumps[S_ber][S2_ber].flg = 1;
+                        trumpflg = 1;
+                    }
+
+                    // 揃ったかどうかの判定
+                    if (syun1 == syun2) {
+                        // 揃った場合、揃ったフラグを設定
+                        for (int j = 0; j < 4; j++) {
+                            for (int i = 0; i < 5; i++) {
+                                if (trumps[j][i].flg == 1) {
+                                    trumps[j][i].syunflg = trumps[j][i].syurui;
+
+                                }
+                            }
+                        }
+                    }
+
+                    // カード選択時に rCount が2より大きい場合でも連続して裏返せないようにリセット
+                    rCount = 0;
                 }
             }
-            syun1 = 21;
-            syun2 = 21;
-            rCount = 0;
-            syuncount = 0;
-        }
-    }
+
+
+            if (count >= 10) {
+                randend = 1;
+            }
+
+            //トランプの選択3回目で裏面に戻す
+
+            if (rCount >= 2) {
+                Time = Time += 1;
+                if (Time % 50 == 0) {
+
+                    for (int j = 0; j < 4; j++) {
+                        for (int i = 0; i < 5; i++) {
+                            trumps[j][i].flg = 0;
+                            trumps[j][i].syunflg = 21;
+                        }
+                    }
+                    syun1 = 21;
+                    syun2 = 21;
+                    rCount = 0;
+                    syuncount = 0;
+
+                    // プレイヤーの手番が終了したら、isPlayerTurn フラグを false に設定し、コンピューターのターンへ移行します。
+                    isPlayerTurn = 0;
+                    isComputerTurn = 1;
+                }
+            }
 
 
 
 
 
-    // 揃ったカードの確認とメッセージ表示
-    for (int j = 0; j < 4; j++) {
-        for (int i = 0; i < 5; i++) {
-            if (trumps[j][i].flg == 1 && trumps[j][i].syunflg != 0) {
-                for (int k = 0; k < 4; k++) {
-                    for (int l = 0; l < 5; l++) {
-                        if (trumps[j][i].syunflg + 10 == trumps[k][l].syunflg || trumps[j][i].syunflg - 10 == trumps[k][l].syunflg) {
-                            trumps[j][i].visible = 1;
-                            pea = 1;
+            // 揃ったカードの確認とメッセージ表示
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 5; i++) {
+                    if (trumps[j][i].flg == 1 && trumps[j][i].syunflg != 0) {
+                        for (int k = 0; k < 4; k++) {
+                            for (int l = 0; l < 5; l++) {
+                                if (trumps[j][i].syunflg + 10 == trumps[k][l].syunflg || trumps[j][i].syunflg - 10 == trumps[k][l].syunflg) {
+                                    trumps[j][i].visible = 1;
+                                    pea = 1;
+                                }
+                            }
                         }
                     }
                 }
             }
+
+            pea = 0;
+
+
+
+
+            // カードを選択したときの種類を2回まで記録
+            if (testcount == 1) {
+                syun1 = trumps[S_ber][S2_ber].syurui;
+                testcount++;
+            }
+            else if (testcount == 3) {
+                syun2 = trumps[S_ber][S2_ber].syurui;
+                testcount = 0;
+       
+            }
         }
+
     }
 
-    pea = 0;
+  
+
+
+
+       
+    
+
+    if (isComputerTurn == 1) {
+        // コンピューターのターン
+        ComputerTurn();
+
+        // コンピューターの手番が終了したら、カードの揃い具合を確認する処理を実行します。
+        CheckMatched();
+    }
+
+
+
+
 
     return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
+    DrawFormatString(100, 100, 0x00ffff, "trun %d",isPlayerTurn);
 
-    DrawFormatString(100, 260, 0xfff00f, "visible %d", trumps[S_ber][S2_ber].visible);
-  
     if (pea == 1) {
         DrawFormatString(100, 120, 0x00ffff, "そろった ");
     }
 
 
-    // DrawFormatString(100, 280, 0xfff00f, "r2Count %d", r2Count);*/
 
      // トランプの表示
     for (int j = 0; j < 4; j++) {
@@ -296,4 +332,53 @@ void sinkeisuijaku::Draw() const
     else {
         DrawFormatString(50, 30, 0xff00ff, "後攻です！");
     }
+}
+
+void sinkeisuijaku::ComputerTurn()
+{
+    //カウント
+    Time = Time += 1;
+
+
+
+    // ランダムな座標を生成
+    int randRow = rand() % 4;
+    int randCol = rand() % 5;
+
+    // 2枚目のランダムな座標を生成
+    int randRow2, randCol2;
+    do {
+        randRow2 = rand() % 4;
+        randCol2 = rand() % 5;
+    } while (randRow2 == randRow && randCol2 == randCol);  // 2枚目が1枚目と異なる座標になるように
+
+    // 選択した2枚のカードをめくる
+    trumps[randRow][randCol].flg = 1;
+    trumps[randRow2][randCol2].flg = 1;
+
+
+    //とりあえずカードを裏面に戻す
+   
+    if (Time % 50 == 0) {
+
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+                trumps[j][i].flg = 0;
+                trumps[j][i].syunflg = 21;
+            }
+        }
+
+        // コンピューターの手番が終了したら、isComputerTurn フラグを false に設定し、プレイヤーのターンへ移行します。
+        isComputerTurn = 0;
+        isPlayerTurn = 1;
+    }
+
+}
+
+void sinkeisuijaku::CheckMatched()
+{
+    // ここにカードの揃い具合を確認する処理を実装します。
+     // プレイヤーとコンピューターの両方に対して適切な処理を行います。
+
+     // カードが揃った場合、揃ったフラグを設定するなどの処理が考えられます。
 }
