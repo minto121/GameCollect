@@ -41,8 +41,8 @@ Mankara::Mankara()
 
 	}
 
-	for (int i = 0; i < 12; i++) {
-		StonePocket[i] = InitialStone; // 2P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
+	for (int i = 0; i < 6; i++) {
+		StonePocket[1][i] = InitialStone; // 2P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
 	}
 }
 
@@ -259,42 +259,42 @@ Mankara::Mankara()
 			 switch (PlayerPocket)
 			 {
 			 case 0:
-				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
-					 StonePocket[i + y] += Stone_cnt;
+				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
+					 StonePocket[0][i + y] += Stone_cnt;
 						 DrawGraph(300 + y * 125, 430, gStone.img[y][0], TRUE);
 				 }
 				 break;
 			 case 1:
-				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
-					 StonePocket[i + y] += Stone_cnt;
+				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
+					 StonePocket[0][i + y] += Stone_cnt;
 					 DrawGraph(300 + y * 125, 430, gStone.img[y][1], TRUE);
 
 				 }
 				 break;
 			 case 2:
-				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
-					 StonePocket[i + y] += Stone_cnt;
+				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
+					 StonePocket[0][i + y] += Stone_cnt;
 					 DrawGraph(300 + y * 125, 430, gStone.img[y][2], TRUE);
 
 				 }				 
 				 break;
 			 case 3:
-				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
-					 StonePocket[i + y] += Stone_cnt;
+				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
+					 StonePocket[0][i + y] += Stone_cnt;
 					 DrawGraph(300 + y * 125, 430, gStone.img[y][3], TRUE);
 
 				 }
 				 break;
 			 case 4:
-				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
-					 StonePocket[i + y] += Stone_cnt;
+				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
+					 StonePocket[0][i + y] += Stone_cnt;
 					 DrawGraph(300 + y * 125, 430 , gStone.img[y][4], TRUE);
 
 				 }
 				 break;
 			 case 5:
-				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
-					 StonePocket[i + y] += Stone_cnt;
+				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
+					 StonePocket[0][i + y] += Stone_cnt;
 					 DrawGraph(300 + y * 125, 430, gStone.img[y][5], TRUE);
 
 				 }
@@ -582,7 +582,11 @@ void Mankara::Draw()const
 		DrawFormatString(200, 200, GetColor(255, 255, 255), "1P TURN");
 	}
 	
+	/*for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
+		StonePocket[PlayerPocket+y] += Stone_cnt;
+		DrawGraph(300 + y * 125, 430, gStone.img[y][0], TRUE);
 
+	}*/
 
 	
 }

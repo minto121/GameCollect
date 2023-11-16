@@ -45,7 +45,7 @@ private:
 	int Stone_cnt;
 	int movePocket;
 
-	int StonePocket[12]; // 石入れてるポケット
+	int StonePocket[2][6]; // 石入れてるポケット
 	int sideAddition;      // 移動させるための処理
 	int Stonenum;          // 配列の中の石の総数
 
