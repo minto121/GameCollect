@@ -308,8 +308,14 @@ void sinkeisuijaku::Draw() const
                 }
             }
         }
+            //プレイヤーがカードを揃えたら
             if (trumps[j][i].visible == 1) {
                 DrawGraph(340 + i * 120, 0 + j * 150, S_T[42], TRUE);
+            }
+
+            //コンピューターがカードを揃えたら
+            if (trumps[j][i].visible == 2) {
+                DrawGraph(340 + i * 120, 0 + j * 150, S_T[39], TRUE);
 
             }
     }
@@ -336,41 +342,55 @@ void sinkeisuijaku::Draw() const
 
 void sinkeisuijaku::ComputerTurn()
 {
+ 
+
     //カウント
-    Time = Time += 1;
+    Time++;
+
+
+    if (rebirth == 0) {
+
+        int randRow, randCol, randRow2, randCol2;
+
+        // ランダムな座標を生成
+        do {
+             randRow = rand() % 4;
+              randCol = rand() % 5;
+        } while (trumps[randRow][randCol].visible == 1);
+
+            do {
+                randRow2 = rand() % 4;
+                randCol2 = rand() % 5;
+            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1);  // 2枚目が1枚目と異なる座標になるように
 
 
 
-    // ランダムな座標を生成
-    int randRow = rand() % 4;
-    int randCol = rand() % 5;
+                // 選択した2枚のカードをめくる
+            trumps[randRow][randCol].flg = 1;
+            trumps[randRow2][randCol2].flg = 1;
+            rebirth = rebirth + 1;
 
-    // 2枚目のランダムな座標を生成
-    int randRow2, randCol2;
-    do {
-        randRow2 = rand() % 4;
-        randCol2 = rand() % 5;
-    } while (randRow2 == randRow && randCol2 == randCol);  // 2枚目が1枚目と異なる座標になるように
+            if (trumps[randRow][randCol].syurui + 10 == trumps[randRow2][randCol2].syurui || trumps[randRow][randCol].syurui == trumps[randRow2][randCol2].syurui - 10) {
+                trumps[randRow][randCol].visible = 2;
+                trumps[randRow2][randCol2].visible = 2;
+           }
 
-    // 選択した2枚のカードをめくる
-    trumps[randRow][randCol].flg = 1;
-    trumps[randRow2][randCol2].flg = 1;
-
-
-    //とりあえずカードを裏面に戻す
-   
-    if (Time % 50 == 0) {
-
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 5; i++) {
-                trumps[j][i].flg = 0;
-                trumps[j][i].syunflg = 21;
-            }
         }
+    
+            //とりあえずカードを裏面に戻す
 
-        // コンピューターの手番が終了したら、isComputerTurn フラグを false に設定し、プレイヤーのターンへ移行します。
-        isComputerTurn = 0;
-        isPlayerTurn = 1;
+            if (Time % 50 == 0) {
+
+                for (int j = 0; j < 4; j++) {
+                    for (int i = 0; i < 5; i++) {
+                        trumps[j][i].flg = 0;
+                        trumps[j][i].syunflg = 21;
+                    }
+                }
+                // コンピューターの手番が終了したら、isComputerTurn フラグを false に設定し、プレイヤーのターンへ移行します。
+                isComputerTurn = 0;
+                isPlayerTurn = 1;
+                rebirth = 0;
     }
 
 }

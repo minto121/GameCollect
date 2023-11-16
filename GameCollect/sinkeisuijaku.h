@@ -82,5 +82,7 @@ private:
 	int testflg = 0;
 
 	int pea = 0;
+
+	int rebirth = 0;
 };
 
