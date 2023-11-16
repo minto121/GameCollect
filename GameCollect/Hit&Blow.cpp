@@ -17,15 +17,14 @@ HitAndBlow::HitAndBlow()
 	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
 
 	DecisionFlg = TRUE; // 答えを一回だけ決めるフラグをTRUEにする
+	TurnFlg = TRUE;
 
 	WarpPosition = 0;
 	SidePosition = 0;
 
 	Turns = 0;
 
-	for (int i = 0; i < 4; i++) {
-		Reasoning[i] = -1;// 中身全部空にする
-	}
+	ArrayInit();
 
 	SaveColor = 0; // セーブカラー初期化
 
@@ -36,9 +35,9 @@ HitAndBlow::HitAndBlow()
 
 	MoveFlg = -1; // 一旦先攻でも後攻でもない値を入れる
 
-	TurnFlg = TRUE;
-
 	ChangeColor = -1; // 場所だけ変える変数を初期化
+
+	FirstMoveFlg = -1;
 }
 
 HitAndBlow::~HitAndBlow()
@@ -112,7 +111,7 @@ AbstractScene* HitAndBlow::Update()
 				//	count++;
 				//}
 				//count = 0; // カウントをリセット
-				return new GameSelect();// 遷移場所は一旦置いてるだけ
+				return new Title();// 遷移場所は一旦置いてるだけ
 			}
 			else {
 				ResetColor();
@@ -131,7 +130,7 @@ AbstractScene* HitAndBlow::Update()
 				//	count++;
 				//}
 				count = 0; // カウントをリセット
-				return new GameSelect();// 遷移場所は一旦置いてるだけ
+				return new Title();// 遷移場所は一旦置いてるだけ
 			}
 			else {
 				ResetColor();
@@ -155,10 +154,11 @@ AbstractScene* HitAndBlow::Update()
 		//}
 		if (SaveHit[Turns - 1] == 4) {
 			count = 0; // カウントをリセット
-			return new GameSelect(); // 遷移場所は一旦置いてるだけ
+			return new Title();// 遷移場所は一旦置いてるだけ
 		}else
 		count = 0; // カウントをリセット
-		return new Title();// 遷移場所は一旦置いてるだけ
+		return new GameSelect(); // 遷移場所は一旦置いてるだけ
+
 	}
 
 	return this;
@@ -180,35 +180,35 @@ void HitAndBlow::Draw() const
 	//DrawFormatString(100, 700, 0xffffff, "Turnsは%d", Reasoning[WarpPosition]); // デバック用
 	/* 予想したカラーを表示する */
 	if (Reasoning[WarpPosition % 4] >= 0) {
-		DrawGraph(92 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
 	}
 
 	if (Reasoning[(WarpPosition + 1) % 4] >= 0) {
-		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
 	}
 	
 	if (Reasoning[(WarpPosition + 2) % 4] >= 0) {
-		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
 	}
 	
 	if (Reasoning[(WarpPosition + 3) % 4] >= 0) {
-		DrawGraph(92 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
 	}
 
 	
 	for (int i = 0; i < 4; i++) {
 		if (SaveHit[Turns - 1] == 4 || Turns == 8) { // 8ターン経過か、4ヒットしたら表示
-		DrawGraph(1100, 220 + i * 80, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
+		DrawGraph(1125, 220 + i * 80, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
 		}
 	}
 	
-	
-	/* 過去に入れた色を表示 */
 	for (int i = 0; i < Turns; i++) {
-		DrawGraph(92 + i * 130, 222, ColorImg[SaveReasoning[i][0]], TRUE);
-		DrawGraph(92 + i * 130, 222 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
-		DrawGraph(92 + i * 130, 222 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
-		DrawGraph(92 + i * 130, 222 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
+		/* 過去に入れた色を表示 */
+		DrawGraph(90 + i * 130, 220, ColorImg[SaveReasoning[i][0]], TRUE);
+		DrawGraph(90 + i * 130, 220 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
+		DrawGraph(90 + i * 130, 220 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
+		DrawGraph(90 + i * 130, 220 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
+
 		/* ジャッジ用の描画処理を書く */
 		for (int j = 0; j < SaveHit[i]; j++) {
 			DrawGraph(80 + (j % 2) * 35 + i * 130, 100 + (j / 2) * 40, HitBlowImg[1], TRUE);
@@ -217,7 +217,23 @@ void HitAndBlow::Draw() const
 			DrawGraph(80 + ((SaveHit[i] + k) % 2) * 35 + i * 130, 100 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
 		}
 	}
-	
+	for (int i = 0; i < 8; i++) {
+		if (FirstMoveFlg == TRUE) {
+			if (i % 2 == 0) {
+				DrawFormatString(90 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+			}
+			else {
+				DrawFormatString(220 + (i / 2) * 260, 50, 0x0000ff, "E"); // エネミーの順番を上に表示
+			}
+		}
+		else if (i % 2 == 0) {
+			DrawFormatString(90 + (i / 2) * 260, 50, 0x0000ff, "E"); // エネミーの順番を上に表示
+		}
+		else {
+			DrawFormatString(220 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+		}
+
+	}
 }
 
 void HitAndBlow::RandomDecision()
@@ -238,6 +254,7 @@ void HitAndBlow::RandomDecision()
 	if (TurnFlg == TRUE) {
 		MoveFlg = rand() % 2;
 		TurnFlg = FALSE;
+		FirstMoveFlg = MoveFlg; // 先攻か後攻かを覚えてもらう（描画処理で必要）
 	}
 	
 }
@@ -340,4 +357,24 @@ void HitAndBlow::ResetColor()
 	Hit = 0;
 	Blow = 0;
 
+}
+
+void HitAndBlow::ArrayInit()
+{
+	for (int i = 0; i < 4; i++) {
+		Reasoning[i] = -1;// 中身全部空にする
+		Answer[i] = -1;
+	}
+
+	for (int j = 0; j < 8; j++) {
+		SaveHit[j] = 0;
+		SaveBlow[j] = 0;
+		for (int k = 0; k < 4; k++) {
+			SaveReasoning[j][k] = 0;
+		}
+	}
+
+	for (int m = 0; m < 6; m++) {
+		Color[m] = 0;
+	}
 }

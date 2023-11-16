@@ -26,6 +26,7 @@ private:
 	int count; // 時間管理する変数
 	int ChangeColor; // 色が全部分かった時、順番だけを入れ替えるための変数
 	int MoveFlg; // 先攻後攻決めるフラグ
+	int FirstMoveFlg; // 最初が先攻か後攻かを暗記する変数
 	bool TurnFlg; // ターン数を決めるフラグ
 
 public:
@@ -52,5 +53,8 @@ public:
 
 	// 色をリセットする関数
 	void ResetColor();
+
+	// 配列の初期化関数
+	void ArrayInit();
 
 };
