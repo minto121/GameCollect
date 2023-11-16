@@ -20,8 +20,8 @@ Checkermain::Checkermain() {
     SelectY = 0;                                             // 移動先Y座標
     jumpedX = 0;
     jumpedY = 0;
-    player1Pieces = 12; // プレイヤー1の駒の数
-    player2Pieces = 12; // プレイヤー2の駒の数
+    player1Pieces = 12;                                      // プレイヤー1の駒の数
+    player2Pieces = 12;                                      // プレイヤー2の駒の数
 }
 
 Checkermain::~Checkermain() {
@@ -54,7 +54,12 @@ AbstractScene* Checkermain::Update() {
     for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
             if (phase == 0) {
-                if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 1 || board[selectX][selectY] == 3)) {
+                if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 1)) {
+                    StartX = selectX;
+                    StartY = selectY;
+                    F_select = true;
+                }
+                else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 3)) {
                     StartX = selectX;
                     StartY = selectY;
                     F_select = true;
@@ -73,7 +78,12 @@ AbstractScene* Checkermain::Update() {
 
             }
             else if (phase == 1) {
-                if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 2 || board[selectX][selectY] == 4)) {
+                if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 2 )) {
+                    StartX = selectX;
+                    StartY = selectY;
+                    F_select = true;
+                }
+                else if (g_KeyFlg & PAD_INPUT_1 && ( board[selectX][selectY] == 4)) {
                     StartX = selectX;
                     StartY = selectY;
                     F_select = true;
@@ -146,8 +156,8 @@ void Checkermain::Draw() const {
     DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);
 
     // デバッグ情報を表示
-    DrawFormatString(0, 0, 0x000000, "Y: %d", selectY); // カーソル移動Y
-    DrawFormatString(0, 30, 0x000000, "X: %d", selectX); // カーソル移動X
+    DrawFormatString(0, 0, 0x000000, "Y: %d", selectY);                 // カーソル移動Y
+    DrawFormatString(0, 30, 0x000000, "X: %d", selectX);                // カーソル移動X
     DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
     DrawFormatString(0, 150, 0x000000, "Phase: %d", phase);
     DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
@@ -190,38 +200,93 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
         return false;
     }
   
-    // 移動先が隣接している場合（通常の移動）
+    // 移動先が隣接している場合（通常の移動）赤駒の右斜め前移動
     if (abs(SelectX - startX) == 1 && SelectY - startY == 1) {
         // 1つ前に進むことが許可される条件を追加
-        if (board[startX][startY] == 1 || board[startX][startY] == 3) {
+        if (board[startX][startY] == 1 ) {
             return true;
         }
     }
-    if (abs(SelectX - startX) == -1 && SelectY - startY == 1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[startX][startY] == 1 || board[startX][startY] == 2) {
-            return true;
-        }
-    }
-    if (abs(SelectX - startX) == 1 && SelectY - startY == -1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[startX][startY] == 2 || board[startX][startY] == 3) {
-            return true;
-        }
-    }
-    if (abs(SelectX - startX) == -1 && SelectY - startY == -1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[startX][startY] == 2 || board[startX][startY] == 3) {
-            return true;
-        }
-    }
-
-    // 移動先が斜めに1つずつ移動する場合（成金の移動）
-    if (abs(SelectX - startX) == 1 && abs(SelectY - startY) == 1) {
+    if (abs(SelectX - startX) == 1 && SelectY - startY == 1) {
+        // 1つ前に進むことが許可される条件を追加（成金赤の移動）
         if (board[startX][startY] == 3) {
             return true;
         }
     }
+
+    if (abs(SelectX - startX) == 1 && SelectY - startY == 1) {
+        // 1つ前に進むことが許可される条件を追加（成金黒左斜め後ろの移動）
+        if (board[startX][startY] == 4) {
+            return true;
+        }
+    }
+
+    // 赤駒の左斜め前移動
+    if (abs(SelectX - startX) == -1 && SelectY - startY == 1) {
+        // 1つ前に進むことが許可される条件を追加
+        if (board[startX][startY] == 1 ) {
+            return true;
+        }
+    }
+    if (abs(SelectX - startX) == -1 && SelectY - startY == 1) {
+        // 1つ前に進むことが許可される条件を追加（成金赤の移動）
+        if (board[startX][startY] == 3) {
+            return true;
+        }
+    }
+
+    if (abs(SelectX - startX) == -1 && SelectY - startY == 1) {
+        // 1つ前に進むことが許可される条件を追加（成金黒右斜め後ろの移動）
+        if (board[startX][startY] == 4) {
+            return true;
+        }
+    }
+
+    // 黒駒の右斜め前移動
+    if (abs(SelectX - startX) == -1 && SelectY - startY == -1) {
+        // 1つ前に進むことが許可される条件を追加
+        if (board[startX][startY] == 2) {
+            return true;
+        }
+    }
+    if (abs(SelectX - startX) == -1 && SelectY - startY == -1) {
+        // 1つ前に進むことが許可される条件を追加（成金黒の移動）
+        if (board[startX][startY] == 4) {
+            return true;
+        }
+    }
+
+    if (abs(SelectX - startX) == -1 && SelectY - startY == -1) {
+        // 1つ前に進むことが許可される条件を追加（成金赤左斜め後ろの移動）
+        if (board[startX][startY] == 3) {
+            return true;
+        }
+    }
+
+    // 黒駒の左斜め前移動
+    if (abs(SelectX - startX) == 1 && SelectY - startY == -1) {
+        // 1つ前に進むことが許可される条件を追加
+        if (board[startX][startY] == 2) {
+            return true;
+        }
+    }
+    if (abs(SelectX - startX) == 1 && SelectY - startY == -1) {
+        // 1つ前に進むことが許可される条件を追加（成金黒の移動）
+        if (board[startX][startY] == 4) {
+            return true;
+        }
+    }
+
+    if (abs(SelectX - startX) == 1 && SelectY - startY == -1) {
+        // 1つ前に進むことが許可される条件を追加（成金赤右斜め後ろの移動）
+        if (board[startX][startY] == 3) {
+            return true;
+        }
+    }
+  
+
+
+   
 
     // 移動先が斜めに2つ飛び越える場合（ジャンプ）
     if (abs(SelectX - startX) == 2 && abs(SelectY - startY) == 2) {
@@ -233,26 +298,51 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
             // 飛び越えた相手の駒を削除
             board[jumpedX][jumpedY] = 0;
 
-            // 相手の駒を取った後、さらに取れるか再帰的に確認
-          /*  if (IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY + 2) ||  
-                IsMoveValid(SelectX, SelectY, SelectX - 2, SelectY + 2) ||
-                IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY - 2) ||
-                IsMoveValid(SelectX, SelectY, SelectX - 2, SelectY - 2)) {
-                return true;
-            }*/
             // 黒駒が敵陣地の端に到達したら成金になる
             if (SelectY == 0 && board[startX][startY] == 2) {
                 board[StartX][StartY] = 0;
+         
                 board[SelectX][SelectY] = 3; // 3は成金を表す
                 return false;
             }
+
             // 赤駒が敵陣地の端に到達したら成金になる
             if (SelectY == 7 && board[startX][startY] == 1) {
                 board[StartX][StartY] = 0;
+              
                 board[SelectX][SelectY] = 4; // 4は成金を表す
                 return false;
             }
 
+            // 相手の駒を取った後、さらに取れるか確認
+            if (board[startX][startY] == 1 && ( IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY + 2)))
+            {
+                board[StartX][startY] = 0;
+                board[SelectX+2][SelectY+2] = 1;
+                return false;
+            }
+            if (board[startX][startY] == 1 && (IsMoveValid(SelectX, SelectY, SelectX - 2, SelectY + 2)))
+            {
+                board[StartX][startY] = 0;
+                board[SelectX - 2][SelectY + 2] = 1;
+                return false;
+            }
+            // 相手の駒を取った後、さらに取れるか確認
+            if (board[startX][startY] == 2 && (IsMoveValid(SelectX, SelectY, SelectX - 2, SelectY - 2)))
+            {
+                board[StartX][startY] = 0;
+                board[SelectX - 2][SelectY - 2] = 2;
+                return false;
+            }
+            if (board[startX][startY] == 2 && (IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY - 2)))
+            {
+                board[StartX][startY] = 0;
+                board[SelectX + 2][SelectY - 2] = 2;
+                return false;
+            }
+      
+            
+         
        
             return true;
         }
