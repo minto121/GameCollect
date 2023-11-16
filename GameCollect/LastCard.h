@@ -1,6 +1,11 @@
 #pragma once
 #include "AbstractScene.h"
 
+#include <vector>
+#include <algorithm>  // for std::shuffle
+#include <random>     // for std::default_random_engine
+
+
 class LastCard : public AbstractScene
 {
 private:
@@ -19,6 +24,8 @@ private:
 
     int CardImg[65];
 
+    std::vector<std::vector<int>> playerHands;
+
 
 public:
     //コンストラクタ
@@ -32,5 +39,8 @@ public:
 
     //描画に関することを実装
     void Draw() const override;
+
+    // プレイヤーの手札を初期化する関数
+    void InitPlayerHands();
 };
 
