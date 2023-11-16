@@ -54,40 +54,45 @@ AbstractScene* Checkermain::Update() {
     for (int x = 0; x < 8; x++) {
         for (int y = 0; y < 8; y++) {
             if (phase == 0) {
-                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 1 || board[selectX][selectY] == 3) {
+                if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 1 || board[selectX][selectY] == 3)) {
                     StartX = selectX;
                     StartY = selectY;
                     F_select = true;
                 }
-                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0 || board[selectX][selectY] == 3) {
+                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0 ) {
                     SelectX = selectX;
                     SelectY = selectY;
                     F_select = false;
                     if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
+                      
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
                         phase = 1;
                     }
                 }
-                else if (phase == 1) {
-                    if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 2 || board[selectX][selectY] == 4) {
-                        StartX = selectX;
-                        StartY = selectY;
-                        F_select = true;
-                    }
-                    if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 2 || board[selectX][selectY] == 4) {
-                        SelectX = selectX;
-                        SelectY = selectY;
-                        F_select = false;
-                        if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-                            board[SelectX][SelectY] = board[StartX][StartY];
-                            board[StartX][StartY] = 0;
-                            phase = 0;
-                        }
+
+            }
+            else if (phase == 1) {
+                if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 2 || board[selectX][selectY] == 4)) {
+                    StartX = selectX;
+                    StartY = selectY;
+                    F_select = true;
+                }
+                if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0 ) {
+                    SelectX = selectX;
+                    SelectY = selectY;
+                    F_select = false;
+                    if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
+                        
+                        board[SelectX][SelectY] = board[StartX][StartY];
+                        board[StartX][StartY] = 0;
+
+                        phase = 0;
                     }
                 }
-            }
 
+
+            }
 
         }
     }
