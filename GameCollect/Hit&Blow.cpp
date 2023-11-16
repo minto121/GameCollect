@@ -51,34 +51,6 @@ AbstractScene* HitAndBlow::Update()
 
 	RandomDecision(); // 答えの配列をランダムに設定する
 
-	//十字キー↑入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
-	{
-		WarpPosition--;
-		if (WarpPosition < 0) WarpPosition = 3; // 位置が0未満なら、0にする
-	}
-
-	// 十字キー↓入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
-	{
-		WarpPosition++;
-		if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、3にする
-	}
-
-	// 十字キー←入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
-	{
-		Color[SidePosition--];
-		if (SidePosition < 0) SidePosition = 5; // 位置が0未満になったら、5にする
-	}
-
-	//十字キー→入力
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
-	{
-		Color[SidePosition++];
-		if (SidePosition > 5) SidePosition = 0; // 位置が5を超えたら、0に戻す
-	}
-
 	//// デバック用
 	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
 	//{
@@ -101,6 +73,33 @@ AbstractScene* HitAndBlow::Update()
 	/* ここに自分が駒を入れる処理を書く */
 	if (Turns < 8)
 	{
+		//十字キー↑入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
+		{
+			WarpPosition--;
+			if (WarpPosition < 0) WarpPosition = 3; // 位置が0未満なら、0にする
+		}
+
+		// 十字キー↓入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN))
+		{
+			WarpPosition++;
+			if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、3にする
+		}
+
+		// 十字キー←入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
+		{
+			Color[SidePosition--];
+			if (SidePosition < 0) SidePosition = 5; // 位置が0未満になったら、5にする
+		}
+
+		//十字キー→入力
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
+		{
+			Color[SidePosition++];
+			if (SidePosition > 5) SidePosition = 0; // 位置が5を超えたら、0に戻す
+		}
 		if (MoveFlg == 0) { // 敵がやる処理
 			ERandomChoice();
 			Judgment();
@@ -157,7 +156,7 @@ AbstractScene* HitAndBlow::Update()
 			return new Title();// 遷移場所は一旦置いてるだけ
 		}else
 		count = 0; // カウントをリセット
-		return new GameSelect(); // 遷移場所は一旦置いてるだけ
+		//return new GameSelect(); // 遷移場所は一旦置いてるだけ
 
 	}
 
@@ -173,26 +172,28 @@ void HitAndBlow::Draw() const
 	for (int i = 0; i < 6; i++) { // 駒を表示
 		DrawGraph(350 + i * 100, 600, ColorImg[i], TRUE); // それぞれの色の駒を表示(位置は決定)
 	}
-	DrawBox(350 + SidePosition * 100, 595, 420 + SidePosition * 100, 665, 0xff0000, FALSE); // 色を埋める場所がどこにあるかを見せるボックス
-	DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
-
+	if (Turns < 8) {
+		DrawBox(350 + SidePosition * 100, 595, 420 + SidePosition * 100, 665, 0xff0000, FALSE); // 色を埋める場所がどこにあるかを見せるボックス
+		DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
+	}
+	
 	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Hit); // デバック用
 	//DrawFormatString(100, 700, 0xffffff, "Turnsは%d", Reasoning[WarpPosition]); // デバック用
 	/* 予想したカラーを表示する */
 	if (Reasoning[WarpPosition % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 222 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 220 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
 	}
 
 	if (Reasoning[(WarpPosition + 1) % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 222 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
 	}
 	
 	if (Reasoning[(WarpPosition + 2) % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 222 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
 	}
 	
 	if (Reasoning[(WarpPosition + 3) % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 222 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
+		DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
 	}
 
 	
@@ -265,14 +266,14 @@ void HitAndBlow::ERandomChoice()
 	srand((unsigned int)time(NULL));
 
 	for (int i = 0; i < 4; i++) {
-		if (SaveHit[Turns - 1] + SaveBlow[Turns - 1] == 4 /*|| SaveHit[Turns - 2] + SaveBlow[Turns - 2]*/) {// ヒットとブローの合計の数が４つになったら
-			ChangeColor = rand() % 4;
-			Reasoning[i] = SaveReasoning[Turns][ChangeColor]; // 場所だけ変える
-			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 順番被ってたら
-				i--; // iの抽選やり直す
-			}
-		}
-		else {
+		//if (SaveHit[Turns - 1] + SaveBlow[Turns - 1] == 4 /*|| SaveHit[Turns - 2] + SaveBlow[Turns - 2]*/) {// ヒットとブローの合計の数が４つになったら
+		//	ChangeColor = rand() % 4;
+		//	Reasoning[i] = SaveReasoning[Turns][ChangeColor]; // 場所だけ変える
+		//	if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 順番被ってたら
+		//		i--; // iの抽選やり直す
+		//	}
+		//}
+		/*else */{
 			Reasoning[i] = rand() % 6;
 			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 色が重なったら
 				i--; // 選別をやり直す
