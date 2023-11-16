@@ -4,11 +4,15 @@
 class Hex:public AbstractScene {
 protected:
 	//int BackImg;
-	int BanImg;
+	int BackImg;
 	int RedHexImg;
 	int BlueHexImg;
-	int SelectX;
-	int SelectY;
+	int BlackHexImg;
+	int HexImg;
+	int SelectX;	//615
+	int SelectY;	//335
+	int Select_i;
+	int Select_j;
 
 	struct Tile {
 		int flg;
@@ -17,7 +21,7 @@ protected:
 		int backup;
 	};
 
-	struct Tile gStage[12][12];
+	struct Tile gStage[13][13];
 
 public:
 	Hex();
