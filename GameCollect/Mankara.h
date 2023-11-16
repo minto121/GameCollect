@@ -20,21 +20,24 @@ private:
 
 	struct STONE gStone;
 
-
+	// 1Pが選択しているポケット
 	int PlayerPocket;
-
+	// 2Pが選択しているポケット
+	int PartnerPocket;
 
 	// 1P用ポケット
 	int P1Pocket[6];
+
 	// 2P用ポケット
 	int P2Pocket[6];
 	
+	//1Pのゴール
+	int P1BigPocket; 
+	//2Pのゴール
+	int P2BigPocket; 
 
-	int P1BigPocket; //1Pのゴール
-	int P2BigPocket; //2Pのゴール
-
-
-	int StoneImg[6]; // 石の画像
+	// 石の画像
+	int StoneImg[6]; 
 
 	int Pocket_cnt;
 

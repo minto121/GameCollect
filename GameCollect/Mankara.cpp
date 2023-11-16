@@ -19,6 +19,9 @@ Mankara::Mankara()
 	movePocket = 0;
 	sideAddition = 0;
 
+	PlayerPocket = 0;
+	PartnerPocket = 0;
+
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
 	}
@@ -112,6 +115,7 @@ Mankara::Mankara()
 	 if (P1Turn == 1) {
 		 if (Pocket_cnt == 0) {
 			 if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+				 // Aボタンで決定した時に選択したポケット以外をFALSEにする処理
 				 PlayerPocket = 0;
 				 P1Pocket[0] = TRUE;
 				 P1Pocket[1] = FALSE;
@@ -178,9 +182,9 @@ Mankara::Mankara()
 			 }
 		 }
 	 }
-	 else {
+	/* else {
 		 PlayerPocket = 0;
-	 }
+	 }*/
 
 	 //2P用石の移動処理
 	 if (P2Turn == 1) {
@@ -252,7 +256,7 @@ Mankara::Mankara()
 		 int i = 0;
 
 		 if (P1Pocket[PlayerPocket] == TRUE) {
-			 switch (P1Pocket[PlayerPocket])
+			 switch (PlayerPocket)
 			 {
 			 case 0:
 				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
@@ -272,7 +276,8 @@ Mankara::Mankara()
 					 StonePocket[i + y] += Stone_cnt;
 					 DrawGraph(300 + y * 125, 430, gStone.img[y][2], TRUE);
 
-				 }				 break;
+				 }				 
+				 break;
 			 case 3:
 				 for (int y = StonePocket[PlayerPocket]; y > 0; y--) {
 					 StonePocket[i + y] += Stone_cnt;
