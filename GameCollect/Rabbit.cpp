@@ -5,18 +5,22 @@
 
 Rabbit::Rabbit()
 {
-	BackGroundImg = LoadGraph("images/RabbitAndHounds/BackGround02.png");
+	BackGroundImg = LoadGraph("images/RabbitAndHounds/RabbitAndHoundsBoard.png");
 
 	//3Dモデルの読込
-	HoundImg = MV1LoadModel("Dog_Model.mv1");
-	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");
+	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
+	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
+
+	//RabbitImg = LoadGraph("images/RabbitAndHounds/Rabbit.png");
+	//if (LoadDivGraph("images/RabbitAndHounds/Rabbit.png", 18, 6, 2, 2, 3, RabbitImg)) {}
 
 	// テクスチャの読み込み
-	R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
+	//R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
 
 	rabbit_X = 0;
 	rabbit_Y = 0;
 	
+	//rabbitFlg = FALSE;
 }
 
 Rabbit::~Rabbit()
@@ -30,6 +34,23 @@ AbstractScene* Rabbit::Update()
 {
 
 	// ウサギを移動
+	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		rabbitFlg = TRUE;
+
+			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+				rabbit_Y -= 200;
+			}
+			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+				rabbit_Y += 200;
+			}
+			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+				rabbit_X -= 250;
+			}
+			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+				rabbit_X += 250;
+			}
+	}*/
+
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		rabbit_Y -= 200;
 	}
@@ -37,10 +58,10 @@ AbstractScene* Rabbit::Update()
 		rabbit_Y += 200;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-		rabbit_X -= 200;
+		rabbit_X -= 250;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-		rabbit_X += 200;
+		rabbit_X += 250;
 	}
 
 	return this;
@@ -54,32 +75,32 @@ void Rabbit::Draw() const
 	//タイトル
 	DrawString(10, 20, "プレイヤー操作はウサギ", 0x000000);
 
-	SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
+	/*SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));*/
 
 	// 画面に映る位置に３Ｄモデルを移動
-	MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
-	MV1SetScale(RabbitImg, VGet(1, 1, 1)); // モデルのスケールを設定
-	MV1SetRotationXYZ(RabbitImg, VGet(0, 0, 0)); // モデルの回転を設定
+	//MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
+	//MV1SetScale(RabbitImg, VGet(1, 1, 1)); // モデルのスケールを設定
+	//MV1SetRotationXYZ(RabbitImg, VGet(0, 0, 0)); // モデルの回転を設定
 
 	// テクスチャの設定
-	SetUseTextureToShader(0, R_texture);
+	/*SetUseTextureToShader(0, R_texture);*/
 
 	//MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
 
 	//3Dモデルの描画
-	MV1DrawModel(RabbitImg);
-	MV1DrawModel(HoundImg);
+	/*MV1DrawModel(RabbitImg);
+	MV1DrawModel(HoundImg);*/
 
 	//ウサギと猟犬を描画
 	/*DrawBox(200 + rabbit_X, 250 + rabbit_Y, 300 + rabbit_X - 1, 350 + rabbit_Y - 1, GetColor(0, 0, 255), RabbitImg);
 	DrawCircle(hound_X, hound_Y, hound_X - 1, hound_Y - 1, GetColor(0, 0, 255), HoundImg);*/
 
 
-	DrawCircle(125, 375, 50, 0x00ff00, TRUE);
-	DrawCircle(425, 375, 50, 0x00ff00, TRUE);
-	DrawCircle(625, 375, 50, 0x00ff00, TRUE);
-	DrawCircle(825, 375, 50, 0x00ff00, TRUE);
-	DrawCircle(1125, 375, 50, 0x00ff00, TRUE);
+	//DrawCircle(125, 375, 50, 0x00ff00, TRUE);
+	//DrawCircle(375, 375, 50, 0x00ff00, TRUE);
+	//DrawCircle(625, 375, 50, 0x00ff00, TRUE);
+	//DrawCircle(875, 375, 50, 0x00ff00, TRUE);
+	//DrawCircle(1125, 375, 50, 0x00ff00, TRUE);
 
 
 	//猟犬の駒(仮)
@@ -88,5 +109,6 @@ void Rabbit::Draw() const
 	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
 
 	//ウサギの駒(仮)
-	DrawBox(100 + rabbit_X, 350 + rabbit_Y, 150 + rabbit_X, 400 + rabbit_Y, 0xff0000, RabbitImg);
+	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg);
+	DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg);
 }

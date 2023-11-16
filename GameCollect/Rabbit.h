@@ -14,7 +14,7 @@ private:
 
 	int rabbit_X;  //ウサギX座標
 	int rabbit_Y;  //ウサギY座標
-	int rabbitSpeed;
+	int rabbitFlg;
 
 	int hound_X;   //猟犬X座標
 	int hound_Y;   //猟犬Y座標
