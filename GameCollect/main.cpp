@@ -12,7 +12,7 @@
 #include "GameSelect.h"
 #include"Reversi.h"
 #include"Title.h"
-
+#include"Hex_GameMain.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -42,7 +42,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
+		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*//*GameSelect()*/Hex());
 
 	}
 	catch (const char* err)

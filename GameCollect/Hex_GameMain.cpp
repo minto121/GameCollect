@@ -9,6 +9,27 @@ Hex::Hex() {
 	RedHexImg = LoadGraph("images/Hex/hexagon-R50.png");
 	SelectX = 615;
 	SelectY = 335;
+	//ステージ初期化
+	for (int i = 0; i < 13; i++) {
+		for (int j = 0; j < 13; j++) {
+			if (j == 0 && i == 0 || j == 12 && i == 12) {
+				gStage[i][j].flg = 4;	//黒
+			}
+			else if (j == 0 || j == 12) {
+				gStage[i][j].flg = 2;
+			}
+			else if (i == 0 || i == 12) {
+				gStage[i][j].flg = 3;
+			}
+			else {
+				gStage[i][j].flg = 1;
+			}
+			gStage[i][j].x = (j - 1) * 50;
+			gStage[i][j].y = (i - 1) * 50;
+			gStage[i][j].w = 50;
+			gStage[i][j].h = 50;
+		}
+	}
 	//GameInit();
 }
 
