@@ -21,61 +21,10 @@ AbstractScene* sinkeisuijaku::Update()
 
     // ゲームロジック
     count++;
-
+   
   
 
-    if (testcount == 0) {
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 5; i++) {
-                syun1 = trumps[j][i].syurui;
-            }
-        }
-    }
-    //カーソルの値を格納
-
-
-    if (count >= 10) {
-            // カード選択
-            if (g_KeyFlg & PAD_INPUT_1) {
-                trumpflg = 1;
-                rCount++;
-                syuncount++;
-            }
-        if (trumpflg == 1 && rCount <= 2) {
-            trumps[S_ber][S2_ber].flg = 1;
-            //test
-
-            trumps[S_ber][S2_ber].syunflg = trumps[S_ber][S2_ber].syurui;
-
-        }
-
    
-        
-
-
-
-        // カードを選択したときの種類を2回まで記録
-        if (syuncount == 1) {
-            syun1 = trumps[S_ber][S2_ber].syurui;
-            testcount += 1;
-        }
-        if (testcount = 0) {
-            syun3 = syun1;
-        }
-        if (testcount = 2) {
-            syun2 = syun3;
-        }
-
-        else if (syuncount == 2) {
-            if (syun1 != trumps[S_ber][S2_ber].syurui) {
-                syun2 = trumps[S_ber][S2_ber].syurui;
-            }
-        }
-    }
-    trumpflg = 0;
-    if (syuncount >= 3) {
-        syuncount = 0;
-    }
     // トランプに値を入れる
     if (count < 2) {
         int x = 1;
@@ -102,8 +51,64 @@ AbstractScene* sinkeisuijaku::Update()
     }
 
 
-
     if (isPlayerTurn == 1) {
+
+        if (testcount == 0) {
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 5; i++) {
+                    syun1 = trumps[j][i].syurui;
+                }
+            }
+        }
+        //カーソルの値を格納
+
+
+        if (count >= 10) {
+            // カード選択
+            if (g_KeyFlg & PAD_INPUT_1) {
+                trumpflg = 1;
+                rCount++;
+                syuncount++;
+            }
+            if (trumpflg == 1 && rCount <= 2) {
+                trumps[S_ber][S2_ber].flg = 1;
+                //test
+
+                trumps[S_ber][S2_ber].syunflg = trumps[S_ber][S2_ber].syurui;
+
+            }
+
+
+
+
+
+
+            // カードを選択したときの種類を2回まで記録
+            if (syuncount == 1) {
+                syun1 = trumps[S_ber][S2_ber].syurui;
+                testcount += 1;
+            }
+            if (testcount = 0) {
+                syun3 = syun1;
+            }
+            if (testcount = 2) {
+                syun2 = syun3;
+            }
+
+            else if (syuncount == 2) {
+                if (syun1 != trumps[S_ber][S2_ber].syurui) {
+                    syun2 = trumps[S_ber][S2_ber].syurui;
+                }
+            }
+        }
+        trumpflg = 0;
+        if (syuncount >= 3) {
+            syuncount = 0;
+        }
+
+
+
+
         // プレイヤーのターン
         // ここにプレイヤーのターンの処理を実装します。
         // キー入力などを利用してプレイヤーの操作を受け付ける処理が考えられます。
@@ -144,7 +149,7 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
 
-
+        
 
         if (count >= 10) {
             // カード選択
@@ -173,18 +178,7 @@ AbstractScene* sinkeisuijaku::Update()
                         trumpflg = 1;
                     }
 
-                    // 揃ったかどうかの判定
-                    if (syun1 == syun2) {
-                        // 揃った場合、揃ったフラグを設定
-                        for (int j = 0; j < 4; j++) {
-                            for (int i = 0; i < 5; i++) {
-                                if (trumps[j][i].flg == 1) {
-                                    trumps[j][i].syunflg = trumps[j][i].syurui;
-
-                                }
-                            }
-                        }
-                    }
+                   
 
                     // カード選択時に rCount が2より大きい場合でも連続して裏返せないようにリセット
                     rCount = 0;
@@ -199,13 +193,14 @@ AbstractScene* sinkeisuijaku::Update()
             //トランプの選択3回目で裏面に戻す
 
             if (rCount >= 2) {
-                Time = Time += 1;
-                if (Time % 50 == 0) {
+               pTime = pTime += 1;
+                if (pTime % 50 == 0) {
 
                     for (int j = 0; j < 4; j++) {
                         for (int i = 0; i < 5; i++) {
                             trumps[j][i].flg = 0;
                             trumps[j][i].syunflg = 21;
+                            pTime = 0;
                         }
                     }
                     syun1 = 21;
@@ -260,11 +255,6 @@ AbstractScene* sinkeisuijaku::Update()
 
   
 
-
-
-       
-    
-
     if (isComputerTurn == 1) {
         // コンピューターのターン
         ComputerTurn();
@@ -282,8 +272,11 @@ AbstractScene* sinkeisuijaku::Update()
 
 void sinkeisuijaku::Draw() const
 {
-    DrawFormatString(100, 100, 0x00ffff, "trun %d",isPlayerTurn);
+    SetFontSize(50);
+    DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
 
+
+  
     if (pea == 1) {
         DrawFormatString(100, 120, 0x00ffff, "そろった ");
     }
@@ -293,6 +286,7 @@ void sinkeisuijaku::Draw() const
      // トランプの表示
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 5; i++) {
+            ]
             if (trumps[j][i].visible == 0) {
             if (trumps[j][i].flg == 0) {
                 // カードが選択されていない場合、カードの裏を表示
@@ -345,7 +339,7 @@ void sinkeisuijaku::ComputerTurn()
  
 
     //カウント
-    Time++;
+    cTime++;
 
 
     if (rebirth == 0) {
@@ -379,7 +373,7 @@ void sinkeisuijaku::ComputerTurn()
     
             //とりあえずカードを裏面に戻す
 
-            if (Time % 50 == 0) {
+            if (cTime % 50 == 0) {
 
                 for (int j = 0; j < 4; j++) {
                     for (int i = 0; i < 5; i++) {

@@ -77,12 +77,14 @@ private:
 
 	int syuncount = 0;
 
-	int Time = 0;
-
+	int pTime = 0;
+	int cTime = 0;
 	int testflg = 0;
-
 	int pea = 0;
 
 	int rebirth = 0;
+
+	int  S_saved;
+	int S2_saved;
 };
 
