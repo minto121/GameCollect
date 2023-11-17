@@ -23,11 +23,12 @@ private:
 	int WarpPosition;  // 今入れようとしている場所の変数
 	int SidePosition;  // 色を選択する場所の変数
 	int Turns; // ターン数を数える変数
-	int count; // 時間管理する変数
 	int ChangeColor; // 色が全部分かった時、順番だけを入れ替えるための変数
 	int MoveFlg; // 先攻後攻決めるフラグ
 	int FirstMoveFlg; // 最初が先攻か後攻かを暗記する変数
 	bool TurnFlg; // ターン数を決めるフラグ
+	int WaitTimeFlg; // 待ち時間を作るための変数
+	int Count; // 時間管理する変数
 
 public:
 	// インクリメント

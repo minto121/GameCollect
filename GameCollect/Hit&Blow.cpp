@@ -31,7 +31,7 @@ HitAndBlow::HitAndBlow()
 	Hit = 0;  // ヒットの数を初期化
 	Blow = 0;  // ブローの数を初期化
 
-	count = 0; // カウントの初期化
+	Count = 0; // カウントの初期化
 
 	MoveFlg = -1; // 一旦先攻でも後攻でもない値を入れる
 
@@ -71,7 +71,7 @@ AbstractScene* HitAndBlow::Update()
 
 
 	/* ここに自分が駒を入れる処理を書く */
-	if (Turns < 8)
+	if (Turns < 8 && SaveHit[Turns - 1] != 4)
 	{
 		//十字キー↑入力
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
@@ -100,41 +100,21 @@ AbstractScene* HitAndBlow::Update()
 			Color[SidePosition++];
 			if (SidePosition > 5) SidePosition = 0; // 位置が5を超えたら、0に戻す
 		}
-		if (MoveFlg == 0) { // 敵がやる処理
+		
+		if (MoveFlg == 0) { // 敵がやる処理		
 			ERandomChoice();
 			Judgment();
 
-			if (SaveHit[Turns - 1] == 4) {
-				/* 何秒か待つ処理を作る */
-				//while (count < 1200) {
-				//	count++;
-				//}
-				//count = 0; // カウントをリセット
-				return new Title();// 遷移場所は一旦置いてるだけ
-			}
-			else {
-				ResetColor();
+			ResetColor();
 
-				MoveFlg = 1;
-			}
-
-		}else
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && Reasoning[0] != -1 && Reasoning[1] != -1 && Reasoning[2] != -1 && Reasoning[3] != -1) // 色が入っている時
+			MoveFlg = 1;
+		}
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && Reasoning[0] != -1 && Reasoning[1] != -1 && Reasoning[2] != -1 && Reasoning[3] != -1) // 色が入っている時
 		{
 			/* ジャッジ処理を書く */
 			Judgment();
-
-			if (SaveHit[Turns - 1] == 4) {
-				//while (count < 1200) {
-				//	count++;
-				//}
-				count = 0; // カウントをリセット
-				return new Title();// 遷移場所は一旦置いてるだけ
-			}
-			else {
-				ResetColor();
-				MoveFlg = 0;
-			}
+			ResetColor();
+			MoveFlg = 0;
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) // 色を入れる処理
 		{
@@ -148,16 +128,28 @@ AbstractScene* HitAndBlow::Update()
 	}
 	else {
 		/* 何秒か待つ処理を作る */
-		//while (count < 1200) {
-		//	count++;
-		//}
 		if (SaveHit[Turns - 1] == 4) {
-			count = 0; // カウントをリセット
-			return new Title();// 遷移場所は一旦置いてるだけ
-		}else
-		count = 0; // カウントをリセット
-		//return new GameSelect(); // 遷移場所は一旦置いてるだけ
-
+			if (Count < 300) {
+				Count++;
+			}
+			else if(MoveFlg == 0){
+				Count = 0; // カウントをリセット
+				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーWin)
+			}
+			else {
+				Count = 0; // カウントをリセット
+				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーLose)
+			}
+		}
+		else {
+			if (Count < 300) {
+				Count++;
+			}
+			else {
+				Count = 0; // カウントをリセット
+				return new GameSelect();// 遷移場所は一旦置いてるだけ(ドロー)
+			}
+		}
 	}
 
 	return this;
@@ -172,7 +164,7 @@ void HitAndBlow::Draw() const
 	for (int i = 0; i < 6; i++) { // 駒を表示
 		DrawGraph(350 + i * 100, 600, ColorImg[i], TRUE); // それぞれの色の駒を表示(位置は決定)
 	}
-	if (Turns < 8) {
+	if (Turns < 8 && SaveHit[Turns - 1] != 4) {
 		DrawBox(350 + SidePosition * 100, 595, 420 + SidePosition * 100, 665, 0xff0000, FALSE); // 色を埋める場所がどこにあるかを見せるボックス
 		DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 	}
