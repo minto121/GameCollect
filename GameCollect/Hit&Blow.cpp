@@ -47,28 +47,7 @@ HitAndBlow::~HitAndBlow()
 
 AbstractScene* HitAndBlow::Update()
 {
-	//FirstMove(); // 順番決め関数
-
 	RandomDecision(); // 答えの配列をランダムに設定する
-
-	//// デバック用
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER))
-	//{
-	//	Turns++;
-	//	if (Turns > 7) {
-	//		Turns = 7;
-	//	}
-	//}
-
-	//// デバック用
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER))
-	//{
-	//	Turns--;
-	//	if (Turns < 0) {
-	//		Turns = 0;
-	//	}
-	//}
-
 
 	/* ここに自分が駒を入れる処理を書く */
 	if (Turns < 8 && SaveHit[Turns - 1] != 4)
@@ -318,16 +297,6 @@ void HitAndBlow::Judgment()
 	SaveHit[Turns] = Hit; // そのターンのヒットした数を格納
 	SaveBlow[Turns] = Blow; // そのターンのブローした数を格納
 }
-
-//void HitAndBlow::FirstMove() 
-//{
-//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_START)) { // 先手にする処理
-//		MoveFlg = TRUE;
-//	}
-//	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)) { // 後攻にする処理
-//		MoveFlg = FALSE;
-//	}
-//}
 
 void HitAndBlow::ResetColor() 
 {
