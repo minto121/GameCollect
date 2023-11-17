@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 
-const int MaxBalls = 10;
+const int MaxBalls = 50;
 
 class SixBallPuzzle:
 	public AbstractScene
