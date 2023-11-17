@@ -17,8 +17,8 @@ private:
 	int WP3;
 	int WP4;
 	int WP_FLG[5];
-	int YP[4];
-	int YP2[4];
+	int YP[20];
+	int YP2[20];
 	int YE[4];
 
 	int Winflg;
@@ -32,9 +32,10 @@ private:
 	int P_Fould_H_flg;
 	int E_Fould_H_flg;
 	int G_Over_H_flg;
-	int WTflg[3];
-	
-	int WTRelese[3];
+	int WTflg[4];
+	int WT2flg[3];
+
+	int WTRelese[4];
 	
 	int BTN_RELESE_FLG[6];
 	
@@ -50,7 +51,7 @@ private:
 	
 	int C_rand[5];
 	
-	int C_flg[3];
+	int C_flg[4];
 
 	int P_CARD_S[2];//プレイヤーカードの商格納用
 	int P_CARD_A[2];//プレイヤーカードの余り格納用
@@ -64,8 +65,10 @@ private:
 	
 	int P_PEA_FLG[4];//プレイヤーの1ペアのフラグ
 	int P_2PEA_FLG;//プレイヤーの2ペアのフラグ
-	int P_THREE_FLG;//プレイヤーのスリーカードのフラグ
+	int P_3CARD_FLG;//プレイヤーのスリーカードのフラグ
 	int P_FH_FLG;
+	int P_4CARD_FLG;
+	int P_5CARD_FLG;
 
 public:
 	Porker();
@@ -82,6 +85,8 @@ public:
 	
 	void ROUND_INIT();//ラウンド初期化
 
+	void CARD_SETTING();//カードの呼び出し用関数
+
 	void PLAYER_CALL();//プレイヤーのコール用関数
 
 	void PLAYER_RAISE();//プレイヤーのレイズ用関数
@@ -90,11 +95,12 @@ public:
 
 	void CARD_ANALYSIS();//カードの数字とマークを調べる用の関数
 
-	void P_CARD_YAKU();//役つくりのための関数
+	void P_CARD_PEA();//1,2ペア判断のための関数
 
-	void P_CARD_YAKU3CARD();
+	void P_CARD_3_CARD();//3カードのための関数
 
-	void P_CARD_FULLHOUSE();
+	void P_CARD_FLASH();//フラッシュのための関数
 
+	void P_YAKU();
 };
 
