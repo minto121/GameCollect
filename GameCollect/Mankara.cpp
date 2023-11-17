@@ -22,6 +22,8 @@ Mankara::Mankara()
 	PlayerPocket = 0;
 	PartnerPocket = 0;
 
+	CountUp = 0;
+
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
 	}
@@ -304,163 +306,31 @@ Mankara::Mankara()
 				 break;
 			 }
 		 }
-	 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+	 }                              
 
-	 /*if (P1Turn == 1) {
-		 if (P1Pocket[0] == TRUE) {
-			 if (Stone_cnt > 0) {
-				 StonePocket[1] += Stone_cnt;
-				 StonePocket[2] += Stone_cnt;
-				 StonePocket[3] += Stone_cnt;
-				 StonePocket[4] += Stone_cnt;
-					 Stone_cnt-=1;
+	 for (int i = 0; i < 2; i++)
+	 {
+		 for (int y = 0; y < 7; y++)
+		 {
+			 StonePocket[i][y];
+			 if (y == 6)
+			 {
+				 StonePocket[i = (i + 1) % 2][y = 0];
 			 }
-			 P2Turn = 1;
-			 P1Turn = 0;
-		 }
-		 else if (P1Pocket[1] == TRUE) {
-			 movePocket = 1;
-			 if (Stone_cnt > 0) {
-				 StonePocket[1 + movePocket] += Stone_cnt;
-				 StonePocket[2 + movePocket] += Stone_cnt;
-				 StonePocket[3 + movePocket] += Stone_cnt;
-				 StonePocket[4 + movePocket] += Stone_cnt;
-				 Stone_cnt -= 1;
+			 else if (Stone_count > 0) {
+				 if (y + CountUp) {
+
+				 }
 			 }
-			 P2Turn = 1;
-			 P1Turn = 0;
+			/* Stone_count--;
+			 CountUp++;*/
 		 }
-		 else if (P1Pocket[2] == TRUE) {
-			 movePocket = 2;
-			 if (Stone_cnt > 0) {
-				 StonePocket[1 + movePocket] += Stone_cnt;
-				 StonePocket[2 + movePocket] += Stone_cnt;
-				 StonePocket[3 + movePocket] += Stone_cnt;
-				 StonePocket[4 + movePocket] += Stone_cnt;
-				 P1BigPocket++;
-				 Stone_cnt -= 2;
-			 }
-			 P2Turn = 0;
-			 P1Turn = 1;
-
-		 }
-		 else if (P1Pocket[3] == TRUE) {
-			 movePocket = 3;
-			 if (Stone_cnt > 0) {
-				 StonePocket[1 + movePocket] += Stone_cnt;
-				 StonePocket[2 + movePocket] += Stone_cnt;
-				 P1BigPocket++;
-				 StonePocket[3 + movePocket] += Stone_cnt;
-				 Stone_cnt -= 3;
-			 }
-			 P2Turn = 1;
-			 P1Turn = 0;
-		 }
-		 else if (P1Pocket[4] == TRUE) {
-			 movePocket = 4;
-			 if (Stone_cnt > 0) {
-				 StonePocket[1 + movePocket] += Stone_cnt;
-				 StonePocket[2 + movePocket] += Stone_cnt;
-				 P1BigPocket++;
-				 StonePocket[3 + movePocket] += Stone_cnt;
-				 Stone_cnt -= 4;
-			 }
-			 P2Turn = 1;
-			 P1Turn = 0;
-		 }
-		 else if (P1Pocket[5] == TRUE) {
-			 movePocket = 5;
-			 if (Stone_cnt > 0) {
-				 StonePocket[1 + movePocket] += Stone_cnt;
-				 StonePocket[2 + movePocket] += Stone_cnt;
-				 P1BigPocket++;
-				 StonePocket[3 + movePocket] += Stone_cnt;
-				 Stone_cnt -= 5;
-			 }
-			 P2Turn = 1;
-			 P1Turn = 0;
-		 }
-	 }*/
+	 }
 
 
+	 
 
-	 //// ２P用石の移動
-	 //if (P2Turn == 1) {
 
-		// if (P2Pocket[0] == TRUE) {
-		//	 
-		//	 if (Stone_cnt > 0) {
-		//		 StonePocket[7 + movePocket] += Stone_cnt;
-		//		 StonePocket[8 + movePocket] += Stone_cnt;
-		//		 StonePocket[9 + movePocket] += Stone_cnt;
-		//		 StonePocket[10 + movePocket] += Stone_cnt;
-		//		 Stone_cnt -= 1;
-		//	 }
-		//	 P2Turn = 0;
-		//	 P1Turn = 1;
-		// }
-		// else if (P2Pocket[1] == TRUE) {
-		//	 movePocket = 1;
-		//	 if (Stone_cnt > 0) {
-		//		 StonePocket[7 + movePocket] += Stone_cnt;
-		//		 StonePocket[8 + movePocket] += Stone_cnt;
-		//		 StonePocket[9 + movePocket] += Stone_cnt;
-		//		 StonePocket[10 + movePocket] += Stone_cnt;
-		//		 Stone_cnt -= 1;
-		//	 }
-		//	 P2Turn = 0;
-		//	 P1Turn = 1;
-		// }
-		// else if (P2Pocket[2] == TRUE) {
-		//	 movePocket = 2;
-		//	 if (Stone_cnt > 0) {
-		//		 StonePocket[7 + movePocket] += Stone_cnt;
-		//		 StonePocket[8 + movePocket] += Stone_cnt;
-		//		 StonePocket[9 + movePocket] += Stone_cnt;
-		//		 P2BigPocket++;
-		//		 Stone_cnt -= 2;
-		//	 }
-		//	 P2Turn = 0;
-		//	 P1Turn = 1;
-		// }
-		// else if (P2Pocket[3] == TRUE) {
-		//	 movePocket = 3;
-		//	 if (Stone_cnt > 0) {
-		//		 StonePocket[7 + movePocket] += Stone_cnt;
-		//		 StonePocket[8 + movePocket] += Stone_cnt;
-		//		 P2BigPocket++;
-		//		 StonePocket[0] += Stone_cnt;
-		//		 Stone_cnt -= 3;
-		//	 }
-		//	 P2Turn = 1;
-		//	 P1Turn = 0;
-		// }
-		// else if (P2Pocket[4] == TRUE) {
-		//	 movePocket = 4;
-		//	 if (Stone_cnt > 0) {
-		//		 StonePocket[7 + movePocket] += Stone_cnt;
-		//		 P2BigPocket++;
-		//		 StonePocket[0] += Stone_cnt;
-		//		 StonePocket[1] += Stone_cnt;
-		//		 Stone_cnt -= 4;
-		//	 }
-		//	 P2Turn = 0;
-		//	 P1Turn = 1;
-		// }
-		// else if (P2Pocket[5] == TRUE) {
-		//	 movePocket = 5;
-		//	 if (Stone_cnt > 0) {
-		//		 P2BigPocket++;
-		//		 StonePocket[0] += Stone_cnt;
-		//		 StonePocket[1] += Stone_cnt;
-		//		 StonePocket[2] += Stone_cnt;
-		//		 Stone_cnt -= 5;
-		//	 }
-		//	 P2Turn = 0;
-		//	 P1Turn = 1;
-		// }
-
-	 //}
 
 	return this;
 }
@@ -517,7 +387,7 @@ void Mankara::Draw()const
 
 	
 
-    // 1Pターン時のポケット移動
+    // 1Pターン時の ポケット移動
 	if (P1Turn == 1) {
 			if (Pocket_cnt == 1) {
 				DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
@@ -586,7 +456,7 @@ void Mankara::Draw()const
 		StonePocket[PlayerPocket+y] += Stone_cnt;
 		DrawGraph(300 + y * 125, 430, gStone.img[y][0], TRUE);
 
-	}*/
+	}*/ 
 
 	
 }
