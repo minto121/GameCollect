@@ -4,21 +4,24 @@
 class Hex:public AbstractScene {
 protected:
 	//int BackImg;
-	int BackImg;
+	int BackImg;	//背景画像
 	int RedHexImg;
 	int BlueHexImg;
-	int BlackHexImg;
+	int GreenHexImg;
+	int BlackHexImg;	
 	int HexImg;
-	int SelectX;	//615
-	int SelectY;	//335
+	//615
+	//335
+
 	int Select_i;
 	int Select_j;
+	int CheckFlg;
+	int CheckCnt;
+	int ClearFlg;
 
 	struct Tile {
 		int flg;
 		int x, y;
-		int w, h;
-		int backup;
 	};
 
 	struct Tile gStage[13][13];
@@ -28,9 +31,13 @@ public:
 
 	void GameInit();
 
-	void DrawStage() const;
+	void DrawStage() const;	//ステージ描画
 
-	void Select();
+	void Select();	//タイルを置く場所の移動&設置
+
+	void Check_P();
+
+	void Check_E();
 
 	~Hex() {};
 
