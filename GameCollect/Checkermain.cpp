@@ -14,7 +14,7 @@ Checkermain::Checkermain() {
     selectY = 0;                                             // カーソル移動Y座標
     phase = 0;                                               // 先攻後攻のフラグ
     F_select = false;                                        // 駒の選択状態を初期化
-    movevail = false;
+    movevail = false;                                        // 移動が有効かどうかを表す
     StartX = 0;                                              // 移動元X座標
     StartY = 0;                                              // 移動元Y座標
     SelectX = 0;                                             // 移動先X座標
@@ -362,6 +362,7 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
       
             return true;
         }
+
         else if (board[jumpedX][jumpedY] = 2) {
             // 飛び越えた相手の駒を削除
             board[jumpedX][jumpedY] = 0;
@@ -372,8 +373,6 @@ bool Checkermain::IsMoveValid(int startX, int startY, int SelectX, int SelectY) 
                 board[SelectX][SelectY] = 3; // 3は成金を表す
                 return false;
             }
-
-          
 
             // 相手の駒を取った後、さらに取れるか確認 RED
             if (board[startX][startY] == 1 && ( IsMoveValid(SelectX, SelectY, SelectX + 2, SelectY + 2)))
