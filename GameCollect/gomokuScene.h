@@ -29,6 +29,8 @@ private:
 	int gomoku_AImove_Point;
 	int gomoku_AI_think;
 	int Key_Count = 0;
+	int gomoku_Player_WaitTime;
+	int gomoku_AI_WaitTime;
 public:
 	gomokuScene();
 	~gomokuScene();
