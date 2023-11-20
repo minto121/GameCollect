@@ -6,6 +6,7 @@
 #include"FpsController.h"
 #include<stdlib.h>
 #include<time.h>
+#define WAITTIME 180 // 画面遷移する待機時間（固定用）
 
 HitAndBlow::HitAndBlow()
 {
@@ -38,6 +39,7 @@ HitAndBlow::HitAndBlow()
 	ChangeColor = -1; // 場所だけ変える変数を初期化
 
 	FirstMoveFlg = -1;
+
 }
 
 HitAndBlow::~HitAndBlow()
@@ -108,7 +110,7 @@ AbstractScene* HitAndBlow::Update()
 	else {
 		/* 何秒か待つ処理を作る */
 		if (SaveHit[Turns - 1] == 4) {
-			if (Count < 300) {
+			if (Count < WAITTIME) {
 				Count++;
 			}
 			else if(MoveFlg == 0){
@@ -121,7 +123,7 @@ AbstractScene* HitAndBlow::Update()
 			}
 		}
 		else {
-			if (Count < 300) {
+			if (Count < WAITTIME) {
 				Count++;
 			}
 			else {
@@ -190,19 +192,20 @@ void HitAndBlow::Draw() const
 		}
 	}
 	for (int i = 0; i < 8; i++) {
+		SetFontSize(32);
 		if (FirstMoveFlg == TRUE) {
 			if (i % 2 == 0) {
-				DrawFormatString(90 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+				DrawFormatString(110 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
 			}
 			else {
-				DrawFormatString(220 + (i / 2) * 260, 50, 0x0000ff, "E"); // エネミーの順番を上に表示
+				DrawFormatString(240 + (i / 2) * 260, 50, 0x00ffff, "E"); // エネミーの順番を上に表示
 			}
 		}
 		else if (i % 2 == 0) {
-			DrawFormatString(90 + (i / 2) * 260, 50, 0x0000ff, "E"); // エネミーの順番を上に表示
+			DrawFormatString(110 + (i / 2) * 260, 50, 0x00ffff, "E"); // エネミーの順番を上に表示
 		}
 		else {
-			DrawFormatString(220 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+			DrawFormatString(240 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
 		}
 
 	}

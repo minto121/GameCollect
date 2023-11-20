@@ -9,13 +9,14 @@ private:
 	int TableBgImg; // 背景画面の画像入れる変数
 	int BoardImg; // ボード画像入れる変数
 
-	/* 変数 */
+	/* 配列 */
 	int Color[6]; // 色の駒を入れる配列
 	int Answer[4];  // 色と場所を当てる配列
 	int Reasoning[4];  // 色と場所を推理する配列
 	int SaveReasoning[8][4]; // 色と場所を決定した配列
 	int SaveHit[8]; // そのターンのヒットした数を格納
 	int SaveBlow[8];// そのターンのブローした数を格納
+	/* 変数 */
 	int SaveColor; // 確定した色を表示
 	int DecisionFlg;  // 答え決定フラグ
 	int Hit;     // ヒット数を数える変数
@@ -28,7 +29,7 @@ private:
 	int FirstMoveFlg; // 最初が先攻か後攻かを暗記する変数
 	bool TurnFlg; // ターン数を決めるフラグ
 	int WaitTimeFlg; // 待ち時間を作るための変数
-	int Count; // 時間管理する変数
+	int Count; // 画面遷移の時間管理する変数
 
 public:
 	// インクリメント
