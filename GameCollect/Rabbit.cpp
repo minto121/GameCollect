@@ -11,8 +11,8 @@ Rabbit::Rabbit()
 	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
 	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
 
-	//RabbitImg = LoadGraph("images/RabbitAndHounds/Rabbit.png");
-	//if (LoadDivGraph("images/RabbitAndHounds/Rabbit.png", 18, 6, 2, 2, 3, RabbitImg)) {}
+	RabbitImg[2] = LoadGraph("images/RabbitAndHounds/Rabbit.png");
+	if (LoadDivGraph("images/RabbitAndHounds/Rabbit.png", 18, 6, 2, 2, 3, RabbitImg)) {}
 
 	// テクスチャの読み込み
 	//R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
@@ -72,6 +72,7 @@ void Rabbit::Draw() const
 	//背景画像
 	DrawGraph(0, 0, BackGroundImg, TRUE);
 
+
 	//タイトル
 	DrawString(10, 20, "プレイヤー操作はウサギ", 0x000000);
 
@@ -110,5 +111,5 @@ void Rabbit::Draw() const
 
 	//ウサギの駒(仮)
 	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg);
-	DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg);
+	DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
 }

@@ -9,7 +9,7 @@ private:
 
 	int HoundImg;    //猟犬画像
 
-	int RabbitImg;   //ウサギ画像
+	int RabbitImg[2];   //ウサギ画像
 	int R_texture;
 
 	int rabbit_X;  //ウサギX座標
