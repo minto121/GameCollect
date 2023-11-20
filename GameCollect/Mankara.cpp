@@ -11,7 +11,7 @@ Mankara::Mankara()
 	P2BigPocket = 0;
 
 	Pocket_cnt = 0;
-	
+
 	P1Pocket[0] = 1;
 	P2Pocket[0] = 1;
 	InitialStone = 4;
@@ -20,6 +20,17 @@ Mankara::Mankara()
 	sideAddition = 0;
 
 	
+
+	for (int Pocket = 0; Pocket < 7;) {
+		for (int i = 0; i < 4; i++) {
+			P1StoneSave[Pocket][i] = gStone[Pocket][i].img;
+		}
+		Pocket++;
+	}
+
+	
+
+
 	PartnerPocket = 0;
 
 	CountUp = 0;
@@ -328,7 +339,7 @@ void Mankara::Draw()const
 
 		}
 		else {
-			DrawGraph(300 + i * 125, 430, gStone[0][i].img, TRUE);
+			DrawGraph(300 + i * 125, 450, gStone[0][i].img, TRUE);
 		}
 
 	}
@@ -391,13 +402,13 @@ void Mankara::Draw()const
 
 	if (moveStone == 0) {
 
-		for (int i = 1; i < 4; i++) {
-			DrawGraph(300 + i * 125, 450, gStone[i][0].img, TRUE);
+		for (int i = 0; i < 4; i++) {
+			DrawGraph(425 + i * 125, 550, gStone[i][0].img, TRUE);
 		}
 	}
 	else if (moveStone == 1) {
-		for (int i = 2; i < 4; i++) {
-			DrawGraph(300 + i * 125, 450, gStone[i][1].img, TRUE);
+		for (int i = 0; i < 4; i++) {
+			DrawGraph(425 + i * 125, 550, gStone[i][1].img, TRUE);
 		}
 	}
 

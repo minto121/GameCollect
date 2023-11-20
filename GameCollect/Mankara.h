@@ -55,6 +55,8 @@ private:
 
 	bool StoneFlg;
 	int moveStone; 
+	// ポケットの数と入っている石の数
+	int P1StoneSave[6][4]; 
 
 public:
 	Mankara();
