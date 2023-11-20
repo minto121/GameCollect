@@ -56,7 +56,7 @@ AbstractScene* sinkeisuijaku::Update()
         if (testcount == 0) {
             for (int j = 0; j < 4; j++) {
                 for (int i = 0; i < 5; i++) {
-                    syun1 = trumps[j][i].syurui;
+                    test1 = trumps[j][i].syurui;
                 }
             }
         }
@@ -68,7 +68,7 @@ AbstractScene* sinkeisuijaku::Update()
             if (g_KeyFlg & PAD_INPUT_1) {
                 trumpflg = 1;
                 rCount++;
-                syuncount++;
+                peacount++;
             }
             if (trumpflg == 1 && rCount <= 2) {
                 trumps[S_ber][S2_ber].flg = 1;
@@ -84,26 +84,26 @@ AbstractScene* sinkeisuijaku::Update()
 
 
             // カードを選択したときの種類を2回まで記録
-            if (syuncount == 1) {
-                syun1 = trumps[S_ber][S2_ber].syurui;
+            if (peacount == 1) {
+                test1 = trumps[S_ber][S2_ber].syurui;
                 testcount += 1;
             }
             if (testcount = 0) {
-                syun3 = syun1;
+                test3 = test1;
             }
             if (testcount = 2) {
-                syun2 = syun3;
+                test2 = test3;
             }
 
-            else if (syuncount == 2) {
-                if (syun1 != trumps[S_ber][S2_ber].syurui) {
-                    syun2 = trumps[S_ber][S2_ber].syurui;
+            else if (peacount == 2) {
+                if (test1 != trumps[S_ber][S2_ber].syurui) {
+                    test2 = trumps[S_ber][S2_ber].syurui;
                 }
             }
         }
         trumpflg = 0;
-        if (syuncount >= 3) {
-            syuncount = 0;
+        if (peacount >= 3) {
+            peacount = 0;
         }
 
 
@@ -154,14 +154,14 @@ AbstractScene* sinkeisuijaku::Update()
         if (count >= 10) {
             // カード選択
             if (g_KeyFlg & PAD_INPUT_1) {
-                if (trumpflg == 0) {
+                if (trumpflg == 0 ) {
                     // カードを選択したときの種類を1回目に記録
-                    syun1 = trumps[S_ber][S2_ber].syurui;
+                    test1 = trumps[S_ber][S2_ber].syurui;
                     testcount++;
                 }
-                else if (rCount < 2) {
+                else if (rCount < 2 ) {
                     // 2回目のカード選択時に揃っているか判定
-                    syun2 = trumps[S_ber][S2_ber].syurui;
+                    test2 = trumps[S_ber][S2_ber].syurui;
                     rCount++;
 
                     // カードを裏返す
@@ -173,7 +173,7 @@ AbstractScene* sinkeisuijaku::Update()
                     }
 
                     // カードが裏の状態であれば、表にする
-                    if (trumpflg == 0) {
+                    if (trumpflg == 1 ) {
                         trumps[S_ber][S2_ber].flg = 1;
                         trumpflg = 1;
                     }
@@ -203,10 +203,10 @@ AbstractScene* sinkeisuijaku::Update()
                             pTime = 0;
                         }
                     }
-                    syun1 = 21;
-                    syun2 = 21;
+                    test1 = 21;
+                    test2 = 21;
                     rCount = 0;
-                    syuncount = 0;
+                    peacount = 0;
 
                     // プレイヤーの手番が終了したら、isPlayerTurn フラグを false に設定し、コンピューターのターンへ移行します。
                     isPlayerTurn = 0;
@@ -241,11 +241,11 @@ AbstractScene* sinkeisuijaku::Update()
 
             // カードを選択したときの種類を2回まで記録
             if (testcount == 1) {
-                syun1 = trumps[S_ber][S2_ber].syurui;
+                test1 = trumps[S_ber][S2_ber].syurui;
                 testcount++;
             }
             else if (testcount == 3) {
-                syun2 = trumps[S_ber][S2_ber].syurui;
+                test2 = trumps[S_ber][S2_ber].syurui;
                 testcount = 0;
        
             }
@@ -286,7 +286,7 @@ void sinkeisuijaku::Draw() const
      // トランプの表示
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 5; i++) {
-            ]
+            
             if (trumps[j][i].visible == 0) {
             if (trumps[j][i].flg == 0) {
                 // カードが選択されていない場合、カードの裏を表示
@@ -396,3 +396,4 @@ void sinkeisuijaku::CheckMatched()
 
      // カードが揃った場合、揃ったフラグを設定するなどの処理が考えられます。
 }
+s

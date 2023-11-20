@@ -69,13 +69,13 @@ private:
 	int r2Count = 0;
 
 
-	int syun1;
-	int syun2;
-	int syun3;
+	int test1;
+	int test2;
+	int test3;
 
 	int testcount = 0;
 
-	int syuncount = 0;
+	int peacount = 0;
 
 	int pTime = 0;
 	int cTime = 0;
