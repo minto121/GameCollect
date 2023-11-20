@@ -43,9 +43,22 @@ private:
         bool button = 0;
     }Fla;
 
-    int Tur;
-    int W_Storn_Img;
+    struct {
+        struct {
+            int l;
+            int m;
+            int r;
+        }x;
 
+        struct {
+            int u;
+            int m;
+            int d;
+        }y;
+    }e;
+
+
+    int Tur;
 
     //POINT CursorPoint;	//カーソルの座標用
     bool XOnce;	//Lスティック入力重複防止用（横）
@@ -66,11 +79,9 @@ public:
     //描画に関することを実装
     void Draw() const override;
 
-    void Cursor();
-
+   void Cursor();
    void turn();
- /*  void Board();*/
-   void init_board(int board[SIZ][SIZ]);
+
 
    int Bac;
    int Bla;
