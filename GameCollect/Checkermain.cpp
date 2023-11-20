@@ -103,7 +103,6 @@ AbstractScene* Checkermain::Update() {
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
                         phase = 0;
-
                     }
                     if (movevail = true) {
                         phase = 0;
