@@ -19,10 +19,12 @@ Mankara::Mankara()
 	movePocket = 0;
 	sideAddition = 0;
 
-	PlayerPocket = 0;
+	
 	PartnerPocket = 0;
 
 	CountUp = 0;
+
+	moveStone = 0;
 
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y]+=1;
@@ -34,12 +36,12 @@ Mankara::Mankara()
 
 	// 石の画像処理
 	for (int i = 0; i < 8; i++) {
-		gStone.img[0][i] = StoneImg[1];//赤
-		gStone.img[1][i] = StoneImg[5];//青
-		gStone.img[2][i] = StoneImg[3];//緑
-		gStone.img[3][i] = StoneImg[0];//黄
-		gStone.img[4][i] = StoneImg[2];//紫
-		gStone.img[5][i] = StoneImg[4];//白
+		gStone[0][i].img = StoneImg[1];//赤
+		gStone[1][i].img = StoneImg[5];//青
+		gStone[2][i].img = StoneImg[3];//緑
+		gStone[3][i].img = StoneImg[0];//黄
+		gStone[4][i].img = StoneImg[2];//紫
+		gStone[5][i].img = StoneImg[4];//白
 
 	}
 
@@ -257,47 +259,47 @@ Mankara::Mankara()
 	 if (P1Turn == 1) {
 		 int i = 0;
 
-		 if (P1Pocket[PlayerPocket] == TRUE) {
+		 if (PlayerPocket >= 0) {
 			 switch (PlayerPocket)
 			 {
 			 case 0:
 				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
 					 StonePocket[0][i + y] += Stone_cnt;
-						 DrawGraph(300 + y * 125, 430, gStone.img[y][0], TRUE);
+						 DrawGraph(300 + y * 125, 430, gStone[y][0].flg, TRUE);
 				 }
 				 break;
 			 case 1:
 				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
 					 StonePocket[0][i + y] += Stone_cnt;
-					 DrawGraph(300 + y * 125, 430, gStone.img[y][1], TRUE);
+					 DrawGraph(300 + y * 125, 430, gStone[y][1].flg, TRUE);
 
 				 }
 				 break;
 			 case 2:
 				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
 					 StonePocket[0][i + y] += Stone_cnt;
-					 DrawGraph(300 + y * 125, 430, gStone.img[y][2], TRUE);
+					 DrawGraph(300 + y * 125, 430, gStone[y][2].flg, TRUE);
 
 				 }				 
 				 break;
 			 case 3:
 				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
 					 StonePocket[0][i + y] += Stone_cnt;
-					 DrawGraph(300 + y * 125, 430, gStone.img[y][3], TRUE);
+					 DrawGraph(300 + y * 125, 430, gStone[y][3].flg, TRUE);
 
 				 }
 				 break;
 			 case 4:
 				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
 					 StonePocket[0][i + y] += Stone_cnt;
-					 DrawGraph(300 + y * 125, 430 , gStone.img[y][4], TRUE);
+					 DrawGraph(300 + y * 125, 430 , gStone[y][4].flg, TRUE);
 
 				 }
 				 break;
 			 case 5:
 				 for (int y = StonePocket[0][PlayerPocket]; y > 0; y--) {
 					 StonePocket[0][i + y] += Stone_cnt;
-					 DrawGraph(300 + y * 125, 430, gStone.img[y][5], TRUE);
+					 DrawGraph(300 + y * 125, 430, gStone[y][5].flg, TRUE);
 
 				 }
 				 break;
@@ -308,29 +310,7 @@ Mankara::Mankara()
 		 }
 	 }                              
 
-	 for (int i = 0; i < 2; i++)
-	 {
-		 for (int y = 0; y < 7; y++)
-		 {
-			 StonePocket[i][y];
-			 if (y == 6)
-			 {
-				 StonePocket[i = (i + 1) % 2][y = 0];
-			 }
-			 else if (Stone_count > 0) {
-				 if (y + CountUp) {
-
-				 }
-			 }
-			/* Stone_count--;
-			 CountUp++;*/
-		 }
-	 }
-
-
-	 
-
-
+	
 
 	return this;
 }
@@ -342,50 +322,83 @@ void Mankara::Draw()const
 
 	// 石（赤）の初期配置
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 430, gStone.img[0][i], TRUE);
+		if (PlayerPocket >= 0) {
+
+		}
+		else {
+			DrawGraph(300 + i * 125, 430, gStone[0][i].img, TRUE);
+		}
 
 	}
-	DrawGraph(300, 160, gStone.img[0][6], TRUE);
-	DrawGraph(300 + 125, 160, gStone.img[0][7], TRUE);
+	DrawGraph(300, 160, gStone[0][6].img, TRUE);
+	DrawGraph(300 + 125, 160, gStone[0][7].img, TRUE);
 
 	// 石（青）の初期配置
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 460, gStone.img[1][i], TRUE);
+		if (PlayerPocket >= 0) {
+
+		}
+		else {
+			DrawGraph(300 + i * 125, 470, gStone[1][i].img, TRUE);
+		}
 	}
-	DrawGraph(300, 190, gStone.img[1][6], TRUE);
-	DrawGraph(300 + 125, 190, gStone.img[1][7], TRUE);
+	DrawGraph(300, 190, gStone[1][6].img, TRUE);
+	DrawGraph(300 + 125, 190, gStone[1][7].img, TRUE);
 
 	// 石（緑）の初期配置
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 490, gStone.img[2][i], TRUE);
+		if (PlayerPocket >= 0) {
+
+		}
+		else {
+			DrawGraph(300 + i * 125, 490, gStone[2][i].img, TRUE);
+		}
 	}
-	DrawGraph(300+125*2, 160, gStone.img[2][6], TRUE);
-	DrawGraph(300 + 125*3, 160, gStone.img[2][7], TRUE);
+	DrawGraph(300+125*2, 160, gStone[2][6].img, TRUE);
+	DrawGraph(300 + 125*3, 160, gStone[2][7].img, TRUE);
 
 	// 石（黄）の初期配置
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 520, gStone.img[3][i], TRUE);
+		if (PlayerPocket >= 0) {
+
+		}
+		else {
+			DrawGraph(300 + i * 125, 510, gStone[3][i].img, TRUE);
+		}
 	}
-	DrawGraph(300+125*2, 190, gStone.img[3][6], TRUE);
-	DrawGraph(300 + 125*3, 190, gStone.img[3][7], TRUE);
+	DrawGraph(300 + 125*2, 190, gStone[3][6].img, TRUE);
+	DrawGraph(300 + 125*3, 190, gStone[3][7].img, TRUE);
 
 	// 石（紫）の初期配置
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 100, gStone.img[4][i], TRUE);
+		DrawGraph(300 + i * 125, 100, gStone[4][i].img, TRUE);
 	}
-	DrawGraph(300 + 125 * 4, 190, gStone.img[4][6], TRUE);
-	DrawGraph(300 + 125 * 5, 190, gStone.img[4][7], TRUE);
+	DrawGraph(300 + 125 * 4, 190, gStone[4][6].img, TRUE);
+	DrawGraph(300 + 125 * 5, 190, gStone[4][7].img, TRUE);
 
 	// 石（白）の初期配置
 
 	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 130, gStone.img[5][i], TRUE);
+		DrawGraph(300 + i * 125, 130, gStone[5][i].img, TRUE);
 
 	}
-	DrawGraph(300 + 125 * 4, 160, gStone.img[5][6], TRUE);
-	DrawGraph(300 + 125 * 5, 160, gStone.img[5][7], TRUE);
+	DrawGraph(300 + 125 * 4, 160, gStone[5][6].img, TRUE);
+	DrawGraph(300 + 125 * 5, 160, gStone[5][7].img, TRUE);
 
 	
+
+	if (moveStone == 0) {
+
+		for (int i = 1; i < 4; i++) {
+			DrawGraph(300 + i * 125, 450, gStone[i][0].img, TRUE);
+		}
+	}
+	else if (moveStone == 1) {
+		for (int i = 2; i < 4; i++) {
+			DrawGraph(300 + i * 125, 450, gStone[i][1].img, TRUE);
+		}
+	}
+
 
     // 1Pターン時の ポケット移動
 	if (P1Turn == 1) {
@@ -443,6 +456,12 @@ void Mankara::Draw()const
 		DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
 	}
 	
+	//ポケット
+	for (int i = 0; i < 6; i++) {
+		DrawFormatString(700 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", StonePocket[0][i]);
+		DrawFormatString(800 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", StonePocket[1][i]);
+	}
+
 	// ターン切り替え
 	if (P2Turn == 1 ) {
 		DrawFormatString(200,200,GetColor(255,255,255),"2P TURN");
@@ -460,3 +479,39 @@ void Mankara::Draw()const
 
 	
 }
+
+void Mankara::MoveStone()
+{
+
+	if (P1Pocket[PlayerPocket] == TRUE) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+
+			StoneFlg = TRUE;
+
+			if (StoneFlg == TRUE) {
+				moveStone = PlayerPocket;
+			}
+			
+
+
+
+
+			/*for (int i = 0; i < 2; i++)  {
+				for (int y = 0; y < 7; y++){
+					StonePocket[i][y];
+					if (y == 6){
+						StonePocket[i = (i + 1) % 2][y = 0];
+					}
+					else if (Stone_count > 0) {
+						if (y + CountUp) {
+							Stone_count--;
+							CountUp++;
+						}
+					}
+				}
+			}*/
+		}
+	}
+	
+}
+ 

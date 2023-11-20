@@ -15,10 +15,12 @@ private:
 	struct STONE
 	{
 		int flg = 1;
-		int img[6][8];
+		int img;
 	} ;
 
-	struct STONE gStone;
+	struct STONE gStone[6][8];
+
+	
 
 	// 1Pが選択しているポケット
 	int PlayerPocket;
@@ -51,10 +53,15 @@ private:
 
 	int CountUp;
 
+	bool StoneFlg;
+	int moveStone; 
+
 public:
 	Mankara();
 	AbstractScene* Update();
 	void Draw() const;
+	// 石が移動した時の内部処理
+	void MoveStone();
 };
 
 /*if (P1Turn == 1) {
