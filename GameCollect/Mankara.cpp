@@ -320,6 +320,8 @@ void Mankara::Draw()const
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
 
+	// -----------ここから直す箇所--------------
+
 	// 石（赤）の初期配置
 	for (int i = 0; i < 6; i++) {
 		if (PlayerPocket >= 0) {
@@ -398,6 +400,8 @@ void Mankara::Draw()const
 			DrawGraph(300 + i * 125, 450, gStone[i][1].img, TRUE);
 		}
 	}
+
+	//------------- ここまで-----------------
 
 
     // 1Pターン時の ポケット移動
