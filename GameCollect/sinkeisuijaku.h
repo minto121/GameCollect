@@ -86,5 +86,7 @@ private:
 
 	int  S_saved;
 	int S2_saved;
+
+	int selectedCard[2][2];
 };
 
