@@ -16,8 +16,8 @@ SixBallPuzzle::SixBallPuzzle()
 	// ボールの初期位置と速度を設定
 	for (int i = 0; i < MaxBalls; i++)
 	{
-		ballX[i] = 100;  // X座標
-		ballY[i] = rand() % (ScreenHeight - 64);  // ボールのY座標をランダムに設定
+		ballX[i] = rand() % (ScreenWidth - 64);  // X座標
+		ballY[i] = -64 * i;  // ボールのY座標をランダムに設定
 		ballSpeed[i] = 1;  // 落下速度
 		ballActive[i] = true;  // ボールがアクティブかどうか
 	}
