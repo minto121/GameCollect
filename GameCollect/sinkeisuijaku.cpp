@@ -6,6 +6,19 @@
 sinkeisuijaku::sinkeisuijaku()
 {
     testflg = 0;
+
+    // 先行後攻決め
+    //srand((unsigned int)time(NULL)); // 現在の時間を使って初期化
+    //first = (rand() % 2) + 1; // 1または2をランダムに生成
+    //srand((unsigned int)time(NULL));
+    first = 0;
+    // 初手のプレイヤーとコンピューターの設定
+    if (first == 1) {
+        isPlayerTurn = 1;
+    }
+    else {
+        isComputerTurn = 1;
+    }
 }
 
 AbstractScene* sinkeisuijaku::Update()
@@ -35,10 +48,7 @@ AbstractScene* sinkeisuijaku::Update()
         }
     }
   
-    // 先行後攻決め
-    srand((unsigned int)time(NULL)); // 現在の時間を使って初期化
-    first = (rand() % 2) + 1; // 1または2をランダムに生成
-    srand((unsigned int)time(NULL));
+ 
 
     if (randend != 1) {
         for (int i = 0; i < 19; i++) {
@@ -74,7 +84,7 @@ AbstractScene* sinkeisuijaku::Update()
                 trumps[S_ber][S2_ber].flg = 1;
                 //test
 
-                trumps[S_ber][S2_ber].syunflg = trumps[S_ber][S2_ber].syurui;
+                trumps[S_ber][S2_ber].flg2 = trumps[S_ber][S2_ber].syurui;
 
             }
 
@@ -110,9 +120,7 @@ AbstractScene* sinkeisuijaku::Update()
 
 
         // プレイヤーのターン
-        // ここにプレイヤーのターンの処理を実装します。
-        // キー入力などを利用してプレイヤーの操作を受け付ける処理が考えられます。
-          // メニューカーソル移動処理
+      
     // 上移動
         if (g_KeyFlg & PAD_INPUT_UP) {
             if (S_ber >= 0 && S_ber <= 4) {
@@ -199,7 +207,7 @@ AbstractScene* sinkeisuijaku::Update()
                     for (int j = 0; j < 4; j++) {
                         for (int i = 0; i < 5; i++) {
                             trumps[j][i].flg = 0;
-                            trumps[j][i].syunflg = -1;
+                            trumps[j][i].flg2 = -1;
                             pTime = 0;
                         }
                     }
@@ -224,7 +232,7 @@ AbstractScene* sinkeisuijaku::Update()
                     if (trumps[j][i].flg == 1 ) {
                         for (int k = 0; k < 4; k++) {
                             for (int l = 0; l < 5; l++) {
-                                if (trumps[j][i].syunflg + 10 == trumps[k][l].syunflg || trumps[j][i].syunflg - 10 == trumps[k][l].syunflg) {
+                                if (trumps[j][i].flg2 + 10 == trumps[k][l].flg2 || trumps[j][i].flg2 - 10 == trumps[k][l].flg2) {
                                     trumps[j][i].visible = 1;
                                     pea = 1;
                                 }
@@ -276,7 +284,7 @@ void sinkeisuijaku::Draw() const
     SetFontSize(50);
     DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
 
-    DrawFormatString(100, 120, 0x00ffff, " %d", trumps[S_ber][S2_ber].syunflg);
+    DrawFormatString(100, 120, 0x00ffff, " %d", trumps[S_ber][S2_ber].flg2);
 
   
     if (pea == 1) {
@@ -339,20 +347,20 @@ void sinkeisuijaku::Draw() const
 void sinkeisuijaku::ComputerTurn()
 {
  
+    if (count >= 10) {
+        //カウント
+        cTime++;
 
-    //カウント
-    cTime++;
 
+        if (rebirth == 0) {
 
-    if (rebirth == 0) {
+            int randRow, randCol, randRow2, randCol2;
 
-        int randRow, randCol, randRow2, randCol2;
-
-        // ランダムな座標を生成
-        do {
-             randRow = rand() % 4;
-              randCol = rand() % 5;
-        } while (trumps[randRow][randCol].visible == 1);
+            // ランダムな座標を生成
+            do {
+                randRow = rand() % 4;
+                randCol = rand() % 5;
+            } while (trumps[randRow][randCol].visible == 1);
 
             do {
                 randRow2 = rand() % 4;
@@ -369,26 +377,26 @@ void sinkeisuijaku::ComputerTurn()
             if (trumps[randRow][randCol].syurui + 10 == trumps[randRow2][randCol2].syurui || trumps[randRow][randCol].syurui == trumps[randRow2][randCol2].syurui - 10) {
                 trumps[randRow][randCol].visible = 2;
                 trumps[randRow2][randCol2].visible = 2;
-           }
+            }
 
         }
-    
-            //とりあえずカードを裏面に戻す
 
-            if (cTime % 50 == 0) {
+        //とりあえずカードを裏面に戻す
 
-                for (int j = 0; j < 4; j++) {
-                    for (int i = 0; i < 5; i++) {
-                        trumps[j][i].flg = 0;
-                        trumps[j][i].syunflg = -1;
-                    }
+        if (cTime % 50 == 0) {
+
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 5; i++) {
+                    trumps[j][i].flg = 0;
+                    trumps[j][i].flg2 = -1;
                 }
-                // コンピューターの手番が終了したら、isComputerTurn フラグを false に設定し、プレイヤーのターンへ移行します。
-                isComputerTurn = 0;
-                isPlayerTurn = 1;
-                rebirth = 0;
+            }
+            // コンピューターの手番が終了したら、isComputerTurn フラグを false に設定し、プレイヤーのターンへ移行します。
+            isComputerTurn = 0;
+            isPlayerTurn = 1;
+            rebirth = 0;
+        }
     }
-
 }
 
 void sinkeisuijaku::CheckMatched()

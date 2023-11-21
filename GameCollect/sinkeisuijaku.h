@@ -18,7 +18,7 @@ private:
 	struct TRUMPS {
 		int flg = 0;
 		int syurui = 0;
-		int syunflg = 0;
+		int flg2 = 0;
 		int  visible = 0; // カードを画面に表示するかどうかのフラグ
 	};
 	
@@ -83,10 +83,6 @@ private:
 	int pea = 0;
 
 	int rebirth = 0;
-
-	int  S_saved;
-	int S2_saved;
-
 	int selectedCard[2][2];
 };
 
