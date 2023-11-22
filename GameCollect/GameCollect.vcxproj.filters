@@ -15,6 +15,7 @@
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="reversi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
@@ -31,5 +32,6 @@
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
+    <ClInclude Include="reversi.h" />
   </ItemGroup>
 </Project>
