@@ -17,8 +17,8 @@ SixBallPuzzle::SixBallPuzzle()
 	for (int i = 0; i < MaxBalls; i++)
 	{
 		ballX[i] = rand() % (ScreenWidth - 64);  // X座標
-		ballY[i] = -64 * i;  // ボールのY座標をランダムに設定
-		ballSpeed[i] = 1;  // 落下速度
+		ballY[i] = - 64 * i;  // ボールのY座標をランダムに設定
+		ballSpeed[i] = 2;  // 落下速度
 		ballActive[i] = true;  // ボールがアクティブかどうか
 	}
 	//乱数生成器を初期化
@@ -44,9 +44,9 @@ AbstractScene* SixBallPuzzle::Update()
 		// 画面外に出たら再利用
 		if (ballY[i] > ScreenHeight)
 		{
-			ballY[i] = 64;  // 画面上部から再利用
+			ballY[i] = -64;  // 画面上部から再利用
 			ballX[i] = rand() % (ScreenWidth - 64);  // ボールのX座標をランダムに設定
-			ballSpeed[i] = 0.5;  // 落下速度
+			ballSpeed[i] = 1;  // 落下速度
 			ballActive[i] = true;  // ボールがアクティブかどうか
 		}
 	}
@@ -66,9 +66,9 @@ AbstractScene* SixBallPuzzle::Update()
 				for (int j = 0; j < MaxBalls; j++)
 				{
 					// 現在のボールが他のボールと重ならないようにする
-					if (i != j && ballActive[j] && ballY[j] < ballY[i] + 64 && ballY[j] + 64 > ballY[i])
+					if (i = j && ballActive[j] && ballY[j] < ballY[i] + 64 && ballY[j] + 64 > ballY[i])
 					{
-						ballY[i] = ballY[j] -64;  // 積み上げる位置を調整
+						ballY[i] = ballY[j];  // 積み上げる位置を調整
 						break;
 					}
 				}
@@ -85,11 +85,11 @@ void SixBallPuzzle::Draw() const
 	//選択したランダムなボールを描画
 	//DrawGraph(100, FallingY, Ball_img[randomBallIndex], TRUE);
 
-	//背景画像の描画
-	DrawGraph(0, 0, Back_Ground, TRUE);
-
 	//ボールの分割描画
 	//DrawGraph(100, FallingY, Ball_img[1],FALSE);
+
+	//背景画像の描画
+	//DrawGraph(10, 10, Back_Ground, TRUE);
 
 	//ボールの分割描画
 	for (int i = 0; i < MaxBalls; i++) 
@@ -99,4 +99,6 @@ void SixBallPuzzle::Draw() const
 			DrawGraph(ballX[i], ballY[i], Ball_img[i], TRUE);
 		}
 	}
+
+	
 }
