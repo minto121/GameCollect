@@ -55,10 +55,14 @@ private:
 
 	bool StoneFlg;
 	int moveStone; 
+	int moveStone2;
 	// ポケットの数と入っている石の数
 	int P1StoneSave[6][4]; 
 	// ポケットの数と入っている石の数
 	int P2StoneSave[6][4]; 
+
+	int JustGoal; //ぴったりゴール用 
+
 
 public:
 	Mankara();
