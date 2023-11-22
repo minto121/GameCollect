@@ -19,7 +19,13 @@ Rabbit::Rabbit()
 
 	rabbit_X = 0;
 	rabbit_Y = 0;
-	
+
+	VECTOR position{};
+	Ax = Aposition = 150; // x座標
+	Ay = Aposition= 340; // y座標
+	//A = Aposition = 0.0f;   // z座標
+
+
 	//rabbitFlg = FALSE;
 }
 
@@ -72,7 +78,6 @@ void Rabbit::Draw() const
 	//背景画像
 	DrawGraph(0, 0, BackGroundImg, TRUE);
 
-
 	//タイトル
 	DrawString(10, 20, "プレイヤー操作はウサギ", 0x000000);
 
@@ -110,6 +115,10 @@ void Rabbit::Draw() const
 	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
 
 	//ウサギの駒(仮)
-	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg);
-	DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
+	DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, TRUE);
+	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
+
+	DrawString(Ax, Ay, ("A"), 0xff0000);
+
+	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
 }

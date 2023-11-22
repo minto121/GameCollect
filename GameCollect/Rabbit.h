@@ -2,6 +2,7 @@
 #include "AbstractScene.h"
 
 
+
 class Rabbit : public AbstractScene
 {
 private:
@@ -19,6 +20,12 @@ private:
 	int hound_X;   //—ÂŒ¢XÀ•W
 	int hound_Y;   //—ÂŒ¢YÀ•W
 	int houndSpeed;
+
+	int Ax;
+	int Ay;
+	int Aposition;
+
+	int Img;
 
 public:
 	Rabbit();
