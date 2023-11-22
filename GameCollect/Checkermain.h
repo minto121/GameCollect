@@ -32,7 +32,7 @@ private:
     bool F_select = false;  // 選択中の駒があるかどうか
     bool phase;             // 先攻（0）後攻（1）を表す
     bool movevail;          // 移動が有効かどうかを表す
-
+    bool cantake = false;
     // カーソルの位置とキー入力関連の変数
     int selectX;    // カーソルのX座標
     int selectY;    // カーソルのY座標

@@ -15,6 +15,7 @@ Checkermain::Checkermain() {
     phase = 0;                                               // 先攻後攻のフラグ
     F_select = false;                                        // 駒の選択状態を初期化
     movevail = false;                                        // 移動が有効かどうかを表す
+    cantake = false;
     StartX = 0;                                              // 移動元X座標
     StartY = 0;                                              // 移動元Y座標
     SelectX = 0;                                             // 移動先X座標
@@ -73,13 +74,11 @@ AbstractScene* Checkermain::Update() {
                       
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
-                        phase = 1;
-                        
-                    }
-                    if (movevail = true) {
-                        phase = 1;
+                        CanTakeMore(SelectX, SelectY);
+                      
                     }
                   
+                 
                 }
 
             }
@@ -102,11 +101,11 @@ AbstractScene* Checkermain::Update() {
 
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
-                        phase = 0;
+                        CanTakeMore(SelectX, SelectY);
+                       
                     }
-                    if (movevail = true) {
-                        phase = 0;
-                    }
+                 
+
 
                 }
 
@@ -167,7 +166,7 @@ void Checkermain::Draw() const {
     DrawFormatString(0, 0, 0x000000, "Y: %d", selectY);                 // カーソル移動Y
     DrawFormatString(0, 30, 0x000000, "X: %d", selectX);                // カーソル移動X
     DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
-    DrawFormatString(0, 125, 0x000000, "movevail: %d", movevail);
+    DrawFormatString(0, 125, 0x000000, "cantake: %d", cantake);
     DrawFormatString(0, 150, 0x000000, "Phase: %d", phase);
     DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
     DrawFormatString(0, 300, 0x000000, " player1Pieces: %d", player1Pieces);
@@ -196,102 +195,112 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
         return false;
     }
 
-    // 黒駒が敵陣地の端に到達したら成金になる
-    if (SelectY == 0 &&  board[StartX][StartY] == 2) {
-        board[StartX][StartY] = 0;
-        board[SelectX][SelectY] = 3; // 3は成金を表す
-        return false;
-    }
+   
     // 赤駒が敵陣地の端に到達したら成金になる
-    if (SelectY == 7 && board[StartX][StartY] == 1) {
-        board[StartX][StartY] = 0;
-        board[SelectX][SelectY] = 4; // 4は成金を表す
-        return false;
-    }
-  
+    
+    // 赤駒
+    if (board[StartX][StartY] == 1){
     // 移動先が隣接している場合（通常の移動）赤駒の右斜め前移動
-    if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[StartX][StartY] == 1 ) {
-            return true;
+        if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
+            // 1つ前に進むことが許可される条件を追加
+            if (board[StartX][StartY] == 1) {
+                return true;
+            }
+        }
+        // 赤駒の左斜め前移動
+        else if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
+            // 1つ前に進むことが許可される条件を追加
+            if (board[StartX][StartY] == 1) {
+                return true;
+            }
+        }
+        else if (SelectY == 7) {
+            board[StartX][StartY] = 0;
+            board[SelectX][SelectY] = 4; // 4は成金を表す
+            return false;
         }
     }
-    if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
-        // 1つ前に進むことが許可される条件を追加（成金赤の移動）
-        if (board[StartX][StartY] == 3) {
-            return true;
+    // 黒駒
+    if (board[StartX][StartY] == 2) {
+        // 黒駒の右斜め前移動
+        if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
+            // 1つ前に進むことが許可される条件を追加
+            if (board[StartX][StartY] == 2) {
+                return true;
+            }
+        }
+        // 黒駒の左斜め前移動
+        else  if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
+            // 1つ前に進むことが許可される条件を追加
+            if (board[StartX][StartY] == 2) {
+                return true;
+            }
+        }
+        // 黒駒が敵陣地の端に到達したら成金になる
+        else if (SelectY == 0) {
+            board[StartX][StartY] = 0;
+            board[SelectX][SelectY] = 3; // 3は成金を表す
+            return false;
+        }
+    }
+    // 黒駒
+    if (board[StartX][StartY] == 3){
+        if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
+            // 1つ前に進むことが許可される条件を追加（成金黒駒の移動）
+            if (board[StartX][StartY] == 3) {
+                return true;
+            }
+        }
+        else  if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
+            // 1つ前に進むことが許可される条件を追加（成金黒駒の移動）
+            if (board[StartX][StartY] == 3) {
+                return true;
+            }
+        }
+        else if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
+            // 1つ前に進むことが許可される条件を追加（成金黒駒左斜め後ろの移動）
+            if (board[StartX][StartY] == 3) {
+                return true;
+            }
+        }
+        else if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
+            // 1つ前に進むことが許可される条件を追加（成金黒駒右斜め後ろの移動）
+            if (board[StartX][StartY] == 3) {
+                return true;
+            }
+        }
+
+    }
+    // 赤駒
+    if (board[StartX][StartY] == 4){
+        if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
+            // 1つ前に進むことが許可される条件を追加（成金赤駒左斜め後ろの移動）
+            if (board[StartX][StartY] == 4) {
+                return true;
+            }
+        }
+        else  if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
+            // 1つ前に進むことが許可される条件を追加（成金赤駒右斜め後ろの移動）
+            if (board[StartX][StartY] == 4) {
+                return true;
+            }
+        }
+        else  if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
+            // 1つ前に進むことが許可される条件を追加（成金赤駒の移動）
+            if (board[StartX][StartY] == 4) {
+                return true;
+            }
+        }
+        else    if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
+            // 1つ前に進むことが許可される条件を追加（成金赤駒の移動）
+            if (board[StartX][StartY] == 4) {
+                return true;
+            }
         }
     }
 
-    if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
-        // 1つ前に進むことが許可される条件を追加（成金黒左斜め後ろの移動）
-        if (board[StartX][StartY] == 4) {
-            return true;
-        }
-    }
+ 
 
-    // 赤駒の左斜め前移動
-    if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[StartX][StartY] == 1 ) {
-            return true;
-        }
-    }
-    if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
-        // 1つ前に進むことが許可される条件を追加（成金赤の移動）
-        if (board[StartX][StartY] == 3) {
-            return true;
-        }
-    }
-
-    if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
-        // 1つ前に進むことが許可される条件を追加（成金黒右斜め後ろの移動）
-        if (board[StartX][StartY] == 4) {
-            return true;
-        }
-    }
-
-    // 黒駒の右斜め前移動
-    if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[StartX][StartY] == 2) {
-            return true;
-        }
-    }
-    if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
-        // 1つ前に進むことが許可される条件を追加（成金黒の移動）
-        if (board[StartX][StartY] == 4) {
-            return true;
-        }
-    }
-
-    if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
-        // 1つ前に進むことが許可される条件を追加（成金赤左斜め後ろの移動）
-        if (board[StartX][StartY] == 3) {
-            return true;
-        }
-    }
-
-    // 黒駒の左斜め前移動
-    if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
-        // 1つ前に進むことが許可される条件を追加
-        if (board[StartX][StartY] == 2) {
-            return true;
-        }
-    }
-    if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
-        // 1つ前に進むことが許可される条件を追加（成金黒の移動）
-        if (board[StartX][StartY] == 4) {
-            return true;
-        }
-    }
-
-    if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
-        // 1つ前に進むことが許可される条件を追加（成金赤右斜め後ろの移動）
-        if (board[StartX][StartY] == 3) {
-            return true;
-        }
-    }
     // 移動先が斜めに2つ飛び越える場合（ジャンプ）aka
     // 赤駒のジャンプ条件をチェック
     if (board[StartX][StartY] == 1) {
@@ -361,6 +370,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
         }
 
     }
+   
     return false; // 上記の条件に該当しない場合、無効な移動
 }
 
@@ -395,3 +405,78 @@ void Checkermain::Gameover()
 }
 
 
+
+bool Checkermain::CanTakeMore(int SelectX, int SelectY)
+{ // 駒を取れるかどうかを示すフラグ
+    cantake = 0;
+
+    // 駒が盤面外にある場合は取れない
+    if (SelectX < 0 || SelectY < 0 || SelectX >= 8 || SelectY >= 8) {
+        return false;
+    }
+    // 移動先にすでに駒がある場合、無効
+    if (board[SelectX+2][SelectY+2]|| board[SelectX - 2][SelectY - 2]|| board[SelectX - 2][SelectY + 2]|| board[SelectX + 2][SelectY - 2] != 0) {
+        return false;
+    }
+     // 赤駒のジャンプ条件をチェック
+    if (board[StartX][StartY] == 1) {
+        if  (board[SelectX + 2][SelectY + 2] || board[SelectX - 2][SelectY + 2]) {
+            return false;
+        }
+        // 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
+        if (((SelectX + 2) - SelectX == -2 && (SelectY + 2) - SelectY == 2) || ((SelectX + 2) - SelectX == 2 && (SelectY + 2) - SelectY == 2)) {
+            jumpedX = ((SelectX + 2) + SelectX) / 2;
+            jumpedY = ((SelectY + 2) + SelectY) / 2;
+            // 飛び越えた位置に相手の駒があるか確認
+            if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
+                cantake = true;
+                if (cantake == 1) {
+                    phase = 0;
+                }
+                return true;
+            }
+            else if (board[jumpedX][jumpedY] == 0) {
+                cantake = false;
+                if (cantake == false) {
+                    phase = 1;
+                }
+                return false;
+            }
+        }
+        else if (board[StartX][StartY] == 2) {
+            if (board[SelectX - 2][SelectY - 2] || board[SelectX + 2][SelectY - 2]) {
+                return false;
+            }
+            if (board[SelectX - 2][SelectY - 2] || board[SelectX + 2][SelectY - 2]) {
+                return false;
+            }
+            // 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
+            if (((SelectX+2) - SelectX == 2 && (SelectY+2) - SelectY == -2) || ((SelectX+2) - SelectX == -2 && (SelectY+2) - SelectY == -2)) {
+                jumpedX = (SelectX + SelectX) / 2;
+                jumpedY = (SelectY + SelectX) / 2;
+                // 飛び越えた位置に相手の駒があるか確認
+                if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
+                    // 飛び越えた相手の駒を削除
+                    cantake = true;
+                    if (cantake == 1) {
+                        phase = 1;
+                    }
+                    
+                    return true;
+                }
+                else if (board[jumpedX][jumpedY] == 0) {
+                    cantake = false;
+                    if (cantake == false) {
+                        phase = 0;
+                    }
+                    return false;
+                }
+            }
+
+
+        }
+
+    }
+
+    return false;
+}
