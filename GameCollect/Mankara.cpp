@@ -6,6 +6,8 @@ Mankara::Mankara()
 	StoneImg[6] = LoadDivGraph("images/Mancala/MancalaStone.png", 6, 6, 1, 32, 32, StoneImg);
 	Board = LoadGraph("images/mancala/MancalaBoard.png");
 	Background = LoadGraph("images/Mancala/BackGround02.png");
+	//P1PocketImg = LoadGraph("images/Mancala/1PPocket.png");
+	//P2PocketImg = LoadGraph("images/Mancala/2PPocket.png");
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
@@ -387,14 +389,15 @@ void Mankara::Draw()const
     // 1Pターン時の ポケット移動
 	if (P1Turn == 1) {
 	        if(Pocket_cnt == 0) {
+			/*	DrawGraph(255, 385, P1PocketImg, FALSE);*/
 	        	DrawBox(255, 385, 355, 600, GetColor(0, 0, 255), FALSE);
 		        DrawBox(256, 386, 356, 601, GetColor(0, 0, 255), FALSE);
 		        DrawBox(257, 387, 357, 602, GetColor(0, 0, 255), FALSE);
 	        }
 			else if (Pocket_cnt == 1) {
 				DrawBox(385, 385, 485, 600, GetColor(0, 0, 255), FALSE);
-				DrawBox(386, 386, 486, 601, GetColor(0, 0, 255), false);
-				DrawBox(387, 387, 487, 602, GetColor(0, 0, 255), false);
+				DrawBox(386, 386, 486, 601, GetColor(0, 0, 255), FALSE);
+				DrawBox(387, 387, 487, 602, GetColor(0, 0, 255), FALSE);
 
 			}
 			else if (Pocket_cnt == 2) {
@@ -423,28 +426,41 @@ void Mankara::Draw()const
 
 	// 2Pターン時のポケット移動
 	if (P2Turn == 1) {
-		if (Pocket_cnt == 1) {
+		if (Pocket_cnt == 0) {
+			DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(901, 86, 1001, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(902, 87, 1002, 302, GetColor(255, 0, 0), FALSE);
+		}
+		else if (Pocket_cnt == 1) {
 			DrawBox(255, 85, 355, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(256, 86, 356, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(257, 87, 357, 302, GetColor(255, 0, 0), FALSE);
 		}
 		else if (Pocket_cnt == 2) {
 			DrawBox(385, 85, 485, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(386, 86, 486, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(387, 87, 487, 302, GetColor(255, 0, 0), FALSE);
 
 		}
 		else if (Pocket_cnt == 3) {
 			DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(516, 86, 616, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(517, 87, 617, 302, GetColor(255, 0, 0), FALSE);
 
 		}
 		else if (Pocket_cnt == 4) {
 			DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(646, 86, 746, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(647, 87, 747, 302, GetColor(255, 0, 0), FALSE);
 
 		}
 		else if (Pocket_cnt == 5) {
 			DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(771, 86, 871, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(772, 87, 872, 302, GetColor(255, 0, 0), FALSE);
 
 		}
-		else {
-			DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), FALSE);
-		}
+		
 	}
 	
 	//ポケットの中に値が入っているか

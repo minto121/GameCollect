@@ -9,6 +9,9 @@ private:
 	int Board; // ƒQ[ƒ€ƒ{[ƒh‚Ì‰æ‘œ
 	int Background; // ”wŒi‰æ‘œ
 
+	//int P1PocketImg;
+	//int P2PocketImg;
+
 	int P1Turn;
 	int P2Turn;
 
