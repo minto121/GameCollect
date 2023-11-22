@@ -14,6 +14,7 @@ Mankara::Mankara()
 
 	P1Pocket[0] = 1;
 	P2Pocket[0] = 1;
+	// 初期石
 	InitialStone = 4;
 	Stone_cnt = 1;
 	movePocket = 0;
@@ -385,25 +386,38 @@ void Mankara::Draw()const
 
     // 1Pターン時の ポケット移動
 	if (P1Turn == 1) {
-			if (Pocket_cnt == 1) {
-				DrawBox(385, 385, 485, 600, GetColor(255, 0, 0), FALSE);
+	          if(Pocket_cnt == 0) {
+	        	DrawBox(255, 385, 355, 600, GetColor(0, 0, 255), FALSE);
+		        DrawBox(256, 386, 356, 601, GetColor(0, 0, 255), FALSE);
+		        DrawBox(257, 387, 357, 602, GetColor(0, 0, 255), FALSE);
+	         }
+			else if (Pocket_cnt == 1) {
+				DrawBox(365, 365, 485, 600, GetColor(0, 0, 255), FALSE);
+				/*DrawBox(386, 386, 486, 601, GetColor(0, 0, 255), FALSE);
+				DrawBox(387, 387, 487, 602, GetColor(0, 0, 255), FALSE);*/
+
 			}
 			else if (Pocket_cnt == 2) {
-				DrawBox(515, 385, 615, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(515, 385, 615, 600, GetColor(0, 0, 255), FALSE);
+				DrawBox(516, 386, 616, 601, GetColor(0, 0, 255), FALSE);
+				DrawBox(517, 387, 617, 602, GetColor(0, 0, 255), FALSE);
 
 			}else if (Pocket_cnt == 3) {
-				DrawBox(645, 385, 745, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(645, 385, 745, 600, GetColor(0, 0, 255), FALSE);
+				DrawBox(646, 386, 746, 601, GetColor(0, 0, 255), FALSE);
+				DrawBox(647, 387, 747, 602, GetColor(0, 0, 255), FALSE);
 
 			}else if (Pocket_cnt == 4) {
-				DrawBox(770, 385, 870, 600, GetColor(255, 0, 0), FALSE);
+				DrawBox(770, 385, 870, 600, GetColor(0, 0, 255), FALSE);
+				DrawBox(771, 386, 871, 601, GetColor(0, 0, 255), FALSE);
+				DrawBox(772, 387, 872, 602, GetColor(0, 0, 255), FALSE);
 
 			}else if (Pocket_cnt == 5) {
-				DrawBox(900, 385, 1000, 600, GetColor(255, 0, 0), FALSE);
-
+				DrawBox(900, 385, 1000, 600, GetColor(0, 0, 255), FALSE);
+				DrawBox(901, 386, 1001, 601, GetColor(0, 0, 255), FALSE);
+				DrawBox(902, 387, 1002, 602, GetColor(0, 0, 255), FALSE);
 			}
-			else {
-				DrawBox(255, 385, 355, 600, GetColor(255, 0, 0), FALSE);
-			}
+		
 	}
 
 
@@ -439,6 +453,8 @@ void Mankara::Draw()const
 		DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
 	}
 
+
+	// ゴールに入った石の数
 	DrawBox(1075, 85, 1110, 120, GetColor(200, 200, 255), TRUE);
 	DrawBox(1075, 85, 1110, 120, GetColor(0, 0, 255), FALSE);
 	DrawFormatString(1090, 95, GetColor(0, 0, 0), "%d", P1BigPocket);
@@ -470,7 +486,7 @@ void Mankara::MoveStone()
 
 			if (StoneFlg == TRUE) {
 				moveStone = PlayerPocket;
-				JustGoal = InitialStone;
+				
 			}
 		}
 	}
@@ -481,7 +497,7 @@ void Mankara::MoveStone()
 
 			if (StoneFlg == TRUE) {
 				moveStone2 = PartnerPocket;
-				JustGoal = InitialStone;
+				
 			}
 		}
 	}
@@ -492,8 +508,9 @@ void Mankara::MoveStone()
 		if (moveStone == 0) {
 
 			// 選択したポケットに格納されている石を移動させる
-			for (int i = 0; i < P1StoneSave[0][i + InitialStone]; i++) {
+			for (int i = 0; i < P1StoneSave[0][i + 1]; i++) {
 				P1StoneSave[moveStone + i][i];
+				JustGoal = InitialStone;
 				// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
 				if (InitialStone > 6) {
 					for (int z = 6; z < InitialStone; z++) {
@@ -517,8 +534,9 @@ void Mankara::MoveStone()
 		}
 		else if (moveStone == 1) {
 			// 選択したポケットに格納されている石を移動させる
-			for (int i = 0; i < P1StoneSave[0][i + InitialStone]; i++) {
+			for (int i = 0; i < P1StoneSave[1][i + 2]; i++) {
 				P1StoneSave[moveStone + i][i];
+				JustGoal = InitialStone;
 				// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
 				if (InitialStone > 5) {
 					for (int z = 5; z < InitialStone; z++) {
@@ -533,7 +551,7 @@ void Mankara::MoveStone()
 			}
 
 			// 選択したポケットの中身を０にする
-			P1StoneSave[0][InitialStone - InitialStone] ;
+			P1StoneSave[1][InitialStone - InitialStone] ;
 			// 大きいポケットに石が入る
 			if (JustGoal >= 5) {
 				P1BigPocket+=1;
@@ -541,8 +559,9 @@ void Mankara::MoveStone()
 			}
 			else if (moveStone == 2) {
 				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[0][i + InitialStone]; i++) {
+				for (int i = 0; i < P1StoneSave[2][i + 3]; i++) {
 					P1StoneSave[moveStone + i][i];
+					JustGoal = InitialStone;
 					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
 					if (InitialStone > 4) {
 						for (int z = 4; z < InitialStone; z++) {
@@ -557,7 +576,7 @@ void Mankara::MoveStone()
 				}
 
 				// 選択したポケットの中身を０にする
-				P1StoneSave[0][InitialStone - InitialStone] ;
+				P1StoneSave[2][InitialStone - InitialStone] ;
 				// 大きいポケットに石が入る
 				if (JustGoal >= 4) {
 					P1BigPocket += 1;
@@ -566,8 +585,9 @@ void Mankara::MoveStone()
 			}
 			else if (moveStone == 3) {
 				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[0][i + InitialStone]; i++) {
+				for (int i = 0; i < P1StoneSave[3][i + 4]; i++) {
 					P1StoneSave[moveStone + i][i];
+					JustGoal = InitialStone;
 					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
 					if (InitialStone > 3) {
 						for (int z = 3; z < InitialStone; z++) {
@@ -582,7 +602,7 @@ void Mankara::MoveStone()
 				}
 
 				// 選択したポケットの中身を０にする
-				P1StoneSave[0][InitialStone - InitialStone] ;
+				P1StoneSave[3][InitialStone - InitialStone] ;
 				// 大きいポケットに石が入る
 				if (JustGoal >= 3) {
 					P1BigPocket += 1;
@@ -591,8 +611,9 @@ void Mankara::MoveStone()
 			}
 			else if (moveStone == 4) {
 				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[0][i + InitialStone]; i++) {
+				for (int i = 0; i < P1StoneSave[4][i + InitialStone]; i++) {
 					P1StoneSave[moveStone + i][i];
+					JustGoal = InitialStone;
 					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
 					if (InitialStone > 2) {
 						for (int z = 2; z < InitialStone; z++) {
@@ -606,7 +627,7 @@ void Mankara::MoveStone()
 					}
 				}
 				// 選択したポケットの中身を０にする
-				P1StoneSave[0][InitialStone - InitialStone];
+				P1StoneSave[4][InitialStone - InitialStone];
 				// 大きいポケットに石が入る
 				if (JustGoal >= 2) {
 					P1BigPocket += 1;
@@ -615,8 +636,9 @@ void Mankara::MoveStone()
 			}
 			else if (moveStone == 5) {
 				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[0][i + InitialStone]; i++) {
+				for (int i = 0; i < P1StoneSave[5][i + 5]; i++) {
 					P1StoneSave[moveStone + i][i];
+					JustGoal = InitialStone;
 					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
 					if (InitialStone > 1) {
 						for (int z = 1; z < InitialStone; z++) {
@@ -631,7 +653,7 @@ void Mankara::MoveStone()
 				}
 
 				// 選択したポケットの中身を０にする
-				P1StoneSave[0][InitialStone - InitialStone];
+				P1StoneSave[5][InitialStone - InitialStone];
 				// 大きいポケットに石が入る
 				if (JustGoal >= 1) {
 					P1BigPocket += 1;
