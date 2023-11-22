@@ -92,13 +92,11 @@ void SixBallPuzzle::Draw() const
 	//DrawGraph(10, 10, Back_Ground, TRUE);
 
 	//ƒ{[ƒ‹‚Ì•ªŠ„•`‰æ
-	for (int i = 0; i < MaxBalls; i++) 
+	for (int i = 0; i < MaxBalls; i++)
 	{
-		if (ballActive[i]) 
+		if (ballActive[i])
 		{
 			DrawGraph(ballX[i], ballY[i], Ball_img[i], TRUE);
 		}
 	}
-
-	
 }
