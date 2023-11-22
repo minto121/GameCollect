@@ -12,10 +12,10 @@ gomokuScene::gomokuScene()
 	cY = 0;
 	bCount = 0;
 	wCount = 0;
-	gomoku_Turn = 0;
-	gomoku_PlayerTurn = 0;
+	gomoku_Turn = 99;
+	gomoku_PlayerTurn = 99;
 	gomoku_Pfs = 0;
-	gomoku_AITurn = 0;
+	gomoku_AITurn = 99;
 	gomoku_Efs = 0;
 	gomoku_AImove_Point = 0;
 	gomoku_AI_MoveX = 0;
@@ -31,9 +31,10 @@ gomokuScene::gomokuScene()
 	gomoku_Phase = 0;
 	gomoku_Battle = 0;
 	gomoku_TurnSetFlg = 0;
-	gomoku_AI_FirstSetFlg = 0;
 	gomoku_Player_WaitTime = 0;
 	gomoku_AI_WaitTime = 0;
+	gomoku_Result_WaitTime = 0;
+	gomoku_elapsedturn = 0;
 }
 
 gomokuScene::~gomokuScene()
@@ -53,18 +54,18 @@ AbstractScene* gomokuScene::Update()
 			gomoku_PlayerTurn = gomoku_Turn;
 			gomoku_Pfs = gomoku_PlayerTurn + 1;
 			gomoku_TurnSetFlg = 1;
-			if (gomoku_Pfs == 1) {
-				gomoku_AITurn = 1;
-				gomoku_Efs = 2;
-			}
-			else {
-				gomoku_AITurn = 0;
-				gomoku_Efs = 1;
-			}
-			if (gomoku_PlayerTurn == 0) {
-				cX = 6;
-				cY = 6;
-			}
+		}
+		if (gomoku_PlayerTurn == 0) {
+			gomoku_AITurn = 1;
+			gomoku_Efs = 2;
+		}
+		else {
+			gomoku_AITurn = 0;
+			gomoku_Efs = 1;
+		}
+		if (gomoku_PlayerTurn == 0 && gomoku_elapsedturn == 0) {
+			cX = 6;
+			cY = 6;
 		}
 		if (gomoku_Phase == gomoku_PlayerTurn) {
 			gomoku_Player_WaitTime++;
@@ -73,7 +74,7 @@ AbstractScene* gomokuScene::Update()
 			gomoku_Player_WaitTime = 0;
 		}
 		// カーソルを動かす処理
-		if (gomoku_Phase == gomoku_PlayerTurn || gomoku_Player_WaitTime > 180) {
+		if (gomoku_Phase == gomoku_PlayerTurn && gomoku_Player_WaitTime > 180) {
 			if (g_KeyFlg & PAD_INPUT_RIGHT && cX < 13) {
 				if (Key_Count >= 1) {
 					cX += 1;
@@ -115,6 +116,7 @@ AbstractScene* gomokuScene::Update()
 			if (gomoku_Phase == gomoku_PlayerTurn) {
 				bCount += 1;
 				gomoku_Banmen[cX][cY] = gomoku_Pfs;
+				gomoku_elapsedturn++;
 				gomoku_Phase = gomoku_AITurn;
 			}
 		}
@@ -149,13 +151,13 @@ AbstractScene* gomokuScene::Update()
 		}
 		// AIが先攻だったときに必ず行う手
 		if (gomoku_AI_WaitTime > 180) {
-			if (gomoku_AITurn == 0 && gomoku_AI_FirstSetFlg == 0 && gomoku_Banmen[6][6] == 0) {
+			if (gomoku_AITurn == 0 && gomoku_Banmen[6][6] == 0 && gomoku_elapsedturn == 0) {
 				gomoku_Banmen[5][5] = gomoku_Efs;
-				gomoku_AI_FirstSetFlg = 1;
 				Key_Count++;
+				gomoku_elapsedturn++;
 				gomoku_Phase = gomoku_PlayerTurn;
 			}
-			if (gomoku_Battle == 0 && gomoku_Phase == gomoku_AITurn && gomoku_AI_think == 0) {
+			if (gomoku_Battle == 0 && gomoku_Phase == gomoku_AITurn && gomoku_AI_think == 0 && gomoku_elapsedturn > 0) {
 				for (int y = 0; y < 13; y++) {
 					for (int x = 0; x < 13; x++) {
 						if (Key_Count == 2 && gomoku_Banmen[x][y] == gomoku_Pfs && gomoku_AITurn == 1) {
@@ -282,11 +284,13 @@ AbstractScene* gomokuScene::Update()
 					gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = gomoku_Efs;
 					gomoku_AI_MoveX = 0;
 					gomoku_AI_MoveY = 0;
+					gomoku_elapsedturn++;
 					gomoku_Phase = gomoku_PlayerTurn;
 				}
 				for (int r = 0; r < 144 && gomoku_Phase == gomoku_AITurn; r++) {
 					if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == gomoku_AITurn) {
 						gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = gomoku_Efs;
+						gomoku_elapsedturn++;
 						gomoku_Phase = gomoku_PlayerTurn;
 					}
 					else {
@@ -312,12 +316,13 @@ AbstractScene* gomokuScene::Update()
 				}
 			}
 		}
-		/*if (gomoku_Phase == gomoku_PlayerTurn) {
-			gomokuScene::gomoku_Player_Turn();
-		}
-		else{
-			gomokuScene::gomoku_AI_Turn();
-		}*/
+	}
+	else {
+		gomoku_Result_WaitTime++;
+		if (gomoku_Result_WaitTime > 210)
+			if (g_KeyFlg & PAD_INPUT_1) {
+				return new gomokuTitle();
+			}
 	}
 	return this;
 }
@@ -325,12 +330,10 @@ AbstractScene* gomokuScene::Update()
 void gomokuScene::Draw() const
 {
 	DrawGraph(0, 0, gomoku_BackImg, FALSE);
-	DrawFormatString(10, 10,0xffffff, "%d", gomoku_AI_WaitTime);
+	DrawFormatString(10, 10,0xffffff, "%d", gomoku_Result_WaitTime);
 	DrawGraph(180, 0, TitleImg, TRUE);
 	for (int y = 0; y < 13; y++) {
 		for (int x = 0; x < 13; x++) {
-			DrawFormatString(50, 300, 0xffffff, "%d", bCount);
-			DrawFormatString(50, 400, 0xffffff, "%d", wCount);
 			if (gomoku_Banmen[x][y] == 1) {
 				DrawGraph(270 + (56 * x) + x, -25 + (56 * y) + y, bTopImg, TRUE);
 			}
@@ -339,32 +342,35 @@ void gomokuScene::Draw() const
 			}
 		}
 	}
-	if (1 < gomoku_Player_WaitTime && gomoku_Player_WaitTime < 120) {
+	if (gomoku_Player_WaitTime > 60 && gomoku_Player_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, ("自分の手番"));
+		DrawFormatString(600, 300, 0xFF00FF, "自分の手番");
 	}
-	if (gomoku_Phase == gomoku_PlayerTurn && gomoku_Battle == 0) {
-		SetFontSize(60);
-		DrawFormatString(50, 300, 0xfffffff, "自分の手番");
-	}
-	if (1 < gomoku_AI_WaitTime && gomoku_AI_WaitTime < 120) {
+	else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_Player_WaitTime > 0 && gomoku_Player_WaitTime < 90 && gomoku_Battle == 0) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, ("相手の手番"));
+		DrawFormatString(600, 300, 0xFF00FF, "自分の手番");
 	}
-	if (gomoku_Phase == gomoku_AITurn && gomoku_Battle == 0) {
-		SetFontSize(60);
-		DrawFormatString(50, 300, 0xfffffff, "相手の手番");
+	if (gomoku_AI_WaitTime > 60 && gomoku_AI_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
+		SetFontSize(80);
+		DrawFormatString(600, 300, 0xFF00FF, "相手の手番");
+	}
+	else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_AI_WaitTime > 0 && gomoku_AI_WaitTime < 90 && gomoku_Battle == 0){
+		SetFontSize(80);
+		DrawFormatString(600, 300, 0xFF00FF, "相手の手番");
 	}
 	if (gomoku_Battle == 0) {
 		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
 	}
 	if (gomoku_Battle == 1) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, ("自分の勝ち"));
+		DrawFormatString(600, 300, 0xFF00FF, ("WIN"));
 	}
 	else if (gomoku_Battle == 2) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, ("相手の勝ち"));
+		DrawFormatString(600, 300, 0xFF00FF, ("LOSE"));
+	}
+	if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
+		DrawFormatString(600, 600, 0x000000, ("Aボタンでタイトルに戻る"));
 	}
 	
 }

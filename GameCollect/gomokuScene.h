@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractScene.h"
+#include "gomoku_TitleScene.h"
 class gomokuScene : public AbstractScene
 {
 private:
@@ -15,22 +16,23 @@ private:
 	int bCount;
 	int wCount;
 	bool gomoku_TurnSetFlg;
-	bool gomoku_Turn;
-	bool gomoku_PlayerTurn;
+	int gomoku_Turn;
+	int gomoku_PlayerTurn;
 	int gomoku_Pfs; // プレイヤーの基石 黒い石:1 白い石:2
-	bool gomoku_AITurn;
+	int gomoku_AITurn;
 	int gomoku_Efs; // エネミー(AI)の基石 黒い石:1 白い石:2
 	int gomoku_Banmen[13][13];
-	bool gomoku_Phase; // 先攻:0 後攻:1
+	int gomoku_Phase; // 先攻:0 後攻:1
 	int gomoku_Battle; // 試合中:0	黒の勝ち:1 白の勝ち:2
 	int gomoku_AI_MoveX;
 	int gomoku_AI_MoveY;
-	bool gomoku_AI_FirstSetFlg;
 	int gomoku_AImove_Point;
 	int gomoku_AI_think;
 	int Key_Count = 0;
 	int gomoku_Player_WaitTime;
 	int gomoku_AI_WaitTime;
+	int gomoku_Result_WaitTime;
+	int gomoku_elapsedturn; // 経過ターンをカウントする変数
 public:
 	gomokuScene();
 	~gomokuScene();
