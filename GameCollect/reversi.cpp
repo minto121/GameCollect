@@ -92,9 +92,10 @@ AbstractScene* Reversi::Update()
 	e.y.u = e.y.m - 1;
 	e.y.d = e.y.m + 1;
 
-	if (Fla.button == 1)
+	if (Fla.button == 1/*&&Sto.Typ == 0*/)
 	{
 		int x, y;
+		int cou = 0;
 
 		//黒
 		int same;
@@ -112,7 +113,6 @@ AbstractScene* Reversi::Update()
 			diff = 2;
 		}
 
-		int cou = 0;
 
 		//右に石が置かれているかの確認
 		for (x = e.x.r; x < 8; x = x + 1)
@@ -187,8 +187,8 @@ AbstractScene* Reversi::Update()
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
-				for (x = e.x.r, y = e.y.d;
-					x < e.x.r + cou,y > e.y.u - cou;
+				for (x = e.x.r, y = e.y.u;
+					x < e.x.r + cou, y > e.y.u - cou;
 					x = x + 1, y = y - 1)
 				{
 					Sto.Typ[x][y] = same;
@@ -229,9 +229,9 @@ AbstractScene* Reversi::Update()
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
-				for (x = e.x.l, y = e.y.d;
-					x < e.x.r - cou, y > e.y.u - cou;
-					x = x + 1, y = y - 1)
+				for (x = e.x.l, y = e.y.u;
+					x > e.x.r - cou, y > e.y.u - cou;
+					x = x - 1, y = y - 1)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
@@ -268,6 +268,7 @@ AbstractScene* Reversi::Update()
 
 void Reversi::Draw() const
 {
+
 	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
 	for (int y = 0; y < 8; y = y + 1)
 	{
@@ -277,6 +278,10 @@ void Reversi::Draw() const
 		}
 	}
 
+	int cou_n = 0;
+	int cou_b = 0;
+	int cou_w = 0;
+
 	for (int y = 0; y < 8; y = y + 1)
 	{
 		for (int x = 0; x < 8; x = x + 1)
@@ -284,11 +289,14 @@ void Reversi::Draw() const
 			switch (Sto.Typ[x][y])
 			{
 			case 0:
+				cou_n = cou_n + 1;
 				break;
 			case 1:
+				cou_b = cou_b + 1;
 				DrawGraph(Sto.X[x][y], Sto.Y[x][y], Bla, TRUE);
 				break;
 			case 2:
+				cou_w = cou_w + 1;
 				DrawGraph(Sto.X[x][y], Sto.Y[x][y], Whi, TRUE);
 				break;
 			}
@@ -297,9 +305,13 @@ void Reversi::Draw() const
 
 	DrawFormatString(0, 120, GetColor(255, 255, 255), "Cur.X,Cur.Y=(%d,%d)", Cur.X, Cur.Y);
 	DrawFormatString(0, 140, GetColor(255, 255, 255), "Tur,%d", Tur);
+	DrawFormatString(0, 180, GetColor(255, 255, 255), "Sto.X,%d", Sto.X);
+	DrawFormatString(0, 200, GetColor(255, 255, 255), "Sto.Typ,%d", Sto.Typ);
 
 	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
 
+	DrawFormatString(0, 220, GetColor(255, 255, 255), "No.Blaca.White (%d,%d,%d)", cou_n, cou_b, cou_w);
+	
 	if (Tur % 2 == 0)
 	{
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn Black", Tur);
@@ -309,6 +321,8 @@ void Reversi::Draw() const
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn White", Tur);
 
 	}
+
+
 
 }
 

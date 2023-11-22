@@ -1,8 +1,6 @@
 #pragma once
 #include "AbstractScene.h"
 
-#define SIZ 10
-
 enum class Order {
   First,
   Second,
@@ -15,18 +13,16 @@ class Reversi :
 {
 private:
 
+    bool K_Flg;
+    int R_Img;
+    int bor;
+    int B_Storn_Img;
+
     struct {
         int Typ[8][8];
         int X[8][8];
         int Y[8][8];
     }Sto;
-
-
-
-    bool K_Flg;
-    int R_Img;
-    int bor;
-    int B_Storn_Img;    
     
     //ÉJÅ[É\Éã
     struct{
@@ -56,7 +52,6 @@ private:
             int d;
         }y;
     }e;
-
 
     int Tur;
 
