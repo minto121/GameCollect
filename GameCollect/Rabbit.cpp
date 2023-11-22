@@ -20,14 +20,16 @@ Rabbit::Rabbit()
 	rabbit_X = 0;
 	rabbit_Y = 0;
 
-	VECTOR position{};
-	Ax = Aposition = 150; // x座標
-	Ay = Aposition= 340; // y座標
-	//A = Aposition = 0.0f;   // z座標
 
+	//VECTOR position{};
+	//Ax = Aposition = 150; // x座標
+	//Ay = Aposition= 340; // y座標
+	//A = Aposition = 0.0f;   // z座標
 
 	//rabbitFlg = FALSE;
 }
+
+
 
 Rabbit::~Rabbit()
 {
@@ -37,8 +39,7 @@ Rabbit::~Rabbit()
 }
 
 AbstractScene* Rabbit::Update()
-{
-
+{	
 	// ウサギを移動
 	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 		rabbitFlg = TRUE;
@@ -108,7 +109,6 @@ void Rabbit::Draw() const
 	//DrawCircle(875, 375, 50, 0x00ff00, TRUE);
 	//DrawCircle(1125, 375, 50, 0x00ff00, TRUE);
 
-
 	//猟犬の駒(仮)
 	DrawBox(890, 140, 960, 210, 0x0000ff, TRUE);     //上
 	DrawBox(1100, 350, 1150, 400, 0x0000ff, TRUE);   //真ん中
@@ -117,8 +117,6 @@ void Rabbit::Draw() const
 	//ウサギの駒(仮)
 	DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, TRUE);
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
-
-	DrawString(Ax, Ay, ("A"), 0xff0000);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
 }

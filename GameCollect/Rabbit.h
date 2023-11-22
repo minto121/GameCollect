@@ -2,13 +2,18 @@
 #include "AbstractScene.h"
 
 
-
 class Rabbit : public AbstractScene
 {
 private:
 	int BackGroundImg;
 
 	int HoundImg;    //—ÂŒ¢‰æ‘œ
+	
+	struct Bord{
+		int b_flg;
+	};
+	struct Bord bord[5][3];
+	
 
 	int RabbitImg[2];   //ƒEƒTƒM‰æ‘œ
 	int R_texture;
