@@ -26,6 +26,11 @@ private:
 
     std::vector<std::vector<int>> playerHands;
 
+    const int startX = 50; // 開始X座標
+    const int startY = 50; // 開始Y座標
+    const int cardWidth = 50; // カードの幅
+    const int cardHeight = 80; // カードの高さ
+
 
 public:
     //コンストラクタ
