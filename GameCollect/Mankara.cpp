@@ -386,15 +386,15 @@ void Mankara::Draw()const
 
     // 1Pターン時の ポケット移動
 	if (P1Turn == 1) {
-	          if(Pocket_cnt == 0) {
+	        if(Pocket_cnt == 0) {
 	        	DrawBox(255, 385, 355, 600, GetColor(0, 0, 255), FALSE);
 		        DrawBox(256, 386, 356, 601, GetColor(0, 0, 255), FALSE);
 		        DrawBox(257, 387, 357, 602, GetColor(0, 0, 255), FALSE);
-	         }
+	        }
 			else if (Pocket_cnt == 1) {
-				DrawBox(365, 365, 485, 600, GetColor(0, 0, 255), FALSE);
-				/*DrawBox(386, 386, 486, 601, GetColor(0, 0, 255), FALSE);
-				DrawBox(387, 387, 487, 602, GetColor(0, 0, 255), FALSE);*/
+				DrawBox(385, 385, 485, 600, GetColor(0, 0, 255), FALSE);
+				DrawBox(386, 386, 486, 601, GetColor(0, 0, 255), false);
+				DrawBox(387, 387, 487, 602, GetColor(0, 0, 255), false);
 
 			}
 			else if (Pocket_cnt == 2) {
@@ -479,7 +479,7 @@ void Mankara::Draw()const
 void Mankara::MoveStone()
 {
 
-	if (PlayerPocket >=0) {
+	if (PlayerPocket >= 0) {
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 
 			StoneFlg = TRUE;
@@ -490,7 +490,7 @@ void Mankara::MoveStone()
 			}
 		}
 	}
-	if (PartnerPocket >=0) {
+	if (PartnerPocket >= 0) {
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 
 			StoneFlg = TRUE;
