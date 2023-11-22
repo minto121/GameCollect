@@ -40,6 +40,10 @@ HitAndBlow::HitAndBlow()
 
 	FirstMoveFlg = -1;
 
+	/* デバック用 */
+	Covering = 0;
+	CoveringFlg = FALSE;
+
 }
 
 HitAndBlow::~HitAndBlow()
@@ -101,7 +105,7 @@ AbstractScene* HitAndBlow::Update()
 		{
 			Reasoning[WarpPosition] = SidePosition;  // 色を場所に配置
 			WarpPosition++; // 色を選択するカーソルの位置を一つずらす
-			if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、3にする
+			if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、一番上にする
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) { // 色を外す処理
 			Reasoning[WarpPosition] = -1;
@@ -150,8 +154,8 @@ void HitAndBlow::Draw() const
 		DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
 	}
 	
-	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", Hit); // デバック用
-	//DrawFormatString(100, 700, 0xffffff, "Turnsは%d", Reasoning[WarpPosition]); // デバック用
+	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", CoveringFlg); // デバック用
+	//DrawFormatString(100, 700, 0xffffff, "Coveringは%d", Covering); // デバック用
 	/* 予想したカラーを表示する */
 	if (Reasoning[WarpPosition % 4] >= 0) {
 		DrawGraph(90 + Turns * 130, 220 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
@@ -218,7 +222,7 @@ void HitAndBlow::RandomDecision()
 
 	if (DecisionFlg == TRUE) {
 		for (int i = 0; i < 4; i++) {
-			Answer[i] = rand() % 6;
+			Answer[i] = GetRand(5);
 			if (Answer[i] == Answer[(i + 1) % 4] || Answer[i] == Answer[(i + 2) % 4] || Answer[i] == Answer[(i + 3) % 4]) { // 色が重なったら
 				i--; // 選別をやり直す
 			}
@@ -227,7 +231,7 @@ void HitAndBlow::RandomDecision()
 	}
 	/* 先攻・後攻をランダムに決める */
 	if (TurnFlg == TRUE) {
-		MoveFlg = rand() % 2;
+		MoveFlg = /*rand() % 2*/0;
 		TurnFlg = FALSE;
 		FirstMoveFlg = MoveFlg; // 先攻か後攻かを覚えてもらう（描画処理で必要）
 	}
@@ -249,12 +253,50 @@ void HitAndBlow::ERandomChoice()
 		//}
 		/*else */{
 			Reasoning[i] = rand() % 6;
+			/* デバック用 */
+			//if (CoveringFlg == FALSE) {
+			//	Reasoning[0] = 0;
+			//	Reasoning[1] = 1;
+			//	Reasoning[2] = 2;
+			//	Reasoning[3] = 3;
+			//}
+			//else {
+			//	Reasoning[i] = rand() % 6; // 違う奴にする
+			//}
+
 			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 色が重なったら
 				i--; // 選別をやり直す
 			}
+
+			
+			if (Turns != 0 && i == 3) {	
+				for (Covering = 0; Covering < Turns; Covering++) {
+					if (Reasoning[0] == SaveReasoning[Covering][0]
+						&& Reasoning[1] == SaveReasoning[Covering][1]
+						&& Reasoning[2] == SaveReasoning[Covering][2]
+						&& Reasoning[3] == SaveReasoning[Covering][3]) { // 前入れた奴と全く同じだったら
+						/* デバック用 */
+						CoveringFlg = TRUE; // 被っていたと知らせる
+
+						i = -1; // 0代入すると3つしか交換しないので、インクリメントして0になる-1を代入
+						Reasoning[0] = -1;// 中身全部空にする
+						Reasoning[1] = -1;// 中身全部空にする
+						Reasoning[2] = -1;// 中身全部空にする
+						Reasoning[3] = -1;// 中身全部空にする
+
+						break; // 被りがあるか調べたいので、一度被ったらループを抜ける
+
+					}
+					/* デバック用 */
+					else {
+						CoveringFlg = FALSE; // 被っていないと知らせる
+					}
+					
+				}
+			}			
 			// 1ターン目に当たるのを阻止
 			if (Turns / 2 == 0 && Reasoning[0] == Answer[0] && Reasoning[1] == Answer[1] && Reasoning[2] == Answer[2] && Reasoning[3] == Answer[3]) {
-				i = 0;
+				i = -1; // iを最初に戻す(0代入すると3つしか交換しないので、インクリメントして0になる-1を代入)
 			}
 		}
 	}

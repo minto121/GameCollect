@@ -30,6 +30,8 @@ private:
 	bool TurnFlg; // ターン数を決めるフラグ
 	int WaitTimeFlg; // 待ち時間を作るための変数
 	int Count; // 画面遷移の時間管理する変数
+	int CoveringFlg; // 色と場所が被っているか確認するフラグ
+	int Covering; // 色と場所被ってないか確認する時に必要な変数
 
 public:
 	// インクリメント
