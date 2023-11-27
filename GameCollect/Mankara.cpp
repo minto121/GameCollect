@@ -33,13 +33,9 @@ Mankara::Mankara()
 
 	// 石の画像処理
 	for (int i = 0; i < 8; i++) {
-		gStone[0][i].img = StoneImg[1];//赤
-		gStone[1][i].img = StoneImg[5];//青
-		gStone[2][i].img = StoneImg[3];//緑
-		gStone[3][i].img = StoneImg[0];//黄
-		gStone[4][i].img = StoneImg[2];//紫
-		gStone[5][i].img = StoneImg[4];//白
-
+		for (int y = 0; y < 6; y++) {
+			gStone[y][i].img = StoneImg[y];//ポケット１
+		}
 	}
 
 	for (int i = 0; i < 7; i++) {
@@ -275,9 +271,9 @@ void Mankara::Draw()const
 	DrawGraph(0, 0, Background, TRUE);
 	DrawGraph(30,30,Board,TRUE);
 
-	// -----------ここから直す箇所--------------
+	// -----------ここから石の初期配置--------------
 
-	// 石（赤）の初期配置
+	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 6; i++) {
 		if (PlayerPocket >= 0) {
 
@@ -287,10 +283,7 @@ void Mankara::Draw()const
 		}
 
 	}
-	DrawGraph(300, 160, gStone[0][6].img, TRUE);
-	DrawGraph(300 + 125, 160, gStone[0][7].img, TRUE);
-
-	// 石（青）の初期配置
+	// 石（ポケット２）の初期配置
 	for (int i = 0; i < 6; i++) {
 		if (PlayerPocket >= 0) {
 
@@ -299,10 +292,7 @@ void Mankara::Draw()const
 			DrawGraph(300 + i * 125, 470, gStone[1][i].img, TRUE);
 		}
 	}
-	DrawGraph(300, 190, gStone[1][6].img, TRUE);
-	DrawGraph(300 + 125, 190, gStone[1][7].img, TRUE);
-
-	// 石（緑）の初期配置
+	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 6; i++) {
 		if (PlayerPocket >= 0) {
 
@@ -311,10 +301,7 @@ void Mankara::Draw()const
 			DrawGraph(300 + i * 125, 490, gStone[2][i].img, TRUE);
 		}
 	}
-	DrawGraph(300+125*2, 160, gStone[2][6].img, TRUE);
-	DrawGraph(300 + 125*3, 160, gStone[2][7].img, TRUE);
-
-	// 石（黄）の初期配置
+	// 石（ポケット４）の初期配置
 	for (int i = 0; i < 6; i++) {
 		if (PlayerPocket >= 0) {
 
@@ -323,22 +310,33 @@ void Mankara::Draw()const
 			DrawGraph(300 + i * 125, 510, gStone[3][i].img, TRUE);
 		}
 	}
-	DrawGraph(300 + 125*2, 190, gStone[3][6].img, TRUE);
-	DrawGraph(300 + 125*3, 190, gStone[3][7].img, TRUE);
-
-	// 石（紫）の初期配置
+	// 石（ポケット５）の初期配置
 	for (int i = 0; i < 6; i++) {
 		DrawGraph(300 + i * 125, 100, gStone[4][i].img, TRUE);
 	}
-	DrawGraph(300 + 125 * 4, 190, gStone[4][6].img, TRUE);
-	DrawGraph(300 + 125 * 5, 190, gStone[4][7].img, TRUE);
-
-	// 石（白）の初期配置
-
+	// 石（ポケット６）の初期配置
 	for (int i = 0; i < 6; i++) {
 		DrawGraph(300 + i * 125, 130, gStone[5][i].img, TRUE);
 
 	}
+
+	// 2P石の初期配置
+
+	DrawGraph(300 + 125 * 4, 190, gStone[0][6].img, TRUE);
+	DrawGraph(300 + 125 * 5, 190, gStone[0][7].img, TRUE);
+
+	DrawGraph(300 + 125 * 2, 190, gStone[1][6].img, TRUE);
+	DrawGraph(300 + 125 * 3, 190, gStone[1][7].img, TRUE);
+
+	DrawGraph(300 + 125 * 2, 160, gStone[2][6].img, TRUE);
+	DrawGraph(300 + 125 * 3, 160, gStone[2][7].img, TRUE);
+
+	DrawGraph(300, 190, gStone[3][6].img, TRUE);
+	DrawGraph(300 + 125, 190, gStone[3][7].img, TRUE);
+
+	DrawGraph(300, 160, gStone[4][6].img, TRUE);
+	DrawGraph(300 + 125, 160, gStone[4][7].img, TRUE);
+
 	DrawGraph(300 + 125 * 4, 160, gStone[5][6].img, TRUE);
 	DrawGraph(300 + 125 * 5, 160, gStone[5][7].img, TRUE);
 
@@ -463,11 +461,11 @@ void Mankara::Draw()const
 		
 	}
 	
-	//ポケットの中に値が入っているか
-	for (int i = 0; i < 6; i++) {
-		DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
-		DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
-	}
+	////ポケットの中に値が入っているか
+	//for (int i = 0; i < 6; i++) {
+	//	DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
+	//	DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
+	//}
 
 
 	// ゴールに入った石の数
@@ -533,7 +531,7 @@ void Mankara::MoveStone()
 						P2StoneSave[z][InitialStone + 1];
 					}
 					// 石が移動したポケットには＋１ずつ追加
-					for (int y = 0; y < InitialStone; y++) {
+					for (int y = 1; y < InitialStone; y++) {
 						P1StoneSave[y][InitialStone + 1];
 
 					}
@@ -559,7 +557,7 @@ void Mankara::MoveStone()
 						P2StoneSave[z][InitialStone + 1];
 					}
 					// 石が移動したポケットには＋１ずつ追加
-					for (int y = 0; y < InitialStone; y++) {
+					for (int y = 2; y < InitialStone; y++) {
 						P1StoneSave[y][InitialStone + 1];
 
 					}
@@ -584,7 +582,7 @@ void Mankara::MoveStone()
 							P2StoneSave[z][InitialStone + 1];
 						}
 						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 0; y < InitialStone; y++) {
+						for (int y = 3; y < InitialStone; y++) {
 							P1StoneSave[y][InitialStone + 1];
 
 						}
@@ -610,7 +608,7 @@ void Mankara::MoveStone()
 							P2StoneSave[z][InitialStone + 1];
 						}
 						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 0; y < InitialStone; y++) {
+						for (int y = 4; y < InitialStone; y++) {
 							P1StoneSave[y][InitialStone + 1];
 
 						}
@@ -636,7 +634,7 @@ void Mankara::MoveStone()
 							P2StoneSave[z][InitialStone + 1];
 						}
 						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 0; y < InitialStone; y++) {
+						for (int y = 4; y < InitialStone; y++) {
 							P1StoneSave[y][InitialStone + 1];
 
 						}
@@ -661,7 +659,7 @@ void Mankara::MoveStone()
 							P2StoneSave[z][InitialStone + 1];
 						}
 						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 0; y < InitialStone; y++) {
+						for (int y = 5; y < InitialStone; y++) {
 							P1StoneSave[y][InitialStone + 1];
 
 						}

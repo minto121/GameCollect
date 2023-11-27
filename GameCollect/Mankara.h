@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractScene.h"
+#include <DxLib.h>
 class Mankara :public AbstractScene
 {
 private:
@@ -17,7 +18,7 @@ private:
 
 	struct STONE
 	{
-		int flg = 1;
+		bool flg = 1;
 		int img;
 	} ;
 
