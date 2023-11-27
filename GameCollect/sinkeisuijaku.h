@@ -18,7 +18,7 @@ private:
 	struct TRUMPS {
 		int flg = 0;
 		int syurui = 0;
-		int flg2 = 0;
+		int flg2 = 100;
 		int  visible = 0; // カードを画面に表示するかどうかのフラグ
 	};
 	
