@@ -9,6 +9,10 @@ private:
 	int TableBgImg; // 背景画面の画像入れる変数
 	int BoardImg; // ボード画像入れる変数
 
+	/* SE */
+	int PutPinSE; // ピンを置くSE
+	int HitPinSE; // ヒットピンのSE
+
 	/* 配列 */
 	int Color[6]; // 色の駒を入れる配列
 	int Answer[4];  // 色と場所を当てる配列
@@ -52,13 +56,13 @@ public:
 	// 敵の予想をする関数
 	void ERandomChoice();
 
-	//// 順番決める関数
-	//void FirstMove();
-
 	// 色をリセットする関数
 	void ResetColor();
 
 	// 配列の初期化関数
 	void ArrayInit();
+
+	// 今までのターンと被りないか確認する関数
+	void CheckCovered();
 
 };

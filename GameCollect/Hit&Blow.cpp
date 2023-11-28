@@ -10,12 +10,17 @@
 
 HitAndBlow::HitAndBlow()
 {
+	/* 画像読み込み */
 	TableBgImg = LoadGraph("../images/HitAndBlow/BackGround02.png");
 
 	BoardImg = LoadGraph("../images/HitAndBlow/HitBlowBoard.png");
 
 	LoadDivGraph("../images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
 	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
+
+	/* BGM・SE読み込み */
+	PutPinSE = LoadSoundMem("../sound/SE/PutPin.wav");
+	HitPinSE = LoadSoundMem("../sound/SE/HitPin.wav");
 
 	DecisionFlg = TRUE; // 答えを一回だけ決めるフラグをTRUEにする
 	TurnFlg = TRUE;
@@ -98,6 +103,18 @@ AbstractScene* HitAndBlow::Update()
 		{
 			/* ジャッジ処理を書く */
 			Judgment();
+
+			for (int i = 0; i < SaveHit[Turns]; i++) {
+				if (Count % 60 == 0) {
+					Count++;
+					PlaySoundMem(HitPinSE, DX_PLAYTYPE_BACK, TRUE);
+				}
+				else {
+					Count++;
+					i--;
+				}
+			}
+			Count = 0;
 			ResetColor();
 			MoveFlg = 0;
 		}
@@ -105,6 +122,7 @@ AbstractScene* HitAndBlow::Update()
 		{
 			Reasoning[WarpPosition] = SidePosition;  // 色を場所に配置
 			WarpPosition++; // 色を選択するカーソルの位置を一つずらす
+			PlaySoundMem(PutPinSE, DX_PLAYTYPE_NORMAL, TRUE);
 			if (WarpPosition > 3) WarpPosition = 0; // 位置が3を超えたら、一番上にする
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) { // 色を外す処理
@@ -231,7 +249,7 @@ void HitAndBlow::RandomDecision()
 	}
 	/* 先攻・後攻をランダムに決める */
 	if (TurnFlg == TRUE) {
-		MoveFlg = /*rand() % 2*/0;
+		MoveFlg = GetRand(1);
 		TurnFlg = FALSE;
 		FirstMoveFlg = MoveFlg; // 先攻か後攻かを覚えてもらう（描画処理で必要）
 	}
@@ -244,14 +262,33 @@ void HitAndBlow::ERandomChoice()
 	srand((unsigned int)time(NULL));
 
 	for (int i = 0; i < 4; i++) {
-		//if (SaveHit[Turns - 1] + SaveBlow[Turns - 1] == 4 /*|| SaveHit[Turns - 2] + SaveBlow[Turns - 2]*/) {// ヒットとブローの合計の数が４つになったら
-		//	ChangeColor = rand() % 4;
-		//	Reasoning[i] = SaveReasoning[Turns][ChangeColor]; // 場所だけ変える
-		//	if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 順番被ってたら
-		//		i--; // iの抽選やり直す
-		//	}
-		//}
-		/*else */{
+		if (SaveHit[Turns - 1] + SaveBlow[Turns - 1] == 4) {// 前のターンでヒットとブローの合計の数が４つになったら
+			Reasoning[i] = SaveReasoning[Turns - 1][GetRand(3)]; // 場所だけ変える
+			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 順番被ってたら
+				i--; // iの抽選やり直す
+			}
+			/* 全く同じ色、順番になってないか確かめる処理 */
+			if (Turns != 0 && i == 3) {
+				CheckCovered();
+				if (CoveringFlg == TRUE) { // もし、被っていたら
+					i = -1; // 0代入すると3つしか交換しないので、インクリメントして0になる-1を代入
+				}
+			}
+		}
+		else if (SaveHit[Turns - 2] + SaveBlow[Turns - 2]) {// 前の自分のターンでヒットとブローの合計の数が４つになったら
+			Reasoning[i] = SaveReasoning[Turns - 2][GetRand(3)]; // 場所だけ変える
+			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 順番被ってたら
+				i--; // iの抽選やり直す
+			}
+			/* 全く同じ色、順番になってないか確かめる処理 */
+			if (Turns != 0 && i == 3) {
+				CheckCovered(); // 被りないか確認
+				if (CoveringFlg == TRUE) {
+					i = -1; // 0代入すると3つしか交換しないので、インクリメントして0になる-1を代入
+				}
+			}
+		}
+		else {
 			Reasoning[i] = rand() % 6;
 			/* デバック用 */
 			//if (CoveringFlg == FALSE) {
@@ -268,30 +305,11 @@ void HitAndBlow::ERandomChoice()
 				i--; // 選別をやり直す
 			}
 
-			
+			/* 全く同じ色、順番になってないか確かめる処理 */
 			if (Turns != 0 && i == 3) {	
-				for (Covering = 0; Covering < Turns; Covering++) {
-					if (Reasoning[0] == SaveReasoning[Covering][0]
-						&& Reasoning[1] == SaveReasoning[Covering][1]
-						&& Reasoning[2] == SaveReasoning[Covering][2]
-						&& Reasoning[3] == SaveReasoning[Covering][3]) { // 前入れた奴と全く同じだったら
-						/* デバック用 */
-						CoveringFlg = TRUE; // 被っていたと知らせる
-
-						i = -1; // 0代入すると3つしか交換しないので、インクリメントして0になる-1を代入
-						Reasoning[0] = -1;// 中身全部空にする
-						Reasoning[1] = -1;// 中身全部空にする
-						Reasoning[2] = -1;// 中身全部空にする
-						Reasoning[3] = -1;// 中身全部空にする
-
-						break; // 被りがあるか調べたいので、一度被ったらループを抜ける
-
-					}
-					/* デバック用 */
-					else {
-						CoveringFlg = FALSE; // 被っていないと知らせる
-					}
-					
+				CheckCovered(); // 被りないか確認
+				if (CoveringFlg == TRUE) {
+					i = -1; // 0代入すると3つしか交換しないので、インクリメントして0になる-1を代入
 				}
 			}			
 			// 1ターン目に当たるのを阻止
@@ -341,6 +359,7 @@ void HitAndBlow::Judgment()
 	}
 	SaveHit[Turns] = Hit; // そのターンのヒットした数を格納
 	SaveBlow[Turns] = Blow; // そのターンのブローした数を格納
+
 }
 
 void HitAndBlow::ResetColor() 
@@ -383,5 +402,30 @@ void HitAndBlow::ArrayInit()
 
 	for (int m = 0; m < 6; m++) {
 		Color[m] = 0;
+	}
+}
+
+void HitAndBlow::CheckCovered()
+{
+	for (Covering = 0; Covering < Turns; Covering++) {
+		if (Reasoning[0] == SaveReasoning[Covering][0]
+			&& Reasoning[1] == SaveReasoning[Covering][1]
+			&& Reasoning[2] == SaveReasoning[Covering][2]
+			&& Reasoning[3] == SaveReasoning[Covering][3]) { // 前入れた奴と全く同じだったら
+			
+			CoveringFlg = TRUE; // 被っていたと知らせる
+
+			Reasoning[0] = -1;// 中身全部空にする
+			Reasoning[1] = -1;// 中身全部空にする
+			Reasoning[2] = -1;// 中身全部空にする
+			Reasoning[3] = -1;// 中身全部空にする
+
+			break; // 被りがあるか調べたいので、一度被ったらループを抜ける
+
+		}
+		else {
+			CoveringFlg = FALSE; // 被っていないと知らせる
+		}
+
 	}
 }
