@@ -1,7 +1,7 @@
 #pragma once
 #include "AbstractScene.h"
 #include "DotAndBox.h"
-#include "DrawLine.h"
+#include "Line.h"
 
 class GameMain :public AbstractScene {
 private:

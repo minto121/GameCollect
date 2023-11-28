@@ -152,7 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DotAndBox.cpp" />
-    <ClCompile Include="DrawLine.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="main.cpp" />
@@ -164,7 +164,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="DotAndBox.h" />
-    <ClInclude Include="DrawLine.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Hanahuda_GameMain.h" />

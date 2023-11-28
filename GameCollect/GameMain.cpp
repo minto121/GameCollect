@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include "PadInput.h"
 #include "AbstractScene.h"
-#include "DrawLine.h"
+#include "Line.h"
 
 GameMain::GameMain() {
 
