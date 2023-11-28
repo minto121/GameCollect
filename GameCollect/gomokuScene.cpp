@@ -35,6 +35,9 @@ gomokuScene::gomokuScene()
 	gomoku_AI_WaitTime = 0;
 	gomoku_Result_WaitTime = 0;
 	gomoku_elapsedturn = 0;
+
+
+
 }
 
 gomokuScene::~gomokuScene()
@@ -276,6 +279,9 @@ AbstractScene* gomokuScene::Update()
 								gomoku_AI_MoveX = x;
 								gomoku_AI_MoveY = y;
 							}
+
+
+
 						}
 					}
 					gomoku_AI_think = 1;
@@ -319,13 +325,13 @@ AbstractScene* gomokuScene::Update()
 	}
 	else {
 		gomoku_Result_WaitTime++;
-		if (gomoku_Result_WaitTime > 210)
-			if (g_KeyFlg & PAD_INPUT_1) {
+		if (gomoku_Result_WaitTime > 210 && g_KeyFlg & PAD_INPUT_1 && gomoku_Battle == 1 || gomoku_Battle == 2) {
 				return new gomokuTitle();
 			}
 	}
 	return this;
 }
+
 
 void gomokuScene::Draw() const
 {
@@ -344,30 +350,30 @@ void gomokuScene::Draw() const
 	}
 	if (gomoku_Player_WaitTime > 60 && gomoku_Player_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, "自分の手番");
+		DrawFormatString(500, 300, 0xFF00FF, "自分の手番");
 	}
 	else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_Player_WaitTime > 0 && gomoku_Player_WaitTime < 90 && gomoku_Battle == 0) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, "自分の手番");
+		DrawFormatString(500, 300, 0xFF00FF, "自分の手番");
 	}
 	if (gomoku_AI_WaitTime > 60 && gomoku_AI_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, "相手の手番");
+		DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
 	}
 	else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_AI_WaitTime > 0 && gomoku_AI_WaitTime < 90 && gomoku_Battle == 0){
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, "相手の手番");
+		DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
 	}
-	if (gomoku_Battle == 0) {
+	if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn) {
 		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
 	}
 	if (gomoku_Battle == 1) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, ("WIN"));
+		DrawFormatString(500, 300, 0xFF00FF, ("WIN"));
 	}
 	else if (gomoku_Battle == 2) {
 		SetFontSize(80);
-		DrawFormatString(600, 300, 0xFF00FF, ("LOSE"));
+		DrawFormatString(500, 300, 0xFF00FF, ("LOSE"));
 	}
 	if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
 		DrawFormatString(600, 600, 0x000000, ("Aボタンでタイトルに戻る"));
