@@ -121,7 +121,7 @@ void Rabbit::Draw() const
 
 	//ÉEÉTÉMÇÃãÓ(âº)
 	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
-	DrawGraph(150 + rabbit_X, 340 + rabbit_Y, cursorImg, TRUE);
+	DrawGraph(100 + rabbit_X, 200 + rabbit_Y, cursorImg, TRUE);
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
