@@ -82,7 +82,7 @@ AbstractScene* Reversi::Update()
 	Cursor();
 	turn();
 
-	e.x.m = Cur.X / 300;
+	e.x.m = Cur.X / 600;
 	e.y.m = Cur.Y /105;
 
 	e.x.r = e.x.m + 1;
@@ -322,7 +322,7 @@ void Reversi::Draw() const
 	if (Tur == 60)
 	{
 		DrawString(0, 240, "finish",0xffffff,TRUE);
-		if (Bla >= Whi) {
+		if (Bla > Whi) {
 			DrawString(0, 260, "Black Win", 0xffffff, TRUE);
 		}
 		else
