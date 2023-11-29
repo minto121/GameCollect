@@ -3,7 +3,6 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-//#include "Hanahuda_GameMain.h"
 #include "Chekkermain.h"
 #include "SixBallPuzzle.h"
 

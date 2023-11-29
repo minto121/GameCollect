@@ -156,11 +156,11 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="SixBallPuzzle.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FpsController.h" />
-    <ClInclude Include="Hanafuda_GameMain.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
