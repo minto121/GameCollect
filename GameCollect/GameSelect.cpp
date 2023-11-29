@@ -2,7 +2,7 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
-#include "sinkeisuijaku.h"
+//#include "sinkeisuijaku.h"
 //#include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
 #include<iostream>
