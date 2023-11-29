@@ -20,16 +20,22 @@ Rabbit::Rabbit()
 	rabbit_X = 0;
 	rabbit_Y = 0;
 
-
 	//VECTOR position{};
 	//Ax = Aposition = 150; // x座標
 	//Ay = Aposition= 340; // y座標
 	//A = Aposition = 0.0f;   // z座標
 
+	//ステージ初期化
+	for (int i = 0; i < 5; i++){
+		for (int j = 0; j < 3; j++) {
+			if (i == 0 && j == 0 || i == 4 && j == 0 || i == 0 && j == 2 || i == 4 && j == 2) {
+				bord[i][j].flg = 1;
+			}
+		}
+	}
+
 	//rabbitFlg = FALSE;
 }
-
-
 
 Rabbit::~Rabbit()
 {
@@ -41,23 +47,6 @@ Rabbit::~Rabbit()
 AbstractScene* Rabbit::Update()
 {	
 	// ウサギを移動
-	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-		rabbitFlg = TRUE;
-
-			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-				rabbit_Y -= 200;
-			}
-			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-				rabbit_Y += 200;
-			}
-			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-				rabbit_X -= 250;
-			}
-			if (rabbitFlg == TRUE && PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-				rabbit_X += 250;
-			}
-	}*/
-
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		rabbit_Y -= 200;
 	}

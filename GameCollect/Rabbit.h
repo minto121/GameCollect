@@ -10,7 +10,7 @@ private:
 	int HoundImg;    //—ÂŒ¢‰æ‘œ
 	
 	struct Bord{
-		int b_flg;
+		int flg;
 	};
 	struct Bord bord[5][3];
 	
