@@ -11,8 +11,8 @@ Rabbit::Rabbit()
 	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
 	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
 
-	RabbitImg[2] = LoadGraph("images/RabbitAndHounds/Rabbit.png");
-	if (LoadDivGraph("images/RabbitAndHounds/Rabbit.png", 18, 6, 2, 2, 3, RabbitImg)) {}
+	RabbitImg[2] = LoadGraph("../images/RabbitAndHounds/Rabbit.png");
+	LoadDivGraph("../images/RabbitAndHounds/Rabbit.png", 18, 6, 2, 2, 3, RabbitImg);
 
 	// テクスチャの読み込み
 	//R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
@@ -28,18 +28,33 @@ Rabbit::Rabbit()
 	//ステージ初期化
 	for (int i = 0; i < 5; i++){
 		for (int j = 0; j < 3; j++) {
-			if (i == 0 && j == 0 || i == 4 && j == 0 || i == 0 && j == 2 || i == 4 && j == 2) {
-				bord[i][j].flg = 0;  //入れないフラグ
+			if (i == 0 && j == 0) {
+				bord[i][j].flg = 1;  //入れないフラグ
+				bord[i][j].x = 150;  //左上
+				bord[i][j].y = 100; 
+			}
+			else if (i == 4 && j == 0) {
+				bord[i][j].flg = 2;  //入れないフラグ
+				bord[i][j].x = 1100;  //右上
+				bord[i][j].y = 100;
+			}
+			else if (i == 0 && j == 2) {
+				bord[i][j].flg = 3;  //入れないフラグ
+				bord[i][j].x = 150;  //左下
+				bord[i][j].y = 570;
+			}
+			else if (i == 4 && j == 2) {
+				bord[i][j].flg = 4;  //入れないフラグ
+				bord[i][j].x = 1100;  //右下
+				bord[i][j].y = 570;
 			}
 			else {
-				bord[i][j].flg == 1; //入れるフラグ
-				bord[i][j].x = (j - 1) * 100;
-				bord[i][j].y = (i - 1) * 0;
+				bord[i][j].flg = 0; //入れるフラグ
+				bord[i][j].x = (j % 1) * 300;
+				bord[i][j].y = (i - 1) * 200;
 			}
-		}
+		}	
 	}
-
-	//rabbitFlg = FALSE;
 }
 
 Rabbit::~Rabbit()
@@ -111,21 +126,41 @@ void Rabbit::Draw() const
 	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
 
 	//ウサギの駒(仮)
-	DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, TRUE);
+	DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
 
+	/*if (bord[i][j].flg == 0) {
+		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+	}
+	else if (bord[i][j].flg == 1) {
+		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
+	}*/
+
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 3; j++) {
-			if (bord[i][j].flg == 0) {
+			if (bord[i][j].flg == 1) {
+				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+			}
+			else if (bord[i][j].flg == 2) {
+				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+			}
+			else if (bord[i][j].flg == 3) {
+				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+			}
+			else if (bord[i][j].flg == 4) {
 				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
 			}
 			else if (bord[i][j].flg == 1) {
 				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
 			}
+			else if (bord[i][j].flg == 0) {
+				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+			}
 		}
 	}
+
 }
 
 //void Rabbit::DrawBord() const
