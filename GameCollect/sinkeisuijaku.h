@@ -32,7 +32,7 @@ private:
 
 
 	void ComputerTurn();
-	void CheckMatched();
+	void Sound();
 
 	int first;
 
@@ -89,6 +89,12 @@ private:
 	int selectedCard[2][2];
 	int selectcount = 0;
 
+	int peacountflg = 0;
 	int peacount = 0;
+	//ƒTƒEƒ“ƒh
+	int BGM;
+	int S_Select;
+	int S_Pea;
+
 };
 
