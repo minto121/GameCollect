@@ -8,6 +8,7 @@
 //#include"Hanafuda_GameMain.h"
 //#include "Checkermain.h"
 #include "SixBollPuzzle.h"
+#include "RabbitAndHounds.h"
 #include "GameSelect.h"
 #include"Reversi.h"
 #include"Title.h"
@@ -41,7 +42,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new GameSelect());
+		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
 
 	}
 	catch (const char* err)

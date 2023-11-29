@@ -5,6 +5,7 @@
 #include "sinkeisuijaku.h"
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
+#include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -55,6 +56,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	{
 	case SELECT::sinnkeisuizyaku:
 			return new sinkeisuijaku();
+			break;
+	case SELECT::rabbiitdog:
+			return new RabbitAndHounds();
 			break;
 	/*case SELECT::Hanafuda:
 		return new Hanafuda();
