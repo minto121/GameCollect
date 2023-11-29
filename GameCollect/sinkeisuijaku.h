@@ -77,6 +77,8 @@ private:
 
 	//int peacount = 0;
 
+	  // 最後に選択されたカードの位置を追跡する変数を追加
+	int lastSelect = -1;
 
 	int pTime = 0;
 	int cTime = 0;
@@ -85,6 +87,8 @@ private:
 
 	int rebirth = 0;
 	int selectedCard[2][2];
+	int selectcount = 0;
+
 	int peacount = 0;
 };
 
