@@ -18,6 +18,8 @@ protected:
 	int CheckFlg;
 	int CheckCnt;
 	int ClearFlg;
+	int TurnFlg;
+	int TurnSave;
 
 	struct Tile {
 		int flg;
@@ -39,6 +41,7 @@ public:
 
 	void Check_E();
 
+	void Enemy();
 	~Hex() {};
 
 	virtual AbstractScene* Update()override;
