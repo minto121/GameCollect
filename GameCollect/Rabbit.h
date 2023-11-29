@@ -6,7 +6,7 @@ class Rabbit : public AbstractScene
 {
 private:
 	int BackGroundImg;
-
+	int cursorImg;
 	int HoundImg;    //—ÂŒ¢‰æ‘œ
 	
 	struct Bord{

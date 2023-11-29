@@ -6,6 +6,7 @@
 Rabbit::Rabbit()
 {
 	BackGroundImg = LoadGraph("images/RabbitAndHounds/RabbitAndHoundsBoard.png");
+	cursorImg = LoadGraph("images/RabbitAndHounds/cursor.png");
 
 	//3Dモデルの読込
 	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
@@ -19,11 +20,6 @@ Rabbit::Rabbit()
 
 	rabbit_X = 0;
 	rabbit_Y = 0;
-
-	//VECTOR position{};
-	//Ax = Aposition = 150; // x座標
-	//Ay = Aposition= 340; // y座標
-	//A = Aposition = 0.0f;   // z座標
 
 	//ステージ初期化
 	for (int i = 0; i < 5; i++){
@@ -68,10 +64,10 @@ AbstractScene* Rabbit::Update()
 {	
 	// ウサギを移動
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-		rabbit_Y -= 200;
+		rabbit_Y -= 230;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-		rabbit_Y += 200;
+		rabbit_Y += 230;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 		rabbit_X -= 250;
@@ -82,8 +78,6 @@ AbstractScene* Rabbit::Update()
 
 	return this;
 }
-
-
 
 void Rabbit::Draw() const
 {
@@ -126,7 +120,8 @@ void Rabbit::Draw() const
 	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
 
 	//ウサギの駒(仮)
-	DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
+	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
+	DrawGraph(150 + rabbit_X, 340 + rabbit_Y, cursorImg, TRUE);
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
@@ -138,6 +133,7 @@ void Rabbit::Draw() const
 		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
 	}*/
 
+	//ボード
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (bord[i][j].flg == 1) {
