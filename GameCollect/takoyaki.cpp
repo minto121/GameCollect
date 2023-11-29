@@ -1,4 +1,4 @@
-#include "DxLib.h"
+ï»¿#include "DxLib.h"
 #include "takoyaki.h"
 //#include "GameMain.h"
 #include "PadInput.h"
@@ -8,22 +8,22 @@
 Takoyaki::Takoyaki()
 {
 	Select=0;
-	Cards_img[56];
-	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png",56,14,4,128,256,Cards_img);	//ƒJ[ƒh‰æ‘œ“Ç‚İ‚İ
-	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");										//ƒJ[ƒ\ƒ‹‰æ‘œ“Ç‚İ‚İ
+	Cards_img[55];
+	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png",56,14,4,128,256,Cards_img);	//ã‚«ãƒ¼ãƒ‰ç”»åƒèª­ã¿è¾¼ã¿
+	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");										//ã‚«ãƒ¼ã‚½ãƒ«ç”»åƒèª­ã¿è¾¼ã¿
 	select_X = 100;
 	BackCard_Img = LoadGraph("../image/Takoyaki/card_back.png");
 	
 
-	//èD‚Ì‰Šú‰»
+	//æ‰‹æœ­ã®åˆæœŸåŒ–
 	for (int i = 0; i < 10; ++i) {
-		handCard[0][i] = 0;
+		handCard[0][i] = GetRand(8) + 1; // 1ã€œ9ã®ãƒ©ãƒ³ãƒ€ãƒ ãªå€¤ã‚’ã‚»ãƒƒãƒˆ
 		handCard[1][i] = 0;
 		cardFlipped[0][i] = false;
 		cardFlipped[1][i] = false;
 	}
 
-	//Å‰‚ÉèD‚ğ•`‰æ
+	//æœ€åˆã«æ‰‹æœ­ã‚’æç”»
 	Draw();
 	ScreenFlip();
 }
@@ -39,7 +39,7 @@ AbstractScene* Takoyaki::Update()
 		Select--;
 		select_X -= 120;
 	}
-	//\šƒL[«“ü—Í
+	//åå­—ã‚­ãƒ¼â†“å…¥åŠ›
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		Select++;
@@ -47,11 +47,22 @@ AbstractScene* Takoyaki::Update()
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 		if (select_X == 100) {
-			cardFlipped[0][Select] = !cardFlipped[0][Select]; // ƒJ[ƒh‚ğ— •Ô‚·
+			AButtonPressed = true; // Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã“ã¨ã‚’è¨˜éŒ²
+			if (select_X >= 70 && select_X < 1180) { // ã‚«ãƒ¼ãƒ‰ãŒæç”»ã•ã‚Œã¦ã„ã‚‹ç¯„å›²å†…ã‹ç¢ºèª
+				if (Select >= 0 && Select < 10) {
+					if (!cardFlipped[0][Select]) {
+						handCard[0][Select] = GetRand(8) + 1; // 1ã€œ9ã®ãƒ©ãƒ³ãƒ€ãƒ ãªå€¤ã‚’ã‚»ãƒƒãƒˆ
+						cardFlipped[0][Select] = true; // ã‚«ãƒ¼ãƒ‰ã‚’è£è¿”ã™
+					}
+				}
+			}
 		}
 	}
+	else {
+		AButtonPressed = false; // Aãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãªã„ã“ã¨ã‚’è¨˜éŒ²
+	}
 
-	//èD‚Ì•`‰æ
+	//æ‰‹æœ­ã®æç”»
 	Draw();
 	ScreenFlip();
 	return this;
@@ -62,38 +73,17 @@ void Takoyaki::Draw()const
 	ClearDrawScreen();
 
 
-	// ã‚ÌèD‚ğ•`‰æ
+	// ä¸Šã®æ‰‹æœ­ã‚’æç”»
 	for (int i = 0; i < 10; ++i) {
 		DrawGraph(70 + i * 120, 50, cardFlipped[0][i] ? Cards_img[handCard[0][i]] : BackCard_Img, TRUE);
 	}
 
-	// ‰º‚ÌèD‚ğ•`‰æ
+	// ä¸‹ã®æ‰‹æœ­ã‚’æç”»
 	for (int i = 0; i < 10; ++i) {
 		DrawGraph(70 + i * 120, 300, Cards_img[handCard[1][i]], TRUE);
 	}
 
-	////ƒJ[ƒh‰æ‘œ•`‰æ
-	//if (cardFlipped) {
-	//	DrawGraph(70, 50, Cards_img[1], TRUE);
-	//}
-	//{
-	//	
-	//	if (cardFlipped) {
-	//		DrawGraph(70, 50, Cards_img[0], TRUE);
-	//	}
-	//	else {
-	//		DrawGraph(70, 50, BackCard_Img, TRUE); // ƒJ[ƒh‚ª— •Ô‚Á‚Ä‚¢‚È‚¢ê‡‚Í— –Ê‚ğ•`‰æ
-	//	}
-	//	
-	//}
-	//DrawGraph(70, 50, Cards_img[0], TRUE);
-	//DrawGraph(190, 50, Cards_img[2], TRUE);
-	//DrawGraph(190, 50, Cards_img[3], TRUE);
-	//DrawGraph(190, 50, Cards_img[4], TRUE);
-	//DrawGraph(190, 50, Cards_img[5], TRUE);
-
-
-	//ƒJ[ƒ\ƒ‹‚Ì•`‰æ
+	//ã‚«ãƒ¼ã‚½ãƒ«ã®æç”»
 	DrawGraph(select_X, 250, CursolImg, TRUE);
 	ScreenFlip();
 
