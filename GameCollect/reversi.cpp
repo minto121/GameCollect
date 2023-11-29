@@ -67,8 +67,6 @@ Reversi::Reversi()
 	Cur.X = 310;
 	Cur.Y = 20;
 
-
-
 }
 
 Reversi::~Reversi()
@@ -84,8 +82,8 @@ AbstractScene* Reversi::Update()
 	Cursor();
 	turn();
 
-	e.x.m = Cur.X / 85;
-	e.y.m = Cur.Y / 85;
+	e.x.m = Cur.X / 300;
+	e.y.m = Cur.Y /105;
 
 	e.x.r = e.x.m + 1;
 	e.x.l = e.x.m - 1;
@@ -112,7 +110,6 @@ AbstractScene* Reversi::Update()
 			same = 1;
 			diff = 2;
 		}
-
 
 		//右に石が置かれているかの確認
 		for (x = e.x.r; x < 8; x = x + 1)
@@ -152,7 +149,7 @@ AbstractScene* Reversi::Update()
 			if (Sto.Typ[e.x.m][y] == 0)break;
 			else if (Sto.Typ[e.x.m][y] == same)
 			{
-				for (x = e.y.d; y < e.y.d + cou; y = y + 1)
+				for (y = e.y.d; y < e.y.d + cou; y = y + 1)
 				{
 					Sto.Typ[e.x.m][y] = same;
 				}break;
@@ -168,7 +165,7 @@ AbstractScene* Reversi::Update()
 			if (Sto.Typ[e.x.m][y] == 0)break;
 			else if (Sto.Typ[e.x.m][y] == same)
 			{
-				for ( x = e.y.u; y > e.y.u - cou; y = y - 1)
+				for (y = e.y.u; y > e.y.u - cou; y = y - 1)
 				{
 					Sto.Typ[e.x.m][y] = same;
 				}break;
@@ -221,7 +218,6 @@ AbstractScene* Reversi::Update()
 		cou = 0;
 
 		//左上に石が置かれているかの確認
-
 		for (x = e.x.l, y = e.y.u;
 			x > 0, y > 0;
 			x = x - 1, y = y - 1)
@@ -310,7 +306,7 @@ void Reversi::Draw() const
 
 	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
 
-	DrawFormatString(0, 220, GetColor(255, 255, 255), "No.Blaca.White (%d,%d,%d)", cou_n, cou_b, cou_w);
+	DrawFormatString(0, 220, GetColor(255, 255, 255), "No,Black,White (%d,%d,%d)", cou_n, cou_b, cou_w);
 	
 	if (Tur % 2 == 0)
 	{
@@ -323,6 +319,17 @@ void Reversi::Draw() const
 	}
 
 
+	if (Tur == 60)
+	{
+		DrawString(0, 240, "finish",0xffffff,TRUE);
+		if (Bla >= Whi) {
+			DrawString(0, 260, "Black Win", 0xffffff, TRUE);
+		}
+		else
+		{
+			DrawString(0, 260, "White Win", 0xffffff, TRUE);
+		}
+	}
 
 }
 
