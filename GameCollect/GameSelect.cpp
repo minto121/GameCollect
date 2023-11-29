@@ -2,7 +2,9 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
+#include "sinkeisuijaku.h"
 //#include"Hanafuda_GameMain.h"
+#include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -18,7 +20,6 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-	
 // 操作間隔時間
 const int max_input_margin = 15;
 // スティックの感度
@@ -46,15 +47,21 @@ else {
 		input_margin = 0;
 	}
 }
-if (/*PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && */(PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
+if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 {
 	input_margin = 0;
 	SELECT current_selection = static_cast<SELECT>(now_menu);
 	switch (current_selection)
 	{
-	case SELECT::Hanafuda:
-		/*return new Hanafuda();*/
-		break;
+	case SELECT::sinnkeisuizyaku:
+			return new sinkeisuijaku();
+			break;
+	case SELECT::rabbiitdog:
+			return new RabbitAndHounds();
+			break;
+	/*case SELECT::Hanafuda:
+		return new Hanafuda();
+		break;*/
 	/*case LEVEL::NORMAL:
 	{
 		return new GameMain(current_selection);
