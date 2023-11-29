@@ -16,7 +16,7 @@ private:
 	int WP2;
 	int WP3;
 	int WP4;
-	int WP_FLG[5];
+	int WP_FLG[20];
 	int YP[20];
 	int YP2[20];
 	int YE[4];
@@ -62,13 +62,17 @@ private:
 	int C_CARD_S[5];//場に出ているカード1~5の商格納用
 	int C_CARD_A[5];//場に出ているカード1~5の余り格納用
 	
+	int P_SORT[7];
 	
 	int P_PEA_FLG[4];//プレイヤーの1ペアのフラグ
 	int P_2PEA_FLG;//プレイヤーの2ペアのフラグ
 	int P_3CARD_FLG;//プレイヤーのスリーカードのフラグ
 	int P_FH_FLG;
+	int P_FLASH_FLG;
+	int P_STRAIGHT_FLG;
 	int P_4CARD_FLG;
-	int P_5CARD_FLG;
+	int P_SF_FLG;
+	int P_RSF_FLG;
 
 public:
 	Porker();
@@ -87,6 +91,8 @@ public:
 
 	void CARD_SETTING();//カードの呼び出し用関数
 
+	void CARD_SETTING2();//カードの呼び出し用関数
+
 	void PLAYER_CALL();//プレイヤーのコール用関数
 
 	void PLAYER_RAISE();//プレイヤーのレイズ用関数
@@ -99,7 +105,11 @@ public:
 
 	void P_CARD_3_CARD();//3カードのための関数
 
+	void P_CARD_4_CARD();//3カードのための関数
+
 	void P_CARD_FLASH();//フラッシュのための関数
+
+	void P_CARD_STRAIGHT();//ストレートのための関数
 
 	void P_YAKU();
 };
