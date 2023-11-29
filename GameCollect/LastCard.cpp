@@ -4,11 +4,11 @@
 
 LastCard::LastCard()
 {
-	Card;
+    Card;
 
-	CardImg;
+    CardImg;
 
-	LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
+    LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
 
     InitPlayerHands();
 
@@ -16,6 +16,7 @@ LastCard::LastCard()
     startY;
     cardHeight;
     cardWidth;
+    cardGap;
 }
 
 LastCard::~LastCard()
@@ -35,21 +36,26 @@ void LastCard::Draw() const
 {
 	DrawGraph(35, 49, CardImg[2], FALSE);
 
+
     for (size_t i = 0; i < playerHands.size(); ++i) {
-        int posX = startX + i * 200; // プレイヤーごとのX座標
+        int posX = startX + i * 250; // プレイヤーごとのX座標
         int posY = startY;
 
-        // 手札のカードを描画する
         for (size_t j = 0; j < playerHands[i].size(); ++j) {
-            int cardID = playerHands[i][j]; // カードのID（例: 赤の2）
-            int cardImg = CardImg[cardID]; // カードの画像
+            int cardID = playerHands[i][j]; // カードのID
 
-            // カードを描画する
-            DrawGraph(posX, posY, cardImg, TRUE);
-            DrawFormatString(35, 49 + 30 * i, 0xfff, "%d", cardID, TRUE);
+            // カードが存在する場合のみ描画する
+            if (cardID >= 0 && cardID < 65) {
+                int column = cardID % 13; // カード画像の列
+                int row = cardID / 13; // カード画像の行
+                int cardImg = CardImg[row * 13 + column]; // カードの画像
 
-            // 次のカードの描画位置を調整する
-            posY += cardHeight + 10; // 10はカード間の間隔
+                // カードを描画する
+                DrawGraph(posX, posY, cardImg, TRUE);
+
+                // 次のカードの描画位置を調整する
+                posY += cardHeight + cardGap;
+            }
         }
     }
 
@@ -60,14 +66,19 @@ void LastCard::InitPlayerHands()
     // 既存の手札をクリア
     playerHands.clear();
 
-    // カードを配布する前にデッキをシャッフル
     std::vector<int> deck;
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 13; ++j) {
-            deck.push_back(Card[i][j]);
+    const int NUM_COLORS = 4;
+    const int CARDS_PER_COLOR = 13;
+
+    // デッキに一意なIDを持つカードを追加する
+    for (int color = 0; color < NUM_COLORS; ++color) {
+        for (int value = 0; value < CARDS_PER_COLOR; ++value) {
+            int cardID = color * CARDS_PER_COLOR + value; // カードの一意なID
+            deck.push_back(cardID);
         }
     }
 
+    // デッキをシャッフルする
     std::shuffle(deck.begin(), deck.end(), std::default_random_engine(std::random_device()()));
 
     // 4人のプレイヤーを想定
@@ -76,9 +87,14 @@ void LastCard::InitPlayerHands()
     // 各プレイヤーの手札を初期化
     playerHands.resize(numPlayers);
 
+    const int cardsPerPlayer = 5; // 各プレイヤーに配るカードの数
+
     // カードをプレイヤーに配布
-    for (int i = 0; i < deck.size(); ++i) {
-        playerHands[i % numPlayers].push_back(deck[i]);
+    for (int i = 0; i < numPlayers * cardsPerPlayer; ++i) {
+        int playerIndex = i % numPlayers;
+        if (playerHands[playerIndex].size() < cardsPerPlayer) {
+            playerHands[playerIndex].push_back(deck[i]);
+        }
     }
 }
 
