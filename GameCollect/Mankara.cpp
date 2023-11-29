@@ -53,11 +53,7 @@ Mankara::Mankara()
 }
 
  AbstractScene* Mankara:: Update()
-{
-
-
-
-	
+{	
 	 // 相手のターンはプレイヤーは動かない
 	 if (P2Turn == 1) {
 		 P1Turn = 0;
@@ -275,7 +271,7 @@ void Mankara::Draw()const
 
 	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 6; i++) {
-		if (PlayerPocket >= 0) {
+		if (PlayerPocket == 0) {
 
 		}
 		else {
@@ -285,7 +281,7 @@ void Mankara::Draw()const
 	}
 	// 石（ポケット２）の初期配置
 	for (int i = 0; i < 6; i++) {
-		if (PlayerPocket >= 0) {
+		if (PlayerPocket == 1) {
 
 		}
 		else {
@@ -294,7 +290,7 @@ void Mankara::Draw()const
 	}
 	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 6; i++) {
-		if (PlayerPocket >= 0) {
+		if (PlayerPocket == 2) {
 
 		}
 		else {
@@ -303,7 +299,7 @@ void Mankara::Draw()const
 	}
 	// 石（ポケット４）の初期配置
 	for (int i = 0; i < 6; i++) {
-		if (PlayerPocket >= 0) {
+		if (PlayerPocket == 3) {
 
 		}
 		else {
@@ -320,25 +316,25 @@ void Mankara::Draw()const
 
 	}
 
-	// 2P石の初期配置
+	//// 2P石の初期配置
 
-	DrawGraph(300 + 125 * 4, 190, gStone[0][6].img, TRUE);
-	DrawGraph(300 + 125 * 5, 190, gStone[0][7].img, TRUE);
+	//DrawGraph(300 + 125 * 4, 190, gStone[0][6].img, TRUE);
+	//DrawGraph(300 + 125 * 5, 190, gStone[0][7].img, TRUE);
 
-	DrawGraph(300 + 125 * 2, 190, gStone[1][6].img, TRUE);
-	DrawGraph(300 + 125 * 3, 190, gStone[1][7].img, TRUE);
+	//DrawGraph(300 + 125 * 2, 190, gStone[1][6].img, TRUE);
+	//DrawGraph(300 + 125 * 3, 190, gStone[1][7].img, TRUE);
 
-	DrawGraph(300 + 125 * 2, 160, gStone[2][6].img, TRUE);
-	DrawGraph(300 + 125 * 3, 160, gStone[2][7].img, TRUE);
+	//DrawGraph(300 + 125 * 2, 160, gStone[2][6].img, TRUE);
+	//DrawGraph(300 + 125 * 3, 160, gStone[2][7].img, TRUE);
 
-	DrawGraph(300, 190, gStone[3][6].img, TRUE);
-	DrawGraph(300 + 125, 190, gStone[3][7].img, TRUE);
+	//DrawGraph(300, 190, gStone[3][6].img, TRUE);
+	//DrawGraph(300 + 125, 190, gStone[3][7].img, TRUE);
 
-	DrawGraph(300, 160, gStone[4][6].img, TRUE);
-	DrawGraph(300 + 125, 160, gStone[4][7].img, TRUE);
+	//DrawGraph(300, 160, gStone[4][6].img, TRUE);
+	//DrawGraph(300 + 125, 160, gStone[4][7].img, TRUE);
 
-	DrawGraph(300 + 125 * 4, 160, gStone[5][6].img, TRUE);
-	DrawGraph(300 + 125 * 5, 160, gStone[5][7].img, TRUE);
+	//DrawGraph(300 + 125 * 4, 160, gStone[5][6].img, TRUE);
+	//DrawGraph(300 + 125 * 5, 160, gStone[5][7].img, TRUE);
 
 	//------------- ここまで-----------------
 
@@ -492,7 +488,7 @@ void Mankara::Draw()const
 
 void Mankara::MoveStone()
 {
-
+	// 画像移動用
 	if (PlayerPocket >= 0) {
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 
@@ -516,6 +512,7 @@ void Mankara::MoveStone()
 		}
 	}
 
+	//　画像移動時の数的処理
 	if (P1Turn == TRUE) {
 
 		// ポケットを選択
