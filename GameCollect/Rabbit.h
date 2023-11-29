@@ -10,9 +10,15 @@ private:
 	int HoundImg;    //猟犬画像
 	
 	struct Bord{
+		int x, y;
 		int flg;
 	};
-	struct Bord bord[5][3];
+	struct Bord bord[5][3] = 
+	{
+		{1,2,3,4,5},
+		{6,7,8,9,10},
+		{11,12,13,14,15}
+	};
 	
 
 	int RabbitImg[2];   //ウサギ画像
@@ -35,6 +41,8 @@ private:
 public:
 	Rabbit();
 	~Rabbit();
+
+	void DrawBord() const;
 
 	//描画以外の更新を実行
 	AbstractScene* Update() override;

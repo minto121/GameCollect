@@ -29,7 +29,12 @@ Rabbit::Rabbit()
 	for (int i = 0; i < 5; i++){
 		for (int j = 0; j < 3; j++) {
 			if (i == 0 && j == 0 || i == 4 && j == 0 || i == 0 && j == 2 || i == 4 && j == 2) {
-				bord[i][j].flg = 1;
+				bord[i][j].flg = 0;  //入れないフラグ
+			}
+			else {
+				bord[i][j].flg == 1; //入れるフラグ
+				bord[i][j].x = (j - 1) * 100;
+				bord[i][j].y = (i - 1) * 0;
 			}
 		}
 	}
@@ -62,6 +67,8 @@ AbstractScene* Rabbit::Update()
 
 	return this;
 }
+
+
 
 void Rabbit::Draw() const
 {
@@ -108,4 +115,29 @@ void Rabbit::Draw() const
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
+
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (bord[i][j].flg == 0) {
+				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+			}
+			else if (bord[i][j].flg == 1) {
+				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
+			}
+		}
+	}
 }
+
+//void Rabbit::DrawBord() const
+//{
+//	for (int i = 0; i < 5; i++) {
+//		for (int j = 0; j < 3; j++) {
+//			if (bord[i][j].flg == 1) {
+//				DrawBox(100, 100, 200, 200, 0xffffff, TRUE);
+//			}
+//			else if (bord[i][j].flg != 1) {
+//				DrawBox(10, 10, 20, 20, 0x000000, TRUE);
+//			}
+//		}
+//	}
+//}
