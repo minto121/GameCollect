@@ -4,9 +4,6 @@
 class Mankara :public AbstractScene
 {
 private:
-
-	
-
 	int Board; // ƒQ[ƒ€ƒ{[ƒh‚Ì‰æ‘œ
 	int Background; // ”wŒi‰æ‘œ
 

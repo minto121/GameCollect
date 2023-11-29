@@ -20,7 +20,7 @@ Mankara::Mankara()
 	InitialStone = 4;
 	Stone_cnt = 1;
 	movePocket = 0;
-
+	// ぴったりゴール用変数
 	JustGoal = 0;
 
 	for (int y = 0; y < 6; y++) {
@@ -270,7 +270,7 @@ void Mankara::Draw()const
 	// -----------ここから石の初期配置--------------
 
 	// 石（ポケット１）の初期配置
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 0) {
 
 		}
@@ -280,7 +280,7 @@ void Mankara::Draw()const
 
 	}
 	// 石（ポケット２）の初期配置
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 1) {
 
 		}
@@ -289,7 +289,7 @@ void Mankara::Draw()const
 		}
 	}
 	// 石（ポケット３）の初期配置
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 2) {
 
 		}
@@ -298,7 +298,7 @@ void Mankara::Draw()const
 		}
 	}
 	// 石（ポケット４）の初期配置
-	for (int i = 0; i < 6; i++) {
+	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 3) {
 
 		}
@@ -307,12 +307,22 @@ void Mankara::Draw()const
 		}
 	}
 	// 石（ポケット５）の初期配置
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 100, gStone[4][i].img, TRUE);
+	for (int i = 0; i < 4; i++) {
+		if (PlayerPocket == 4) {
+
+		}
+		else {
+			DrawGraph(300 + i * 125, 100, gStone[4][i].img, TRUE);
+		}
 	}
 	// 石（ポケット６）の初期配置
-	for (int i = 0; i < 6; i++) {
-		DrawGraph(300 + i * 125, 130, gStone[5][i].img, TRUE);
+	for (int i = 0; i < 4; i++) {
+		if (PlayerPocket == 5) {
+
+		}
+		else {
+			DrawGraph(300 + i * 125, 130, gStone[5][i].img, TRUE);
+		}
 
 	}
 
@@ -377,7 +387,6 @@ void Mankara::Draw()const
 			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
 		}
 	}
-
 
 
     // 1Pターン時の ポケット移動
