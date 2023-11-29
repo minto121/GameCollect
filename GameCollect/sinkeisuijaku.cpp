@@ -173,6 +173,7 @@ AbstractScene* sinkeisuijaku::Update()
                         }
                     }
 
+
                     // カードが裏の状態であれば、表にする
                     if (trumpflg == 1) {
                         trumps[S_ber][S2_ber].flg = 1;
@@ -236,6 +237,7 @@ AbstractScene* sinkeisuijaku::Update()
                                 if (trumps[j][i].flg2 + 10 == trumps[k][l].flg2 || trumps[j][i].flg2 - 10 == trumps[k][l].flg2) {
                                     trumps[j][i].visible = 1;
                                     pea = 1;
+                                    peacount = peacount + 1;
                                }
                             }
                         }
@@ -284,8 +286,6 @@ void sinkeisuijaku::Draw() const
 {
     SetFontSize(50);
     DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
-
-    DrawFormatString(100, 120, 0x00ffff, "visible %d", trumps[S_ber][S2_ber].flg2);
 
   
     if (pea == 1) {
@@ -366,7 +366,7 @@ void sinkeisuijaku::ComputerTurn()
             do {
                 randRow2 = rand() % 4;
                 randCol2 = rand() % 5;
-            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1 || trumps[randRow][randCol].visible == 2);  // 2枚目が1枚目と異なる座標になるように
+            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1 || trumps[randRow][randCol].visible == 2 || trumps[randRow][randCol].visible == 1 || trumps[randRow2][randCol2].visible == 1);  // 2枚目が1枚目と異なる座標になるように
 
 
 
@@ -375,13 +375,15 @@ void sinkeisuijaku::ComputerTurn()
             trumps[randRow2][randCol2].flg = 1;
             rebirth = rebirth + 1;
 
-            if (trumps[randRow][randCol].syurui + 10 == trumps[randRow2][randCol2].syurui || trumps[randRow][randCol].syurui == trumps[randRow2][randCol2].syurui - 10) {
+            if (trumps[randRow][randCol].syurui + 10 == trumps[randRow2][randCol2].syurui || trumps[randRow][randCol].syurui - 10 == trumps[randRow2][randCol2].syurui) {
                 trumps[randRow][randCol].visible = 2;
                 trumps[randRow2][randCol2].visible = 2;
+                peacount = peacount + 1;
 
             }
 
         }
+
 
         //とりあえずカードを裏面に戻す
 

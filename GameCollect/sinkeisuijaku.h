@@ -75,7 +75,8 @@ private:
 
 	int testcount = 0;
 
-	int peacount = 0;
+	//int peacount = 0;
+
 
 	int pTime = 0;
 	int cTime = 0;
@@ -84,5 +85,6 @@ private:
 
 	int rebirth = 0;
 	int selectedCard[2][2];
+	int peacount = 0;
 };
 
