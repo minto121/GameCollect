@@ -13,7 +13,8 @@ Rabbit::Rabbit()
 	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
 
 	RabbitImg[2] = LoadGraph("../images/RabbitAndHounds/Rabbit.png");
-	LoadDivGraph("../images/RabbitAndHounds/Rabbit.png", 18, 6, 2, 2, 3, RabbitImg);
+	if (LoadDivGraph("images/RabbitAndHounds/Rabbit.png", 2, 2, 1, 32, 64, RabbitImg));
+	RabbitImg[2] = rabbitimg;
 
 	// テクスチャの読み込み
 	//R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
@@ -76,6 +77,18 @@ AbstractScene* Rabbit::Update()
 		rabbit_X += 250;
 	}
 
+	switch (bord[5][3].flg)
+	{
+		case 0:
+			if (bord[5][3].flg = 0)
+			{
+
+			};
+
+		default:
+			break;
+	}
+
 	return this;
 }
 
@@ -124,6 +137,7 @@ void Rabbit::Draw() const
 
 	//ウサギの駒(仮)
 	DrawBox(150 /*+ rabbit_X*/, 340 /*+ rabbit_Y*/, 200 /*+ rabbit_X*/, 390 /*+ rabbit_Y*/, 0xff0000, RabbitImg[2]);
+	DrawGraph(100, 250, rabbitimg, TRUE);
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);

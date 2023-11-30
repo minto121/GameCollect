@@ -8,6 +8,8 @@ private:
 	int BackGroundImg;
 	int cursorImg;
 	int HoundImg;    //—ÂŒ¢‰æ‘œ
+
+	int rabbitimg;
 	
 	struct Bord{
 		int x, y;
