@@ -1,6 +1,7 @@
 #include "gomokuScene.h"
 #include"DxLib.h"
 #include <stdio.h>
+#include<time.h>
 
 gomokuScene::gomokuScene()
 {
@@ -35,7 +36,7 @@ gomokuScene::gomokuScene()
 	gomoku_AI_WaitTime = 0;
 	gomoku_Result_WaitTime = 0;
 	gomoku_elapsedturn = 0;
-
+	gomoku_Cursordisplaytime = 0;
 
 
 }
@@ -53,6 +54,7 @@ AbstractScene* gomokuScene::Update()
 
 		// 初手は盤面の真ん中にしか置くことができない
 		if (Key_Count <= 1 && gomoku_TurnSetFlg != 1) {
+			srand((unsigned int)time(NULL));
 			gomoku_Turn = (rand() % 2); // 0または1を生成
 			gomoku_PlayerTurn = gomoku_Turn;
 			gomoku_Pfs = gomoku_PlayerTurn + 1;
@@ -75,6 +77,13 @@ AbstractScene* gomokuScene::Update()
 		}
 		else {
 			gomoku_Player_WaitTime = 0;
+		}
+		// プレイヤーのターン中に、カーソルを点滅させる処理
+		if (gomoku_Phase == gomoku_PlayerTurn) {
+			gomoku_Cursordisplaytime++;
+			if (gomoku_Cursordisplaytime > 60) {
+				gomoku_Cursordisplaytime = 0;
+			}
 		}
 		// カーソルを動かす処理
 		if (gomoku_Phase == gomoku_PlayerTurn && gomoku_Player_WaitTime > 180) {
@@ -325,7 +334,7 @@ AbstractScene* gomokuScene::Update()
 	}
 	else {
 		gomoku_Result_WaitTime++;
-		if (gomoku_Result_WaitTime > 210 && g_KeyFlg & PAD_INPUT_1 && gomoku_Battle == 1 || gomoku_Battle == 2) {
+		if (gomoku_Result_WaitTime > 210 && g_KeyFlg & PAD_INPUT_9 && gomoku_Battle != 0) {
 				return new gomokuTitle();
 			}
 	}
@@ -336,7 +345,7 @@ AbstractScene* gomokuScene::Update()
 void gomokuScene::Draw() const
 {
 	DrawGraph(0, 0, gomoku_BackImg, FALSE);
-	DrawFormatString(10, 10,0xffffff, "%d", gomoku_Result_WaitTime);
+	DrawFormatString(10, 10,0xffffff, "%d", gomoku_Turn);
 	DrawGraph(180, 0, TitleImg, TRUE);
 	for (int y = 0; y < 13; y++) {
 		for (int x = 0; x < 13; x++) {
@@ -364,8 +373,11 @@ void gomokuScene::Draw() const
 		SetFontSize(80);
 		DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
 	}
-	if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn) {
+	if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime < 30) {
 		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
+	}
+	else if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime > 29) {
+		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xff0000, FALSE);
 	}
 	if (gomoku_Battle == 1) {
 		SetFontSize(80);
@@ -376,16 +388,7 @@ void gomokuScene::Draw() const
 		DrawFormatString(500, 300, 0xFF00FF, ("LOSE"));
 	}
 	if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
-		DrawFormatString(600, 600, 0x000000, ("Aボタンでタイトルに戻る"));
+		DrawFormatString(0, 600, 0x000000, ("STARTボタンでタイトルに戻る"));
 	}
 	
 }
-// プレイヤーターン
-//void gomokuScene::gomoku_Player_Turn()
-//{
-//}
-//// AI処理用関数
-//void gomokuScene::gomoku_AI_Turn()
-//{
-//	
-//}
