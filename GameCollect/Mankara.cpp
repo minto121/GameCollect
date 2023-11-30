@@ -272,10 +272,12 @@ void Mankara::Draw()const
 	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 0) {
-
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(300 + i * 125, 450 * i * 20, gStone[i][0].img, TRUE);
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 450, gStone[0][i].img, TRUE);
+			DrawGraph(300, 450 + i * 100, gStone[i][0].img, TRUE);
 		}
 
 	}
@@ -285,7 +287,7 @@ void Mankara::Draw()const
 
 		}
 		else {
-			DrawGraph(300 + i * 125, 470, gStone[1][i].img, TRUE);
+			DrawGraph(300 + 125, 450 + i * 100, gStone[i][1].img, TRUE);
 		}
 	}
 	// 石（ポケット３）の初期配置
@@ -294,7 +296,7 @@ void Mankara::Draw()const
 
 		}
 		else {
-			DrawGraph(300 + i * 125, 490, gStone[2][i].img, TRUE);
+			DrawGraph(300 + 125 * 2, 450 + i * 100, gStone[i][2].img, TRUE);
 		}
 	}
 	// 石（ポケット４）の初期配置
@@ -303,7 +305,7 @@ void Mankara::Draw()const
 
 		}
 		else {
-			DrawGraph(300 + i * 125, 510, gStone[3][i].img, TRUE);
+			DrawGraph(300 + 125 * 3, 450 + i * 100, gStone[i][3].img, TRUE);
 		}
 	}
 	// 石（ポケット５）の初期配置
@@ -312,7 +314,7 @@ void Mankara::Draw()const
 
 		}
 		else {
-			DrawGraph(300 + i * 125, 100, gStone[4][i].img, TRUE);
+			DrawGraph(300 + 125 * 4, 450 + i * 100, gStone[i][4].img, TRUE);
 		}
 	}
 	// 石（ポケット６）の初期配置
@@ -321,7 +323,7 @@ void Mankara::Draw()const
 
 		}
 		else {
-			DrawGraph(300 + i * 125, 130, gStone[5][i].img, TRUE);
+			DrawGraph(300 + 125 * 5, 450 + i * 100, gStone[i][5].img, TRUE);
 		}
 
 	}
