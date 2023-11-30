@@ -118,10 +118,13 @@ void Rabbit::Draw() const
 	DrawBox(890, 140, 960, 210, 0x0000ff, TRUE);     //上
 	DrawBox(1100, 350, 1150, 400, 0x0000ff, TRUE);   //真ん中
 	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
+	
+	//カーソル
+	DrawGraph(rabbit_X, 200 + rabbit_Y, cursorImg, TRUE);
 
 	//ウサギの駒(仮)
 	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
-	DrawGraph(100 + rabbit_X, 200 + rabbit_Y, cursorImg, TRUE);
+	
 	//DrawBox(A + rabbit_X, A + rabbit_Y, (A + 50) + rabbit_X, (A + 50) + rabbit_Y, 0xff0000, TRUE);
 
 	//DrawGraph(150 + rabbit_X, 340 + rabbit_Y, 0xff0000, RabbitImg[2]);
