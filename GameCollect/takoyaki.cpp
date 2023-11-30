@@ -7,21 +7,29 @@
 
 Takoyaki::Takoyaki()
 {
-	Select=0;
-	Cards_img[55];
-	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png",56,14,4,128,256,Cards_img);	//カード画像読み込み
+	Select = 0;
+	Cards_img[56];
+
+	// カード画像の初期化
+	for (int i = 0; i < 56; ++i) {
+		Cards_img[i] = -1;  // デフォルト値で初期化
+	}
+
+	// カード画像の初期化
+	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png", 56, 14, 4, 128, 256, Cards_img);  // カード画像読み込み
 	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");										//カーソル画像読み込み
 	select_X = 100;
-	BackCard_Img = LoadGraph("../image/Takoyaki/card_back.png");
-	
+	BackCard_Img = Cards_img[0];
 
+	AButtonPressed = false;
 	//手札の初期化
 	for (int i = 0; i < 10; ++i) {
-		handCard[0][i] = GetRand(8) + 1; // 1〜9のランダムな値をセット
+		handCard[0][i] = 0;
 		handCard[1][i] = 0;
 		cardFlipped[0][i] = false;
 		cardFlipped[1][i] = false;
 	}
+
 
 	//最初に手札を描画
 	Draw();
@@ -72,15 +80,16 @@ void Takoyaki::Draw()const
 {
 	ClearDrawScreen();
 
-
-	// 上の手札を描画
+	// カード画像描画
 	for (int i = 0; i < 10; ++i) {
-		DrawGraph(70 + i * 120, 50, cardFlipped[0][i] ? Cards_img[handCard[0][i]] : BackCard_Img, TRUE);
-	}
-
-	// 下の手札を描画
-	for (int i = 0; i < 10; ++i) {
-		DrawGraph(70 + i * 120, 300, Cards_img[handCard[1][i]], TRUE);
+		int cardIndex = handCard[0][i];
+		if (cardIndex >= 0 && cardIndex < 56) {
+			DrawGraph(70 + i * 120, 50, cardFlipped[0][i] ? Cards_img[cardIndex] : BackCard_Img, TRUE);
+		}
+		else {
+			// カードが無効な場合、バックカードを描画
+			DrawGraph(70 + i * 120, 50, BackCard_Img, TRUE);
+		}
 	}
 
 	//カーソルの描画
@@ -89,9 +98,3 @@ void Takoyaki::Draw()const
 
 	//DrawGraph(650, select_y, CursorImg, TRUE);
 }
-
-
-
-
-
-
