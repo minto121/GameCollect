@@ -159,6 +159,7 @@
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
+    <ClCompile Include="reversi.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />
+    <ClInclude Include="reversi.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />

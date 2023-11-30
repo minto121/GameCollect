@@ -12,10 +12,9 @@
     <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Mankara.cpp" />
-    <ClCompile Include="sinkeisuijaku.cpp" />
-    <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="reversi.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
@@ -29,9 +28,11 @@
     <ClInclude Include="takoyaki.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Mankara.h" />
-    <ClInclude Include="sinkeisuijaku.h" />
-    <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
+    <ClInclude Include="reversi.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Log.txt" />
   </ItemGroup>
 </Project>
