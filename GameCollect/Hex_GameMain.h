@@ -16,8 +16,11 @@ protected:
 	int Select_i;
 	int Select_j;
 	int CheckFlg;
-	int CheckCnt;
+	int P_CheckCnt;
+	int P_CheckFlg;
 	int ClearFlg;
+	int E_CheckCnt;
+	int E_CheckFlg;
 	int TurnFlg;
 	int TurnSave;
 
