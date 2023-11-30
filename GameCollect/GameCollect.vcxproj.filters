@@ -1,72 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PadInput.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FpsController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
+    <ClCompile Include="Checkermain.cpp" />
+    <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="Hit&amp;Blow.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Porker.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="GameSelect.cpp" />
+    <ClCompile Include="takoyaki.cpp" />
+    <ClCompile Include="Title.cpp" />
+    <ClCompile Include="Mankara.cpp" />
+    <ClCompile Include="RabbitAndHounds.cpp" />
+    <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="sinkeisuijaku.cpp" />
     <ClCompile Include="gomoku.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="gomokuScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="gomoku_AI.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="gomoku_TitleScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PadInput.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FpsController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="gomoku_AI.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="gomokuScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="gomoku.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="gomoku_TitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
+    <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="Checkermain.h" />
+    <ClInclude Include="FpsController.h" />
+    <ClInclude Include="Hit&amp;Blow.h" />
+    <ClInclude Include="Porker.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="PadInput.h" />
+    <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="takoyaki.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="Mankara.h" />
+    <ClInclude Include="RabbitAndHounds.h" />
+    <ClInclude Include="Rabbit.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Log.txt" />
   </ItemGroup>
 </Project>
