@@ -54,7 +54,7 @@ AbstractScene* Takoyaki::Update()
 		select_X += 120;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-		if (select_X == 100) {
+		if (select_X == select_X) {
 			AButtonPressed = true; // Aボタンが押されたことを記録
 			if (select_X >= 70 && select_X < 1180) { // カードが描画されている範囲内か確認
 				if (Select >= 0 && Select < 10) {
