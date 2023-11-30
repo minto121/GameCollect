@@ -2,16 +2,12 @@
 #include<DxLib.h>
 #include "PadInput.h"
 
-#define WALL 0;
-#define WHITE 1;
-#define BLACK 2;
-
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
 #define SCREEN_WIDTH 1280	//画面サイズ (横)
 
-//盤面
-#define BOARD_IMG_SIZE 640
+#define BOARD_SIZE 8
 
+#define CELL_SIZE = SCREEN_WIDTH / BOARD_SIZE;
 
 Reversi::Reversi()
 {
@@ -64,8 +60,6 @@ Reversi::Reversi()
 	Sto.X[4][3] = 640;
 	Sto.Y[4][3] = 279;
 
-	Cur.X = 310;
-	Cur.Y = 20;
 
 }
 
@@ -82,8 +76,8 @@ AbstractScene* Reversi::Update()
 	Cursor();
 	turn();
 
-	e.x.m = Cur.X / 600;
-	e.y.m = Cur.Y /105;
+	e.x.m = Cur.X / 100 - 2;
+	e.y.m = Cur.Y / 100;
 
 	e.x.r = e.x.m + 1;
 	e.x.l = e.x.m - 1;
@@ -266,11 +260,14 @@ void Reversi::Draw() const
 {
 
 	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
-	for (int y = 0; y < 8; y = y + 1)
+	for (int y = 0; y < BOARD_SIZE; y = y + 1)
 	{
-		for (int x = 0; x < 8; x = x + 1)
+		for (int x = 0; x < BOARD_SIZE; x = x + 1)
 		{
 			DrawGraph(x * 85 + 310, y * 85 + 20, Bac, TRUE);
+
+			x += (SCREEN_WIDTH - BOARD_SIZE * CELL_SIZE) / 2;
+			y += (SCREEN_HEIGHT - BOARD_SIZE * CELL_SIZE) / 2;
 		}
 	}
 
@@ -303,6 +300,8 @@ void Reversi::Draw() const
 	DrawFormatString(0, 140, GetColor(255, 255, 255), "Tur,%d", Tur);
 	DrawFormatString(0, 180, GetColor(255, 255, 255), "Sto.X,%d", Sto.X);
 	DrawFormatString(0, 200, GetColor(255, 255, 255), "Sto.Typ,%d", Sto.Typ);
+	DrawFormatString(0, 250, GetColor(255, 255, 255), "e.x.m,%d",e.x.m);
+	DrawFormatString(0, 270, GetColor(255, 255, 255), "e.y.m,%d",e.y.m);
 
 	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
 
