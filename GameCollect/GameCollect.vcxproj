@@ -179,7 +179,6 @@
     <ClInclude Include="gomoku_AI.h" />
     <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="PadInput.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="Porker.h" />
