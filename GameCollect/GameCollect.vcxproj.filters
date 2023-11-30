@@ -25,6 +25,8 @@
     <ClInclude Include="gomokuScene.h"/>
     <ClInclude Include="gomoku.h"/>
     <ClInclude Include="gomoku_TitleScene.h"/>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
