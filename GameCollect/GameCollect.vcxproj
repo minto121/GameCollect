@@ -162,6 +162,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
+    <ClCompile Include="sinkeisuijaku.cpp" />
     <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="takoyaki.h" />
     <ClInclude Include="Title.h" />
   </ItemGroup>
