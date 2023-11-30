@@ -24,11 +24,11 @@ Mankara::Mankara()
 	JustGoal = 0;
 
 	for (int y = 0; y < 6; y++) {
-		P1Pocket[y]+=1;
+		P1Pocket[y] += 1;
 	}
 
 	for (int y = 0; y < 6; y++) {
-		P2Pocket[y]+=1;
+		P2Pocket[y] += 1;
 	}
 
 	// Î‚Ì‰æ‘œˆ—

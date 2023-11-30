@@ -4,7 +4,6 @@
 #include "DxLib.h"
 //#include "sinkeisuijaku.h"
 //#include"Hanafuda_GameMain.h"
-#include"Mankara.h"
 #include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
@@ -55,7 +54,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	switch (current_selection)
 	{
 	case SELECT::sinnkeisuizyaku:
-			//return new sinkeisuijaku();
+			return new sinkeisuijaku();
 			break;
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
@@ -71,9 +70,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case LEVEL::HARD:
 		return new GameMain(current_selection);
 		break;*/
-		case SELECT::Mankara:
-	return new Mankara();
-	break;
+
 	default:
 		printfDx("ñ¢é¿ëïÇ»ã@î\Ç≈Ç∑ÅB\n");
 		break;
