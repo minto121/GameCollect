@@ -9,9 +9,9 @@ sinkeisuijaku::sinkeisuijaku()
 
     testflg = 0;
 
-    // 先行後攻決め
-    //srand((unsigned int)time(NULL)); // 現在の時間を使って初期化q
-    //first = (rand() % 2) + 1; // 1または2をランダムに生成
+     //先行後攻決め
+   srand((unsigned int)time(NULL)); // 現在の時間を使って初期化q
+    first = (rand() % 2) + 1; // 1または2をランダムに生成
     //srand((unsigned int)time(NULL));
     first = 0;
     // 初手のプレイヤーとコンピューターの設定
@@ -246,21 +246,13 @@ AbstractScene* sinkeisuijaku::Update()
                                     trumps[j][i].visible = 1;
                                     pea = 1;
                                     selectcount = selectcount + 1;
-                                    //カードが揃った回数を記録
-                                    peacountflg = 1;;
+                                    peacountflg++;
                                }
                             }
                         }
                     }
                 }
             }
-
-
-            if (peacountflg == 1) {
-                peacount = peacount + 1;
-                peacountflg = 0;
-            }
-
 
 
 
@@ -278,6 +270,7 @@ AbstractScene* sinkeisuijaku::Update()
     }
 
     
+    peacount = peacountflg % 97;
   
 
   
@@ -287,12 +280,7 @@ AbstractScene* sinkeisuijaku::Update()
         ComputerTurn();
         lastSelect = -1;
     }
-
-
-
-
-
-    return this;
+      return this;
 }
 
 void sinkeisuijaku::Draw() const
@@ -302,15 +290,16 @@ void sinkeisuijaku::Draw() const
 
   
 
-        DrawFormatString(100, 120, 0x00ffff, "%d ",peacount);
-    
+        DrawFormatString(100, 140, 0x00ffff, "%d ",peacount);
+        DrawFormatString(100, 180, 0x00ffff, "%d ", peacountflg);
+
 
 
 
      // トランプの表示
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 5; i++) {
-            
+           
             if (trumps[j][i].visible == 0) {
             if (trumps[j][i].flg == 0) {
                 // カードが選択されていない場合、カードの裏を表示
