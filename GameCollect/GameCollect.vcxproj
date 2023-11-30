@@ -185,7 +185,6 @@
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
     <ClInclude Include="sinkeisuijaku.h" />
