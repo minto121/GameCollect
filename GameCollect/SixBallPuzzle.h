@@ -4,9 +4,7 @@
 const int MaxBalls = 50;
 
 class SixBallPuzzle:
-	public AbstractScene
-{
-
+	public AbstractScene{
 private:
 	const int ScreenHeight = 720;
 	const int ScreenWidth = 1280;
