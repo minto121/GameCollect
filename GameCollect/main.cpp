@@ -12,7 +12,7 @@
 #include "GameSelect.h"
 #include"Reversi.h"
 #include"Title.h"
-
+#include"Hex_GameMain.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
