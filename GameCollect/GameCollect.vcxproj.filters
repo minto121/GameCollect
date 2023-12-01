@@ -15,6 +15,7 @@
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
+    <ClCompile Include="SixBallPuzzle.cpp">
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="SixBallPuzzle.h">
     <ClInclude Include="Hex_GameMain.h" />
   </ItemGroup>
   <ItemGroup>

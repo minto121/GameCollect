@@ -166,6 +166,7 @@
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="SixBallPuzzle.cpp" />
     <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
     <ClCompile Include="takoyaki.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="takoyaki.h" />
     <ClInclude Include="Title.h" />
