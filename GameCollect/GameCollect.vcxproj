@@ -153,6 +153,10 @@
   <ItemGroup>
     <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="gomoku.cpp" />
+    <ClCompile Include="gomokuScene.cpp" />
+    <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
@@ -170,12 +174,16 @@
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
+    <ClInclude Include="gomoku.h" />
+    <ClInclude Include="gomokuScene.h" />
+    <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomoku_TitleScene.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
     <ClInclude Include="sinkeisuijaku.h" />
