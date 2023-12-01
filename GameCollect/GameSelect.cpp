@@ -4,7 +4,7 @@
 #include "DxLib.h"
 //#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
 #include"Hit&Blow.h"
-//#include"Hanafuda_GameMain.h"
+#include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
@@ -60,9 +60,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
-	/*case SELECT::Hanafuda:
+	case SELECT::Hanafuda:
 		return new Hanafuda();
-		break;*/
+		break;
 	/*case LEVEL::NORMAL:
 	{
 		return new GameMain(current_selection);
