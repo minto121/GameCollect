@@ -5,6 +5,7 @@
 //#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
+#include"gomokuScene.h"
 #include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
@@ -55,8 +56,14 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	switch (current_selection)
 	{
 	/*case SELECT::sinnkeisuizyaku:
-			return new sinkeisuijaku(); // エラー出るので、一旦コメントアウト中
+			return new sink
+			
+			
+			eisuijaku(); // エラー出るので、一旦コメントアウト中
 			break;*/ 
+	case SELECT::Gomoku:
+			return new gomokuTitle();
+			break;
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;

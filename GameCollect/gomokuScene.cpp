@@ -179,7 +179,8 @@ AbstractScene* gomokuScene::Update()
 						}
 						// 盤面に黒がつ四つ並んでいて、端のどちらかに石が置かれていない場合白を置くプログラミング
 						if (y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == gomoku_Pfs && gomoku_Banmen[x][y + 2] == gomoku_Pfs && gomoku_Banmen[x][y + 3] == gomoku_Pfs && gomoku_Banmen[x][y + 4] == gomoku_Pfs ||
-							y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == gomoku_Pfs && gomoku_Banmen[x][y - 2] == gomoku_Pfs && gomoku_Banmen[x][y - 3] == gomoku_Pfs && gomoku_Banmen[x][y - 4] == gomoku_Pfs ||
+							y > 3 && gomoku_Banmen[x][y] ==
+							0 && gomoku_Banmen[x][y - 1] == gomoku_Pfs && gomoku_Banmen[x][y - 2] == gomoku_Pfs && gomoku_Banmen[x][y - 3] == gomoku_Pfs && gomoku_Banmen[x][y - 4] == gomoku_Pfs ||
 							x < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == gomoku_Pfs && gomoku_Banmen[x + 2][y] == gomoku_Pfs && gomoku_Banmen[x + 3][y] == gomoku_Pfs && gomoku_Banmen[x + 4][y] == gomoku_Pfs ||
 							x > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == gomoku_Pfs && gomoku_Banmen[x - 2][y] == gomoku_Pfs && gomoku_Banmen[x - 3][y] == gomoku_Pfs && gomoku_Banmen[x - 4][y] == gomoku_Pfs ||
 							x < 8 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == gomoku_Pfs && gomoku_Banmen[x + 2][y + 2] == gomoku_Pfs && gomoku_Banmen[x + 3][y + 3] == gomoku_Pfs && gomoku_Banmen[x + 4][y + 4] == gomoku_Pfs ||
