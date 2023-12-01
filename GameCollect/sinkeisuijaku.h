@@ -8,17 +8,21 @@ public:
 
 private:
 
+	int isPlayerTurn = 1;  // プレイヤーのターンかどうかを示すフラグ
+	int  isComputerTurn = 0;  // コンピューターのターンかどうかを示すフラグ
+
+	struct PLAYER {
+		int player = 0;
+	};
 
 	struct TRUMPS {
-		int flg;
-		int syurui;
+		int flg = 0;
+		int syurui = 0;
+		int flg2 = 100;
+		int  visible = 0; // カードを画面に表示するかどうかのフラグ
 	};
 	
-	 struct Card{
-		int cardValue;//カードの値
-		int flg;//カードが選択されたかどうか
-	};
-
+	PLAYER player[2];
 	TRUMPS trumps[10][10];
 
 	int trumpflg = 0;
@@ -26,7 +30,9 @@ private:
 	virtual AbstractScene* Update()override;
 	void Draw()const override;
 
-	void Select();
+
+	void ComputerTurn();
+	void Sound();
 
 	int first;
 
@@ -58,6 +64,37 @@ private:
 	int count = 0;
 	int randend = 0;
 
-	int z[20];
+	int T_Draw[10];
+	int rCount = 0;
+	int r2Count = 0;
+
+
+	int test1;
+	int test2;
+	int test3;
+
+	int testcount = 0;
+
+	//int peacount = 0;
+
+	  // 最後に選択されたカードの位置を追跡する変数を追加
+	int lastSelect = -1;
+
+	int pTime = 0;
+	int cTime = 0;
+	int testflg = 0;
+	int pea = 0;
+
+	int rebirth = 0;
+	int selectedCard[2][2];
+	int selectcount = 0;
+
+	int peacountflg = 0;
+	int peacount = 0;
+	//サウンド
+	int BGM;
+	int S_Select;
+	int S_Pea;
+
 };
 

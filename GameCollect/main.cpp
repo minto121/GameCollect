@@ -3,7 +3,7 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
+//#include"Hanafuda_GameMain.h"
 #include "takoyaki.h"
 //#include"Hanafuda_GameMain.h"
 //#include "Checkermain.h"
