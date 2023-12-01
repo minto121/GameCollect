@@ -4,14 +4,15 @@
 class Takoyaki :
     public AbstractScene
 {
-  
+
 private:
     int Select;     //選択数 
-    int cardimg1;
     int Cards_img[42];  //カード
     int CursolImg; //カーソル画像
     int select_X;//カードごとのカーソル位置を保持
-    
+    int BackCard_Img;
+    bool cardFlipped;//カードの裏返し
+    int cardimg;
 public:
     //コンストラクタ
     Takoyaki();
@@ -25,3 +26,8 @@ public:
     //描画に関することを実装
     void Draw() const override;
 };
+
+
+
+
+
