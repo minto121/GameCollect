@@ -8,8 +8,8 @@ class SixBallPuzzle:
 {
 
 private:
-	int ScreenHeight = 720;
-	int ScreenWidth = 1280;
+	const int ScreenHeight = 720;
+	const int ScreenWidth = 1280;
 
 	/*画像用変数*/
 	int Ball_img[4];		//ボール
@@ -24,6 +24,7 @@ private:
 	float ballSpeed[MaxBalls]; // 落下速度の配列
 	bool ballActive[MaxBalls];  // ボールがアクティブかどうかの配列
 	
+	//int gStage[ScreenHeight][ScreenWidth];	//ステージ配列
 	int gNewBlock[4][4] = { 0 };		//新しいブロック用
 	int gNextBlock[4][4] = { 0 };		//次のブロック用
 	int gStokBlock[4][4] = { 0 };		//	ストックブロック用

@@ -30,6 +30,23 @@ SixBallPuzzle::~SixBallPuzzle()
 
 }
 
+
+//void SixBallPuzzle::StageInit(void)
+//{
+//	//ステージの初期化（壁設定とクリア）
+//	for (int i = 0; i < ScreenHeight; i++) {
+//		for (int j = 0; j < ScreenWidth; j++) {
+//			if (j == 0 || j == ScreenWidth - 1 || i == ScreenHeight - 1) {
+//				gStage[i][j] = 9; //壁
+//			}
+//			else {
+//				gStage[i][j] = 0; //初期化 　確認(GetRand(9))
+//			}
+//		}
+//	}
+//}
+
+
 AbstractScene* SixBallPuzzle::Update()
 {
 	// ランダムなボールのインデックスを生成
@@ -101,6 +118,4 @@ void SixBallPuzzle::Draw() const
 	}
 }
 
-void SixBallPuzzle::StageInit(void)
-{
-}
+
