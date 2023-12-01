@@ -33,7 +33,7 @@ AbstractScene* Hex::Update() {
 			TurnSave = TurnFlg;
 			Enemy();
 		}
-		Check_P();
+		//Check_P();
 		Check_E();
 	}
 	else if (ClearFlg == 1) {
@@ -48,14 +48,14 @@ AbstractScene* Hex::Update() {
 //•`‰æ‚Ì‚Ý
 void Hex::Draw()const {
 
-	//if (ClearFlg == 0) {
+	if (ClearFlg == 0) {
 		//”wŒi‰æ‘œ
 		DrawGraph(0, 0, BackImg, FALSE);
 
 		DrawStage();
 
 		DrawGraph(gStage[Select_i][Select_j].x, gStage[Select_i][Select_j].y, GreenHexImg, TRUE);
-	//}
+	}
 	if (ClearFlg == 1) {
 		DrawGraph(0, 0, BackImg, FALSE);
 	}
@@ -137,6 +137,7 @@ void Hex::Select() {
 	{
 		if (gStage[Select_i][Select_j].flg == 0) {
 			gStage[Select_i][Select_j].flg = 1;
+			Check_P();
 			Select_i = 6;
 			Select_j = 6;
 			TurnFlg++;
@@ -181,42 +182,57 @@ void Hex::DrawStage() const {
 }
 
 void Hex::Check_P() {
-	for (int i = 1; i < 12; i++) {
+	int i = 0;
+	//for (int i = 1; i < 12; i++) {
 		P_CheckCnt = P_CheckFlg;
 		for (int j = 1; j < 12; j++) {
-			if (gStage[i][j].flg == 1) {
-				if (gStage[++i][j].flg == 1) {
+			//if (gStage[Select_i][Select_j].flg == 1) {
+				/*if (gStage[++i][Select_j].flg == 1) {
 					P_CheckFlg++;
 					break;
 				}
-				if (gStage[i][++j].flg == 1) {
+				if (gStage[i][++Select_j].flg == 1) {
 					P_CheckFlg++;
 					break;
 				}
-				if (gStage[--i][++j].flg == 1) {
+				if (gStage[--Select_i][++Select_j].flg == 1) {
 					P_CheckFlg++;
 					break;
-				}
-				/*if (gStage[--i][j].flg == 0) {
-
-				}
-				if (gStage[i][--j].flg == 0) {
-					
-				}
-				if (gStage[++i][--j].flg == 0) {
-
 				}*/
-			}
+				if (gStage[++i][j].flg == 0) {
+					P_CheckFlg++;
+					break;
+				}
+				else if (gStage[i][++j].flg == 0) {
+					P_CheckFlg++;
+					if (gStage[i][j].flg == 4) {
+						ClearFlg = 1;
+						P_CheckFlg = 0;
+						P_CheckCnt = 0;
+						break;
+					}
+					break;
+				}
+				else if (gStage[--i][j].flg == 0) {
+					P_CheckFlg++;
+					break;
+				}
+
+			//}
+				if (P_CheckFlg == P_CheckCnt) {
+					break;
+				}
+
 		}
-		if (P_CheckFlg == P_CheckCnt) {
-			break;
-		}
-	}
-	if (P_CheckFlg >= 11) {
-		ClearFlg = 1;
-	}
-	P_CheckFlg = 0;
-	P_CheckCnt = 0;
+		//if (P_CheckFlg == P_CheckCnt) {
+		//	break;
+		//}
+	//}
+	//if (P_CheckFlg >= 11) {
+	//	ClearFlg = 1;
+	//}
+	//P_CheckFlg = 0;
+	//P_CheckCnt = 0;
 }
 
 void Hex::Check_E() {
@@ -352,7 +368,7 @@ void Hex::Enemy() {
 	//		break;
 	//	}
 	//}
-	//if (TurnSave == TurnFlg) {
+	if (TurnSave == TurnFlg) {
 		for (int i = 1; i < 12; i++) {
 			for (int j = 1; j < 12; j++) {
 				if (gStage[j][i].flg == 0) {
@@ -363,5 +379,5 @@ void Hex::Enemy() {
 			}
 			if (TurnSave != TurnFlg)break;
 		}
-	/*}*/
+	}
 }
