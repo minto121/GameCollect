@@ -154,7 +154,6 @@
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="Hanafuda_GameMain.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="sample.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
@@ -164,7 +163,6 @@
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hanafuda_GameMain.h" />
-    <ClInclude Include="sample.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
