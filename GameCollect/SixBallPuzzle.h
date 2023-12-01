@@ -24,8 +24,32 @@ private:
 	float ballSpeed[MaxBalls]; // 落下速度の配列
 	bool ballActive[MaxBalls];  // ボールがアクティブかどうかの配列
 	
+	int gNewBlock[4][4] = { 0 };		//新しいブロック用
+	int gNextBlock[4][4] = { 0 };		//次のブロック用
+	int gStokBlock[4][4] = { 0 };		//	ストックブロック用
+	int gStokFlg = 0;					//	ストックフラグ
+
+	int gBlockList[7][4][4] = {
+	{ {0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0} },
+	{ {0,0,0,0},{0,0,0,0},{2,2,2,2},{0,0,0,0} },
+	{ {0,0,0,0},{3,0,0,0},{3,3,3,0},{0,0,0,0} },
+	{ {0,0,0,0},{0,0,0,4},{0,4,4,4},{0,0,0,0} },
+	{ {0,0,0,0},{0,5,5,0},{0,0,5,5},{0,0,0,0} },
+	{ {0,0,0,0},{0,6,6,0},{6,6,0,0},{0,0,0,0} },
+	{ {0,0,0,0},{0,7,0,0},{7,7,7,0},{0,0,0,0} },
+	};
 
 public:
+	void StageInit(void); // ステージの初期化
+	void DrawStage(void); // ステージ描画
+	void CreateBlock(void); //ブロック生成とNEXTブロックの移動
+	void ControlBlock(void); // ブロックの座標処理
+	int CheckOverlap(int x2, int y2);	//　ブロックの移動可能チェック処理
+	void TurnBlock(void);	//ブロックの回転処理
+	void LockBlock(int x2, int y2);	//着地したブロックを固定済みブロックに加える
+	void CheckLines(void);		//　ブロックが横一列の時の処理
+	void ChangeBlock(void);		//　ブロックの交換（ストック処理）
+
 	SixBallPuzzle();
 
 	~SixBallPuzzle();

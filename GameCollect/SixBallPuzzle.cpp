@@ -42,7 +42,7 @@ AbstractScene* SixBallPuzzle::Update()
 	for (int i = 0; i < MaxBalls; i++)
 	{
 		// 画面外に出たら再利用
-		if (ballY[i] > ScreenHeight - 80)
+		if (ballY[i] > ScreenHeight)
 		{
 			ballY[i] = -64;  // 画面上部から再利用
 			ballX[i] = rand() % (ScreenWidth - 64);  // ボールのX座標をランダムに設定
@@ -99,4 +99,8 @@ void SixBallPuzzle::Draw() const
 			DrawGraph(ballX[i], ballY[i], Ball_img[i], TRUE);
 		}
 	}
+}
+
+void SixBallPuzzle::StageInit(void)
+{
 }
