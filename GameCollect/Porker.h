@@ -17,9 +17,9 @@ private:
 	int WP3;
 	int WP4;
 	int WP_FLG[20];
-	int YP[20];
-	int YP2[20];
-	int YE[4];
+	int YP[31];
+	int YP2[31];
+	
 
 	int Winflg;
 	int Loseflg;
@@ -62,9 +62,12 @@ private:
 	int C_CARD_S[5];//場に出ているカード1~5の商格納用
 	int C_CARD_A[5];//場に出ているカード1~5の余り格納用
 	
-	int P_SORT[7];
-	
-	int P_PEA_FLG[4];//プレイヤーの1ペアのフラグ
+	int P_SORT[16];
+	int E_SORT[16];
+	int WINandLOSE[2];
+	int R_Win_FLG[2];
+
+	int P_PEA_FLG;//プレイヤーの1ペアのフラグ
 	int P_2PEA_FLG;//プレイヤーの2ペアのフラグ
 	int P_3CARD_FLG;//プレイヤーのスリーカードのフラグ
 	int P_FH_FLG;
@@ -73,6 +76,16 @@ private:
 	int P_4CARD_FLG;
 	int P_SF_FLG;
 	int P_RSF_FLG;
+
+	int E_PEA_FLG;//
+	int E_2PEA_FLG;//
+	int E_3CARD_FLG;//
+	int E_FH_FLG;
+	int E_FLASH_FLG;
+	int E_STRAIGHT_FLG;
+	int E_4CARD_FLG;
+	int E_SF_FLG;
+	int E_RSF_FLG;
 
 public:
 	Porker();
@@ -111,6 +124,24 @@ public:
 
 	void P_CARD_STRAIGHT();//ストレートのための関数
 
+	void P_CARD_STRAIGHTFALSH();//ストレートフラッシュのための関数
+
 	void P_YAKU();
+
+	void E_CARD_PEA();//1,2ペア判断のための関数
+
+	void E_CARD_3_CARD();//3カードのための関数
+
+	void E_CARD_4_CARD();//3カードのための関数
+
+	void E_CARD_FLASH();//フラッシュのための関数
+
+	void E_CARD_STRAIGHT();//ストレートのための関数
+
+	void E_CARD_STRAIGHTFALSH();//ストレートフラッシュのための関数
+
+	void E_YAKU();
+
+	void WINANDLOSE();
 };
 
