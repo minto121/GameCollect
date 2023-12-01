@@ -158,6 +158,7 @@
     <ClCompile Include="gomoku_AI.cpp" />
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hanafuda_GameMain.cpp" />
+    <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="gomoku_AI.h" />
     <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="Hanafuda_GameMain.h" />
+    <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Mankara.h" />

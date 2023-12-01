@@ -6,6 +6,7 @@
 #include"Hit&Blow.h"
 #include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
+#include "Hex_GameMain.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -74,7 +75,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case SELECT::Hitblow:
 		return new HitAndBlow();
 		break;
-
+	case SELECT::Hekusu:
+		return new Hex();
+		break;
 	default:
 		printfDx("ñ¢é¿ëïÇ»ã@î\Ç≈Ç∑ÅB\n");
 		break;
