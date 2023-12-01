@@ -14,6 +14,7 @@
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="reversi.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
     <ClCompile Include="SixBallPuzzle.cpp" />
     <ClCompile Include="gomoku.cpp" />
@@ -40,6 +41,7 @@
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
+    <ClInclude Include="reversi.h" />
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="Hex_GameMain.h" />

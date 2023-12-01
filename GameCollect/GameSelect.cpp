@@ -5,6 +5,7 @@
 //#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
+#include"Mankara.h"
 #include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
 #include "SixBallPuzzle.h"
@@ -82,6 +83,8 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case SELECT::sixballpuzzle:
 		return new SixBallPuzzle();
 		break;
+	case SELECT::Mankara:
+		return new Mankara();
 	default:
 		printfDx("未実装な機能です。\n");
 		break;
