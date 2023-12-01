@@ -15,6 +15,7 @@
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
+    <ClCompile Include="SixBallPuzzle.cpp" />
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
@@ -22,56 +23,25 @@
     <ClCompile Include="Hex_GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PadInput.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="FpsController.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SixBallPuzzle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AbstractScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PadInput.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="FpsController.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSelect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SixBallPuzzle.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="gomoku_AI.h" />
     <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomoku_TitleScene.h" />
+    <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
+    <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="PadInput.h" />
+    <ClInclude Include="GameSelect.h" />
     <ClInclude Include="takoyaki.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="Hex_GameMain.h" />
   </ItemGroup>
   <ItemGroup>
