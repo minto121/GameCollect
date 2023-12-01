@@ -2,10 +2,13 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
-//#include "sinkeisuijaku.h"
+//#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
+#include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
 #include"Mankara.h"
 #include "RabbitAndHounds.h"
+#include "Hex_GameMain.h"
+#include "SixBallPuzzle.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -54,9 +57,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	SELECT current_selection = static_cast<SELECT>(now_menu);
 	switch (current_selection)
 	{
-	case SELECT::sinnkeisuizyaku:
-			//return new sinkeisuijaku();
-			break;
+	/*case SELECT::sinnkeisuizyaku:
+			return new sinkeisuijaku(); // エラー出るので、一旦コメントアウト中
+			break;*/ 
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
@@ -71,6 +74,15 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case LEVEL::HARD:
 		return new GameMain(current_selection);
 		break;*/
+	case SELECT::Hitblow:
+		return new HitAndBlow();
+		break;
+	case SELECT::Hekusu:
+		return new Hex();
+		break;
+	case SELECT::sixballpuzzle:
+		return new SixBallPuzzle();
+		break;
 	case SELECT::Mankara:
 		return new Mankara();
 	default:
