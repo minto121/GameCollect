@@ -21,6 +21,7 @@ Mankara::Mankara()
 	// ‚Ò‚Á‚½‚èƒS[ƒ‹—p•Ï”
 	JustGoal = 0;
 
+
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y] += 1;
 	}
@@ -256,6 +257,10 @@ Mankara::Mankara()
 			 }
 		 }
 	 }
+
+
+
+
 
 	return this;
 }

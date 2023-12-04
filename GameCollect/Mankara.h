@@ -64,7 +64,6 @@ private:
 
 	int JustGoal; //‚Ò‚Á‚½‚èƒS[ƒ‹—p 
 
-
 public:
 	Mankara();
 	AbstractScene* Update();
