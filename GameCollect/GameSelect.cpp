@@ -4,9 +4,12 @@
 #include "DxLib.h"
 //#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
 #include"Hit&Blow.h"
-#include"Hanafuda_GameMain.h"
+//#include"Hanafuda_GameMain.h"
+#include"Mankara.h"
 #include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
+#include "SixBallPuzzle.h"
+#include "Porker.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -61,9 +64,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
-	case SELECT::Hanafuda:
+	/*case SELECT::Hanafuda:
 		return new Hanafuda();
-		break;
+		break;*/
 	/*case LEVEL::NORMAL:
 	{
 		return new GameMain(current_selection);
@@ -77,6 +80,15 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		break;
 	case SELECT::Hekusu:
 		return new Hex();
+		break;
+	case SELECT::sixballpuzzle:
+		return new SixBallPuzzle();
+		break;
+	case SELECT::Mankara:
+		return new Mankara();
+		break;
+	case SELECT::poker:
+		return new Porker();
 		break;
 	default:
 		printfDx("未実装な機能です。\n");
