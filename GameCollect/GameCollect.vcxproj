@@ -191,6 +191,10 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="PadInput.h" />
+    <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="Select.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="takoyaki.h" />
