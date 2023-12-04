@@ -661,6 +661,8 @@ void Mankara::MoveStone()
 				P1BigPocket += 1;
 				JustGoal = 0;
 			}
+			P1Turn = FALSE;
+			P2Turn = TRUE;
 		}
 		else if (moveStone == 1) {
 			// 選択したポケットに格納されている石を移動させる
@@ -681,14 +683,17 @@ void Mankara::MoveStone()
 			}
 
 			// 選択したポケットの中身を０にする
-			P1StoneSave[1][InitialStone - InitialStone] ;
+			P1StoneSave[1][InitialStone - InitialStone];
 			// 大きいポケットに石が入る
 			if (JustGoal >= 5) {
-				P1BigPocket+=1;
+				P1BigPocket += 1;
 				JustGoal = 0;
 			}
-			else if (moveStone == 2) {
-				// 選択したポケットに格納されている石を移動させる
+			P1Turn = FALSE;
+			P2Turn = TRUE;
+		}
+		else if (moveStone == 2) {
+			// 選択したポケットに格納されている石を移動させる
 				for (int i = 0; i < P1StoneSave[2][i + 3]; i++) {
 					P1StoneSave[moveStone + i][i];
 					JustGoal = InitialStone;
@@ -712,8 +717,10 @@ void Mankara::MoveStone()
 					P1BigPocket += 1;
 					JustGoal = 0;
 				}
-			}
-			else if (moveStone == 3) {
+				P1Turn = FALSE;
+				P2Turn = TRUE;
+		}
+		else if (moveStone == 3) {
 				// 選択したポケットに格納されている石を移動させる
 				for (int i = 0; i < P1StoneSave[3][i + 4]; i++) {
 					P1StoneSave[moveStone + i][i];
@@ -738,8 +745,10 @@ void Mankara::MoveStone()
 					P1BigPocket += 1;
 					JustGoal = 0;
 				}
-			}
-			else if (moveStone == 4) {
+				P1Turn = FALSE;
+				P2Turn = TRUE;
+		}
+		else if (moveStone == 4) {
 				// 選択したポケットに格納されている石を移動させる
 				for (int i = 0; i < P1StoneSave[4][i + InitialStone]; i++) {
 					P1StoneSave[moveStone + i][i];
@@ -763,8 +772,10 @@ void Mankara::MoveStone()
 					P1BigPocket += 1;
 					JustGoal = 0;
 				}
-			}
-			else if (moveStone == 5) {
+				P1Turn = FALSE;
+				P2Turn = TRUE;
+		}
+		else if (moveStone == 5) {
 				// 選択したポケットに格納されている石を移動させる
 				for (int i = 0; i < P1StoneSave[5][i + 5]; i++) {
 					P1StoneSave[moveStone + i][i];
@@ -789,7 +800,8 @@ void Mankara::MoveStone()
 					P1BigPocket += 1;
 					JustGoal = 0;
 				}
-			}
+				P1Turn = FALSE;
+				P2Turn = TRUE;
 		}
 	}	
 	
