@@ -2,16 +2,8 @@
 #include<DxLib.h>
 #include "PadInput.h"
 
-#define WALL 0;
-#define WHITE 1;
-#define BLACK 2;
-
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
 #define SCREEN_WIDTH 1280	//画面サイズ (横)
-
-//盤面
-#define BOARD_IMG_SIZE 640
-
 
 Reversi::Reversi()
 {
@@ -34,9 +26,9 @@ Reversi::Reversi()
 	Tur = 0;
 
 	//配列の初期値
-	for (int y = 0; y < 8; y = y + 1)
+	for (int y = 0; y < 8; y = y++)
 	{
-		for (int x = 0; x < 8; x = x + 1)
+		for (int x = 0; x < 8; x = x++)
 		{
 			Sto.Typ[x][y] = 0;
 			Sto.X[x][y] = 0;
@@ -46,26 +38,23 @@ Reversi::Reversi()
 
 	//左上黒
 	Sto.Typ[3][3] = 1;
-	Sto.X[3][3] = 555;
+	Sto.X[3][3] = 545;
 	Sto.Y[3][3] = 280;
 
 	//右下黒
 	Sto.Typ[4][4] = 1;
-	Sto.X[4][4] = 640;
+	Sto.X[4][4] = 630;
 	Sto.Y[4][4] = 364;
 
 	//左下白
 	Sto.Typ[3][4] = 2;
-	Sto.X[3][4] = 555;
+	Sto.X[3][4] = 545;
 	Sto.Y[3][4] = 365;
 
 	//右上白
 	Sto.Typ[4][3] = 2;
-	Sto.X[4][3] = 640;
+	Sto.X[4][3] = 630;
 	Sto.Y[4][3] = 279;
-
-	Cur.X = 310;
-	Cur.Y = 20;
 
 }
 
@@ -77,13 +66,12 @@ Reversi::~Reversi()
 
 AbstractScene* Reversi::Update()
 {
-
 	Fla.button = 0;
 	Cursor();
 	turn();
 
-	e.x.m = Cur.X / 600;
-	e.y.m = Cur.Y /105;
+	e.x.m = Cur.X / 85 -3;
+	e.y.m = Cur.Y / 85;
 
 	e.x.r = e.x.m + 1;
 	e.x.l = e.x.m - 1;
@@ -112,7 +100,7 @@ AbstractScene* Reversi::Update()
 		}
 
 		//右に石が置かれているかの確認
-		for (x = e.x.r; x < 8; x = x + 1)
+		for (x = e.x.r; x < 8; x = x++)
 		{
 			if (Sto.Typ[x][e.y.m] == 0)break;
 			else if (Sto.Typ[x][e.y.m] == same)
@@ -128,7 +116,7 @@ AbstractScene* Reversi::Update()
 		cou = 0;
 
 		//左に石が置かれているかの確認
-		for (x = e.x.l; x > 0; x = x - 1)
+		for (x = e.x.l; x > 0; x = x--)
 		{
 			if (Sto.Typ[x][e.y.m] == 0)break;
 			else if (Sto.Typ[x][e.y.m] == same)
@@ -144,7 +132,7 @@ AbstractScene* Reversi::Update()
 		cou = 0;
 
 		//下に石が置かれているかの確認
-		for (y = e.y.d; y < 8; y = y + 1)
+		for (y = e.y.d; y < 8; y = y++)
 		{
 			if (Sto.Typ[e.x.m][y] == 0)break;
 			else if (Sto.Typ[e.x.m][y] == same)
@@ -160,7 +148,7 @@ AbstractScene* Reversi::Update()
 		cou = 0;
 
 		//上に石が置かれているかの確認
-		for (y = e.y.u; y > 0; y = y - 1)
+		for (y = e.y.u; y > 0; y = y--)
 		{
 			if (Sto.Typ[e.x.m][y] == 0)break;
 			else if (Sto.Typ[e.x.m][y] == same)
@@ -179,19 +167,19 @@ AbstractScene* Reversi::Update()
 
 		for (x = e.x.r, y = e.y.u;
 			x < 8,y > 0;
-			x = x + 1,y = y - 1)
+			x = x++,y = y--)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.r, y = e.y.u;
 					x < e.x.r + cou, y > e.y.u - cou;
-					x = x + 1, y = y - 1)
+					x = x++, y = y--)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou + 1;
+			else if (Sto.Typ[x][y] == diff)cou = cou++;
 			else break;
 		}
 		cou = 0;
@@ -200,19 +188,19 @@ AbstractScene* Reversi::Update()
 		//右下に石が置かれているかの確認
 		for (x = e.x.r, y = e.y.d;
 			x < 8, y < 8;
-			x = x + 1, y = y + 1)
+			x = x++, y = y++)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.r, y = e.y.d;
 					x < e.x.r + cou, y < e.y.d + cou;
-					x = x + 1, y = y + 1)
+					x = x++, y = y++)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou + 1;
+			else if (Sto.Typ[x][y] == diff)cou = cou++;
 			else break;
 		}
 		cou = 0;
@@ -220,19 +208,19 @@ AbstractScene* Reversi::Update()
 		//左上に石が置かれているかの確認
 		for (x = e.x.l, y = e.y.u;
 			x > 0, y > 0;
-			x = x - 1, y = y - 1)
+			x = x--, y = y--)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.l, y = e.y.u;
 					x > e.x.r - cou, y > e.y.u - cou;
-					x = x - 1, y = y - 1)
+					x = x--, y = y--)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou + 1;
+			else if (Sto.Typ[x][y] == diff)cou = cou++;
 			else break;
 		}
 		cou = 0;
@@ -241,19 +229,19 @@ AbstractScene* Reversi::Update()
 		//左下に石が置かれているかの確認
 		for (x = e.x.l, y = e.y.d;
 			x > 0, y < 8;
-			x = x - 1, y = y + 1)
+			x = x--, y = y++)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.l, y = e.y.d;
 					x > e.x.r - cou, y < e.y.d + cou;
-					x = x - 1, y = y + 1)
+					x = x--, y = y++)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou + 1;
+			else if (Sto.Typ[x][y] == diff)cou = cou++;
 			else break;
 		}
 		cou = 0;
@@ -265,49 +253,77 @@ AbstractScene* Reversi::Update()
 void Reversi::Draw() const
 {
 
+	int cou_n = 0;
+	int cou_b = 0;
+	int cou_w = 0;
+
 	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
 	for (int y = 0; y < 8; y = y + 1)
 	{
 		for (int x = 0; x < 8; x = x + 1)
 		{
-			DrawGraph(x * 85 + 310, y * 85 + 20, Bac, TRUE);
+			DrawGraph(x * 85 + 300, y * 85 + 20, Bac, TRUE);
 		}
 	}
 
-	int cou_n = 0;
-	int cou_b = 0;
-	int cou_w = 0;
-
-	for (int y = 0; y < 8; y = y + 1)
+	for (int y = 0; y < 8; y = y++)
 	{
-		for (int x = 0; x < 8; x = x + 1)
+		for (int x = 0; x < 8; x++)
 		{
 			switch (Sto.Typ[x][y])
 			{
 			case 0:
 				cou_n = cou_n + 1;
 				break;
-			case 1:
+			case 1: //黒
 				cou_b = cou_b + 1;
 				DrawGraph(Sto.X[x][y], Sto.Y[x][y], Bla, TRUE);
 				break;
-			case 2:
+			case 2: //白
 				cou_w = cou_w + 1;
 				DrawGraph(Sto.X[x][y], Sto.Y[x][y], Whi, TRUE);
 				break;
 			}
+			
 		}
 	}
 
+	for (int y = 0; y < 8; y = y++)
+	{
+		for (int x = 0; x < 8; x = x++)
+		{
+			if (Sto.Typ[x][y] == 1) {
+				cou_b++;
+			}
+			else if (Sto.Typ[x][y] == 2) {
+				cou_w++;
+			}
+
+			if (Tur >= 60)
+			{
+				if (cou_w < cou_b) {
+					DrawFormatString(0, 320, GetColor(255, 255, 255), "Black Win");
+				}
+				else if (cou_w > cou_b) {
+					DrawFormatString(0, 340, GetColor(255, 255, 255), "White Win");
+				}
+				else {
+					DrawFormatString(0, 360, GetColor(255, 255, 255), "Draw");
+				}
+			}
+		}
+	}
 	DrawFormatString(0, 120, GetColor(255, 255, 255), "Cur.X,Cur.Y=(%d,%d)", Cur.X, Cur.Y);
 	DrawFormatString(0, 140, GetColor(255, 255, 255), "Tur,%d", Tur);
 	DrawFormatString(0, 180, GetColor(255, 255, 255), "Sto.X,%d", Sto.X);
 	DrawFormatString(0, 200, GetColor(255, 255, 255), "Sto.Typ,%d", Sto.Typ);
+	DrawFormatString(0, 280, GetColor(255, 255, 255), "e.x.m,%d", e.x.m);
+	DrawFormatString(0, 300, GetColor(255, 255, 255), "e.y.m,%d", e.y.m);
 
 	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
 
 	DrawFormatString(0, 220, GetColor(255, 255, 255), "No,Black,White (%d,%d,%d)", cou_n, cou_b, cou_w);
-	
+
 	if (Tur % 2 == 0)
 	{
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn Black", Tur);
@@ -317,20 +333,6 @@ void Reversi::Draw() const
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn White", Tur);
 
 	}
-
-
-	if (Tur == 60)
-	{
-		DrawString(0, 240, "finish",0xffffff,TRUE);
-		if (Bla > Whi) {
-			DrawString(0, 260, "Black Win", 0xffffff, TRUE);
-		}
-		else
-		{
-			DrawString(0, 260, "White Win", 0xffffff, TRUE);
-		}
-	}
-
 }
 
 void Reversi::Cursor()
@@ -373,11 +375,11 @@ void Reversi::Cursor()
 	if (Cur.Y > 615) {
 		Cur.Y = 615;
 	}
-	if (Cur.X < 310) {
-		Cur.X = 310;
+	if (Cur.X < 300) {
+		Cur.X = 300;
 	}
-	if (Cur.X > 905) {
-		Cur.X = 905;
+	if (Cur.X > 895) {
+		Cur.X = 895;
 	}
 
 }
@@ -390,11 +392,11 @@ void Reversi::turn()
 		Fla.button = 1;
 	}
 
-	for (int y = 0; y < 8; y = y + 1)
+	for (int y = 0; y < 8; y = y++)
 	{
-		for (int x = 0; x < 8; x = x + 1)
+		for (int x = 0; x < 8; x = x++)
 		{
-			if (Cur.X == 85 * x  + 310 && Cur.Y == 85 * y + 20 &&
+			if (Cur.X == 85 * x  + 300 && Cur.Y == 85 * y + 20 &&
 				Fla.button == 1 && Sto.Typ[x][y] == 0)
 			{
 				Tur = Tur + 1;
