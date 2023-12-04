@@ -1,5 +1,6 @@
 #pragma once
 #include "AbstractScene.h"
+#include <math.h>
 
 const int MaxBalls = 50;
 
