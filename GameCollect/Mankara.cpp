@@ -24,11 +24,11 @@ Mankara::Mankara()
 	JustGoal = 0;
 
 	for (int y = 0; y < 6; y++) {
-		P1Pocket[y]+=1;
+		P1Pocket[y] += 1;
 	}
 
 	for (int y = 0; y < 6; y++) {
-		P2Pocket[y]+=1;
+		P2Pocket[y] += 1;
 	}
 
 	// 石の画像処理
@@ -272,62 +272,169 @@ void Mankara::Draw()const
 	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 0) {
-
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(300 + y * 125, 450 + y * 20, gStone[y][0].img, TRUE);
+				y++;
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 450, gStone[0][i].img, TRUE);
+			DrawGraph(300, 450 + i * 20, gStone[i][0].img, TRUE);
 		}
 
 	}
 	// 石（ポケット２）の初期配置
 	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 1) {
-
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(425 + y * 125, 450 + y * 20, gStone[y][1].img, TRUE);
+				y++;
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 470, gStone[1][i].img, TRUE);
+			DrawGraph(300 + 125, 450 + i * 20, gStone[i][1].img, TRUE);
 		}
 	}
 	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 2) {
-
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(550 + y * 125, 450 + y * 20, gStone[y][2].img, TRUE);
+				y++;
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 490, gStone[2][i].img, TRUE);
+			DrawGraph(550, 450 + i * 20, gStone[i][2].img, TRUE);
 		}
 	}
 	// 石（ポケット４）の初期配置
 	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 3) {
-
+			for (int y = 0; y < JustGoal; ) {
+				// ポケットの中身の石の数の分だけX軸を移動させる
+				DrawGraph(675 + y * 125, 450 + y * 20, gStone[y][3].img, TRUE);
+				y++;
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 510, gStone[3][i].img, TRUE);
+			DrawGraph(675, 450 + i * 20, gStone[i][3].img, TRUE);
 		}
 	}
 	// 石（ポケット５）の初期配置
 	for (int i = 0; i < 4; i++) {
-		if (PlayerPocket == 4) {
 
+		if (PlayerPocket == 4) {
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(800 + y * 125, 450 + y * 20, gStone[y][4].img, TRUE);
+				y++;
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 100, gStone[4][i].img, TRUE);
+			DrawGraph(800, 450 + i * 20, gStone[i][4].img, TRUE);
 		}
 	}
 	// 石（ポケット６）の初期配置
 	for (int i = 0; i < 4; i++) {
 		if (PlayerPocket == 5) {
-
+			for (int y = 0; y < JustGoal; ) {
+				// ポケットの中身の石の数の分だけX軸を移動させる
+				DrawGraph(925 + y * 125, 450 + y * 20, gStone[y][5].img, TRUE);
+				y++;
+			}
 		}
 		else {
-			DrawGraph(300 + i * 125, 130, gStone[5][i].img, TRUE);
+			DrawGraph(925, 450 + i * 20, gStone[i][5].img, TRUE);
 		}
 
 	}
 
 	//// 2P石の初期配置
+	// -----------ここから石の初期配置--------------
 
+	// 石（ポケット１）の初期配置
+	for (int i = 0; i < 4; i++) {
+		if (PartnerPocket == 0) {
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(300 + 5 * 125 - y * 125, 100 + y * 20, gStone[y][0].img, TRUE);
+				y++;
+			}
+		}
+		else {
+			DrawGraph(300 + 5 * 125, 100 + i * 20, gStone[i][0].img, TRUE);
+		}
+
+	}
+	// 石（ポケット２）の初期配置
+	for (int i = 0; i < 4; i++) {
+		if (PartnerPocket == 1) {
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(300 + 4 * 125 - y * 125, 100 + y * 20, gStone[y][1].img, TRUE);
+				y++;
+			}
+		}
+		else {
+			DrawGraph(300 + 4 * 125, 100 + i * 20, gStone[i][1].img, TRUE);
+		}
+	}
+	// 石（ポケット３）の初期配置
+	for (int i = 0; i < 4; i++) {
+		if (PartnerPocket == 2) {
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(300 + 3 * 125 - y * 125, 100 + y * 20, gStone[y][2].img, TRUE);
+				y++;
+			}
+		}
+		else {
+			DrawGraph(300 + 3 * 125, 100 + i * 20, gStone[i][2].img, TRUE);
+		}
+	}
+	// 石（ポケット４）の初期配置
+	for (int i = 0; i < 4; i++) {
+		if (PartnerPocket == 3) {
+			for (int y = 0; y < JustGoal; ) {
+				// ポケットの中身の石の数の分だけX軸を移動させる
+				DrawGraph(300 + 2 * 125 - y * 125, 100 + y * 20, gStone[y][3].img, TRUE);
+				y++;
+			}
+		}
+		else {
+			DrawGraph(300 + 2 * 125, 100 + i * 20, gStone[i][3].img, TRUE);
+		}
+	}
+	// 石（ポケット５）の初期配置
+	for (int i = 0; i < 4; i++) {
+
+		if (PartnerPocket == 4) {
+			// ポケットの中身の石の数の分だけX軸を移動させる
+			for (int y = 0; y < JustGoal; ) {
+				DrawGraph(300 + 1 * 125 - y * 125, 100 + y * 20, gStone[y][4].img, TRUE);
+				y++;
+			}
+		}
+		else {
+			DrawGraph(300 + 1 * 125, 100 + i * 20, gStone[i][4].img, TRUE);
+		}
+	}
+	// 石（ポケット６）の初期配置
+	for (int i = 0; i < 4; i++) {
+		if (PlayerPocket == 5) {
+			for (int y = 0; y < JustGoal; ) {
+				// ポケットの中身の石の数の分だけX軸を移動させる
+				DrawGraph(300 - y * 125, 100 + y * 20, gStone[y][5].img, TRUE);
+				y++;
+			}
+		}
+		else {
+			DrawGraph(300, 100 + i * 20, gStone[i][5].img, TRUE);
+		}
+
+	}
 	//DrawGraph(300 + 125 * 4, 190, gStone[0][6].img, TRUE);
 	//DrawGraph(300 + 125 * 5, 190, gStone[0][7].img, TRUE);
 
