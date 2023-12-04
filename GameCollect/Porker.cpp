@@ -135,7 +135,7 @@ void Porker::ROUND_INIT()
         }
        
      
-      
+        CARD_SETTING();
        
     }
 }
@@ -145,23 +145,23 @@ void Porker::ROUND_INIT()
 void Porker::CARD_SETTING()
 {
     if (WP_FLG[11] == FALSE) {
-        P_rand[0] = 0 /*GetRand(55)*/;   //プレイヤーのホールカード1
+        P_rand[0] =  GetRand(55);   //プレイヤーのホールカード1
 
-        P_rand[1] = 0/*GetRand(55)*/;   //プレイヤーのホールカード2
+        P_rand[1] = GetRand(55);   //プレイヤーのホールカード2
 
-        E_rand[0] = 0/*GetRand(55)*/;   //敵のホールカード1
+        E_rand[0] = GetRand(55);   //敵のホールカード1
 
-        E_rand[1] = 0/* GetRand(55)*/;   //敵のホールカード2
+        E_rand[1] =  GetRand(55);   //敵のホールカード2
 
-        C_rand[0] = 0/*GetRand(55)*/;   //コミュニティカード1
+        C_rand[0] = GetRand(55);   //コミュニティカード1
 
-        C_rand[1] = 0/*GetRand(55)*/;   //コミュニティカード2
+        C_rand[1] = GetRand(55);   //コミュニティカード2
 
-        C_rand[2] = 0/*GetRand(55)*/;   //コミュニティカード3
+        C_rand[2] = GetRand(55);   //コミュニティカード3
 
-        C_rand[3] = 0/*GetRand(55)*/;   //コミュニティカード4
+        C_rand[3] = GetRand(55);   //コミュニティカード4
 
-        C_rand[4] = 0/*GetRand(55)*/;  //コミュニティカード5   
+        C_rand[4] = GetRand(55);  //コミュニティカード5   
         WP_FLG[11] = TRUE;
 
        
@@ -520,12 +520,12 @@ void Porker::P_CARD_STRAIGHTFALSH()
 
         //ソート用
         P_SORT[7] = C_CARD_A[0] + C_CARD_S[0];
-        P_SORT[8] = C_CARD_A[1] + C_CARD_A[1];
-        P_SORT[9] = C_CARD_A[2] + C_CARD_A[2];
-        P_SORT[10] = C_CARD_A[3] + C_CARD_A[3];
-        P_SORT[11] = C_CARD_A[4] + C_CARD_A[4];
-        P_SORT[12] = P_CARD_A[0] + P_CARD_A[0];
-        P_SORT[13] = P_CARD_A[1] + P_CARD_A[1];
+        P_SORT[8] = C_CARD_A[1] + C_CARD_S[1];
+        P_SORT[9] = C_CARD_A[2] + C_CARD_S[2];
+        P_SORT[10] = C_CARD_A[3] + C_CARD_S[3];
+        P_SORT[11] = C_CARD_A[4] + C_CARD_S[4];
+        P_SORT[12] = P_CARD_A[0] + P_CARD_S[0];
+        P_SORT[13] = P_CARD_A[1] + P_CARD_S[1];
         int sort;
         for (int a = 7; a <= 12; a++) {
             for (int b = a + 1; b <= 13; b++) {
@@ -545,15 +545,15 @@ void Porker::P_CARD_STRAIGHTFALSH()
         }
 
         else  if (P_SORT[8] == P_SORT[9] - 1 && P_SORT[8] == P_SORT[10] - 2 && P_SORT[8] == P_SORT[11] - 3 && P_SORT[8] == P_SORT[12] - 4) {
-            YP2[24] = YP2[24] + 1;
+            YP2[25] = YP2[25] + 1;
         }
 
         else  if (P_SORT[9] == P_SORT[10] - 1 && P_SORT[9] == P_SORT[11] - 2 && P_SORT[9] == P_SORT[12] - 3 && P_SORT[9] == P_SORT[13] - 4) {
-            YP2[24] = YP2[24] + 1;
+            YP2[26] = YP2[26] + 1;
         }
 
 
-        WP_FLG[15] == TRUE;
+        WP_FLG[15] = TRUE;
 
     }
 }
@@ -603,7 +603,7 @@ void Porker::P_YAKU()
         P_2PEA_FLG = FALSE;
     }
     //STRAIGHT&FLASH
-    if (YP2[24] == 1) {
+    if (YP2[24] == 1 || YP2[25] == 1 || YP2[26] == 1) {
         P_SF_FLG = TRUE;
         P_4CARD_FLG = FALSE;
         P_FH_FLG = FALSE;
@@ -877,20 +877,20 @@ void Porker::E_CARD_STRAIGHTFALSH()
 
         //ストレート
         if (E_SORT[7] == E_SORT[8] - 1 && E_SORT[7] == E_SORT[9] - 2 && E_SORT[7] == E_SORT[10] - 3 && E_SORT[7] == E_SORT[11] - 4) {
-            YP2[25] = YP2[25] + 1;
+            YP2[28] = YP2[28] + 1;
 
         }
 
         else  if (E_SORT[8] == E_SORT[9] - 1 && E_SORT[9] == E_SORT[10] - 2 && E_SORT[8] == E_SORT[11] - 3 && E_SORT[8] == E_SORT[12] - 4) {
-            YP2[25] = YP2[25] + 1;
+            YP2[29] = YP2[29] + 1;
         }
 
         else  if (E_SORT[9] == E_SORT[10] - 1 && E_SORT[9] == E_SORT[11] - 2 && E_SORT[9] == E_SORT[12] - 3 && E_SORT[9] == E_SORT[13] - 4) {
-            YP2[25] = YP2[25] + 1;
+            YP2[30] = YP2[30] + 1;
         }
 
 
-        WP_FLG[16] == TRUE;
+        WP_FLG[16] = TRUE;
 
     }
 }
@@ -941,7 +941,7 @@ void Porker::E_YAKU()
         E_2PEA_FLG = FALSE;
     }
     //STRAIGHT&FLASH
-    if (YP2[25] == 1) {
+    if (YP2[28] == 1 || YP2[29] == 1 || YP2[30] == 1) {
         E_SF_FLG = TRUE;
         E_4CARD_FLG = FALSE;
         E_FH_FLG = FALSE;
@@ -1080,10 +1080,10 @@ void Porker::WINANDLOSE()
 //アップデート
 AbstractScene* Porker::Update()
 {
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER) && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
+    /*if (PAD_INPUT::OnButton(XINPUT_BUTTON_LEFT_SHOULDER) && PAD_INPUT::OnButton(XINPUT_BUTTON_RIGHT_SHOULDER)) {
         return new Title;
-    } 
-    CARD_SETTING();
+    } */
+   
     CARD_SETTING2();
     CARD_ANALYSIS();
     P_CARD_PEA();

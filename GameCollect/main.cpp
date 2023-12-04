@@ -13,6 +13,7 @@
 #include"Reversi.h"
 #include"Title.h"
 #include"Hex_GameMain.h"
+#include"Porker.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
