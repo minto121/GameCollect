@@ -128,7 +128,7 @@ void Checkermain::Draw() const {
     // ”wŒi‚ğ•`‰æ
     DrawGraph(0, 0, Checkerback, FALSE);
     // ƒ{[ƒh‚ğ•`‰æ
-    DrawGraph(300, 0, Boardimg, TRUE);
+    DrawGraph(180, 0, Boardimg, TRUE);
 
     // ƒvƒŒƒCƒ„[1‚Ì‹î‚ğ•`‰æ
     for (int y = 0; y < 8; y++) {
