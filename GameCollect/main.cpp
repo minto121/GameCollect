@@ -3,16 +3,16 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
+//#include"Hanafuda_GameMain.h"
 #include "takoyaki.h"
 //#include"Hanafuda_GameMain.h"
 //#include "Checkermain.h"
-#include "SixBollPuzzle.h"
+#include "SixBallPuzzle.h"
 #include "RabbitAndHounds.h"
 #include "GameSelect.h"
 #include"Reversi.h"
 #include"Title.h"
-
+#include"Hex_GameMain.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
