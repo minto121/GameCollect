@@ -10,6 +10,7 @@
 #include "Hex_GameMain.h"
 #include "SixBallPuzzle.h"
 #include "Porker.h"
+#include "Reversi.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -89,6 +90,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		break;
 	case SELECT::poker:
 		return new Porker();
+		break;
+	case SELECT::Osero:
+		return new Reversi();
 		break;
 	default:
 		printfDx("ñ¢é¿ëïÇ»ã@î\Ç≈Ç∑ÅB\n");
