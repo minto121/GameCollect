@@ -2,6 +2,7 @@
 
 Gomoku::Gomoku()
 {
+
 }
 
 Gomoku::~Gomoku()

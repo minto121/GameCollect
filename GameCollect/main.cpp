@@ -3,8 +3,16 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
-#include "Checkermain.h"
+//#include"Hanafuda_GameMain.h"
+#include "takoyaki.h"
+//#include"Hanafuda_GameMain.h"
+//#include "Checkermain.h"
+#include "SixBallPuzzle.h"
+#include "RabbitAndHounds.h"
+#include "GameSelect.h"
+#include"Reversi.h"
+#include"Title.h"
+#include"Hex_GameMain.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -34,7 +42,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Checkermain());
+		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
 
 	}
 	catch (const char* err)
@@ -68,6 +76,9 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 		}
 		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
+
+	DxLib_End;
+
 	return 0;
 
 }
