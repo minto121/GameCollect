@@ -77,8 +77,12 @@ AbstractScene* Checkermain::Update() {
                         CanTakeMore(SelectX, SelectY);
                       
                     }
-                  
-                 
+                    if (cantake == true) {
+                        phase = 0;
+                    }
+                    else if (cantake == false) {
+                        phase = 1;
+                    }
                 }
 
             }
@@ -102,10 +106,14 @@ AbstractScene* Checkermain::Update() {
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
                         CanTakeMore(SelectX, SelectY);
-                       
+                     
                     }
-                 
-
+                    if (cantake == true) {
+                        phase = 1;
+                    }
+                    else if (cantake == false) {
+                        phase = 0;
+                    }
 
                 }
 
@@ -430,16 +438,12 @@ bool Checkermain::CanTakeMore(int SelectX, int SelectY)
             // ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
             if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
                 cantake = true;
-                if (cantake == 1) {
-                    phase = 0;
-                }
-                return true;
+          
+                return false;
             }
             else if (board[jumpedX][jumpedY] == 0) {
                 cantake = false;
-                if (cantake == false) {
-                    phase = 1;
-                }
+             
                 return false;
             }
         }
@@ -458,17 +462,13 @@ bool Checkermain::CanTakeMore(int SelectX, int SelectY)
                 if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
                     // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                     cantake = true;
-                    if (cantake == 1) {
-                        phase = 1;
-                    }
+                
                     
                     return true;
                 }
                 else if (board[jumpedX][jumpedY] == 0) {
                     cantake = false;
-                    if (cantake == false) {
-                        phase = 0;
-                    }
+                  
                     return false;
                 }
             }
