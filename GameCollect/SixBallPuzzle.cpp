@@ -68,6 +68,7 @@ AbstractScene* SixBallPuzzle::Update()
 			ballActive[i] = true;  // ボールがアクティブかどうか
 		}
 	}
+
 	// y座標を自動的に更新してボールを描画
 	for (int i = 0; i < MaxBalls; i++)
 	{
@@ -86,7 +87,7 @@ AbstractScene* SixBallPuzzle::Update()
 					// 現在のボールが他のボールと重ならないようにする
 					if (i != j && ballActive[j] && ballY[j] < ballY[i] + 64 && ballY[j] + 64 > ballY[i])
 					{
-						ballY[i] = ballY[j] - 64;  // 積み上げる位置を調整
+						ballY[i] = ballY[j];  // 積み上げる位置を調整
 						break;
 					}
 				}
