@@ -16,7 +16,7 @@
     <ClCompile Include="Checkermain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="Porker.cpp" />
@@ -35,7 +35,6 @@
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="LastCard.cpp" />
-  </ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h">
