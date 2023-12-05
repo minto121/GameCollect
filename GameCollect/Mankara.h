@@ -19,7 +19,15 @@ private:
 		int img;
 	} ;
 	// 石の色と各個数
-	struct STONE gStone[6][8];
+	struct STONE gStone[6][16];
+
+	struct STONE2
+	{
+		bool flg = 1;
+		int img;
+	} ;
+	// 石の色と各個数
+	struct STONE2 gStone2[6][16];
 
 	
 
