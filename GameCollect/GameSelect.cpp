@@ -27,29 +27,29 @@ GameSelect::~GameSelect()
 }
 AbstractScene* GameSelect::Update()
 {
-	// ����Ԋu����
-	const int max_input_margin = 15;
-	// �X�e�B�b�N�̊��x
-	const int stick_sensitivity = 20000;
-	if (input_margin < max_input_margin) {
-		input_margin++;
-	}
-	else {
-		// �X�e�B�b�N��Y���W���擾
-		int stick_y = PAD_INPUT::GetLStick().ThumbY;
-		if (std::abs(stick_y) > stick_sensitivity) {
-			//playsoundmem
-			// �X�e�B�b�N����Ɉړ������ꍇ
-			if (stick_y > 0) {
-				// ���j���[�I��������O�Ɉړ�
-				now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
-			}
-			// �X�e�B�b�N�����Ɉړ������ꍇ
-			else if (stick_y < 0) {
-				// ���j���[�I����������Ɉړ�
-				now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
-			}
-			input_margin = 0;
+// ����Ԋu����
+const int max_input_margin = 15;
+// �X�e�B�b�N�̊��x
+const int stick_sensitivity = 20000;
+
+if (input_margin < max_input_margin) {
+	input_margin++;
+}
+else {
+	// �X�e�B�b�N��Y���W���擾
+	int stick_y = PAD_INPUT::GetLStick().ThumbY;
+
+	if (std::abs(stick_y) > stick_sensitivity) {
+		//playsoundmem
+		// �X�e�B�b�N����Ɉړ������ꍇ
+		if (stick_y > 0) {
+			// ���j���[�I��������O�Ɉړ�
+			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
+		}
+		// �X�e�B�b�N�����Ɉړ������ꍇ
+		else if (stick_y < 0) {
+			// ���j���[�I����������Ɉړ�
+			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
 		}
 	}
 	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
