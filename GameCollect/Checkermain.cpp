@@ -61,7 +61,7 @@ AbstractScene* Checkermain::Update() {
                     StartY = selectY;
                     F_select = true;
                 }
-                else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 3)) {
+                else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 4)) {
                     StartX = selectX;
                     StartY = selectY;
                     F_select = true;
@@ -77,10 +77,14 @@ AbstractScene* Checkermain::Update() {
                         CanTakeMore(SelectX, SelectY);
                       
                     }
+                    // 特定の条件で成金する処理を追加
+                    if (board[SelectX][SelectY] == 1 && SelectY == 7) {
+                        board[SelectX][SelectY] = 4; // 4は成金を表す
+                    }
                     if (cantake == true) {
                         phase = 0;
                     }
-                    else if (cantake == false) {
+                    else {
                         phase = 1;
                     }
                 }
@@ -92,7 +96,7 @@ AbstractScene* Checkermain::Update() {
                     StartY = selectY;
                     F_select = true;
                 }
-                else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 4)) {
+                else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 3)) {
                     StartX = selectX;
                     StartY = selectY;
                     F_select = true;
@@ -108,10 +112,14 @@ AbstractScene* Checkermain::Update() {
                         CanTakeMore(SelectX, SelectY);
                      
                     }
+                    // 特定の条件で成金する処理を追加
+                    if (board[SelectX][SelectY] == 2 && SelectY == 0) {
+                        board[SelectX][SelectY] = 3; // 4は成金を表す
+                    }
                     if (cantake == true) {
                         phase = 1;
                     }
-                    else if (cantake == false) {
+                    else {
                         phase = 0;
                     }
 
@@ -205,7 +213,8 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 
    
     // 赤駒が敵陣地の端に到達したら成金になる
-    
+
+
     // 赤駒
     if (board[StartX][StartY] == 1){
     // 移動先が隣接している場合（通常の移動）赤駒の右斜め前移動
@@ -222,11 +231,11 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
                 return true;
             }
         }
-        else if (SelectY == 7) {
-            board[StartX][StartY] = 0;
-            board[SelectX][SelectY] = 4; // 4は成金を表す
-            return false;
-        }
+        //else if (SelectY==7) {
+        //        board[StartX][StartY] = 0;
+        //        board[SelectX][SelectY] = 4; // 4は成金を表す
+        //    return false;
+        //}
     }
     // 黒駒
     if (board[StartX][StartY] == 2) {
@@ -245,11 +254,11 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
             }
         }
         // 黒駒が敵陣地の端に到達したら成金になる
-        else if (SelectY == 0) {
-            board[StartX][StartY] = 0;
-            board[SelectX][SelectY] = 3; // 3は成金を表す
-            return false;
-        }
+        //else if (SelectY == 0) {
+        //    board[StartX][StartY] = 0;
+        //    board[SelectX][SelectY] = 3; // 3は成金を表す
+        //    return false;
+        //}
     }
     // 黒駒
     if (board[StartX][StartY] == 3){
