@@ -1,9 +1,9 @@
 #pragma once
 #include "AbstractScene.h"
-enum class SELECT {
+enum class  SELECT {
     Mankara,
     Hitblow,
-    DotBox,
+    Dotbox,
     Checker,
     Gomoku,
     Osero,
@@ -12,48 +12,45 @@ enum class SELECT {
     poker,
     sixballpuzzle,
     sinnkeisuizyaku,
-    takoyaki,
-    rabbitdog,
+    takoyaaki,
+    rabbiitdog,
     lastcard,
-    MENU_SIZE,
+    MENU_SIZE
 };
 class GameSelect :
     public AbstractScene
 {
 private:
     const char* menu_items[static_cast<int>(SELECT::MENU_SIZE)] = {
-       "Mankara",
-    "Hitblow",
-    "DotBox",
-    "Checker",
-    "Gomoku",
-    "Osero",
-    "Hekusu",
-    "Hanafuda",
-    "poker",
-    "sixballpuzzle",
-    "sinnkeisuizyaku",
-    "takoyaki",
-    "rabbitdog",
-    "lastcard",
+      "Mankara",
+      "Hitblow",
+      "Dotbox",
+      "Checker",
+      "Gomoku",
+      "Osero",
+      "Hekusu",
+      "Hanafuda",
+      "poker",
+      "sixballpuzzle",
+      "sinnkeisuizyaku",
+      "takoyaaki",
+      "rabbiitdog",
+      "lastcard"
     };
-    int now_menu;
-    int font_handle;
-    int input_margin;
-    int Select;
-    bool Once;
-
+    int now_menu; //ï¿½ï¿½ï¿½İ‘Iï¿½ï¿½ï¿½ï¿½ï¿½Ä‚éƒï¿½jï¿½ï¿½ï¿½[
+    int font_handle;  //ï¿½tï¿½Hï¿½ï¿½ï¿½g
+    int input_margin;  //ï¿½ï¿½ï¿½ìï¿½ÔŠÔŠu
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ï¿½Rï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     GameSelect();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
     ~GameSelect();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
+    //ï¿½`ï¿½ï¿½ÈŠOï¿½ÌXï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½s
     AbstractScene* Update() override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
+    //ï¿½`ï¿½ï¿½ÉŠÖ‚ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½ï¿½
     void Draw() const override;
 };
 
