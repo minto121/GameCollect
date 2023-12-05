@@ -241,22 +241,22 @@ void Porker::PLAYER_RAISE()
 void Porker::ENEMIE_CHOISE()
 {
     if (Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
-       // P_TEKI = GetRand(100);
+        P_TEKI = GetRand(100);
 
-       // if (P_TEKI < 40) {
-       //     Bs = Bs + 50;
-       //     es1 = es1 - 50;
-       //     E_CAllflg = TRUE;
-       // }
-       // else if (40 <= P_TEKI && P_TEKI <= 100) {
+        if (P_TEKI < 40) {
+            Bs = Bs + 50;
+            es1 = es1 - 50;
+            E_CAllflg = TRUE;
+        }
+        else if (40 <= P_TEKI && P_TEKI <= 100) {
 
-       //     Bs = Bs + 100;
-       //     es1 = es1 - 100;
-       //     E_Raiseflg = TRUE;
-       // }
-       ///* else if (70 < P_TEKI <= 100) {
-       //     E_Fouldflg = TRUE;
-       // }*/
+            Bs = Bs + 100;
+            es1 = es1 - 100;
+            E_Raiseflg = TRUE;
+        }
+       /* else if (70 < P_TEKI <= 100) {
+            E_Fouldflg = TRUE;
+        }*/
 
 
 
@@ -1534,8 +1534,11 @@ void Porker::Draw() const
         DrawString(550, 200, "YOU WIN", 0x000000, TRUE);
         DrawFormatString(100, 400, 0xff0000, "チップ(自分): %d", ps1, TRUE);
         DrawFormatString(880, 400, 0x6445ff, "チップ(敵): %d", es1, TRUE);
-        if (C_flg[2] == TRUE) {
+        if (C_flg[2] == TRUE && a != 2) {
             DrawString(450, 550, "[X]BUTTONでNEXT ROUND", 0x000000, TRUE);
+        }
+        else if (C_flg[2] == TRUE && a == 2) {
+            DrawString(450, 550, "[X]BUTTONでゲーム終了", 0x000000, TRUE);
         }
     }
 
@@ -1546,8 +1549,11 @@ void Porker::Draw() const
         DrawString(550, 200, "YOU LOSE", 0xffffff, TRUE);
         DrawFormatString(100, 400, 0x6445ff, "チップ(自分): %d", ps1, TRUE);
         DrawFormatString(880, 400, 0xff0000, "チップ(敵): %d", es1, TRUE);
-        if (C_flg[2] == TRUE) {
+        if (C_flg[2] == TRUE && a != 2) {
             DrawString(450, 550, "[X]BUTTONでNEXT ROUND", 0xffffff, TRUE);
+        }
+        else if (C_flg[2] == TRUE && a == 2) {
+            DrawString(450, 550, "[X]BUTTONでゲーム終了", 0xffffff, TRUE);
         }
     }
 
