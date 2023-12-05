@@ -3,7 +3,7 @@
 class Porker : public AbstractScene
 {
 private:
-	
+
 	int a;
 	int wt;
 	int ps1;
@@ -19,7 +19,8 @@ private:
 	int WP_FLG[20];
 	int YP[31];
 	int YP2[31];
-	
+	int YP3[31];
+
 
 	int Winflg;
 	int Loseflg;
@@ -36,9 +37,9 @@ private:
 	int WT2flg[3];
 
 	int WTRelese[4];
-	
+
 	int BTN_RELESE_FLG[6];
-	
+
 	int P_F_flg;
 	int RC_H_flg;
 	int CARD_URA_H_flg;
@@ -46,11 +47,11 @@ private:
 	int Tranpu_Img[56];
 	int Back;
 	int P_rand[2];
-	
+
 	int E_rand[2];
-	
+
 	int C_rand[5];
-	
+
 	int C_flg[4];
 
 	int P_CARD_S[2];//プレイヤーカードの商格納用
@@ -61,7 +62,7 @@ private:
 
 	int C_CARD_S[5];//場に出ているカード1~5の商格納用
 	int C_CARD_A[5];//場に出ているカード1~5の余り格納用
-	
+
 	int P_SORT[16];
 	int E_SORT[16];
 	int WINandLOSE[2];
@@ -98,8 +99,8 @@ public:
 	//描画に関することを実装
 	void Draw() const override;
 
+	void PLAYER_CHOISE();
 
-	
 	void ROUND_INIT();//ラウンド初期化
 
 	void CARD_SETTING();//カードの呼び出し用関数
