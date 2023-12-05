@@ -52,6 +52,8 @@ AbstractScene* gomokuScene::Update()
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
+		/*PlaySoundFile("sound/BGM/gomoku_BGM1.wav", DX_PLAYTYPE_LOOP);*/
+
 		// ‰è‚Í”Õ–Ê‚Ì^‚ñ’†‚É‚µ‚©’u‚­‚±‚Æ‚ª‚Å‚«‚È‚¢
 		if (Key_Count <= 1 && gomoku_TurnSetFlg != 1) {
 			srand((unsigned int)time(NULL));
@@ -166,6 +168,7 @@ AbstractScene* gomokuScene::Update()
 		if (gomoku_AI_WaitTime > 180) {
 			if (gomoku_AITurn == 0 && gomoku_Banmen[6][6] == 0 && gomoku_elapsedturn == 0) {
 				gomoku_Banmen[5][5] = gomoku_Efs;
+				PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 				Key_Count++;
 				gomoku_elapsedturn++;
 				gomoku_Phase = gomoku_PlayerTurn;

@@ -12,6 +12,7 @@ private:
 	int g_NowKey;
 	int g_KeyFlg;
 	int gomoku_transitionTime;
+	int gomoku_inputWaitTime;
 public:
 	gomokuTitle();
 	~gomokuTitle();
