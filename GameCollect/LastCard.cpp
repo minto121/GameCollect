@@ -34,7 +34,7 @@ AbstractScene* LastCard::Update()
 
 void LastCard::Draw() const
 {
-	//DrawGraph(35, 49, CardImg[2], FALSE);
+	DrawGraph(35, 49, CardImg[2], FALSE);
 
 
     for (size_t i = 0; i < playerHands.size(); ++i) {
@@ -66,7 +66,7 @@ void LastCard::InitPlayerHands()
     // 既存の手札をクリア
     playerHands.clear();
 
-    
+    std::vector<int> deck;
     const int NUM_COLORS = 4;
     const int CARDS_PER_COLOR = 13;
 
@@ -89,26 +89,12 @@ void LastCard::InitPlayerHands()
 
     const int cardsPerPlayer = 5; // 各プレイヤーに配るカードの数
 
-    // デッキからプレイヤーにカードを配る
+    // カードをプレイヤーに配布
     for (int i = 0; i < numPlayers * cardsPerPlayer; ++i) {
-        if (deck.size() > 0) {
-            int card = deck.back(); // デッキからカードを取得
-            deck.pop_back(); // デッキからカードを削除
-
-            int playerIndex = i % numPlayers; // プレイヤーのインデックス
-            playerHands[playerIndex].push_back(card); // プレイヤーにカードを追加
+        int playerIndex = i % numPlayers;
+        if (playerHands[playerIndex].size() < cardsPerPlayer) {
+            playerHands[playerIndex].push_back(deck[i]);
         }
-        else {
-            // デッキにカードがない場合の処理（例えば、エラー処理など）
-            // ここではシンプルにログを出力します
-            //std::cout << "デッキにカードが足りません！" << std::endl;
-            break;
-        }
-        // デッキの中身を出力する（デバッグ用）
-        for (int i = 0; i < deck.size(); ++i) {
-            printf("%d ", deck[i]);
-        }
-        printf("\n");
     }
 }
 

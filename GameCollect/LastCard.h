@@ -26,7 +26,6 @@ private:
     int CardImg[65];
 
     std::vector<std::vector<int>> playerHands;
-    std::vector<int> deck;
 
     const int startX = 50; // 開始X座標
     const int startY = 50; // 開始Y座標
