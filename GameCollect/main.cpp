@@ -14,29 +14,29 @@
 #include"Title.h"
 #include"Hex_GameMain.h"
 
-#define FRAMERATE 60.0 //�t���[�����[�g
+#define FRAMERATE 60.0 //フレームレート
 
-#define SCREEN_HEIGHT 720	//��ʃT�C�Y (�c)
-#define SCREEN_WIDTH 1280	//��ʃT�C�Y (��)
-#define SCORE_UI_SIZE 180	//�X�R�A�\���G���A�T�C�Y (��)
+#define SCREEN_HEIGHT 720	//画面サイズ (縦)
+#define SCREEN_WIDTH 1280	//画面サイズ (横)
+#define SCORE_UI_SIZE 180	//スコア表示エリアサイズ (横)
 
 
 /***********************************************
- * �v���O�����̊J�n
+ * プログラムの開始
  ***********************************************/
 int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In_ int ii)
 {
 	SetMainWindowText("GameCollect");
 
-	ChangeWindowMode(TRUE);		// �E�B���h�E���[�h�ŋN��
+	ChangeWindowMode(TRUE);		// ウィンドウモードで起動
 
-	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);	//��ʃT�C�Y�̐ݒ�
+	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);	//画面サイズの設定
 
 	if (DxLib_Init() == -1)
 	{
-		return -1;	// DX���C�u�����̏���������
+		return -1;	// DXライブラリの初期化処理
 	}
-	SetDrawScreen(DX_SCREEN_BACK);	// �`����ʂ𗠂ɂ���
+	SetDrawScreen(DX_SCREEN_BACK);	// 描画先画面を裏にする
 
 	SceneManager* sceneMng;
 
@@ -52,29 +52,29 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 		DATEDATA data;
 
 		GetDateTime(&data);
-		//�t�@�C���I�[�v��
+		//ファイルオープン
 		fopen_s(&fp, "ErrLog.txt", "a");
-		//�G���[�f�[�^�̏�������
+		//エラーデータの書き込み
 		fprintf_s(fp, "%02d�N %02d�� %02d�� %02d�� %02d�� %02d�b : %s������܂���B\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
 
 		return 0;
 	}
 	FpsController FPSC(FRAMERATE, 800);
 
-	// �Q�[�����[�v
+	// ゲームループ
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
-		ClearDrawScreen();		// ��ʂ̏�����
+		ClearDrawScreen();		// 画面の初期化
 		PAD_INPUT::UpdateKey();
 		sceneMng->Draw();
 		FPSC.All();
 		FPSC.Disp();
-		//�����I��
+		//強制終了
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK) || CheckHitKey(KEY_INPUT_ESCAPE))
 		{
 			break;
 		}
-		ScreenFlip();			// ����ʂ̓��e��\��ʂɔ��f
+		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
 
 	DxLib_End;
