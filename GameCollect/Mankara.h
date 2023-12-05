@@ -15,21 +15,18 @@ private:
 
 	struct STONE
 	{
-		bool flg = 1;
 		int img;
 	} ;
-	// 石の色と各個数
+	// 色と個数
 	struct STONE gStone[6][16];
 
 	struct STONE2
 	{
-		bool flg = 1;
 		int img;
 	} ;
-	// 石の色と各個数
+	// 石の色と個数
 	struct STONE2 gStone2[6][16];
 
-	
 
 	// 1Pが選択しているポケット
 	int PlayerPocket;
@@ -45,7 +42,10 @@ private:
 	//1Pのゴール
 	int P1BigPocket; 
 	//2Pのゴール
-	int P2BigPocket; 
+	int P2BigPocket;
+
+	int BigPocket[6][40];
+	int BigPocket2[6][40];
 
 	// 石の画像
 	int StoneImg[6]; 
