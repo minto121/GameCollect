@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "AbstractScene.h"
 
 class Takoyaki :
@@ -6,25 +6,30 @@ class Takoyaki :
 {
 
 private:
-    int Select;     //‘I‘ğ” 
-    int Cards_img[42];  //ƒJ[ƒh
-    int CursolImg; //ƒJ[ƒ\ƒ‹‰æ‘œ
-    int select_X;//ƒJ[ƒh‚²‚Æ‚ÌƒJ[ƒ\ƒ‹ˆÊ’u‚ğ•Û
+    int Select;             //é¸æŠæ•° 
+    int Cards_img[56];      //ã‚«ãƒ¼ãƒ‰æƒ…å ±æ ¼ç´é…åˆ—
+    int CursolImg;          //ã‚«ãƒ¼ã‚½ãƒ«ç”»åƒ
+    int cardimg;            //ã‚«ãƒ¼ãƒ‰
+    int select_X;           //ã‚«ãƒ¼ãƒ‰ã”ã¨ã®ã‚«ãƒ¼ã‚½ãƒ«ä½ç½®ã‚’ä¿æŒ
+    int select_Y;
     int BackCard_Img;
-    bool cardFlipped;//ƒJ[ƒh‚Ì— •Ô‚µ
-    int cardimg;
+    bool cardFlipped[2][10];       //ã‚«ãƒ¼ãƒ‰ã®è£è¿”ã—
+    bool AButtonPressed;
+   
+    //æ‰‹æœ­ã®æƒ…å ±ã‚’ä¿æŒã™ã‚‹é…åˆ—
+    int handCard[2][10];
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     Takoyaki();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~Takoyaki();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
-    AbstractScene* Update() override;
+    //æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè¡Œ
+    AbstractScene* Update();
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
-    void Draw() const override;
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…
+    void Draw() const;
 };
 
 
