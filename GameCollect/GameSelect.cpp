@@ -2,6 +2,7 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
+#include "takoyaki.h"
 //#include"Hanafuda_GameMain.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
@@ -58,6 +59,9 @@ AbstractScene* GameSelect::Update()
 			case LEVEL::HARD:
 				return new GameMain(current_selection);
 				break;*/
+				case SELECT::takoyaki:
+				return new Takoyaki();
+				break;
 		default:
 			printfDx("ñ¢é¿ëïÇ»ã@î\Ç≈Ç∑ÅB\n");
 			break;
