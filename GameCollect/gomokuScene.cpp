@@ -335,7 +335,7 @@ AbstractScene* gomokuScene::Update()
 	}
 	else {
 		gomoku_Result_WaitTime++;
-		if (gomoku_Result_WaitTime > 210 && g_KeyFlg & PAD_INPUT_9 && gomoku_Battle != 0) {
+		if (gomoku_Result_WaitTime > 210 &&  gomoku_Battle != 0) {
 				return new gomokuTitle();
 			}
 	}
@@ -374,11 +374,11 @@ void gomokuScene::Draw() const
 		SetFontSize(80);
 		DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
 	}
-	if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime < 30) {
+	if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime < 30 && gomoku_Player_WaitTime > 155) {
 		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
 	}
-	else if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime > 29) {
-		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xff0000, FALSE);
+	else if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime > 29 && gomoku_Player_WaitTime > 155) {
+		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xff0000, FALSE); 
 	}
 	if (gomoku_Battle == 1) {
 		SetFontSize(80);
@@ -388,8 +388,8 @@ void gomokuScene::Draw() const
 		SetFontSize(80);
 		DrawFormatString(500, 300, 0xFF00FF, ("LOSE"));
 	}
-	if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
+	/*if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
 		DrawFormatString(0, 600, 0x000000, ("STARTボタンでタイトルに戻る"));
-	}
+	}*/
 	
 }
