@@ -8,6 +8,7 @@ gomokuTitle::gomokuTitle()
     g_OldKey = 0;
     g_NowKey = 0;
     g_KeyFlg = 0;
+    gomoku_transitionTime = 0;
 }
 
 gomokuTitle::~gomokuTitle()
@@ -20,6 +21,8 @@ AbstractScene* gomokuTitle::Update()
     g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
     g_KeyFlg = g_NowKey & ~g_OldKey;
 
+    gomoku_transitionTime++;
+
     gomokuMenuY = gomokuMenuNumber * 100;
     
     if (g_KeyFlg & PAD_INPUT_UP && gomokuMenuY > 0 || g_KeyFlg & PAD_INPUT_DOWN && gomokuMenuY > 0) {
@@ -28,7 +31,10 @@ AbstractScene* gomokuTitle::Update()
     if (g_KeyFlg & PAD_INPUT_UP && gomokuMenuY < 1 || g_KeyFlg & PAD_INPUT_DOWN && gomokuMenuY < 1) {
        gomokuMenuNumber = 1;
     }
-    if (g_KeyFlg & PAD_INPUT_1 && gomokuMenuNumber == 0) {
+    if (g_KeyFlg & PAD_INPUT_UP && gomokuMenuY < 2 || g_KeyFlg & PAD_INPUT_DOWN && gomokuMenuY < 2) {
+        gomokuMenuNumber = 2;
+    }
+    if (g_KeyFlg & PAD_INPUT_1 && gomokuMenuNumber == 0 && gomoku_transitionTime > 15) {
         return new gomokuScene;
     }
 	return this;
@@ -38,8 +44,9 @@ void gomokuTitle::Draw() const
 {
     DrawGraph(0, 0, gomokuTitle_Back, FALSE);
     SetFontSize(100);
-    DrawFormatString(900, 450, 0xffffff, "START");
-    DrawFormatString(900, 550, 0xffffff, "HELP");
+    DrawFormatString(900, 350, 0xffffff, "START");
+    DrawFormatString(900, 450, 0xffffff, "HELP");
+    DrawFormatString(900, 550, 0xffffff, "BACK");
     DrawFormatString(0, 0, 0xffffff, "ŒÜ–Ú•À‚×");
-    DrawTriangle(850, 500 + gomokuMenuY, 800, 450 + gomokuMenuY, 800, 550 + gomokuMenuY, 0xffffff, TRUE);
+    DrawTriangle(850, 500 + gomokuMenuY, 800, 350 + gomokuMenuY, 800, 550 + gomokuMenuY, 0xffffff, TRUE);
 }

@@ -128,6 +128,7 @@ AbstractScene* gomokuScene::Update()
 			if (gomoku_Phase == gomoku_PlayerTurn) {
 				bCount += 1;
 				gomoku_Banmen[cX][cY] = gomoku_Pfs;
+				PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 				gomoku_elapsedturn++;
 				gomoku_Phase = gomoku_AITurn;
 			}
@@ -298,6 +299,7 @@ AbstractScene* gomokuScene::Update()
 				}
 				if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == gomoku_AITurn) {
 					gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = gomoku_Efs;
+					PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 					gomoku_AI_MoveX = 0;
 					gomoku_AI_MoveY = 0;
 					gomoku_elapsedturn++;
@@ -306,6 +308,7 @@ AbstractScene* gomokuScene::Update()
 				for (int r = 0; r < 144 && gomoku_Phase == gomoku_AITurn; r++) {
 					if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == gomoku_AITurn) {
 						gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = gomoku_Efs;
+						PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 						gomoku_elapsedturn++;
 						gomoku_Phase = gomoku_PlayerTurn;
 					}
