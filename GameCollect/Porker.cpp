@@ -44,6 +44,7 @@ Porker::~Porker()
 }
 
 
+
 //ラウンド初期化
 void Porker::ROUND_INIT() 
 {
@@ -118,6 +119,10 @@ void Porker::ROUND_INIT()
             YP2[x] = 0;
         }
      
+        for (int x = 0; x <= 30; x++) {
+            YP3[x] = 0;
+        }
+
         for (int x = 0; x <= 1; x++) {
             WINandLOSE[x] = 0;
         }
@@ -144,7 +149,7 @@ void Porker::ROUND_INIT()
 //カード呼び出し
 void Porker::CARD_SETTING()
 {
-    if (WP_FLG[11] == FALSE) {
+    
         P_rand[0] =  GetRand(55);   //プレイヤーのホールカード1
 
         P_rand[1] = GetRand(55);   //プレイヤーのホールカード2
@@ -162,12 +167,7 @@ void Porker::CARD_SETTING()
         C_rand[3] = GetRand(55);   //コミュニティカード4
 
         C_rand[4] = GetRand(55);  //コミュニティカード5   
-        WP_FLG[11] = TRUE;
-
-       
-      
-
-    }
+     
 }
 
 
@@ -212,7 +212,7 @@ void Porker::CARD_SETTING2()
         C_rand[4] == C_rand[1] || C_rand[4] == C_rand[2] || C_rand[4] == C_rand[3]) {
         C_rand[4] = GetRand(55);
     }
-
+    WP_FLG[11] = TRUE;
 }
 
 
@@ -226,7 +226,6 @@ void Porker::PLAYER_CALL()
 }
 
 
-
 //プレイヤーのレイズ
 void Porker::PLAYER_RAISE()
 {
@@ -238,27 +237,29 @@ void Porker::PLAYER_RAISE()
 }
 
 
-
 //敵のコールとレイズ
 void Porker::ENEMIE_CHOISE()
 {
     if (Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
-        P_TEKI = GetRand(100);
+       // P_TEKI = GetRand(100);
 
-        if (P_TEKI < 40) {
-            Bs = Bs + 50;
-            es1 = es1 - 50;
-            E_CAllflg = TRUE;
-        }
-        else if (40 <= P_TEKI && P_TEKI <= 100) {
+       // if (P_TEKI < 40) {
+       //     Bs = Bs + 50;
+       //     es1 = es1 - 50;
+       //     E_CAllflg = TRUE;
+       // }
+       // else if (40 <= P_TEKI && P_TEKI <= 100) {
 
-            Bs = Bs + 100;
-            es1 = es1 - 100;
-            E_Raiseflg = TRUE;
-        }
-       /* else if (70 < P_TEKI <= 100) {
-            E_Fouldflg = TRUE;
-        }*/
+       //     Bs = Bs + 100;
+       //     es1 = es1 - 100;
+       //     E_Raiseflg = TRUE;
+       // }
+       ///* else if (70 < P_TEKI <= 100) {
+       //     E_Fouldflg = TRUE;
+       // }*/
+
+
+
     }
    
 }
@@ -267,26 +268,40 @@ void Porker::ENEMIE_CHOISE()
 //カード分析
 void Porker::CARD_ANALYSIS()
 {
+    if (WP_FLG[11] == TRUE) {
 
-   
         for (int i = 0; i < 2; i++) {
             P_CARD_A[i] = P_rand[i] % 14;
+            if (P_CARD_A[i] == 1) 
+            {
+                P_CARD_A[i] = 14;
+            }
             P_CARD_S[i] = P_rand[i] / 14;
+            
         }
 
         for (int j = 0; j < 2; j++) {
             E_CARD_A[j] = E_rand[j] % 14;
+            if (E_CARD_A[j] == 1)
+            {
+                E_CARD_A[j] = 14;
+            }
             E_CARD_S[j] = E_rand[j] / 14;
         }
         for (int c = 0; c < 5; c++) {
             C_CARD_A[c] = C_rand[c] % 14;
+            if (C_CARD_A[c] == 1)
+            {
+                C_CARD_A[c] = 14;
+            }
             C_CARD_S[c] = C_rand[c] / 14;
         }
 
-      
-    
+
+    }
     
 }
+
 
 
 
@@ -295,16 +310,20 @@ void Porker::P_CARD_PEA()
 {
     if (WP_FLG[5] == FALSE) {
 
-       
+        P_SORT[14] = P_CARD_A[0] + P_CARD_A[1];
+
         if (P_CARD_A[0] == P_CARD_A[1]) {
             YP2[0] = YP2[0] + 1;
+            YP3[3] = P_CARD_A[1];
         }
         for (YP[0] = 0; YP[0] <= 4; YP[0]++) {
             if (P_CARD_A[0] == C_CARD_A[YP[0]]) {
                 YP2[1] = YP2[1] + 1;
+                YP3[0] = C_CARD_A[YP[0]];
             }
             if (P_CARD_A[1] == C_CARD_A[YP[0]]) {
                 YP2[2] = YP2[2] + 1;
+                YP3[1] = C_CARD_A[YP[0]];
             }
         }
 
@@ -312,12 +331,15 @@ void Porker::P_CARD_PEA()
             for(YP[2] = YP[1]+1; YP[2] <= 4; YP[2]++)
             if (C_CARD_A[YP[1]] == C_CARD_A[YP[2]]) {
                 YP2[3] = YP2[3] + 1;
+                YP3[2] = C_CARD_A[YP[2]];
             }
            
         }
         
+      
     
         if (YP[0] == 5) {
+            YP3[9] = YP3[0] + YP3[1] + YP3[2] + YP3[3];
             WP_FLG[0] = TRUE;
         }
     }
@@ -342,6 +364,7 @@ void Porker::P_CARD_3_CARD()
                         if (C_CARD_A[YP[3]] == C_CARD_A[YP[4]]) {
 
                             YP2[4] = YP2[4] + 1;
+                            YP3[10] = C_CARD_A[YP[4]];
                             break;
 
                         }
@@ -363,6 +386,7 @@ void Porker::P_CARD_3_CARD()
                            
                    
                             YP2[4] = YP2[4] + 1;
+                            YP3[11] = P_CARD_A[YP[5]];
                             break;
                         }
                     }
@@ -432,9 +456,7 @@ void Porker::P_CARD_STRAIGHT()
         P_SORT[5] = P_CARD_A[0];
         P_SORT[6] = P_CARD_A[1];
 
-        for (int x = 0; x <= 6; x++) {
-            P_SORT[14] = P_SORT[14] + P_SORT[x];
-        }
+        
         int sort;
         for (int a = 0; a <= 5; a++) {
             for (int b = a + 1; b <= 6; b++) {
@@ -462,9 +484,9 @@ void Porker::P_CARD_STRAIGHT()
         }
 
 
-        if (YP2[12] == 1) {
+       
             WP_FLG[4] = TRUE;
-        }
+       
 
     }
 }
@@ -526,6 +548,7 @@ void Porker::P_CARD_STRAIGHTFALSH()
         P_SORT[11] = C_CARD_A[4] + C_CARD_S[4];
         P_SORT[12] = P_CARD_A[0] + P_CARD_S[0];
         P_SORT[13] = P_CARD_A[1] + P_CARD_S[1];
+       
         int sort;
         for (int a = 7; a <= 12; a++) {
             for (int b = a + 1; b <= 13; b++) {
@@ -540,7 +563,7 @@ void Porker::P_CARD_STRAIGHTFALSH()
 
         //ストレート
         if (P_SORT[7] == P_SORT[8] - 1 && P_SORT[7] == P_SORT[9] - 2 && P_SORT[7] == P_SORT[10] - 3 && P_SORT[7] == P_SORT[11] - 4) {
-            YP2[24] = YP2[24] + 1;
+            YP2[25] = YP2[25] + 1;
 
         }
 
@@ -549,7 +572,7 @@ void Porker::P_CARD_STRAIGHTFALSH()
         }
 
         else  if (P_SORT[9] == P_SORT[10] - 1 && P_SORT[9] == P_SORT[11] - 2 && P_SORT[9] == P_SORT[12] - 3 && P_SORT[9] == P_SORT[13] - 4) {
-            YP2[26] = YP2[26] + 1;
+            YP2[25] = YP2[25] + 1;
         }
 
 
@@ -603,7 +626,7 @@ void Porker::P_YAKU()
         P_2PEA_FLG = FALSE;
     }
     //STRAIGHT&FLASH
-    if (YP2[24] == 1 || YP2[25] == 1 || YP2[26] == 1) {
+    if (YP2[25] == 1) {
         P_SF_FLG = TRUE;
         P_4CARD_FLG = FALSE;
         P_FH_FLG = FALSE;
@@ -626,21 +649,26 @@ void Porker::P_YAKU()
 
 
 
+
 //1ペア2ペア判断用(敵）
 void Porker::E_CARD_PEA()
 {
     if (WP_FLG[5] == FALSE) {
 
+        E_SORT[14] = E_CARD_A[0] + E_CARD_A[1];
 
         if (E_CARD_A[0] == E_CARD_A[1]) {
             YP2[13] = YP2[13] + 1;
+            YP3[4] = E_CARD_A[1];
         }
         for (YP[11] = 0; YP[11] <= 4; YP[11]++) {
             if (E_CARD_A[0] == C_CARD_A[YP[11]]) {
                 YP2[14] = YP2[14] + 1;
+                YP3[5] = C_CARD_A[YP[11]];
             }
             if (E_CARD_A[1] == C_CARD_A[YP[11]]) {
                 YP2[15] = YP2[15] + 1;
+                YP3[6] = C_CARD_A[YP[11]];
             }
         }
 
@@ -648,12 +676,14 @@ void Porker::E_CARD_PEA()
             for (YP[13] = YP[12] + 1; YP[13] <= 4; YP[13]++)
                 if (C_CARD_A[YP[12]] == C_CARD_A[YP[13]]) {
                     YP2[16] = YP2[16] + 1;
+                    YP3[7] = C_CARD_A[YP[13]];
                 }
 
         }
 
 
         if (YP[11] == 5) {
+            YP3[8] = YP3[4] + YP3[5] + YP3[6] + YP3[7];
             WP_FLG[5] = TRUE;
         }
     }
@@ -678,6 +708,7 @@ void Porker::E_CARD_3_CARD()
                         if (C_CARD_A[YP[15]] == C_CARD_A[YP[16]]) {
 
                             YP2[17] = YP2[17] + 1;
+                            YP3[12] = C_CARD_A[YP[16]];
                             break;
 
                         }
@@ -699,6 +730,7 @@ void Porker::E_CARD_3_CARD()
 
 
                             YP2[17] = YP2[17] + 1;
+                            YP3[13] = E_CARD_A[YP[17]];
                             break;
                         }
                     }
@@ -768,9 +800,7 @@ void Porker::E_CARD_STRAIGHT()
         E_SORT[5] = E_CARD_A[0];
         E_SORT[6] = E_CARD_A[1];
 
-        for (int x = 0; x <= 6; x++) {
-            E_SORT[14] = E_SORT[14] + E_SORT[x];
-        }
+        
 
         int sort;
         for (int a = 0; a <= 5; a++) {
@@ -804,7 +834,6 @@ void Porker::E_CARD_STRAIGHT()
 
     }
 }
-
 
 
 //4カード用(敵）
@@ -877,16 +906,16 @@ void Porker::E_CARD_STRAIGHTFALSH()
 
         //ストレート
         if (E_SORT[7] == E_SORT[8] - 1 && E_SORT[7] == E_SORT[9] - 2 && E_SORT[7] == E_SORT[10] - 3 && E_SORT[7] == E_SORT[11] - 4) {
-            YP2[28] = YP2[28] + 1;
+            YP2[26] = YP2[26] + 1;
 
         }
 
         else  if (E_SORT[8] == E_SORT[9] - 1 && E_SORT[9] == E_SORT[10] - 2 && E_SORT[8] == E_SORT[11] - 3 && E_SORT[8] == E_SORT[12] - 4) {
-            YP2[29] = YP2[29] + 1;
+            YP2[26] = YP2[26] + 1;
         }
 
         else  if (E_SORT[9] == E_SORT[10] - 1 && E_SORT[9] == E_SORT[11] - 2 && E_SORT[9] == E_SORT[12] - 3 && E_SORT[9] == E_SORT[13] - 4) {
-            YP2[30] = YP2[30] + 1;
+            YP2[26] = YP2[26] + 1;
         }
 
 
@@ -941,7 +970,7 @@ void Porker::E_YAKU()
         E_2PEA_FLG = FALSE;
     }
     //STRAIGHT&FLASH
-    if (YP2[28] == 1 || YP2[29] == 1 || YP2[30] == 1) {
+    if (YP2[26] == 1) {
         E_SF_FLG = TRUE;
         E_4CARD_FLG = FALSE;
         E_FH_FLG = FALSE;
@@ -962,117 +991,133 @@ void Porker::E_YAKU()
 }
 
 
+
+
 //勝ち負け
 void Porker::WINANDLOSE()
 {
-    if (P_PEA_FLG == TRUE) 
-    {
-        WINandLOSE[0] = 1;
-    }
-    if (E_PEA_FLG == TRUE)
-    {
-        WINandLOSE[1] = 1;
-    }
+    
+        if (P_PEA_FLG == TRUE)
+        {
+            WINandLOSE[0] = 1;
+        }
+        if (E_PEA_FLG == TRUE)
+        {
+            WINandLOSE[1] = 1;
+        }
 
-    if (P_2PEA_FLG == TRUE)
-    {
-        WINandLOSE[0] = 2;
-    }
-    if (E_2PEA_FLG == TRUE)
-    {
-        WINandLOSE[1] = 2;
-    }
+        if (P_2PEA_FLG == TRUE)
+        {
+            WINandLOSE[0] = 2;
+        }
+        if (E_2PEA_FLG == TRUE)
+        {
+            WINandLOSE[1] = 2;
+        }
 
-    if (P_3CARD_FLG == TRUE)
-    {
-        WINandLOSE[0] = 3;
-    }
-    if (E_3CARD_FLG == TRUE)
-    {
-        WINandLOSE[1] = 3;
-    }
+        if (P_3CARD_FLG == TRUE)
+        {
+            WINandLOSE[0] = 3;
+        }
+        if (E_3CARD_FLG == TRUE)
+        {
+            WINandLOSE[1] = 3;
+        }
 
-    if (P_STRAIGHT_FLG == TRUE)
-    {
-        WINandLOSE[0] = 4;
-    }
-    if (E_STRAIGHT_FLG == TRUE)
-    {
-        WINandLOSE[1] = 4;
-    }
+        if (P_STRAIGHT_FLG == TRUE)
+        {
+            WINandLOSE[0] = 4;
+        }
+        if (E_STRAIGHT_FLG == TRUE)
+        {
+            WINandLOSE[1] = 4;
+        }
 
-    if (P_FLASH_FLG == TRUE)
-    {
-        WINandLOSE[0] = 5;
-    }
-    if (E_FLASH_FLG == TRUE)
-    {
-        WINandLOSE[1] = 5;
-    }
+        if (P_FLASH_FLG == TRUE)
+        {
+            WINandLOSE[0] = 5;
+        }
+        if (E_FLASH_FLG == TRUE)
+        {
+            WINandLOSE[1] = 5;
+        }
 
-    if (P_FH_FLG == TRUE)
-    {
-        WINandLOSE[0] = 6;
-    }
-    if (E_FH_FLG == TRUE)
-    {
-        WINandLOSE[1] = 6;
-    }
+        if (P_FH_FLG == TRUE)
+        {
+            WINandLOSE[0] = 6;
+        }
+        if (E_FH_FLG == TRUE)
+        {
+            WINandLOSE[1] = 6;
+        }
 
-    if (P_4CARD_FLG == TRUE)
-    {
-        WINandLOSE[0] = 7;
-    }
-    if (E_4CARD_FLG == TRUE)
-    {
-        WINandLOSE[1] = 7;
-    }
+        if (P_4CARD_FLG == TRUE)
+        {
+            WINandLOSE[0] = 7;
+        }
+        if (E_4CARD_FLG == TRUE)
+        {
+            WINandLOSE[1] = 7;
+        }
 
-    if (P_SF_FLG == TRUE)
-    {
-        WINandLOSE[0] = 8;
-    }
-    if (E_SF_FLG == TRUE)
-    {
-        WINandLOSE[1] = 8;
-    }
+        if (P_SF_FLG == TRUE)
+        {
+            WINandLOSE[0] = 8;
+        }
+        if (E_SF_FLG == TRUE)
+        {
+            WINandLOSE[1] = 8;
+        }
 
-    if (P_RSF_FLG == TRUE)
-    {
-        WINandLOSE[0] = 9;
-    }
-    if (E_RSF_FLG == TRUE)
-    {
-        WINandLOSE[1] = 9;
-    }
+        if (P_RSF_FLG == TRUE)
+        {
+            WINandLOSE[0] = 9;
+        }
+        if (E_RSF_FLG == TRUE)
+        {
+            WINandLOSE[1] = 9;
+        }
 
-    if (WINandLOSE[0] > WINandLOSE[1]) 
-    {
-        R_Win_FLG[0] = TRUE;
-    }
-    else if(WINandLOSE[0] < WINandLOSE[1])
-    {
-        R_Win_FLG[1] = TRUE;
-    }
-    else if (WINandLOSE[0] == WINandLOSE[1])
-    {
-        if (P_SORT[14] > E_SORT[14])
+        if (WINandLOSE[0] > WINandLOSE[1])
         {
             R_Win_FLG[0] = TRUE;
         }
-        if (P_SORT[14] < E_SORT[14])
+        else if (WINandLOSE[0] < WINandLOSE[1])
         {
             R_Win_FLG[1] = TRUE;
         }
-    }
-    if (R_Win_FLG[0] == TRUE) {
-        ps1 = Bs + ps1;
-        Bs = 0;
-    }
-    else if (R_Win_FLG[1] == TRUE) {
-        es1 = Bs + es1;
-        Bs = 0;
-    }
+        else if (WINandLOSE[0] == WINandLOSE[1])
+        {
+            if (YP3[9] > YP3[8])
+            {
+                R_Win_FLG[0] = TRUE;
+            }
+            else if (YP3[9] < YP3[8])
+            {
+                R_Win_FLG[1] = TRUE;
+            }
+            else if (YP3[9] == YP3[8])
+            {
+                if (P_SORT[14] > E_SORT[14])
+                {
+                    R_Win_FLG[0] = TRUE;
+                }
+                else if (P_SORT[14] < E_SORT[14])
+                {
+                    R_Win_FLG[1] = TRUE;
+                }
+            }
+        }
+        if (R_Win_FLG[0] == TRUE) {
+            ps1 = Bs + ps1;
+            Bs = 0;
+        }
+        else if (R_Win_FLG[1] == TRUE) {
+            es1 = Bs + es1;
+            Bs = 0;
+        }
+     
+  
 }
 
 
@@ -1091,12 +1136,14 @@ AbstractScene* Porker::Update()
     P_CARD_FLASH();
     P_CARD_STRAIGHT();
     P_CARD_4_CARD();
+    P_CARD_STRAIGHTFALSH();
     P_YAKU();
     E_CARD_PEA();
     E_CARD_3_CARD();
     E_CARD_FLASH();
     E_CARD_STRAIGHT();
     E_CARD_4_CARD();
+    E_CARD_STRAIGHTFALSH();
     E_YAKU();
     //待ち時間
     if (WTflg[0] == TRUE) {
@@ -1138,7 +1185,7 @@ AbstractScene* Porker::Update()
             P_Call_H_flg = FALSE;
             P_Raise_H_flg = FALSE;
             CARD_URA_H_flg = FALSE;
-            WINANDLOSE();
+          
         }
     }
 
@@ -1160,6 +1207,7 @@ AbstractScene* Porker::Update()
         ENEMIE_CHOISE();
         WTRelese[2] = FALSE;
         BTN_flg = FALSE;
+        
     }
 
 
@@ -1203,7 +1251,7 @@ AbstractScene* Porker::Update()
         WTflg[2] = TRUE;
         BTN_flg = FALSE;
         BTN_RELESE_FLG[2] = FALSE;
-
+      
     }
 
 
@@ -1245,6 +1293,7 @@ AbstractScene* Porker::Update()
         WTflg[2] = TRUE;
         BTN_flg = FALSE;
         BTN_RELESE_FLG[2] = FALSE;
+       
     }
 
 
@@ -1256,16 +1305,22 @@ AbstractScene* Porker::Update()
     //         ラウンドを変える(3回目でタイトル)          //
 
     //ラウンドチェンジ
-    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3&& Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
+    if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3&& Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && BTN_RELESE_FLG[4] == FALSE) {
         BTN_RELESE_FLG[3] = TRUE;
+       
     }
-    else if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3 && BTN_RELESE_FLG[3] == TRUE&&Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
-        a++;
-        RC_H_flg = TRUE;
-        WTflg[0] = TRUE;
-        BTN_RELESE_FLG[3] = FALSE;
-    }
-
+   if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3 && BTN_RELESE_FLG[3] == TRUE&&Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE ) {
+       WINANDLOSE();
+       BTN_RELESE_FLG[4] = TRUE;
+   }
+   if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && C_flg[2] == TRUE && a <= 3 && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE && BTN_RELESE_FLG[4] == TRUE) {
+       BTN_RELESE_FLG[4] = TRUE;
+       a++;
+       RC_H_flg = TRUE;
+       WTflg[0] = TRUE;
+       BTN_RELESE_FLG[4] = FALSE;
+   }
+  
 
     //フォールド用
     if (PAD_INPUT::OnRelease(XINPUT_BUTTON_X) && C_flg[2] == FALSE && a <= 3 && BTN_RELESE_FLG[4] == FALSE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
@@ -1333,8 +1388,8 @@ void Porker::Draw() const
    
     //                   カードの表示               //
     if (Drawflg == FALSE && Winflg == FALSE && Loseflg == FALSE) {
-        DrawFormatString(400, 600, 0xffffff, "prand1: %d", P_rand[0], TRUE); //プレイヤーのホールカード1
-        DrawFormatString(600, 600, 0xffffff, "prand2: %d", P_rand[1], TRUE); //プレイヤーのホールカード2
+        //DrawFormatString(400, 600, 0xffffff, "prand1: %d", P_rand[0], TRUE); //プレイヤーのホールカード1
+        //DrawFormatString(600, 600, 0xffffff, "prand2: %d", P_rand[1], TRUE); //プレイヤーのホールカード2
         DrawGraph(400, 500, Tranpu_Img[P_rand[0]], TRUE);
         DrawGraph(600, 500, Tranpu_Img[P_rand[1]], TRUE);
 
@@ -1376,7 +1431,7 @@ void Porker::Draw() const
         //               キー表示              //
 
         if (C_flg[2] == FALSE) {
-            DrawString(100, 600, "[Y]BUTTONでコール", 0xffffff, TRUE);
+            DrawString(100, 600, "[Y]BUTTONでベット", 0xffffff, TRUE);
         }
 
         if (C_flg[2] == FALSE) {
@@ -1387,10 +1442,10 @@ void Porker::Draw() const
             DrawString(100, 680, "[X]BUTTONでフォールド", 0xffffff, TRUE);
         }
 
-        if (C_flg[2] == TRUE) {
-            DrawString(100, 650, "[X]BUTTONでROUND終了", 0xffffff, TRUE);
+       
+        if (CARD_URA_H_flg == FALSE && BTN_RELESE_FLG[3] == FALSE) {
+            DrawString(100, 680, "[X]BUTTONを押せ", 0xffffff, TRUE);
         }
-
 
 
         //             ROUND 表示               //
@@ -1461,7 +1516,7 @@ void Porker::Draw() const
     if (P_Call_H_flg == TRUE) {
         DrawBox(520, 320, 635, 360, 0xFFFF00, TRUE);
         SetFontSize(36);
-        DrawString(520, 320, "コール", 0x000000, TRUE);
+        DrawString(520, 320, "ベット", 0x000000, TRUE);
     }
 
 
@@ -1473,24 +1528,34 @@ void Porker::Draw() const
     }
 
     //ROUND WIN
-    if (R_Win_FLG[0] == TRUE) {
-        DrawBox(470, 300, 700, 360, 0xffffff, TRUE);
+    if (R_Win_FLG[0] == TRUE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
+        DrawBox(50, 100, 1225, 600, 0xffff45, TRUE);
         SetFontSize(36);
-        DrawString(485, 300, "YOUR WIN", 0x000000, TRUE);
+        DrawString(550, 200, "YOU WIN", 0x000000, TRUE);
+        DrawFormatString(100, 400, 0xff0000, "チップ(自分): %d", ps1, TRUE);
+        DrawFormatString(880, 400, 0x6445ff, "チップ(敵): %d", es1, TRUE);
+        if (C_flg[2] == TRUE) {
+            DrawString(450, 550, "[X]BUTTONでNEXT ROUND", 0x000000, TRUE);
+        }
     }
 
     //ROUND LOSE
-    if (R_Win_FLG[1] == TRUE) {
-        DrawBox(470, 300, 700, 380, 0x1c1c66, TRUE);
+    if (R_Win_FLG[1] == TRUE && Winflg == FALSE && Loseflg == FALSE && Drawflg == FALSE) {
+        DrawBox(50, 100, 1225, 600, 0x1c1c66, TRUE);
         SetFontSize(36);
-        DrawString(485, 300, "YOUR LOSE", 0xffffff, TRUE);
+        DrawString(550, 200, "YOU LOSE", 0xffffff, TRUE);
+        DrawFormatString(100, 400, 0x6445ff, "チップ(自分): %d", ps1, TRUE);
+        DrawFormatString(880, 400, 0xff0000, "チップ(敵): %d", es1, TRUE);
+        if (C_flg[2] == TRUE) {
+            DrawString(450, 550, "[X]BUTTONでNEXT ROUND", 0xffffff, TRUE);
+        }
     }
 
     //ROUND CHANGE表示
     if (RC_H_flg == TRUE && Drawflg == FALSE && Winflg == FALSE && Loseflg == FALSE&&G_Over_H_flg == FALSE) {
-        DrawBox(460, 320, 700, 360, 0xFFDAB9, TRUE);
+        DrawBox(520, 320, 770, 360, 0xFFDAB9, TRUE);
         SetFontSize(36);
-        DrawString(470, 320, "NEXTラウンド",0x000000 , TRUE);
+        DrawString(530, 320, "NEXTラウンド",0x000000 , TRUE);
     }
 
 
@@ -1504,84 +1569,79 @@ void Porker::Draw() const
 
     //ゲーム終了表示
     if (G_Over_H_flg == TRUE && Drawflg == FALSE && Winflg == FALSE && Loseflg == FALSE) {
-        DrawBox(470, 320, 700, 360, 0x4169e1, TRUE);
+        DrawBox(520, 320, 770, 360, 0x4169e1, TRUE);
         SetFontSize(36);
-        DrawString(495, 320, "ゲーム終了", 0x000000, TRUE);
+        DrawString(550, 320, "ゲーム終了", 0x000000, TRUE);
     }
 
 
-    //             システム表示            //
-  /*  DrawFormatString(1100, 400, 0xffffff, "WTR2:%d", WTRelese2, TRUE);
-    DrawFormatString(1100, 450, 0xffffff, "WTR3:%d", WTRelese3, TRUE);
-    DrawFormatString(1100, 550, 0xffffff, "FPS:%d", P_FPS, TRUE);
-    DrawFormatString(1100, 500, 0xffffff, "WTR:%d", WTRelese1, TRUE);
-    DrawFormatString(500, 500, 0xffffff, "E_F_FLG: %d", E_Fouldflg, TRUE);
-    DrawFormatString(500, 470, 0xffffff, "E_C_FLG: %d", E_CAllflg, TRUE);
-    DrawFormatString(500, 440, 0xffffff, "E_R_FLG: %d", E_Raiseflg, TRUE);
-    DrawFormatString(1100, 650, 0xffffff, "敵乱数: %d", P_TEKI, TRUE);
-    DrawFormatString(1100, 670, 0xffffff, "B: %d", b, TRUE);*/
+    ////             システム表示            //
 
+    //DrawFormatString(1100, 10, 0xffffff, "E2A: %d", E_CARD_A[1], TRUE);
+    //DrawFormatString(1100, 30, 0xffffff, "E1A: %d", E_CARD_A[0], TRUE);
+    //DrawFormatString(1100, 50, 0xffffff, "E2S: %d", E_CARD_S[1], TRUE);
+    //DrawFormatString(1100, 70, 0xffffff, "E1S: %d", E_CARD_S[0], TRUE);
+    //DrawFormatString(1100, 350, 0xffffff, "P_PEA: %d", P_PEA_FLG, TRUE);
+    //DrawFormatString(1100, 370, 0xffffff, "2PEA: %d", P_2PEA_FLG, TRUE);
+    //DrawFormatString(1100, 390, 0xffffff, "3CARD: %d", P_3CARD_FLG, TRUE);
+    //DrawFormatString(1100, 410, 0xffffff, "FLASH: %d", P_FLASH_FLG, TRUE);
+    //DrawFormatString(1100, 430, 0xffffff, "STRAIGHT: %d", P_STRAIGHT_FLG, TRUE);
+    //DrawFormatString(1100, 450, 0xffffff, "FULL_H: %d", P_FH_FLG, TRUE);
+    //DrawFormatString(1100, 470, 0xffffff, "4CARD: %d", P_4CARD_FLG, TRUE);
+    //DrawFormatString(1100, 490, 0xffffff, "SF: %d", P_SF_FLG, TRUE);
 
-    DrawFormatString(1100, 10, 0xffffff, "E2A: %d", E_CARD_A[1], TRUE);
-    DrawFormatString(1100, 30, 0xffffff, "E1A: %d", E_CARD_A[0], TRUE);
-    DrawFormatString(1100, 50, 0xffffff, "E2S: %d", E_CARD_S[1], TRUE);
-    DrawFormatString(1100, 70, 0xffffff, "E1S: %d", E_CARD_S[0], TRUE);
-    DrawFormatString(1100, 350, 0xffffff, "P_PEA: %d", P_PEA_FLG, TRUE);
-    DrawFormatString(1100, 370, 0xffffff, "2PEA: %d", P_2PEA_FLG, TRUE);
-    DrawFormatString(1100, 390, 0xffffff, "3CARD: %d", P_3CARD_FLG, TRUE);
-    DrawFormatString(1100, 410, 0xffffff, "FLASH: %d", P_FLASH_FLG, TRUE);
-    DrawFormatString(1100, 430, 0xffffff, "STRAIGHT: %d", P_STRAIGHT_FLG, TRUE);
-    DrawFormatString(1100, 450, 0xffffff, "FULL_H: %d", P_FH_FLG, TRUE);
-    DrawFormatString(1100, 470, 0xffffff, "4CARD: %d", P_4CARD_FLG, TRUE);
-    DrawFormatString(1100, 490, 0xffffff, "SF: %d", P_SF_FLG, TRUE);
+    //DrawFormatString(1100, 90, 0xffffff, "E_PEA: %d", E_PEA_FLG, TRUE);
+    //DrawFormatString(1100, 110, 0xffffff, "2PEA: %d", E_2PEA_FLG, TRUE);
+    //DrawFormatString(1100, 130, 0xffffff, "3CARD: %d", E_3CARD_FLG, TRUE);
+    //DrawFormatString(1100, 150, 0xffffff, "FLASH: %d", E_FLASH_FLG, TRUE);
+    //DrawFormatString(1100, 170, 0xffffff, "STRAIGHT: %d", E_STRAIGHT_FLG, TRUE);
+    //DrawFormatString(1100, 190, 0xffffff, "FULL_H: %d", E_FH_FLG, TRUE);
+    //DrawFormatString(1100, 210, 0xffffff, "4CARD: %d", E_4CARD_FLG, TRUE);
+    //DrawFormatString(1100, 230, 0xffffff, "SF: %d", E_SF_FLG, TRUE);
 
-    DrawFormatString(1100, 90, 0xffffff, "E_PEA: %d", E_PEA_FLG, TRUE);
-    DrawFormatString(1100, 110, 0xffffff, "2PEA: %d", E_2PEA_FLG, TRUE);
-    DrawFormatString(1100, 130, 0xffffff, "3CARD: %d", E_3CARD_FLG, TRUE);
-    DrawFormatString(1100, 150, 0xffffff, "FLASH: %d", E_FLASH_FLG, TRUE);
-    DrawFormatString(1100, 170, 0xffffff, "STRAIGHT: %d", E_STRAIGHT_FLG, TRUE);
-    DrawFormatString(1100, 190, 0xffffff, "FULL_H: %d", E_FH_FLG, TRUE);
-    DrawFormatString(1100, 210, 0xffffff, "4CARD: %d", E_4CARD_FLG, TRUE);
-    DrawFormatString(1100, 230, 0xffffff, "SF: %d", E_SF_FLG, TRUE);
+    //DrawFormatString(0, 300, 0xffffff, "YP2[0]: %d", YP2[0], TRUE);
+    //DrawFormatString(0, 320, 0xffffff, "YP2[1]: %d", YP2[1], TRUE);
+    //DrawFormatString(0, 340, 0xffffff, "YP2[2]: %d", YP2[2], TRUE);
+    //DrawFormatString(0, 360, 0xffffff, "YP2[3]: %d", YP2[3], TRUE);
+    //DrawFormatString(0, 380, 0xffffff, "YP2[4]: %d", YP2[4], TRUE);
+    //DrawFormatString(0, 400, 0xffffff, "YP2[5]: %d", YP2[5], TRUE);
+    //DrawFormatString(0, 420, 0xffffff, "YP2[6]: %d", YP2[6], TRUE);
+    //DrawFormatString(0, 440, 0xffffff, "YP2[7]: %d", YP2[7], TRUE);
+    //DrawFormatString(0, 460, 0xffffff, "YP2[8]: %d", YP2[8], TRUE);
+    //DrawFormatString(0, 480, 0xffffff, "YP2[9]: %d", YP2[9], TRUE);
+    //DrawFormatString(0, 500, 0xffffff, "YP2[12]: %d", YP2[12], TRUE);
 
-
-   /* DrawFormatString(100, 450, 0xffffff, "YP[0]: %d", YP[0], TRUE);
-    DrawFormatString(100, 470, 0xffffff, "YP[2]: %d", YP[2], TRUE);*/
-    DrawFormatString(0, 300, 0xffffff, "YP2[0]: %d", YP2[0], TRUE);
-    DrawFormatString(0, 320, 0xffffff, "YP2[1]: %d", YP2[1], TRUE);
-    DrawFormatString(0, 340, 0xffffff, "YP2[2]: %d", YP2[2], TRUE);
-    DrawFormatString(0, 360, 0xffffff, "YP2[3]: %d", YP2[3], TRUE);
-    DrawFormatString(0, 380, 0xffffff, "YP2[4]: %d", YP2[4], TRUE);
-    DrawFormatString(0, 400, 0xffffff, "YP2[5]: %d", YP2[5], TRUE);
-    DrawFormatString(0, 420, 0xffffff, "YP2[6]: %d", YP2[6], TRUE);
-    DrawFormatString(0, 440, 0xffffff, "YP2[7]: %d", YP2[7], TRUE);
-    DrawFormatString(0, 460, 0xffffff, "YP2[8]: %d", YP2[8], TRUE);
-    DrawFormatString(0, 480, 0xffffff, "YP2[9]: %d", YP2[9], TRUE);
-    DrawFormatString(0, 500, 0xffffff, "YP2[12]: %d", YP2[12], TRUE);
-
-    DrawFormatString(1100, 540, 0xffffff, "P1A: %d", P_CARD_A[0], TRUE);
-    DrawFormatString(1100, 560, 0xffffff, "P2A: %d", P_CARD_A[1], TRUE);
-    DrawFormatString(100, 520, 0xffffff, "C1A: %d", C_CARD_A[0], TRUE);
-    DrawFormatString(300, 520, 0xffffff, "C2A: %d", C_CARD_A[1], TRUE);
-    DrawFormatString(500, 520, 0xffffff, "C3A: %d", C_CARD_A[2], TRUE);
-    DrawFormatString(700, 520, 0xffffff, "C4A: %d", C_CARD_A[3], TRUE);
-    DrawFormatString(900, 520, 0xffffff, "C5A: %d", C_CARD_A[4], TRUE);
-    
-    DrawFormatString(50, 200, 0xffffff, "SC1A: %d", P_SORT[0], TRUE);
-    DrawFormatString(170, 200, 0xffffff, "SC2A: %d", P_SORT[1], TRUE);
-    DrawFormatString(290, 200, 0xffffff, "SC3A: %d", P_SORT[2], TRUE);
-    DrawFormatString(410, 200, 0xffffff, "SC4A: %d", P_SORT[3], TRUE);
-    DrawFormatString(530, 200, 0xffffff, "SC5A: %d", P_SORT[4], TRUE);
-    DrawFormatString(650, 200, 0xffffff, "SC6A: %d", P_SORT[5], TRUE);
-    DrawFormatString(770, 200, 0xffffff, "SC7A: %d", P_SORT[6], TRUE);
+    //DrawFormatString(1100, 540, 0xffffff, "P1A: %d", P_CARD_A[0], TRUE);
+    //DrawFormatString(1100, 560, 0xffffff, "P2A: %d", P_CARD_A[1], TRUE);
+    //DrawFormatString(100, 520, 0xffffff, "C1A: %d", C_CARD_A[0], TRUE);
+    //DrawFormatString(300, 520, 0xffffff, "C2A: %d", C_CARD_A[1], TRUE);
+    //DrawFormatString(500, 520, 0xffffff, "C3A: %d", C_CARD_A[2], TRUE);
+    //DrawFormatString(700, 520, 0xffffff, "C4A: %d", C_CARD_A[3], TRUE);
+    //DrawFormatString(900, 520, 0xffffff, "C5A: %d", C_CARD_A[4], TRUE);
+    //
+    //DrawFormatString(50, 200, 0xffffff, "SC1A: %d", P_SORT[0], TRUE);
+    //DrawFormatString(170, 200, 0xffffff, "SC2A: %d", P_SORT[1], TRUE);
+    //DrawFormatString(290, 200, 0xffffff, "SC3A: %d", P_SORT[2], TRUE);
+    //DrawFormatString(410, 200, 0xffffff, "SC4A: %d", P_SORT[3], TRUE);
+    //DrawFormatString(530, 200, 0xffffff, "SC5A: %d", P_SORT[4], TRUE);
+    //DrawFormatString(650, 200, 0xffffff, "SC6A: %d", P_SORT[5], TRUE);
+    //DrawFormatString(770, 200, 0xffffff, "SC7A: %d", P_SORT[6], TRUE);
    
-    DrawFormatString(50, 220, 0xffffff, "ESC1A: %d", E_SORT[0], TRUE);
-    DrawFormatString(170, 220, 0xffffff, "ESC2A: %d", E_SORT[1], TRUE);
-    DrawFormatString(290, 220, 0xffffff, "ESC3A: %d", E_SORT[2], TRUE);
-    DrawFormatString(410, 220, 0xffffff, "ESC4A: %d", E_SORT[3], TRUE);
-    DrawFormatString(530, 220, 0xffffff, "ESC5A: %d", E_SORT[4], TRUE);
-    DrawFormatString(650, 220, 0xffffff, "ESC6A: %d", E_SORT[5], TRUE);
-    DrawFormatString(770, 220, 0xffffff, "ESC7A: %d", E_SORT[6], TRUE);
+    //DrawFormatString(50, 220, 0xffffff, "ESC1A: %d", E_SORT[0], TRUE);
+    //DrawFormatString(170, 220, 0xffffff, "ESC2A: %d", E_SORT[1], TRUE);
+    //DrawFormatString(290, 220, 0xffffff, "ESC3A: %d", E_SORT[2], TRUE);
+    //DrawFormatString(410, 220, 0xffffff, "ESC4A: %d", E_SORT[3], TRUE);
+    //DrawFormatString(530, 220, 0xffffff, "ESC5A: %d", E_SORT[4], TRUE);
+    //DrawFormatString(650, 220, 0xffffff, "ESC6A: %d", E_SORT[5], TRUE);
+    //DrawFormatString(770, 220, 0xffffff, "ESC7A: %d", E_SORT[6], TRUE);
+
+    //DrawFormatString(50, 240, 0xffffff, "PSF: %d", P_SORT[7], TRUE);
+    //DrawFormatString(170, 240, 0xffffff, "PSF: %d", P_SORT[8], TRUE);
+    //DrawFormatString(290, 240, 0xffffff, "PSF: %d", P_SORT[9], TRUE);
+    //DrawFormatString(410, 240, 0xffffff, "PSF: %d", P_SORT[10], TRUE);
+    //DrawFormatString(530, 240, 0xffffff, "PSF: %d", P_SORT[11], TRUE);
+    //DrawFormatString(650, 240, 0xffffff, "PSF: %d", P_SORT[12], TRUE);
+    //DrawFormatString(770, 240, 0xffffff, "PSF: %d", P_SORT[13], TRUE);
    /* DrawGraph(0, 0, Back, TRUE);*/
    
     

@@ -19,6 +19,7 @@ private:
 	int WP_FLG[20];
 	int YP[31];
 	int YP2[31];
+	int YP3[31];
 	
 
 	int Winflg;
