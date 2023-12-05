@@ -11,6 +11,7 @@ private:
     int CursolImg;          //カーソル画像
     int cardimg;            //カード
     int select_X;           //カードごとのカーソル位置を保持
+    int select_Y;
     int BackCard_Img;
     bool cardFlipped[2][10];       //カードの裏返し
     bool AButtonPressed;

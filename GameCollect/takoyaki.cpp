@@ -19,6 +19,7 @@ Takoyaki::Takoyaki()
 	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png", 56, 14, 4, 128, 256, Cards_img);  // カード画像読み込み
 	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");										//カーソル画像読み込み
 	select_X = 100;
+	select_Y = 120;
 	BackCard_Img = Cards_img[0];
 
 	AButtonPressed = false;
@@ -42,12 +43,14 @@ Takoyaki::~Takoyaki() {
 
 AbstractScene* Takoyaki::Update()
 {
+
+	//カーソル　左
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
 		Select--;
 		select_X -= 120;
 	}
-	//十字キー↓入力
+	//カーソル右
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
 	{
 		Select++;
@@ -92,6 +95,16 @@ void Takoyaki::Draw()const
 		}
 	}
 
+	// 2P側の手札のカード画像描画
+		for (int i = 0; i < 10; ++i) {
+			int cardIndex = handCard[1][i];
+			if (cardIndex >= 0 && cardIndex < 56) {
+				DrawGraph(70 + i * 120, 300, cardFlipped[1][i] ? Cards_img[cardIndex] : BackCard_Img, TRUE);
+			}
+			else {
+				DrawGraph(70 + i * 120, 300, BackCard_Img, TRUE); // カードが無効な場合、バックカードを描画
+			}
+		}
 	//カーソルの描画
 	DrawGraph(select_X, 250, CursolImg, TRUE);
 	ScreenFlip();
