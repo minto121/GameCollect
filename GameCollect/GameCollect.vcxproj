@@ -161,6 +161,7 @@
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
+     <ClCompile Include="LastCard.cpp" />
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Mankara.h" />
+    <ClInclude Include="LastCard.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />

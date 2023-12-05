@@ -74,7 +74,6 @@ public:
 	{
 		return Lstick;
 	}
-
 	static char GetNowKey(const int i)
 	{
 		return NowKey[i];

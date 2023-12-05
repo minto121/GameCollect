@@ -17,6 +17,9 @@
     <ClCompile Include="gomoku_AI.cpp" />
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
+    <ClCompile Include="LastCard.cpp" />
+  </ItemGroup>
+  <ItemGroup>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -74,6 +77,7 @@
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="LastCard.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />
