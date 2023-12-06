@@ -3,12 +3,18 @@
 #include <math.h>
 
 const int MaxBalls = 50;
+const int HEIGHT = 720;
+const int WIDTH = 1280;
 
-class SixBallPuzzle:
-	public AbstractScene{
+class SixBallPuzzle:public AbstractScene{
+
 private:
-	const int ScreenHeight = 720;
-	const int ScreenWidth = 1280;
+	/*定数の宣言*/
+	
+	const int BLOCKSIZE = 24;	// ブロック画像のサイズ
+
+	const int NEWBLOCK_X = 4;	// NewブロックX座標
+	const int NEWBLOCK_Y = 0;	// NewブロックY座標
 
 	/*画像用変数*/
 	int Ball_img[4];		//ボール
@@ -18,6 +24,13 @@ private:
 	//int FallingY = 100;		//落下するブロックのY座標（初期位置）
 	//int randomBallIndex;
 	
+	int g01dKey;			// 前回の入力キー
+	int gNowKey;			// 今回の入力キー
+	int gKeyFlg;			// 入力キー情報
+
+	int gStage[HEIGHT][WIDTH];	//ステージ配列
+	int gBlockImg[10];					//ブロック画像
+
 	float ballX[MaxBalls];     // X座標の配列
 	float ballY[MaxBalls];     // Y座標の配列
 	float ballSpeed[MaxBalls]; // 落下速度の配列
@@ -38,6 +51,12 @@ private:
 	{ {0,0,0,0},{0,6,6,0},{6,6,0,0},{0,0,0,0} },
 	{ {0,0,0,0},{0,7,0,0},{7,7,7,0},{0,0,0,0} },
 	};
+
+	int gPosX = NEWBLOCK_X;	//　NewブロックのX座標
+	int gPosY = NEWBLOCK_Y;	//　NewブロックのY座標
+
+	int gStartTime;			//　時間計測の開始時間
+
 
 public:
 	void StageInit(void); // ステージの初期化
