@@ -3,40 +3,39 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-#include"Hanafuda_GameMain.h"
-#include "takoyaki.h"
 //#include"Hanafuda_GameMain.h"
+#include "takoyaki.h"
 //#include "Checkermain.h"
-#include "SixBollPuzzle.h"
+#include "SixBallPuzzle.h"
 #include "RabbitAndHounds.h"
 #include "GameSelect.h"
 #include"Reversi.h"
 #include"Title.h"
+#include"Hex_GameMain.h"
 
+#define FRAMERATE 60.0 //ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆ
 
-#define FRAMERATE 60.0 //ƒtƒŒ[ƒ€ƒŒ[ƒg
-
-#define SCREEN_HEIGHT 720	//‰æ–ÊƒTƒCƒY (c)
-#define SCREEN_WIDTH 1280	//‰æ–ÊƒTƒCƒY (‰¡)
-#define SCORE_UI_SIZE 180	//ƒXƒRƒA•\¦ƒGƒŠƒAƒTƒCƒY (‰¡)
+#define SCREEN_HEIGHT 720	//ç”»é¢ã‚µã‚¤ã‚º (ç¸¦)
+#define SCREEN_WIDTH 1280	//ç”»é¢ã‚µã‚¤ã‚º (æ¨ª)
+#define SCORE_UI_SIZE 180	//ã‚¹ã‚³ã‚¢è¡¨ç¤ºã‚¨ãƒªã‚¢ã‚µã‚¤ã‚º (æ¨ª)
 
 
 /***********************************************
- * ƒvƒƒOƒ‰ƒ€‚ÌŠJn
+ * ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®é–‹å§‹
  ***********************************************/
 int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In_ int ii)
 {
 	SetMainWindowText("GameCollect");
 
-	ChangeWindowMode(TRUE);		// ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Å‹N“®
+	ChangeWindowMode(TRUE);		// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã§èµ·å‹•
 
-	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);	//‰æ–ÊƒTƒCƒY‚Ìİ’è
+	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);	//ç”»é¢ã‚µã‚¤ã‚ºã®è¨­å®š
 
 	if (DxLib_Init() == -1)
 	{
-		return -1;	// DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—
+		return -1;	// DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–å‡¦ç†
 	}
-	SetDrawScreen(DX_SCREEN_BACK);	// •`‰ææ‰æ–Ê‚ğ— ‚É‚·‚é
+	SetDrawScreen(DX_SCREEN_BACK);	// æç”»å…ˆç”»é¢ã‚’è£ã«ã™ã‚‹
 
 	SceneManager* sceneMng;
 
@@ -52,30 +51,33 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 		DATEDATA data;
 
 		GetDateTime(&data);
-		//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
 		fopen_s(&fp, "ErrLog.txt", "a");
-		//ƒGƒ‰[ƒf[ƒ^‚Ì‘‚«‚İ
-		fprintf_s(fp, "%02d”N %02dŒ %02d“ú %02d %02d•ª %02d•b : %s‚ª‚ ‚è‚Ü‚¹‚ñB\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
+		//ã‚¨ãƒ©ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
+		fprintf_s(fp, "%02dï¿½N %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½ï¿½ %02dï¿½b : %sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½B\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
 
 		return 0;
 	}
 	FpsController FPSC(FRAMERATE, 800);
 
-	// ƒQ[ƒ€ƒ‹[ƒv
+	// ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
-		ClearDrawScreen();		// ‰æ–Ê‚Ì‰Šú‰»
+		ClearDrawScreen();		// ç”»é¢ã®åˆæœŸåŒ–
 		PAD_INPUT::UpdateKey();
 		sceneMng->Draw();
 		FPSC.All();
 		FPSC.Disp();
-		//‹­§I—¹
+		//å¼·åˆ¶çµ‚äº†
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK) || CheckHitKey(KEY_INPUT_ESCAPE))
 		{
 			break;
 		}
-		ScreenFlip();			// — ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
+		ScreenFlip();			// è£ç”»é¢ã®å†…å®¹ã‚’è¡¨ç”»é¢ã«åæ˜ 
 	}
+
+	DxLib_End();
+
 	return 0;
 
 }

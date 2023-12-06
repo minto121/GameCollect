@@ -1,37 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Checkermain.cpp" />
-    <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PadInput.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="FpsController.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Checkermain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Hit&amp;Blow.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Porker.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
-    <ClCompile Include="sinkeisuijaku.cpp" />
-    <ClCompile Include="Hex_GameMain.cpp" />
+    <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="Hound.cpp" />
+    <ClCompile Include="reversi.cpp" />
+    <ClCompile Include="sinkeisuijaku.cpp" />
+    <ClCompile Include="SixBallPuzzle.cpp" />
+    <ClCompile Include="gomoku.cpp" />
+    <ClCompile Include="gomokuScene.cpp" />
+    <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_TitleScene.cpp" />
+    <ClCompile Include="Hex_GameMain.cpp" />
+    <ClCompile Include="LastCard.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AbstractScene.h" />
-    <ClInclude Include="Checkermain.h" />
-    <ClInclude Include="FpsController.h" />
+    <ClInclude Include="AbstractScene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="PadInput.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="FpsController.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSelect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Checkermain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Select.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomokuScene.h" />
+    <ClInclude Include="gomoku.h" />
+    <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="PadInput.h" />
-    <ClInclude Include="GameSelect.h" />
     <ClInclude Include="takoyaki.h" />
-    <ClInclude Include="Title.h" />
-    <ClInclude Include="sinkeisuijaku.h" />
-    <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="Mankara.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="Hound.h" />
+    <ClInclude Include="reversi.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="SixBallPuzzle.h" />
+    <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="LastCard.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Log.txt" />
   </ItemGroup>
 </Project>
