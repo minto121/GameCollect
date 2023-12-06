@@ -37,7 +37,7 @@ private:
       "rabbiitdog",
       "lastcard"
     };
-    int now_menu; //現在選択しているメニュー
+    int now_menu; //現在選択してるメニュー
     int font_handle;  //フォント
     int input_margin;  //操作時間間隔
 public:
