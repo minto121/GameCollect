@@ -31,23 +31,17 @@ Mankara::Mankara()
 	for (int i = 0; i < 16; i++) {
 		for (int y = 0; y < 6; y++) {
 			gStone[y][i].img = StoneImg[y];
-		}
-	}
-	
-	// 石の画像処理
-	for (int i = 0; i < 16; i++) {
-		for (int y = 0; y < 6; y++) {
 			gStone2[y][i].img = StoneImg[y];
 		}
 	}
 
 	
-	// 石の画像処理
-	for (int i = 0; i < 48; i++) {
-		for (int y = 0; y < 6; y++) {
-			BigPocket[y][i] = StoneImg[y];
-		}
-	}
+	//// 石の画像処理
+	//for (int i = 0; i < 48; i++) {
+	//	for (int y = 0; y < 6; y++) {
+	//		BigPocket[y][i] = StoneImg[y];
+	//	}
+	//}
 	//for (int i = 0; i < 7; i++) {
 	//	StonePocket[0][i] = InitialStone; // 1P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
 	//	StonePocket[1][i] = InitialStone; // 2P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
@@ -64,6 +58,7 @@ Mankara::Mankara()
 	for (int i = 0; i < 6; i++) {
 		for (int y = 4; y < 16; y++) {
 			gStone[y][i].img = FALSE;
+			gStone2[y][i].img = FALSE;
 		}
 	}
 }
@@ -333,21 +328,21 @@ void Mankara::Draw()const
 	
 	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 16; i++) {
-		DrawGraph(925, 100 + i * 15, gStone2[i][0].img, TRUE);
+		DrawGraph(925, 50 + i * 15, gStone2[i][0].img, TRUE);
 		if (i >= 10) {
 			DrawGraph(950, 50 + i * 15, gStone2[i][0].img, TRUE);
 		}
 	}
 	// 石（ポケット２）の初期配置
 	for (int i = 0; i < 16; i++) {
-		DrawGraph(800, 100 + i * 15, gStone2[i][1].img, TRUE);
+		DrawGraph(800, 50 + i * 15, gStone2[i][1].img, TRUE);
 		if (i >= 10) {
 			DrawGraph(825, 50 + i * 15, gStone2[i][1].img, TRUE);
 		}
 	}
 	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 16; i++) {
-		DrawGraph(675, 100 + i * 15, gStone2[i][2].img, TRUE);
+		DrawGraph(675, 50 + i * 15, gStone2[i][2].img, TRUE);
 		if (i >= 10) {
 			DrawGraph(700, 50 + i * 15, gStone2[i][2].img, TRUE);
 		}
@@ -355,21 +350,21 @@ void Mankara::Draw()const
 	// 石（ポケット４）の初期配置
 	
 	for (int i = 0; i < 16; i++) {
-		DrawGraph(550, 100 + i * 15, gStone2[i][3].img, TRUE);
+		DrawGraph(550, 50 + i * 15, gStone2[i][3].img, TRUE);
 		if (i >= 10) {
 			DrawGraph(575, 50 + i * 15, gStone2[i][3].img, TRUE);
 		}
 	}
 	// 石（ポケット５）の初期配置
 	for (int i = 0; i < 16; i++) {
-		DrawGraph(425, 100 + i * 15, gStone2[i][4].img, TRUE);
+		DrawGraph(425, 50 + i * 15, gStone2[i][4].img, TRUE);
 		if (i >= 10) {
 			DrawGraph(450, 50 + i * 15, gStone2[i][4].img, TRUE);
 		}
 	}
 	// 石（ポケット６）の初期配置
 	for (int i = 0; i < 16; i++) {
-		DrawGraph(300, 100 + i * 15, gStone2[i][5].img, TRUE);
+		DrawGraph(300, 50 + i * 15, gStone2[i][5].img, TRUE);
 		if (i >= 10) {
 			DrawGraph(325, 50 + i * 15, gStone2[i][5].img, TRUE);
 		}
@@ -521,6 +516,7 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone[y][moveStone].img = FALSE;
 	    }
+		P2Turn = TRUE;
 	}else if (moveStone == 1) {
 
 		for (int i = moveStone; i < InitialStone + 1; i++) {
@@ -530,6 +526,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone[y][moveStone].img = FALSE;
 	    }
+		P2Turn = TRUE;
+
 	}else if (moveStone == 2) {
 
 		for (int i = moveStone; i < InitialStone + 1; i++) {
@@ -539,6 +537,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone[y][moveStone].img = FALSE;
 	    }
+		P2Turn = TRUE;
+
 	}
 	else if (moveStone == 3) {
 
@@ -549,6 +549,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone[y][moveStone].img = FALSE;
 	    }
+		P2Turn = TRUE;
+
 	}
 	else if (moveStone == 4) {
 
@@ -559,6 +561,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone[y][moveStone].img = FALSE;
 	    }
+		P2Turn = TRUE;
+
 	}
 	else if (moveStone == 5) {
 
@@ -569,6 +573,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone[y][moveStone].img = FALSE;
 	    }
+		P2Turn = TRUE;
+
 	}
 
 
@@ -582,6 +588,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone2[y][moveStone].img = FALSE;
 		}
+		P1Turn = TRUE;
+
 	}
 	else if (moveStone2 == 1) {
 
@@ -592,6 +600,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone2[y][moveStone].img = FALSE;
 		}
+		P1Turn = TRUE;
+
 	}
 	else if (moveStone2 == 2) {
 
@@ -602,6 +612,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone2[y][moveStone].img = FALSE;
 		}
+		P1Turn = TRUE;
+
 	}
 	else if (moveStone2 == 3) {
 
@@ -612,6 +624,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone2[y][moveStone].img = FALSE;
 		}
+		P1Turn = TRUE;
+
 	}
 	else if (moveStone2 == 4) {
 
@@ -622,6 +636,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone2[y][moveStone].img = FALSE;
 		}
+		P1Turn = TRUE;
+
 	}
 	else if (moveStone2 == 5) {
 
@@ -632,6 +648,8 @@ void Mankara::MoveStone()
 		for (int y = 16; y > 16; y--) {
 			gStone2[y][moveStone].img = FALSE;
 		}
+		P1Turn = TRUE;
+
 	}
 
 }
