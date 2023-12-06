@@ -53,7 +53,7 @@ void gomokuTitle::Draw() const
 {
     DrawGraph(0, 0, gomokuTitle_Back, FALSE);
     SetFontSize(100);
-    DrawFormatString(10, 10, 0xffffff, "%d", gomokuMenuNumber);
+    /*DrawFormatString(10, 10, 0xffffff, "%d", gomokuMenuNumber);*/
     DrawFormatString(900, 350, 0xffffff, "START");
     DrawFormatString(900, 450, 0xffffff, "HELP");
     DrawFormatString(900, 550, 0xffffff, "BACK");

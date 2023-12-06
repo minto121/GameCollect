@@ -34,6 +34,8 @@ private:
 	int gomoku_Result_WaitTime;
 	int gomoku_elapsedturn; // 経過ターンをカウントする変数
 	int gomoku_Cursordisplaytime; // カーソルに動きを持たせる
+	int gomoku_BGM1;
+	int gomoku_SoundStart;
 public:
 	gomokuScene();
 	~gomokuScene();

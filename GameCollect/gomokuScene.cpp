@@ -37,7 +37,8 @@ gomokuScene::gomokuScene()
 	gomoku_Result_WaitTime = 0;
 	gomoku_elapsedturn = 0;
 	gomoku_Cursordisplaytime = 0;
-
+	gomoku_BGM1 = LoadSoundMem("sound/BGM/gomoku_BGM1.wav");
+	gomoku_SoundStart = 0;
 
 }
 
@@ -48,11 +49,15 @@ AbstractScene* gomokuScene::Update()
 {
 	if (gomoku_Battle == 0) { // ééçáíÜÇ»ÇÁé¿çsÇ∑ÇÈ
 
+		if (gomoku_SoundStart == 0) {
+			ChangeVolumeSoundMem(100, gomoku_BGM1);
+			PlaySoundMem(gomoku_BGM1, DX_PLAYTYPE_LOOP);
+			gomoku_SoundStart++;
+		}
 		g_OldKey = g_NowKey;
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 		g_KeyFlg = g_NowKey & ~g_OldKey;
 
-		/*PlaySoundFile("sound/BGM/gomoku_BGM1.wav", DX_PLAYTYPE_LOOP);*/
 
 		// èâéËÇÕî’ñ ÇÃê^ÇÒíÜÇ…ÇµÇ©íuÇ≠Ç±Ç∆Ç™Ç≈Ç´Ç»Ç¢
 		if (Key_Count <= 1 && gomoku_TurnSetFlg != 1) {
@@ -104,6 +109,9 @@ AbstractScene* gomokuScene::Update()
 				if (g_KeyFlg & PAD_INPUT_LEFT && cX == -1) {
 					cX = 12;
 				}
+
+
+
 			}
 			if (g_KeyFlg & PAD_INPUT_DOWN && cY < 13) {
 				if (Key_Count >= 1) {
@@ -119,6 +127,14 @@ AbstractScene* gomokuScene::Update()
 				}
 				if (g_KeyFlg & PAD_INPUT_UP && cY == -1) {
 					cY = 12;
+
+
+
+
+
+
+
+
 				}
 			}
 		}
@@ -327,22 +343,25 @@ AbstractScene* gomokuScene::Update()
 			for (int y = 0; y < 13; y++) {
 				for (int x = 0; x < 13; x++) {
 					// îí(Banmen[x][y] = 2)ÇÃèüóòîªíË
-					if (x < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y] == gomoku_Efs && gomoku_Banmen[x + 2][y] == gomoku_Efs && gomoku_Banmen[x + 3][y] == gomoku_Efs && gomoku_Banmen[x + 4][y] == gomoku_Efs ||
-						y < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x][y + 1] == gomoku_Efs && gomoku_Banmen[x][y + 2] == gomoku_Efs && gomoku_Banmen[x][y + 3] == gomoku_Efs && gomoku_Banmen[x][y + 4] == gomoku_Efs ||
-						x < 8 && y < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y + 1] == gomoku_Efs && gomoku_Banmen[x + 2][y + 2] == gomoku_Efs && gomoku_Banmen[x + 3][y + 3] == gomoku_Efs && gomoku_Banmen[x + 4][y + 4] == gomoku_Efs ||
+					if (x < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y] == gomoku_Efs && gomoku_Banmen[x + 2][y] == gomoku_Efs && gomoku_Banmen[x + 3][y] == gomoku_Efs && gomoku_Banmen[x + 4][y] == gomoku_Efs ||
+						y < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x][y + 1] == gomoku_Efs && gomoku_Banmen[x][y + 2] == gomoku_Efs && gomoku_Banmen[x][y + 3] == gomoku_Efs && gomoku_Banmen[x][y + 4] == gomoku_Efs ||
+						x < 7 && y < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y + 1] == gomoku_Efs && gomoku_Banmen[x + 2][y + 2] == gomoku_Efs && gomoku_Banmen[x + 3][y + 3] == gomoku_Efs && gomoku_Banmen[x + 4][y + 4] == gomoku_Efs ||
 						x > 3 && y > 3 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x - 1][y - 1] == gomoku_Efs && gomoku_Banmen[x - 2][y - 2] == gomoku_Efs && gomoku_Banmen[x - 3][y - 3] == gomoku_Efs && gomoku_Banmen[x - 4][y - 4] == gomoku_Efs ||
-						x < 8 && y > 3 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y - 1] == gomoku_Efs && gomoku_Banmen[x + 2][y - 2] == gomoku_Efs && gomoku_Banmen[x + 3][y - 3] == gomoku_Efs && gomoku_Banmen[x + 4][y - 4] == gomoku_Efs ||
-						x > 3 && y < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x - 1][y + 1] == gomoku_Efs && gomoku_Banmen[x - 2][y + 2] == gomoku_Efs && gomoku_Banmen[x - 3][y + 3] == gomoku_Efs && gomoku_Banmen[x - 4][y + 4] == gomoku_Efs) {
+						x < 7 && y > 3 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y - 1] == gomoku_Efs && gomoku_Banmen[x + 2][y - 2] == gomoku_Efs && gomoku_Banmen[x + 3][y - 3] == gomoku_Efs && gomoku_Banmen[x + 4][y - 4] == gomoku_Efs ||
+						x > 3 && y < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x - 1][y + 1] == gomoku_Efs && gomoku_Banmen[x - 2][y + 2] == gomoku_Efs && gomoku_Banmen[x - 3][y + 3] == gomoku_Efs && gomoku_Banmen[x - 4][y + 4] == gomoku_Efs) {
 						gomoku_Battle = 2;
 					}
 				}
 			}
 		}
 	}
+
 	else {
 		gomoku_Result_WaitTime++;
 		if (gomoku_Result_WaitTime > 210 &&  gomoku_Battle != 0) {
-				return new gomokuTitle();
+			StopSoundMem(gomoku_BGM1);
+			gomoku_SoundStart = 0;
+			return new gomokuTitle();
 			}
 	}
 	return this;
