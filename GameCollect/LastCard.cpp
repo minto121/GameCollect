@@ -111,3 +111,4 @@ void LastCard::InitPlayerHands()
         printf("\n");
     }
 }
+

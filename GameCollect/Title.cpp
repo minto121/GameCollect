@@ -5,7 +5,7 @@
 
 #include "LastCard.h"
 
-//ã‚¿ã‚¤ãƒˆãƒ«ãƒ¡ãƒ‹ãƒ¥ãƒ¼
+//ƒ^ƒCƒgƒ‹ƒƒjƒ…[
 enum class TITLE_MENU
 {
 	GAME_START = 0,
@@ -17,10 +17,84 @@ enum class TITLE_MENU
 Title::Title()
 {
 
-	//ãƒ•ã‚©ãƒ³ãƒˆã®è¿½åŠ 
-	MenuFont = CreateFontToHandle("HGå‰µè‹±è§’ï¾ï¾Ÿï½¯ï¾Œï¾Ÿä½“", 64, 8, DX_FONTTYPE_ANTIALIASING);
+	//ƒtƒHƒ“ƒg‚Ì’Ç‰Á
+	MenuFont = CreateFontToHandle("HG‘n‰pŠpÎß¯Ìß‘Ì", 64, 8, DX_FONTTYPE_ANTIALIASING);
 
-	//ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½Ì•`ï¿½ï¿½
+	////ƒ^ƒCƒgƒ‹‰æ‘œ‚Ì“Ç‚İ‚İ
+	//if ((TitleImg = LoadGraph("Resource/Images/mori.png")) == -1)
+	//{
+	//	throw "Resource/Images/mori.png";
+	//}
+	//// ƒJ[ƒ\ƒ‹‰æ‘œ‚Ì“Ç‚İ‚İ
+	//if ((CursorImg = LoadGraph("Resource/Images/Apple_Red.png")) == -1)
+	//{
+	//	throw "Resource/Images/apple.png";
+	//}
+	////BGM‚Ì“Ç‚İ‚İ
+	//if ((TitleBGM = LoadSoundMem("Resource/sounds/BGM/yonhonnorecorder.wav")) == -1)
+	//{
+	//	throw "Resource/sounds/BGM/yonhonnorecorder.wav";
+	//}
+	////BGM‚Ì‰¹—Ê•ÏX
+	//ChangeVolumeSoundMem(140, TitleBGM);
+
+	////SE‚Ì“Ç‚İ‚İ
+	//if ((MenuSE = LoadSoundMem("Resource/sounds/SE/select01.wav")) == -1) //‘I‘ğSE
+	//{
+	//	throw "Resource/sounds/SE/select01.wav";
+	//}
+	////SE‚Ì‰¹—Ê•ÏX
+	//ChangeVolumeSoundMem(110, MenuSE);
+
+	////BGM‚ÌÄ¶
+	//if (CheckSoundMem(TitleBGM) == 0)
+	//{
+	//	PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP);
+	//}
+}
+
+Title::~Title()
+{
+	
+}
+
+AbstractScene* Title::Update()
+{
+
+	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))*/
+	if(CheckHitKey(KEY_INPUT_P))
+	{
+		//switch (static_cast<TITLE_MENU>(Select))
+		//{
+		//	//ƒQ[ƒ€‰æ–Ê‚Ö
+		//case TITLE_MENU::GAME_START:
+		//	return new GameSelect();
+		//	break;
+		//default:
+		//	break;
+		//}
+		return new LastCard();
+	}
+
+	
+
+
+	return this;
+}
+
+void Title::Draw()const
+{
+	//ƒ^ƒCƒgƒ‹‚Ì•`‰æ
+	DrawGraph(0, 0, TitleImg, FALSE);
+	DrawStringToHandle(150, 100, "ƒQ[ƒ€‘å‘S", 0xffffff, MenuFont);
+
+	//ƒƒjƒ…[‚Ì•`‰æ
+	DrawStringToHandle(70, 240, "‚·‚½[‚Æ", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 320, "‚ç‚ñ‚«‚ñ‚®", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 400, "‚Ö‚é‚Õ", 0xffffff, MenuFont);
+	DrawStringToHandle(70, 480, "‚¦‚ñ‚Ç", 0xffffff, MenuFont);
+
+	//ƒJ[ƒ\ƒ‹‚Ì•`‰æ
 	int select_y = 230 + Select * 80;
 	DrawGraph(650, select_y, CursorImg, TRUE);
 }
