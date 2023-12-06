@@ -37,20 +37,20 @@ private:
       "rabbiitdog",
       "lastcard"
     };
-    int now_menu; //���ݑI�����Ă郁�j���[
-    int font_handle;  //�t�H���g
-    int input_margin;  //���쎞�ԊԊu
+    int now_menu; //現在選択しているメニュー
+    int font_handle;  //フォント
+    int input_margin;  //操作時間間隔
 public:
-    //�R���X�g���N�^
+    //コンストラクタ
     GameSelect();
 
-    //�f�X�g���N�^
+    //デストラクタ
     ~GameSelect();
 
-    //�`��ȊO�̍X�V�����s
+    //描画以外の更新を実行
     AbstractScene* Update() override;
 
-    //�`��Ɋւ��邱�Ƃ�����
+    //描画に関することを実装
     void Draw() const override;
 };
 

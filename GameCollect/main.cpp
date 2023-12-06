@@ -76,7 +76,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
 
-	DxLib_End;
+	DxLib_End();
 
 	return 0;
 
