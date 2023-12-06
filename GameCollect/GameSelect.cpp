@@ -4,7 +4,7 @@
 #include "DxLib.h"
 #include "takoyaki.h"
 //#include"Hanafuda_GameMain.h"
-//#include "sinkeisuijaku.h" ã‚¨ãƒ©ãƒ¼å‡ºã‚‹ã®ã§ã€ä¸€æ—¦ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆä¸­
+//#include "sinkeisuijaku.h" ƒGƒ‰[o‚é‚Ì‚ÅAˆê’UƒRƒƒ“ƒgƒAƒEƒg’†
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
 #include"Mankara.h"
@@ -18,7 +18,7 @@
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
 {
-	font_handle = CreateFontToHandle("HGæ˜æœE", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
+	font_handle = CreateFontToHandle("HG–¾’©E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
 	now_menu = static_cast<int>(SELECT::Mankara);
 	input_margin = 0;
 }
@@ -28,104 +28,104 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-// æ“ä½œé–“éš”æ™‚é–“
-const int max_input_margin = 15;
-// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ„Ÿåº¦
-const int stick_sensitivity = 20000;
+	// ‘€ìŠÔŠuŠÔ
+	const int max_input_margin = 15;
+	// ƒXƒeƒBƒbƒN‚ÌŠ´“x
+	const int stick_sensitivity = 20000;
 
-if (input_margin < max_input_margin) {
-	input_margin++;
-}
-else {
-	// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®Yåº§æ¨™ã‚’å–å¾—
-	int stick_y = PAD_INPUT::GetLStick().ThumbY;
-
-	if (std::abs(stick_y) > stick_sensitivity) {
-		//playsoundmem
-		// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒä¸Šã«ç§»å‹•ã—ãŸå ´åˆ
-		if (stick_y > 0) {
-			// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠè‚¢ã‚’ä¸€ã¤å‰ã«ç§»å‹•
-			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
-		}
-		// ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒä¸‹ã«ç§»å‹•ã—ãŸå ´åˆ
-		else if (stick_y < 0) {
-			// ãƒ¡ãƒ‹ãƒ¥ãƒ¼é¸æŠè‚¢ã‚’ä¸€ã¤å‰ã«ç§»å‹•
-			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
-		}
+	if (input_margin < max_input_margin) {
+		input_margin++;
 	}
-	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
-	{
-		input_margin = 0;
-		SELECT current_selection = static_cast<SELECT>(now_menu);
-		switch (current_selection)
+	else {
+		// ƒXƒeƒBƒbƒN‚ÌYÀ•W‚ğæ“¾
+		int stick_y = PAD_INPUT::GetLStick().ThumbY;
+
+		if (std::abs(stick_y) > stick_sensitivity) {
+			//playsoundmem
+			// ƒXƒeƒBƒbƒN‚ªã‚ÉˆÚ“®‚µ‚½ê‡
+			if (stick_y > 0) {
+				// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚Â‘O‚ÉˆÚ“®
+				now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
+			}
+			// ƒXƒeƒBƒbƒN‚ª‰º‚ÉˆÚ“®‚µ‚½ê‡
+			else if (stick_y < 0) {
+				// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚Â‘O‚ÉˆÚ“®
+				now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
+			}
+			input_margin = 0;
+		}
+		if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 		{
-		/*case SELECT::sinnkeisuizyaku:
-				return new sinkeisuijaku(); // ã‚¨ãƒ©ãƒ¼å‡ºã‚‹ã®ã§ã€ä¸€æ—¦ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆä¸­
-				break;*/ 
-		case SELECT::rabbiitdog:
+			input_margin = 0;
+			SELECT current_selection = static_cast<SELECT>(now_menu);
+			switch (current_selection)
+			{
+				/*case SELECT::sinnkeisuizyaku:
+						return new sinkeisuijaku(); // ƒGƒ‰[o‚é‚Ì‚ÅAˆê’UƒRƒƒ“ƒgƒAƒEƒg’†
+						break;*/
+			case SELECT::rabbiitdog:
 				return new RabbitAndHounds();
 				break;
-		/*case SELECT::Hanafuda:
-			return new Hanafuda();
-			break;*/
-		/*case LEVEL::NORMAL:
-		{
-			return new GameMain(current_selection);
-			break;
-		}
-		case LEVEL::HARD:
-			return new GameMain(current_selection);
-			break;*/
-		case SELECT::Hitblow:
-			return new HitAndBlow();
-			break;
-		case SELECT::Hekusu:
-			return new Hex();
-			break;
-		case SELECT::sixballpuzzle:
-			return new SixBallPuzzle();
-			break;
-		case SELECT::Mankara:
-			return new Mankara();
-			break;
-		case SELECT::poker:
-			return new Porker();
-			break;
-		case SELECT::Osero:
-			return new Reversi();
-			break;
-		case SELECT::Checker:
-			return new Checkermain();
-			break;
+				/*case SELECT::Hanafuda:
+					return new Hanafuda();
+					break;*/
+					/*case LEVEL::NORMAL:
+					{
+						return new GameMain(current_selection);
+						break;
+					}
+					case LEVEL::HARD:
+						return new GameMain(current_selection);
+						break;*/
+			case SELECT::Hitblow:
+				return new HitAndBlow();
+				break;
+			case SELECT::Hekusu:
+				return new Hex();
+				break;
+			case SELECT::sixballpuzzle:
+				return new SixBallPuzzle();
+				break;
+			case SELECT::Mankara:
+				return new Mankara();
+				break;
+			case SELECT::poker:
+				return new Porker();
+				break;
+			case SELECT::Osero:
+				return new Reversi();
+				break;
+			case SELECT::Checker:
+				return new Checkermain();
+				break;
 			case SELECT::takoyaaki:
-					return new Takoyaki();
-					break;
-		default:
-			printfDx("æœªå®Ÿè£…ãªæ©Ÿèƒ½ã§ã™\n");
-			break;
+				return new Takoyaki();
+				break;
+			default:
+				printfDx("–¢À‘•‚È‹@”\‚Å‚·\n");
+				break;
+			}
 		}
 	}
-
 	return this;
 }
-
 
 void GameSelect::Draw() const
 {
 	for (int i = 0; i < static_cast<int>(SELECT::MENU_SIZE); i++)
 	{
-		// æ–‡å­—åˆ—ã®æœ€å°Yåº§æ¨™
+		// •¶š—ñ‚ÌÅ¬YÀ•W
 		const int base_y = 0;
 
-		// æ–‡å­—åˆ—ã®Yåº§æ¨™é–“éš”
+		// •¶š—ñ‚ÌYÀ•WŠÔŠu
 		const int margin_y = 50;
 
-		// æ–‡å­—è‰²
+		// •¶šF
 		int color = 0xFFFFFF;
-		// æ–‡å­—å¤–æ è‰²
+		// •¶šŠO˜gF
 		int border_color = 0x000000;
 
-		// ã‚«ãƒ¼ã‚½ãƒ«ãŒåˆã£ã¦ã„ã‚‹å ´åˆã€æ–‡å­—è‰²ã¨æ–‡å­—å¤–æ è‰²ã‚’åè»¢ã•ã›ã‚‹
+		// ƒJ[ƒ\ƒ‹‚ª‡‚Á‚Ä‚¢‚éê‡A•¶šF‚Æ•¶šŠO˜gF‚ğ”½“]‚³‚¹‚é
 		if (now_menu == i) {
 			color = ~color;
 			border_color = ~border_color;

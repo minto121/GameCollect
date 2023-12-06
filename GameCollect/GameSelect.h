@@ -37,20 +37,20 @@ private:
       "rabbiitdog",
       "lastcard"
     };
-    int now_menu; //ç¾åœ¨é¸æŠã—ã¦ã„ã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼
-    int font_handle;  //ãƒ•ã‚©ãƒ³ãƒˆ
-    int input_margin;  //æ“ä½œæ™‚é–“é–“éš”
+    int now_menu; //Œ»İ‘I‘ğ‚µ‚Ä‚¢‚éƒƒjƒ…[
+    int font_handle;  //ƒtƒHƒ“ƒg
+    int input_margin;  //‘€ìŠÔŠÔŠu
 public:
-    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
     GameSelect();
 
-    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    //ƒfƒXƒgƒ‰ƒNƒ^
     ~GameSelect();
 
-    //æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè¡Œ
+    //•`‰æˆÈŠO‚ÌXV‚ğÀs
     AbstractScene* Update() override;
 
-    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…
+    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
     void Draw() const override;
 };
 
