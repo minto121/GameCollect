@@ -31,13 +31,22 @@ Mankara::Mankara()
 		P2Pocket[y] += 1;
 	}
 
-	// 石の画像処理
+	// 石の画像処理(ポケット)
 	for (int i = 0; i < 6; i++) {
 		for (int y = 0; y < 6; y++) {
 			gStone[y][i].img = StoneImg[y];//ポケット１
 			gStone2[y][i].img = StoneImg[y];//ポケット１
 		}
 	}
+
+	// 石の画像処理(ゴール)
+	for (int i = 0; i < 30; i++) {
+		for (int y = 0; y < 6; y++) {
+			gGoal[y][i].img = StoneImg[y];//ポケット１
+			
+		}
+	}
+
 
 	for (int i = 0; i < 7; i++) {
 		StonePocket[0][i] = InitialStone; // 1P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
@@ -286,123 +295,86 @@ void Mankara::Draw()const
 		DrawGraph(430, 220 + i * 20, gStone[i][1].img, TRUE);
 	}
 	// 石（ポケット３）の初期配置
-	for (int i = 0; i < 16; i++) {
-		DrawGraph(550, 380 + i * 15, gStone[i][2].img, TRUE);
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(530, 380 + i * 20, gStone[i][2].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(560, 220 + i * 20, gStone[i][2].img, TRUE);
 	}
 	// 石（ポケット４）の初期配置
-	for (int i = 0; i < 16; i++) {
-		DrawGraph(675, 380 + i * 15, gStone[i][3].img, TRUE);
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(655, 380 + i * 20, gStone[i][3].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(685, 220 + i * 20, gStone[i][3].img, TRUE);
 	}
 	// 石（ポケット５）の初期配置
-	for (int i = 0; i < 16; i++) {
-		DrawGraph(800, 380 + i * 15, gStone[i][4].img, TRUE);
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(780, 380 + i * 20, gStone[i][4].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(810, 220 + i * 20, gStone[i][4].img, TRUE);
 	}
 	// 石（ポケット６）の初期配置
-	for (int i = 0; i < 16; i++) {
-		DrawGraph(925, 380 + i * 15, gStone[i][5].img, TRUE);
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(905, 380 + i * 20, gStone[i][5].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(935, 220 + i * 20, gStone[i][5].img, TRUE);
 	}
 
 	//// 2P石の初期配置
 	// -----------ここから石の初期配置--------------
 
 	// 石（ポケット１）の初期配置
-	for (int i = 0; i < 4; i++) {
-		if (PartnerPocket == 0) {
-			// ポケットの中身の石の数の分だけX軸を移動させる
-			for (int y = 0; y < JustGoal; ) {
-				DrawGraph(300 + 5 * 125 - y * 125, 100 + y * 20, gStone[y][0].img, TRUE);
-				y++;
-			}
-		}
-		else {
-			DrawGraph(300 + 5 * 125, 100 + i * 20, gStone[i][0].img, TRUE);
-		}
-
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(905, 100 + i * 20, gStone[i][0].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(935, -60 + i * 20, gStone[i][0].img, TRUE);
 	}
 	// 石（ポケット２）の初期配置
-	for (int i = 0; i < 4; i++) {
-		if (PartnerPocket == 1) {
-			// ポケットの中身の石の数の分だけX軸を移動させる
-			for (int y = 0; y < JustGoal; ) {
-				DrawGraph(300 + 4 * 125 - y * 125, 100 + y * 20, gStone[y][1].img, TRUE);
-				y++;
-			}
-		}
-		else {
-			DrawGraph(300 + 4 * 125, 100 + i * 20, gStone[i][1].img, TRUE);
-		}
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(780, 100 + i * 20, gStone[i][1].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(810, -60+ i * 20, gStone[i][1].img, TRUE);
 	}
 	// 石（ポケット３）の初期配置
-	for (int i = 0; i < 4; i++) {
-		if (PartnerPocket == 2) {
-			// ポケットの中身の石の数の分だけX軸を移動させる
-			for (int y = 0; y < JustGoal; ) {
-				DrawGraph(300 + 3 * 125 - y * 125, 100 + y * 20, gStone[y][2].img, TRUE);
-				y++;
-			}
-		}
-		else {
-			DrawGraph(300 + 3 * 125, 100 + i * 20, gStone[i][2].img, TRUE);
-		}
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(655, 100 + i * 20, gStone[i][2].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(685, -60 + i * 20, gStone[i][2].img, TRUE);
 	}
 	// 石（ポケット４）の初期配置
-	for (int i = 0; i < 4; i++) {
-		if (PartnerPocket == 3) {
-			for (int y = 0; y < JustGoal; ) {
-				// ポケットの中身の石の数の分だけX軸を移動させる
-				DrawGraph(300 + 2 * 125 - y * 125, 100 + y * 20, gStone[y][3].img, TRUE);
-				y++;
-			}
-		}
-		else {
-			DrawGraph(300 + 2 * 125, 100 + i * 20, gStone[i][3].img, TRUE);
-		}
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(530, 100 + i * 20, gStone[i][3].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(560, -60 + i * 20, gStone[i][3].img, TRUE);
 	}
 	// 石（ポケット５）の初期配置
-	for (int i = 0; i < 4; i++) {
-
-		if (PartnerPocket == 4) {
-			// ポケットの中身の石の数の分だけX軸を移動させる
-			for (int y = 0; y < JustGoal; ) {
-				DrawGraph(300 + 1 * 125 - y * 125, 100 + y * 20, gStone[y][4].img, TRUE);
-				y++;
-			}
-		}
-		else {
-			DrawGraph(300 + 1 * 125, 100 + i * 20, gStone[i][4].img, TRUE);
-		}
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(400, 100 + i * 20, gStone[i][4].img, TRUE);
+	}
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(430, -60 + i * 20, gStone[i][4].img, TRUE);
 	}
 	// 石（ポケット６）の初期配置
-	for (int i = 0; i < 4; i++) {
-		if (PlayerPocket == 5) {
-			for (int y = 0; y < JustGoal; ) {
-				// ポケットの中身の石の数の分だけX軸を移動させる
-				DrawGraph(300 - y * 125, 100 + y * 20, gStone[y][5].img, TRUE);
-				y++;
-			}
-		}
-		else {
-			DrawGraph(300, 100 + i * 20, gStone[i][5].img, TRUE);
-		}
-
+	for (int i = 0; i < 8; i++) {
+		DrawGraph(280, 100 + i * 20, gStone[i][5].img, TRUE);
 	}
-	//DrawGraph(300 + 125 * 4, 190, gStone[0][6].img, TRUE);
-	//DrawGraph(300 + 125 * 5, 190, gStone[0][7].img, TRUE);
+	for (int i = 8; i < 16; i++) {
+		DrawGraph(310, -60 + i * 20, gStone[i][5].img, TRUE);
+	}
 
-	//DrawGraph(300 + 125 * 2, 190, gStone[1][6].img, TRUE);
-	//DrawGraph(300 + 125 * 3, 190, gStone[1][7].img, TRUE);
 
-	//DrawGraph(300 + 125 * 2, 160, gStone[2][6].img, TRUE);
-	//DrawGraph(300 + 125 * 3, 160, gStone[2][7].img, TRUE);
+	// 石（ゴール）の初期配置
+	for (int i = 0; i < 30; i++) {
+		DrawGraph(1100, 140 + i * 20, gGoal[i][0].img, TRUE);
+	}
 
-	//DrawGraph(300, 190, gStone[3][6].img, TRUE);
-	//DrawGraph(300 + 125, 190, gStone[3][7].img, TRUE);
-
-	//DrawGraph(300, 160, gStone[4][6].img, TRUE);
-	//DrawGraph(300 + 125, 160, gStone[4][7].img, TRUE);
-
-	//DrawGraph(300 + 125 * 4, 160, gStone[5][6].img, TRUE);
-	//DrawGraph(300 + 125 * 5, 160, gStone[5][7].img, TRUE);
 
 	//------------- ここまで-----------------
 
@@ -587,160 +559,17 @@ void Mankara::MoveStone()
 
 		// ポケットを選択
 		if (moveStone == 0) {
-
-			// 選択したポケットに格納されている石を移動させる
-			for (int i = 0; i < P1StoneSave[0][i + 1]; i++) {
-				P1StoneSave[moveStone + i][i];
-				JustGoal = InitialStone;
-				// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
-				if (InitialStone > 6) {
-					for (int z = 6; z < InitialStone; z++) {
-						P2StoneSave[z][InitialStone + 1];
-					}
-					// 石が移動したポケットには＋１ずつ追加
-					for (int y = 1; y < InitialStone; y++) {
-						P1StoneSave[y][InitialStone + 1];
-
-					}
-				}
-			}
-
-			// 選択したポケットの中身を０にする
-			P1StoneSave[0][InitialStone - InitialStone];
-			// 大きいポケットに石が入る
-			if (JustGoal >= 6) {
-				P1BigPocket += 1;
-				JustGoal = 0;
-			}
 		}
 		else if (moveStone == 1) {
-			// 選択したポケットに格納されている石を移動させる
-			for (int i = 0; i < P1StoneSave[1][i + 2]; i++) {
-				P1StoneSave[moveStone + i][i];
-				JustGoal = InitialStone;
-				// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
-				if (InitialStone > 5) {
-					for (int z = 5; z < InitialStone; z++) {
-						P2StoneSave[z][InitialStone + 1];
-					}
-					// 石が移動したポケットには＋１ずつ追加
-					for (int y = 2; y < InitialStone; y++) {
-						P1StoneSave[y][InitialStone + 1];
-
-					}
-				}
-			}
-
-			// 選択したポケットの中身を０にする
-			P1StoneSave[1][InitialStone - InitialStone];
-			// 大きいポケットに石が入る
-			if (JustGoal >= 5) {
-				P1BigPocket += 1;
-				JustGoal = 0;
-			}
-			else if (moveStone == 2) {
-				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[2][i + 3]; i++) {
-					P1StoneSave[moveStone + i][i];
-					JustGoal = InitialStone;
-					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
-					if (InitialStone > 4) {
-						for (int z = 4; z < InitialStone; z++) {
-							P2StoneSave[z][InitialStone + 1];
-						}
-						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 3; y < InitialStone; y++) {
-							P1StoneSave[y][InitialStone + 1];
-
-						}
-					}
-				}
-
-				// 選択したポケットの中身を０にする
-				P1StoneSave[2][InitialStone - InitialStone];
-				// 大きいポケットに石が入る
-				if (JustGoal >= 4) {
-					P1BigPocket += 1;
-					JustGoal = 0;
-				}
-			}
-			else if (moveStone == 3) {
-				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[3][i + 4]; i++) {
-					P1StoneSave[moveStone + i][i];
-					JustGoal = InitialStone;
-					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
-					if (InitialStone > 3) {
-						for (int z = 3; z < InitialStone; z++) {
-							P2StoneSave[z][InitialStone + 1];
-						}
-						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 4; y < InitialStone; y++) {
-							P1StoneSave[y][InitialStone + 1];
-
-						}
-					}
-				}
-
-				// 選択したポケットの中身を０にする
-				P1StoneSave[3][InitialStone - InitialStone];
-				// 大きいポケットに石が入る
-				if (JustGoal >= 3) {
-					P1BigPocket += 1;
-					JustGoal = 0;
-				}
-			}
-			else if (moveStone == 4) {
-				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[4][i + InitialStone]; i++) {
-					P1StoneSave[moveStone + i][i];
-					JustGoal = InitialStone;
-					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
-					if (InitialStone > 2) {
-						for (int z = 2; z < InitialStone; z++) {
-							P2StoneSave[z][InitialStone + 1];
-						}
-						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 4; y < InitialStone; y++) {
-							P1StoneSave[y][InitialStone + 1];
-
-						}
-					}
-				}
-				// 選択したポケットの中身を０にする
-				P1StoneSave[4][InitialStone - InitialStone];
-				// 大きいポケットに石が入る
-				if (JustGoal >= 2) {
-					P1BigPocket += 1;
-					JustGoal = 0;
-				}
-			}
-			else if (moveStone == 5) {
-				// 選択したポケットに格納されている石を移動させる
-				for (int i = 0; i < P1StoneSave[5][i + 5]; i++) {
-					P1StoneSave[moveStone + i][i];
-					JustGoal = InitialStone;
-					// 移動する石が1Pポケットの数を超えるなら、2Pポケットに余剰分を格納する
-					if (InitialStone > 1) {
-						for (int z = 1; z < InitialStone; z++) {
-							P2StoneSave[z][InitialStone + 1];
-						}
-						// 石が移動したポケットには＋１ずつ追加
-						for (int y = 5; y < InitialStone; y++) {
-							P1StoneSave[y][InitialStone + 1];
-
-						}
-					}
-				}
-
-				// 選択したポケットの中身を０にする
-				P1StoneSave[5][InitialStone - InitialStone];
-				// 大きいポケットに石が入る
-				if (JustGoal >= 1) {
-					P1BigPocket += 1;
-					JustGoal = 0;
-				}
-			}
+		}
+		else if (moveStone == 2) {		
+		}
+		else if (moveStone == 3) {
+		}
+		else if (moveStone == 4) {
+			
+		}
+		else if (moveStone == 5) {			
 		}
 	}
 }

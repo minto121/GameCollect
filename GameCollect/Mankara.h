@@ -27,6 +27,19 @@ private:
 	// 石の色と個数
 	struct STONE2 gStone2[6][16];
 
+	struct GOAL
+	{
+		int img;
+	} ;
+	// 石の色と個数
+	struct GOAL gGoal[6][30];
+
+
+
+
+
+
+
 
 	// 1Pが選択しているポケット
 	int PlayerPocket;
