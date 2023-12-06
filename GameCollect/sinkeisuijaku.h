@@ -10,7 +10,7 @@ private:
 
 	int isPlayerTurn = 1;  // プレイヤーのターンかどうかを示すフラグ
 	int  isComputerTurn = 0;  // コンピューターのターンかどうかを示すフラグ
-
+	int ExTrun = 0;
 	struct PLAYER {
 		int player = 0;
 	};
@@ -32,6 +32,7 @@ private:
 
 
 	void ComputerTurn();
+	void End();
 	void Sound();
 
 	int first;
@@ -90,7 +91,11 @@ private:
 	int selectcount = 0;
 
 	int peacountflg = 0;
+	int peacountflg2 = 0;
 	int peacount = 0;
+
+	int Excount = 0;
+
 	//サウンド
 	int BGM;
 	int S_Select;

@@ -145,8 +145,6 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
 
-      
-
         if (count >= 10) {
             // カード選択
             if (g_KeyFlg & PAD_INPUT_1 && rCount < 2 && (trumps[S_ber][S2_ber].syurui != lastSelect )) {
@@ -172,12 +170,12 @@ AbstractScene* sinkeisuijaku::Update()
                     test2 = trumps[S_ber][S2_ber].syurui;
                     rCount++;
 
-               
 
                     // カードを裏返す
                     for (int j = 0; j < 4; j++) {
                         for (int i = 0; i < 5; i++) {
                             trumps[j][i].flg = 0;
+
                         }
                     }
 
@@ -226,9 +224,7 @@ AbstractScene* sinkeisuijaku::Update()
                     rCount = 0;
                     selectcount = 0;
 
-                    // プレイヤーの手番が終了したら、isPlayerTurn フラグを false に設定し、コンピューターのターンへ移行します。
-                    isPlayerTurn = 0;
-                    isComputerTurn = 1;
+                  
                 }
             }
 
@@ -244,9 +240,12 @@ AbstractScene* sinkeisuijaku::Update()
                             for (int l = 0; l < 5; l++) {
                                 if (trumps[j][i].flg2 + 10 == trumps[k][l].flg2 || trumps[j][i].flg2 - 10 == trumps[k][l].flg2) {
                                     trumps[j][i].visible = 1;
-                                    pea = 1;
                                     selectcount = selectcount + 1;
-                                    peacountflg++;
+                                    if (peacountflg == 0) {
+                                        peacount = peacount + 1;
+                                        peacountflg = 1;
+                                    }
+                                        
                                }
                             }
                         }
@@ -254,24 +253,17 @@ AbstractScene* sinkeisuijaku::Update()
                 }
             }
 
-
-
-            // カードを選択したときの種類を2回まで記録
-            if (selectcount == 1) {
-                test1 = trumps[S_ber][S2_ber].syurui;
-                testcount++;
-            }
-            else if (selectcount == 2) {
-                test2 = trumps[S_ber][S2_ber].syurui;
-                testcount = 0;
-            }
-
+       
         }
     }
 
-    
-    peacount = peacountflg % 97;
   
+  
+    // プレイヤーの手番が終了したら、isPlayerTurn フラグを false に設定し、コンピューターのターンへ移行します。
+
+        isPlayerTurn = 0;
+        isComputerTurn = 1;
+
 
   
 
@@ -279,19 +271,27 @@ AbstractScene* sinkeisuijaku::Update()
         // コンピューターのターン
         ComputerTurn();
         lastSelect = -1;
+        peacountflg2 = 0;
     }
+
+   
+
       return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
     SetFontSize(50);
-    DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
+    if (peacount == 110) {
+        DrawFormatString(200, 200, 0xffffff, "aaaaaaaaaaaaa");
+    }
+//    DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
 
   
 
-        DrawFormatString(100, 140, 0x00ffff, "%d ",peacount);
-        DrawFormatString(100, 180, 0x00ffff, "%d ", peacountflg);
+        DrawFormatString(100, 140, 0x00ffff, "Excount%d ",Excount);
+
+        DrawFormatString(100, 200, 0x00ffff, "peacount %d ", peacount);
 
 
 
@@ -367,7 +367,7 @@ void sinkeisuijaku::ComputerTurn()
             do {
                 randRow2 = rand() % 4;
                 randCol2 = rand() % 5;
-            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1 || trumps[randRow][randCol].visible == 2 || trumps[randRow][randCol].visible == 1 || trumps[randRow2][randCol2].visible == 1);  // 2枚目が1枚目と異なる座標になるように
+            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1 || trumps[randRow][randCol].visible == 2 || trumps[randRow][randCol].visible == 1 || trumps[randRow2][randCol2].visible == 1 || trumps[randRow2][randCol2].visible == 2);  // 2枚目が1枚目と異なる座標になるように
 
 
 
@@ -382,14 +382,16 @@ void sinkeisuijaku::ComputerTurn()
                     trumps[randRow][randCol].visible = 2;
                     trumps[randRow2][randCol2].visible = 2;
                     selectcount = selectcount + 1;
-
-                    //カードが揃った回数を記録
-                    peacount = peacount + 1;
                 
+                    if (peacountflg2 == 0) {
+                        peacount = peacount + 1;
+                        peacountflg2 = 1;
+                    }
             }
 
         }
 
+     
 
         //とりあえずカードを裏面に戻す
 
@@ -404,8 +406,16 @@ void sinkeisuijaku::ComputerTurn()
             isComputerTurn = 0;
             isPlayerTurn = 1;
             rebirth = 0;
+            peacountflg = 0;
+
         }
     }
+
+}
+
+void sinkeisuijaku::End()
+{
+   
 }
 
 void sinkeisuijaku::Sound()
