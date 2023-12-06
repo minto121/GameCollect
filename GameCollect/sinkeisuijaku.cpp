@@ -296,7 +296,7 @@ void sinkeisuijaku::Draw() const
 
 
 
-    DrawFormatString(100, 140, 0x00ffff, "pea%d ", pea);
+    DrawFormatString(100, 140, 0x00ffff, "pea%d ", peacountflg);
 
 
 
