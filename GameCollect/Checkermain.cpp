@@ -82,11 +82,11 @@ AbstractScene* Checkermain::Update() {
                     }
                     
                     if (cantake == true) {
-                        phase = 1;
+                        phase = 0;
                     }
 
                     else {
-                        phase = 0;
+                        phase = 1;
                     }
                     
                 }
@@ -402,13 +402,11 @@ bool Checkermain::CanTakeMore(int SelectX, int SelectY)
         return false;
     }
     // 移動先にすでに駒がある場合、無効
-    if (board[SelectX + 2][SelectY + 2] != 0 || board[SelectX - 2][SelectY - 2] != 0 || board[SelectX - 2][SelectY + 2] != 0 || board[SelectX + 2][SelectY - 2] != 0) {
-        return false;
-    }
-
-     // 赤駒のジャンプ条件をチェック
-    if (board[StartX][StartY] == 1) {
-        if  (board[SelectX + 2][SelectY + 2] || board[SelectX - 2][SelectY + 2]) {
+    if (phase == 0) {
+        if  (board[SelectX - 2][SelectY - 2] != 0 ||  board[SelectX + 2][SelectY - 2] != 0) {
+            return false;
+        }
+        if (board[SelectX + 2][SelectY + 2] || board[SelectX - 2][SelectY + 2]) {
             return false;
         }
         // 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
@@ -418,42 +416,45 @@ bool Checkermain::CanTakeMore(int SelectX, int SelectY)
             // 飛び越えた位置に相手の駒があるか確認
             if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
                 cantake = true;
-          
+
                 return true;
             }
             else if (board[jumpedX][jumpedY] == 0) {
                 cantake = false;
-             
+
                 return false;
             }
         }
-        else if (board[StartX][StartY] == 2) {
-            if (board[SelectX - 2][SelectY - 2] || board[SelectX + 2][SelectY - 2]) {
-                return false;
-            }
-            if (board[SelectX - 2][SelectY - 2] || board[SelectX + 2][SelectY - 2]) {
-                return false;
-            }
-            // 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
-            if (((SelectX + 2) - SelectX == 2 && (SelectY + 2) - SelectY == -2) || ((SelectX + 2) - SelectX == -2 && (SelectY + 2) - SelectY == -2)) {
-                jumpedX = (SelectX + SelectX) / 2;
-                jumpedY = (SelectY + SelectX) / 2;
-                // 飛び越えた位置に相手の駒があるか確認
-                if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
-                    cantake = true;
-                    return true;
-                }
-                else if (board[jumpedX][jumpedY] == 0) {
-                    cantake = false;
-                    return false;
-                }
-            }
-
-
-
-        }
-
     }
+    else {
+        if (board[SelectX + 2][SelectY + 2] != 0 || board[SelectX - 2][SelectY + 2] != 0) {
+            return false;
+        }
+        if (board[SelectX - 2][SelectY - 2] || board[SelectX + 2][SelectY - 2]) {
+            return false;
+        }
+        if (board[SelectX - 2][SelectY - 2] || board[SelectX + 2][SelectY - 2]) {
+            return false;
+        }
+        // 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
+        if (((SelectX + 2) - SelectX == 2 && (SelectY + 2) - SelectY == -2) || ((SelectX + 2) - SelectX == -2 && (SelectY + 2) - SelectY == -2)) {
+            jumpedX = (SelectX + SelectX) / 2;
+            jumpedY = (SelectY + SelectX) / 2;
+            // 飛び越えた位置に相手の駒があるか確認
+            if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
+                cantake = true;
+                return true;
+            }
+            else if (board[jumpedX][jumpedY] == 0) {
+                cantake = false;
+                return false;
+            }
+        }
+    }
+    
+
+ 
+    
 
     return false;
 }
