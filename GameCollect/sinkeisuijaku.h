@@ -33,7 +33,7 @@ private:
 
 	void ComputerTurn();
 	void Sound();
-
+	void Shuffle();
 	int first;
 
 	int S_timg;
@@ -69,9 +69,9 @@ private:
 	int r2Count = 0;
 
 
-	int test1;
-	int test2;
-	int test3;
+	int select1;
+	int select2;
+	int select3;
 
 	int testcount = 0;
 
@@ -93,8 +93,11 @@ private:
 	int peacount = 0;
 	//ƒTƒEƒ“ƒh
 	int BGM;
-	int S_Select;
+	int Select;
+	int shuffle;
 	int S_Pea;
 
+
+	int test1 = 0;
 };
 
