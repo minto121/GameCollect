@@ -15,16 +15,17 @@
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
-    <ClCompile Include="gomoku.cpp"/>
-    <ClCompile Include="gomokuScene.cpp"/>
-    <ClCompile Include="gomoku_AI.cpp"/>
-    <ClCompile Include="gomoku_TitleScene.cpp"/>
+    <ClCompile Include="gomoku.cpp" />
+    <ClCompile Include="gomokuScene.cpp" />
+    <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_TitleScene.cpp" />
+    <ClCompile Include="gomoku_HelpScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gomoku_AI.h"/>
-    <ClInclude Include="gomokuScene.h"/>
-    <ClInclude Include="gomoku.h"/>
-    <ClInclude Include="gomoku_TitleScene.h"/>
+    <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomokuScene.h" />
+    <ClInclude Include="gomoku.h" />
+    <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
@@ -39,6 +40,7 @@
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="gomoku_HelpScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />

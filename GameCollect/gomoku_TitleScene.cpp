@@ -43,6 +43,9 @@ AbstractScene* gomokuTitle::Update()
     if (g_KeyFlg & PAD_INPUT_1 && gomokuMenuNumber == 0 && gomoku_transitionTime > 15) {
         return new gomokuScene;
     }
+    if (g_KeyFlg & PAD_INPUT_1 && gomokuMenuNumber == 1 && gomoku_transitionTime > 15) {
+        return new gomoku_HelpScene;
+    }
     if (g_KeyFlg & PAD_INPUT_1 && gomokuMenuNumber == 2 && gomoku_transitionTime > 15) {
         return new GameSelect;
     }

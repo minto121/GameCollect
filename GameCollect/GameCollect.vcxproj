@@ -156,6 +156,7 @@
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_HelpScene.cpp" />
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomoku_HelpScene.h" />
     <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Hit&amp;Blow.h" />

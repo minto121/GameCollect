@@ -109,9 +109,6 @@ AbstractScene* gomokuScene::Update()
 				if (g_KeyFlg & PAD_INPUT_LEFT && cX == -1) {
 					cX = 12;
 				}
-
-
-
 			}
 			if (g_KeyFlg & PAD_INPUT_DOWN && cY < 13) {
 				if (Key_Count >= 1) {
@@ -127,14 +124,6 @@ AbstractScene* gomokuScene::Update()
 				}
 				if (g_KeyFlg & PAD_INPUT_UP && cY == -1) {
 					cY = 12;
-
-
-
-
-
-
-
-
 				}
 			}
 		}

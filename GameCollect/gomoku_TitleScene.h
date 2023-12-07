@@ -2,6 +2,7 @@
 #include "AbstractScene.h"
 #include"DxLib.h"
 #include"gomokuScene.h"
+#include"gomoku_HelpScene.h"
 class gomokuTitle : public AbstractScene
 {
 private:
