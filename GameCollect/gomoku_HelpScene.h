@@ -5,7 +5,6 @@
 class gomoku_HelpScene : public AbstractScene
 {
 private:
-	int gomoku_PadImg;
 	int gomokuHelp_BackImg;
 	int g_OldKey;
 	int g_NowKey;
