@@ -8,7 +8,7 @@ class gomokuTitle : public AbstractScene
 private:
 	int gomokuTitle_Back;
 	int gomokuMenuY;
-	int gomokuMenuNumber;
+	int gomokuTitle_MenuNumber;
 	int g_OldKey;
 	int g_NowKey;
 	int g_KeyFlg;

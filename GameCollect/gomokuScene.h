@@ -8,6 +8,8 @@ private:
 	int wTopImg;
 	int bTopImg;
 	int gomoku_BackImg;
+	int gomoku_HelpImg1;
+	int gomoku_HelpImg2;
 	int cX;
 	int cY;
 	int g_OldKey;
@@ -36,6 +38,7 @@ private:
 	int gomoku_Cursordisplaytime; // ƒJ[ƒ\ƒ‹‚É“®‚«‚ğ‚½‚¹‚é
 	int gomoku_BGM1;
 	int gomoku_SoundStart;
+	bool gomoku_HelpDisplayflg;
 public:
 	gomokuScene();
 	~gomokuScene();
