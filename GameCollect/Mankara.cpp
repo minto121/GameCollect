@@ -53,13 +53,13 @@ Mankara::Mankara()
 		StonePocket[1][i] = InitialStone; // 2P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
 	}
 
-	for (int Pocket = 0; Pocket < 7;) {
-		for (int i = 0; i < 4; i++) {
-			P1StoneSave[Pocket][i] = gStone[Pocket][i].img;
-			P2StoneSave[Pocket][i] = gStone[Pocket][i].img;
-		}
-		Pocket++;
+	for (int pocket = 0; pocket < 6;) {
+		P1StoneSave[pocket] = 4;
+		P2StoneSave[pocket] = 4;
+		pocket++;
 	}
+
+	
 
 }
 
@@ -125,6 +125,7 @@ AbstractScene* Mankara::Update()
 	}
 
 	MoveStone();
+	WinLose();
 
 	//1P用石の移動処理
 	if (P1Turn == 1) {
@@ -379,46 +380,6 @@ void Mankara::Draw()const
 	//------------- ここまで-----------------
 
 
-	// ポケットを選択
-	if (moveStone == 0) {
-		// 選択したポケットに格納されている石を移動させる
-		for (int i = 0; i < P1StoneSave[0][i += InitialStone]; i++) {
-			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
-		}
-	}
-	else if (moveStone == 1) {
-		// 選択したポケットに格納されている石を移動させる
-		for (int i = 0; i < P1StoneSave[0][i += InitialStone]; i++) {
-			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
-		}
-	}// ポケットを選択
-	else if (moveStone == 2) {
-		// 選択したポケットに格納されている石を移動させる
-		for (int i = 0; i < P1StoneSave[0][i += InitialStone]; i++) {
-			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
-		}
-	}
-	else if (moveStone == 3) {
-		// 選択したポケットに格納されている石を移動させる
-		for (int i = 0; i < P1StoneSave[0][i += InitialStone]; i++) {
-			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
-		}
-	}
-	// ポケットを選択
-	else if (moveStone == 4) {
-		// 選択したポケットに格納されている石を移動させる
-		for (int i = 0; i < P1StoneSave[0][i += InitialStone]; i++) {
-			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
-		}
-	}
-	else if (moveStone == 5) {
-		// 選択したポケットに格納されている石を移動させる
-		for (int i = 0; i < P1StoneSave[0][i += InitialStone]; i++) {
-			DrawGraph(425 + i * 125, 550, P1StoneSave[moveStone][i], TRUE);
-		}
-	}
-
-
 	// 1Pターン時の ポケット移動
 	if (P1Turn == 1) {
 		if (Pocket_cnt == 0) {
@@ -526,6 +487,21 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 		DrawFormatString(200, 200, GetColor(255, 255, 255), "1P TURN");
 	}
+
+	DrawFormatString(300, 600, GetColor(255, 255, 255), "%d", P1StoneSave[0]);
+	DrawFormatString(425, 600, GetColor(255, 255, 255), "%d", P1StoneSave[1]);
+	DrawFormatString(550, 600, GetColor(255, 255, 255), "%d", P1StoneSave[2]);
+	DrawFormatString(675, 600, GetColor(255, 255, 255), "%d", P1StoneSave[3]);
+	DrawFormatString(800, 600, GetColor(255, 255, 255), "%d", P1StoneSave[4]);
+	DrawFormatString(925, 600, GetColor(255, 255, 255), "%d", P1StoneSave[5]);	
+
+
+	DrawFormatString(300, 10, GetColor(255, 255, 255), "%d", P2StoneSave[5]);
+	DrawFormatString(425, 10, GetColor(255, 255, 255), "%d", P2StoneSave[4]);
+	DrawFormatString(550, 10, GetColor(255, 255, 255), "%d", P2StoneSave[3]);
+	DrawFormatString(675, 10, GetColor(255, 255, 255), "%d", P2StoneSave[2]);
+	DrawFormatString(800, 10, GetColor(255, 255, 255), "%d", P2StoneSave[1]);
+	DrawFormatString(925, 10, GetColor(255, 255, 255), "%d", P2StoneSave[0]);
 }
 
 void Mankara::MoveStone()
@@ -555,21 +531,245 @@ void Mankara::MoveStone()
 	}
 
 	//　画像移動時の数的処理
-	if (P1Turn == TRUE) {
-
 		// ポケットを選択
 		if (moveStone == 0) {
+			for (int i = 0; i < P1StoneSave[0]; i++) {
+				if (P1StoneSave[0] > 6) {
+					P1BigPocket += 1;
+					for (int h = 7; h < (P1StoneSave[0] -= 7); h++) {
+						P2StoneSave[i] += 1;
+					}
+				}
+				P1StoneSave[1 + i] += 1;
+
+			}
+			if (P1StoneSave[0] == 6) {
+				P1Turn = 1;
+			}else{
+				P2Turn = 1;
+			}
+			P1StoneSave[0] = 0;
+
 		}
 		else if (moveStone == 1) {
+			for (int i = 0; i < P1StoneSave[1]; i++) {
+				if (P1StoneSave[1] > 5) {
+					P1BigPocket += 1;
+					for (int h = 6; h < (P1StoneSave[1] -= 6); h++) {
+						P2StoneSave[i] += 1;
+					}
+				}
+				P1StoneSave[1 + i] += 1;
+			}
+			if (P1StoneSave[1] == 5) {
+				P1Turn = 1;
+			}
+			else {
+				P2Turn = 1;
+			}
+			P1StoneSave[1] = 0;
 		}
 		else if (moveStone == 2) {		
+			for (int i = 0; i < P1StoneSave[2]; i++) {
+				if (P1StoneSave[2] > 4) {
+					P1BigPocket += 1;
+					for (int h = 5; h < (P1StoneSave[1] -= 5); h++) {
+						P2StoneSave[i] += 1;
+					}
+				}
+				P1StoneSave[2 + i] += 1;
+			}
+			if (P1StoneSave[2] == 4) {
+				P1Turn = 1;
+			}
+			else {
+				P2Turn = 1;
+			}
+			P1StoneSave[2] = 0;
 		}
 		else if (moveStone == 3) {
+			for (int i = 0; i < P1StoneSave[3]; i++) {
+				if (P1StoneSave[3] > 3) {
+					P1BigPocket += 1;
+					for (int h = 4; h < (P1StoneSave[1] -= 4); h++) {
+						P2StoneSave[i] += 1;
+					}
+				}
+				P1StoneSave[3 + i] += 1;
+			}
+			if (P1StoneSave[3] == 3) {
+				P1Turn = 1;
+			}
+			else {
+				P2Turn = 1;
+			}
+			P1StoneSave[3] = 0;
 		}
 		else if (moveStone == 4) {
-			
+			for (int i = 0; i < P1StoneSave[4]; i++) {
+				if (P1StoneSave[4] > 3) {
+					P1BigPocket += 1;
+					for (int h = 4; h < (P1StoneSave[1] -= 4); h++) {
+						P2StoneSave[i] += 1;
+					}
+				}
+				P1StoneSave[3 + i] += 1;
+			}
+			if (P1StoneSave[4] == 2) {
+				P1Turn = 1;
+			}
+			else {
+				P2Turn = 1;
+			}
+			P1StoneSave[4] = 0;
 		}
-		else if (moveStone == 5) {			
+		else if (moveStone == 5) {	
+			for (int i = 0; i < P1StoneSave[5]; i++) {
+				if (P1StoneSave[5] > 2) {
+					P1BigPocket += 1;
+					for (int h = 5; h < (P1StoneSave[1] -= 5); h++) {
+						P2StoneSave[i] += 1;
+					}
+				}
+				P1StoneSave[4 + i] += 1;
+			}
+			if (P1StoneSave[5] == 1) {
+				P1Turn = 1;
+			}
+			else {
+				P2Turn = 1;
+			}
+			P1StoneSave[5] = 0;
+
+		}
+		
+		
+		// ポケットを選択
+		if (moveStone2 == 0) {
+			for (int i = 0; i < P2StoneSave[0]; i++) {
+				if (P2StoneSave[0] > 6) {
+					P2BigPocket += 1;
+					for (int h = 7; h < (P2StoneSave[0] -= 7); h++) {
+						P1StoneSave[i] += 1;
+					}
+				}
+				P2StoneSave[1 + i] += 1;
+
+			}
+			if (P2StoneSave[0] == 6) {
+				P2Turn = 1;
+			}else{
+				P1Turn = 1;
+			}
+			P2StoneSave[0] = 0;
+
+		}
+		else if (moveStone2 == 1) {
+			for (int i = 0; i < P2StoneSave[1]; i++) {
+				if (P2StoneSave[1] > 5) {
+					P2BigPocket += 1;
+					for (int h = 6; h < (P2StoneSave[1] -= 6); h++) {
+						P1StoneSave[i] += 1;
+					}
+				}
+				P2StoneSave[1 + i] += 1;
+			}
+			if (P2StoneSave[1] == 5) {
+				P2Turn = 1;
+			}
+			else {
+				P1Turn = 1;
+			}
+			P2StoneSave[1] = 0;
+		}
+		else if (moveStone2 == 2) {		
+			for (int i = 0; i < P2StoneSave[2]; i++) {
+				if (P2StoneSave[2] > 4) {
+					P2BigPocket += 1;
+					for (int h = 5; h < (P2StoneSave[1] -= 5); h++) {
+						P1StoneSave[i] += 1;
+					}
+				}
+				P2StoneSave[2 + i] += 1;
+			}
+			if (P2StoneSave[2] == 4) {
+				P2Turn = 1;
+			}
+			else {
+				P1Turn = 1;
+			}
+			P2StoneSave[2] = 0;
+		}
+		else if (moveStone2 == 3) {
+			for (int i = 0; i < P2StoneSave[3]; i++) {
+				if (P2StoneSave[3] > 3) {
+					P2BigPocket += 1;
+					for (int h = 4; h < (P2StoneSave[1] -= 4); h++) {
+						P1StoneSave[i] += 1;
+					}
+				}
+				P2StoneSave[3 + i] += 1;
+			}
+			if (P2StoneSave[3] == 3) {
+				P2Turn = 1;
+			}
+			else {
+				P1Turn = 1;
+			}
+			P2StoneSave[3] = 0;
+		}
+		else if (moveStone2 == 4) {
+			for (int i = 0; i < P2StoneSave[4]; i++) {
+				if (P2StoneSave[4] > 3) {
+					P2BigPocket += 1;
+					for (int h = 4; h < (P2StoneSave[1] -= 4); h++) {
+						P1StoneSave[i] += 1;
+					}
+				}
+				P2StoneSave[3 + i] += 1;
+			}
+			if (P2StoneSave[4] == 2) {
+				P2Turn = 1;
+			}
+			else {
+				P1Turn = 1;
+			}
+			P2StoneSave[4] = 0;
+		}
+		else if (moveStone2 == 5) {	
+			for (int i = 0; i < P2StoneSave[5]; i++) {
+				if (P2StoneSave[5] > 2) {
+					P2BigPocket += 1;
+					for (int h = 5; h < (P2StoneSave[1] -= 5); h++) {
+						P1StoneSave[i] += 1;
+					}
+				}
+				P2StoneSave[4 + i] += 1;
+			}
+			if (P2StoneSave[5] == 1) {
+				P2Turn = 1;
+			}
+			else {
+				P1Turn = 1;
+			}
+			P2StoneSave[5] = 0;
+		}
+}
+
+void Mankara::WinLose()
+{
+	if (P1StoneSave[0] == 0 && P1StoneSave[1] == 0 && P1StoneSave[2] == 0 && P1StoneSave[3] == 0 && P1StoneSave[4] == 0 && P1StoneSave[5] == 0||
+		P2StoneSave[0] == 0 && P2StoneSave[1] == 0 && P2StoneSave[2] == 0 && P2StoneSave[3] == 0 && P2StoneSave[4] == 0 && P2StoneSave[5] == 0) {
+		if (P1BigPocket > P2BigPocket) {
+			DrawFormatString(500, 500, GetColor(255, 255, 255), "1P  WIN");
+			DrawFormatString(500, 600, GetColor(255, 255, 255), "2P  LOSE");
+		}
+		else if (P1BigPocket < P2BigPocket) {
+			DrawFormatString(500, 500, GetColor(255, 255, 255), "2P  WIN");
+			DrawFormatString(500, 600, GetColor(255, 255, 255), "1P  LOSE");
+		}
+		else if (P1BigPocket == P2BigPocket) {
+			DrawFormatString(500, 500, GetColor(255, 255, 255), "DRAW");
 		}
 	}
 }

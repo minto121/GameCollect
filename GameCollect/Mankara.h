@@ -78,10 +78,10 @@ private:
 	bool StoneFlg;
 	int moveStone; 
 	int moveStone2;
+	// ポケットの数と格納されている石の数
+	int P1StoneSave[6]; 
 	// ポケットの数と入っている石の数
-	int P1StoneSave[6][4]; 
-	// ポケットの数と入っている石の数
-	int P2StoneSave[6][4]; 
+	int P2StoneSave[6]; 
 
 	int JustGoal; //ぴったりゴール用 
 
@@ -91,4 +91,5 @@ public:
 	void Draw() const;
 	// 石が移動した時の内部処理
 	void MoveStone();
+	void WinLose();
 };
