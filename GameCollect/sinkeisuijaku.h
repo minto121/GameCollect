@@ -89,8 +89,8 @@ private:
 	int selectedCard[2][2];
 	int selectcount = 0;
 
-	int peacountflg = 0;
 	int peacount = 0;
+	int Cpeacount = 0;
 	//ƒTƒEƒ“ƒh
 	int BGM;
 	int Select;
@@ -99,5 +99,9 @@ private:
 
 
 	int test1 = 0;
+
+
+	int i, j = 0;
+
 };
 

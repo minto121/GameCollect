@@ -2,7 +2,7 @@
 #include "DxLib.h"
 #include <stdlib.h>
 #include <time.h>
-
+#include "sinkensuijaku_ResultScene.h"
 sinkeisuijaku::sinkeisuijaku()
 {
     Select = LoadSoundMem("sound/SE/shuffle2.wav");
@@ -68,6 +68,11 @@ AbstractScene* sinkeisuijaku::Update()
         }
     }
 
+
+    //カードすべてが揃ったら画面遷移
+    if (Cpeacount + peacount == 20) {
+        return new sinkensuijaku_ResultScene();
+        }
 
     if (isPlayerTurn == 1) {
 
@@ -233,6 +238,8 @@ AbstractScene* sinkeisuijaku::Update()
                     // プレイヤーの手番が終了したら、isPlayerTurn フラグを false に設定し、コンピューターのターンへ移行します。
                     isPlayerTurn = 0;
                     isComputerTurn = 1;
+                    int i, j = 0;
+
                 }
             }
 
@@ -250,7 +257,6 @@ AbstractScene* sinkeisuijaku::Update()
                                     trumps[j][i].visible = 1;
                                     pea = 1;
                                     selectcount = selectcount + 1;
-                                    peacountflg++;
                                   //  PlaySoundMem(Select, DX_PLAYTYPE_NORMAL);
 
                                 }
@@ -259,6 +265,17 @@ AbstractScene* sinkeisuijaku::Update()
                     }
                 }
             }
+
+            //プレイヤーの揃えた枚数をカウント
+            for (int j = 0; j < 4; j++) {
+                for (int i = 0; i < 5; i++) {
+                    if (trumps[j][i].flg == 1) {
+                        if (trumps[j][i].visible == 1)
+                            peacount = peacount + 1;
+                    }
+                }
+            }
+
             // カードを選択したときの種類を2回まで記録
             if (selectcount == 1) {
                 select1 = trumps[S_ber][S2_ber].syurui;
@@ -273,7 +290,7 @@ AbstractScene* sinkeisuijaku::Update()
     }
 
 
-    peacount = peacountflg % 97;
+    
 
 
 
@@ -285,20 +302,26 @@ AbstractScene* sinkeisuijaku::Update()
         pea = 0;
     }
 
+    for (int j = 0; j < 4; j++) {
+        for (int i = 0; i < 5; i++) {
+            if (trumps[j][i].visible == 1) {
+                trumps[j][i].flg = 0;
+            }
+        }
+    }
 
     return this;
 }
 
 void sinkeisuijaku::Draw() const
 {
+   
+
     SetFontSize(50);
     DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
 
-
-
-    DrawFormatString(100, 140, 0x00ffff, "pea%d ", peacountflg);
-
-
+    DrawFormatString(100, 230, 0x00ffff, "pea%d ", peacount);
+    DrawFormatString(100, 270, 0x00ffff, "pea%d ",Cpeacount);
 
 
     // トランプの表示
@@ -389,11 +412,26 @@ void sinkeisuijaku::ComputerTurn()
                 trumps[randRow2][randCol2].visible = 2;
                 selectcount = selectcount + 1;
 
-                //カードが揃った回数を記録
-                peacount = peacount + 1;
-
             }
 
+        }
+
+        //プレイヤーの揃えた枚数をカウント
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+                if (trumps[j][i].flg == 1) {
+                    if (trumps[j][i].visible == 2)
+                        Cpeacount++;
+                }
+            }
+        }
+
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+                if (trumps[j][i].visible == 2) {
+                    trumps[j][i].flg = 0;
+                }
+            }
         }
 
 
