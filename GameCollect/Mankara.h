@@ -74,8 +74,6 @@ private:
 	int Stonenum;          // 配列の中の石の総数
 
 	int CountUp;
-
-	bool StoneFlg;
 	int moveStone; 
 	int moveStone2;
 	// ポケットの数と格納されている石の数
