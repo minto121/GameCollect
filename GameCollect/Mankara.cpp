@@ -511,9 +511,12 @@ void Mankara::MoveStone()
 
 		// ポケットを選択
 		if (PlayerPocket == 0) {
+			// ポケットの中身を別のポケットの中にいれる
 			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
+				// ぴったりゴール用処理
 				if (P1StoneSave[PlayerPocket] > 6) {
 					P1BigPocket += 1;
+					// ポケットを超過した時、2Pポケットに入れる
 					for (int h = 7; h < (P1StoneSave[PlayerPocket] -= 7); h++) {
 						P2StoneSave[i] += 1;
 					}
@@ -521,6 +524,7 @@ void Mankara::MoveStone()
 				P1StoneSave[PlayerPocket + i] += 1;
 
 			}
+			// ぴったりゴール以外で石の移動が済んだ時、2Pターンに切り替わる
 			if (P1StoneSave[PlayerPocket] == 6) {
 				P1Turn = 1;
 				P2Turn = 0;
@@ -529,6 +533,7 @@ void Mankara::MoveStone()
 				P2Turn = 1;
 				P1Turn = 0;
 			}
+			// 石を移動したポケットの中身を０にする
 			P1StoneSave[PlayerPocket] = 0;
 
 		}
@@ -766,19 +771,17 @@ void Mankara::MoveStone()
 
 void Mankara::WinLose()
 {
-	if (P1BigPocket <= 25) {
+	if (P1BigPocket >= 25) {
 		DrawFormatString(500, 500, GetColor(255, 255, 255), "1P  WIN");
 		DrawFormatString(500, 600, GetColor(255, 255, 255), "2P  LOSE");
 	}
 		
-	if (P2BigPocket <= 25) {
+	if (P2BigPocket >= 25) {
 		DrawFormatString(500, 500, GetColor(255, 255, 255), "2P  WIN");
 		DrawFormatString(500, 600, GetColor(255, 255, 255), "1P  LOSE");
 
 	}
 		
-		
-			/*DrawFormatString(500, 500, GetColor(255, 255, 255), "DRAW");*/
-	
+		/*DrawFormatString(500, 500, GetColor(255, 255, 255), "DRAW");*/
 	
 }
