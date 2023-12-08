@@ -12,6 +12,14 @@ private:
 	int BTN_flg;
 	int P_FPS;
 	int P_TEKI;
+	int WP;
+	int WP2;
+	int WP3;
+	int WP4;
+	int WP_FLG[20];
+	int YP[31];
+	int YP2[31];
+	
 
 	int Winflg;
 	int Loseflg;
@@ -24,62 +32,60 @@ private:
 	int P_Fould_H_flg;
 	int E_Fould_H_flg;
 	int G_Over_H_flg;
-	int WTflg1;
-	int WTflg2;
-	int WTflg3;
-	int WTRelese1;
-	int WTRelese2;
-	int WTRelese3;
-	int BTN_RELESE_FLG1;
-	int BTN_RELESE_FLG2;
-	int BTN_RELESE_FLG3;
-	int BTN_RELESE_FLG4;
-	int BTN_RELESE_FLG5;
-	int BTN_RELESE_FLG6;
+	int WTflg[4];
+	int WT2flg[3];
+
+	int WTRelese[4];
+	
+	int BTN_RELESE_FLG[6];
+	
 	int P_F_flg;
 	int RC_H_flg;
 	int CARD_URA_H_flg;
 
 	int Tranpu_Img[56];
 	int Back;
-	int P_rand1;
-	int P_rand2;
-	int E_rand1;
-	int E_rand2;
-	int C_rand1;
-	int C_rand2;
-	int C_rand3;
-	int C_rand4;
-	int C_rand5;
+	int P_rand[2];
+	
+	int E_rand[2];
+	
+	int C_rand[5];
+	
+	int C_flg[4];
 
-	int C_flg1;
-	int C_flg2;
-	int C_flg3;
+	int P_CARD_S[2];//プレイヤーカードの商格納用
+	int P_CARD_A[2];//プレイヤーカードの余り格納用
 
-	int P_CARD1_S;//プレイヤーカード1の商格納用
-	int P_CARD2_S;//プレイヤーカード2の商格納用
+	int E_CARD_S[2];//敵カードの商格納用
+	int E_CARD_A[2];//敵カードの余り格納用
 
-	int P_CARD1_A;//プレイヤーカード1の余り格納用
-	int P_CARD2_A;//プレイヤーカード2の余り格納用
+	int C_CARD_S[5];//場に出ているカード1~5の商格納用
+	int C_CARD_A[5];//場に出ているカード1~5の余り格納用
+	
+	int P_SORT[16];
+	int E_SORT[16];
+	int WINandLOSE[2];
+	int R_Win_FLG[2];
 
-	int E_CARD1_S;//敵カード1の商格納用
-	int E_CARD2_S;//敵カード2の商格納用
+	int P_PEA_FLG;//プレイヤーの1ペアのフラグ
+	int P_2PEA_FLG;//プレイヤーの2ペアのフラグ
+	int P_3CARD_FLG;//プレイヤーのスリーカードのフラグ
+	int P_FH_FLG;
+	int P_FLASH_FLG;
+	int P_STRAIGHT_FLG;
+	int P_4CARD_FLG;
+	int P_SF_FLG;
+	int P_RSF_FLG;
 
-	int E_CARD1_A;//敵カード1の余り格納用
-	int E_CARD2_A;//敵カード2の余り格納用
-
-	int C_CARD1_S;//場に出ているカード1の商格納用
-	int C_CARD2_S;//場に出ているカード2の商格納用
-	int C_CARD3_S;//場に出ているカード3の商格納用
-	int C_CARD4_S;//場に出ているカード4の商格納用
-	int C_CARD5_S;//場に出ているカード5の商格納用
-
-	int C_CARD1_A;//場に出ているカード1の余り格納用
-	int C_CARD2_A;//場に出ているカード2の余り格納用
-	int C_CARD3_A;//場に出ているカード3の余り格納用
-	int C_CARD4_A;//場に出ているカード4の余り格納用
-	int C_CARD5_A;//場に出ているカード5の余り格納用
-	int P_PEA_FLG;//プレイヤーのペアのフラグ
+	int E_PEA_FLG;//
+	int E_2PEA_FLG;//
+	int E_3CARD_FLG;//
+	int E_FH_FLG;
+	int E_FLASH_FLG;
+	int E_STRAIGHT_FLG;
+	int E_4CARD_FLG;
+	int E_SF_FLG;
+	int E_RSF_FLG;
 
 public:
 	Porker();
@@ -87,23 +93,55 @@ public:
 	~Porker();
 
 	//描画以外の更新を実行
-	AbstractScene* Update() override;
+	 AbstractScene* Update() override;
 
 	//描画に関することを実装
-	void Draw() const override;
+	 void Draw() const override;
 
 
+	
+	void ROUND_INIT();//ラウンド初期化
 
-	void ROUND_INIT();
+	void CARD_SETTING();//カードの呼び出し用関数
 
-	void PLAYER_CALL();
+	void CARD_SETTING2();//カードの呼び出し用関数
 
-	void PLAYER_RAISE();
+	void PLAYER_CALL();//プレイヤーのコール用関数
 
-	void ENEMIE_CHOISE();
+	void PLAYER_RAISE();//プレイヤーのレイズ用関数
 
-	void CARD_ANALYSIS();
+	void ENEMIE_CHOISE();//敵の選択用関数
 
-	void CARD_YAKU();
+	void CARD_ANALYSIS();//カードの数字とマークを調べる用の関数
+
+	void P_CARD_PEA();//1,2ペア判断のための関数
+
+	void P_CARD_3_CARD();//3カードのための関数
+
+	void P_CARD_4_CARD();//3カードのための関数
+
+	void P_CARD_FLASH();//フラッシュのための関数
+
+	void P_CARD_STRAIGHT();//ストレートのための関数
+
+	void P_CARD_STRAIGHTFALSH();//ストレートフラッシュのための関数
+
+	void P_YAKU();
+
+	void E_CARD_PEA();//1,2ペア判断のための関数
+
+	void E_CARD_3_CARD();//3カードのための関数
+
+	void E_CARD_4_CARD();//3カードのための関数
+
+	void E_CARD_FLASH();//フラッシュのための関数
+
+	void E_CARD_STRAIGHT();//ストレートのための関数
+
+	void E_CARD_STRAIGHTFALSH();//ストレートフラッシュのための関数
+
+	void E_YAKU();
+
+	void WINANDLOSE();
 };
 

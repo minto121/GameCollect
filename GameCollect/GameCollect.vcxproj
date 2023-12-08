@@ -159,8 +159,10 @@
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
+    <ClCompile Include="Hound.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
+     <ClCompile Include="LastCard.cpp" />
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
@@ -183,7 +185,9 @@
     <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
+    <ClInclude Include="Hound.h" />
     <ClInclude Include="Mankara.h" />
+    <ClInclude Include="LastCard.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />
@@ -191,6 +195,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="Select.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="takoyaki.h" />
