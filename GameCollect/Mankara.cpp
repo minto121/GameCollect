@@ -68,13 +68,18 @@ Mankara::Mankara()
 		gStone[i][5].img = FALSE ;
 	}
 	for (int i = 4; i < 16; i++) {
-		gStone2[i][0].img = FALSE ;
-		gStone2[i][1].img = FALSE ;
-		gStone2[i][2].img = FALSE ;
-		gStone2[i][3].img = FALSE ;
-		gStone2[i][4].img = FALSE ;
-		gStone2[i][5].img = FALSE ;
+		gStone2[i][0].img = FALSE;
+		gStone2[i][1].img = FALSE;
+		gStone2[i][2].img = FALSE;
+		gStone2[i][3].img = FALSE;
+		gStone2[i][4].img = FALSE;
+		gStone2[i][5].img = FALSE;
 	}
+	//for (int i = 0; i < 30; i++) {
+	//	gGoal[0][i].img = FALSE ;
+	//	gGoal[1][i].img = FALSE ;
+	//	
+	//}
 
 }
 
@@ -354,7 +359,7 @@ void Mankara::Draw()const
 		DrawGraph(840, 200 + i * 20, gStone[i][1].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(870, 40+ i * 20, gStone[i][1].img, TRUE);
+		DrawGraph(870, 40 + i * 20, gStone[i][1].img, TRUE);
 	}
 	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 8; i++) {
@@ -387,11 +392,11 @@ void Mankara::Draw()const
 
 
 	// 石（ゴール）の初期配置
-	for (int y = 0; y < 6; y++) {
-		for (int i = 0; i < 15; i++) {
-			DrawGraph(1100 + y * 10, 170 + i * 30, gGoal[y][i].img, TRUE);
-		}
+	//for (int y = 0; y < 1; y++) {
+	for (int i = 0; i < 15; i++) {
+		DrawGraph(1100 /*+ y * 30*/, 170 + i * 20, gGoal[0][i].img, TRUE);
 	}
+	// }
 
 
 	//------------- ここまで-----------------
