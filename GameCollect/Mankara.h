@@ -32,7 +32,7 @@ private:
 		int img;
 	} ;
 	// Î‚ÌF‚ÆŒÂ”
-	struct GOAL gGoal[6][30];
+	struct GOAL gGoal[30][6];
 
 
 

@@ -298,45 +298,45 @@ void Mankara::Draw()const
 
 	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(280, 380 + i * 20, gStone[i][0].img, TRUE);
+		DrawGraph(340, 440 + i * 20, gStone[i][0].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(310, 220 + i * 20, gStone[i][0].img, TRUE);
+		DrawGraph(370, 280 + i * 20, gStone[i][0].img, TRUE);
 	}
 	// 石（ポケット２）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(400, 380 + i * 20, gStone[i][1].img, TRUE);
+		DrawGraph(460, 440 + i * 20, gStone[i][1].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(430, 220 + i * 20, gStone[i][1].img, TRUE);
+		DrawGraph(490, 280 + i * 20, gStone[i][1].img, TRUE);
 	}
 	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(530, 380 + i * 20, gStone[i][2].img, TRUE);
+		DrawGraph(590, 440 + i * 20, gStone[i][2].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(560, 220 + i * 20, gStone[i][2].img, TRUE);
+		DrawGraph(620, 280 + i * 20, gStone[i][2].img, TRUE);
 	}
 	// 石（ポケット４）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(655, 380 + i * 20, gStone[i][3].img, TRUE);
+		DrawGraph(715, 440 + i * 20, gStone[i][3].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(685, 220 + i * 20, gStone[i][3].img, TRUE);
+		DrawGraph(745, 280 + i * 20, gStone[i][3].img, TRUE);
 	}
 	// 石（ポケット５）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(780, 380 + i * 20, gStone[i][4].img, TRUE);
+		DrawGraph(840, 440 + i * 20, gStone[i][4].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(810, 220 + i * 20, gStone[i][4].img, TRUE);
+		DrawGraph(870, 280 + i * 20, gStone[i][4].img, TRUE);
 	}
 	// 石（ポケット６）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(905, 380 + i * 20, gStone[i][5].img, TRUE);
+		DrawGraph(965, 440 + i * 20, gStone[i][5].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(935, 220 + i * 20, gStone[i][5].img, TRUE);
+		DrawGraph(995, 280 + i * 20, gStone[i][5].img, TRUE);
 	}
 
 	//// 2P石の初期配置
@@ -344,51 +344,53 @@ void Mankara::Draw()const
 
 	// 石（ポケット１）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(905, 100 + i * 20, gStone[i][0].img, TRUE);
+		DrawGraph(965, 200 + i * 20, gStone[i][0].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(935, -60 + i * 20, gStone[i][0].img, TRUE);
+		DrawGraph(995, 40 + i * 20, gStone[i][0].img, TRUE);
 	}
 	// 石（ポケット２）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(780, 100 + i * 20, gStone[i][1].img, TRUE);
+		DrawGraph(840, 200 + i * 20, gStone[i][1].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(810, -60+ i * 20, gStone[i][1].img, TRUE);
+		DrawGraph(870, 40+ i * 20, gStone[i][1].img, TRUE);
 	}
 	// 石（ポケット３）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(655, 100 + i * 20, gStone[i][2].img, TRUE);
+		DrawGraph(715, 200 + i * 20, gStone[i][2].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(685, -60 + i * 20, gStone[i][2].img, TRUE);
+		DrawGraph(745, 40 + i * 20, gStone[i][2].img, TRUE);
 	}
 	// 石（ポケット４）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(530, 100 + i * 20, gStone[i][3].img, TRUE);
+		DrawGraph(590, 200 + i * 20, gStone[i][3].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(560, -60 + i * 20, gStone[i][3].img, TRUE);
+		DrawGraph(620, 40 + i * 20, gStone[i][3].img, TRUE);
 	}
 	// 石（ポケット５）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(400, 100 + i * 20, gStone[i][4].img, TRUE);
+		DrawGraph(460, 200 + i * 20, gStone[i][4].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(430, -60 + i * 20, gStone[i][4].img, TRUE);
+		DrawGraph(430, 40 + i * 20, gStone[i][4].img, TRUE);
 	}
 	// 石（ポケット６）の初期配置
 	for (int i = 0; i < 8; i++) {
-		DrawGraph(280, 100 + i * 20, gStone[i][5].img, TRUE);
+		DrawGraph(340, 200 + i * 20, gStone[i][5].img, TRUE);
 	}
 	for (int i = 8; i < 16; i++) {
-		DrawGraph(310, -60 + i * 20, gStone[i][5].img, TRUE);
+		DrawGraph(370, 40 + i * 20, gStone[i][5].img, TRUE);
 	}
 
 
 	// 石（ゴール）の初期配置
-	for (int i = 0; i < 30; i++) {
-		DrawGraph(1100, 140 + i * 20, gGoal[i][0].img, TRUE);
+	for (int y = 0; y < 6; y++) {
+		for (int i = 0; i < 15; i++) {
+			DrawGraph(1100 + y * 10, 170 + i * 30, gGoal[y][i].img, TRUE);
+		}
 	}
 
 
