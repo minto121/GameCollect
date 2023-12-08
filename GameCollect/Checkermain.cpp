@@ -85,6 +85,10 @@ AbstractScene* Checkermain::Update() {
                         SelectY = selectY;
                         CanTakeMore(StartX, StartY, SelectX, SelectY);
                     }
+                    if (F_totteta == false) {
+                        cantake = false;
+
+                    }
                     // “Á’è‚ÌğŒ‚Å¬‹à‚·‚éˆ—‚ğ’Ç‰Á
                     if (board[SelectX][SelectY] == 1 && SelectY == 7) {
                         board[SelectX][SelectY] = 4; // 4‚Í¬‹à‚ğ•\‚·
@@ -128,6 +132,9 @@ AbstractScene* Checkermain::Update() {
                         SelectX = selectX;
                         SelectY = selectY;
                         CanTakeMore(StartX, StartY, SelectX, SelectY);
+                    }
+                    if (F_totteta == false) {
+                        cantake = false;
                     }
                     // “Á’è‚ÌğŒ‚Å¬‹à‚·‚éˆ—‚ğ’Ç‰Á
                     if (board[SelectX][SelectY] == 2 && SelectY == 0) {
@@ -203,6 +210,7 @@ void Checkermain::Draw() const {
     DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
     DrawFormatString(0, 125, 0x000000, "cantake: %d", cantake);
     DrawFormatString(0, 150, 0x000000, "Phase(0:Ô 1:•): %d", phase);
+    DrawFormatString(0, 175, 0x000000, "totteta: %d", F_totteta);
     DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
     DrawFormatString(0, 300, 0x000000, " player1Pieces: %d", player1Pieces);
     DrawFormatString(0, 350, 0x000000, " player2Pieces: %d", player2Pieces);
@@ -260,9 +268,9 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
             if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
                 // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                 board[jumpedX][jumpedY] = 0;
-                cantake = true;
+               
                 F_totteta = true;
-                
+                cantake = true;
                 return true;
             }
         }
@@ -294,7 +302,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
             if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
                 // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                 board[jumpedX][jumpedY] = 0;
-                cantake = true;
+
                 F_totteta = true;
                
                 return true;
@@ -340,7 +348,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
             if ((board[jumpedX][jumpedY] == 1) || (board[jumpedX][jumpedY] == 4)) {
                 // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                 board[jumpedX][jumpedY] = 0;
-                cantake = true;
+
                 F_totteta = true;
                
                 return true;
@@ -386,7 +394,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
             if ((board[jumpedX][jumpedY] == 2) || (board[jumpedX][jumpedY] == 3)) {
                 // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                 board[jumpedX][jumpedY] = 0;
-                cantake = true;
+                
                 F_totteta = true;
                 return true;
             }
@@ -428,8 +436,8 @@ void Checkermain::Gameover()
 
 bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
 {
-    F_totteta = false;
-    cantake = false;
+   // F_totteta = false;
+    //cantake = true;
     // ˆÚ“®æ‚ªƒ{[ƒh‚Ì”ÍˆÍŠO‚Å‚ ‚éê‡A–³Œø
     if (SelectX < 0 || SelectY < 0 || SelectX >= 8 || SelectY >= 8) {
         return false;
@@ -437,8 +445,10 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
 
     // ˆÚ“®æ‚É‚·‚Å‚É‹î‚ª‚ ‚éê‡A–³Œø
     if (board[SelectX][SelectY] != 0) {
+        
         return false;
     }
+  
 
     // Ô‹î
     if (board[StartX][StartY] == 1 && phase == 0) {
@@ -449,10 +459,11 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
             if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
                 // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                 board[jumpedX][jumpedY] = 0;
-                cantake = false;
+                
                 return true;
             }
         }
+      
     }
     // •‹î
     else if (board[StartX][StartY] == 2 && phase == 1) {
@@ -464,7 +475,7 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
             if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
                 // ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
                 board[jumpedX][jumpedY] = 0;
-                cantake = false;
+                cantake = true;
                 return true;
             }
 
@@ -501,6 +512,7 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
         }
 
     }
+  
     return false;
 }
 
