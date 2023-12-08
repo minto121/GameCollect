@@ -50,6 +50,7 @@ HitAndBlow::HitAndBlow()
 	CoveringFlg = FALSE;
 
 	DescriptionFlg = TRUE;
+	OperationFlg = TRUE;
 }
 
 HitAndBlow::~HitAndBlow()
@@ -70,11 +71,21 @@ AbstractScene* HitAndBlow::Update()
 			//	Count = 0; // カウントをリセットして、
 			//	DescriptionFlg = FALSE; // 説明画面を閉じる
 			//}
-			DescriptionFlg = FALSE;
+			DescriptionFlg = FALSE; // 説明画面を閉じる
+			OperationFlg = TRUE; // 操作説明画面に入る
 		}
 		/* ここに自分が駒を入れる処理を書く */
-	}else if (DescriptionFlg == FALSE && Turns < 8 && SaveHit[Turns - 1] != 4)
-	{
+	}
+	else if (OperationFlg == TRUE) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+			OperationFlg = FALSE; // 操作説明画面を閉じる
+		}
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+			OperationFlg = FALSE; // 操作説明画面を閉じる
+			DescriptionFlg = TRUE; // 説明画面に戻る
+		}
+	}else if (DescriptionFlg == FALSE && OperationFlg == FALSE && Turns < 8 && SaveHit[Turns - 1] != 4) {
+	
 		//十字キー↑入力
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
 		{
@@ -175,6 +186,8 @@ AbstractScene* HitAndBlow::Update()
 
 void HitAndBlow::Draw() const
 {
+	DrawGraph(0, 0, TableBgImg, FALSE); // 背景画像表示(透明OFF)
+
 	if (DescriptionFlg == TRUE) { // ゲームの遊び方・勝敗について
 		SetFontSize(40);
 		DrawFormatString(500, 0, 0xffffff, "＜ゲームの遊び方＞");
@@ -204,11 +217,43 @@ void HitAndBlow::Draw() const
 
 		/* 遷移を教える文章*/
 		SetFontSize(60);
-		DrawFormatString(300, 620, 0xffffff, "Aボタンでゲームスタート！");
+		DrawFormatString(300, 620, 0xffffff, "Aボタンで操作方法画面へ");
 	}
-	else { // ゲームメイン処理
-		DrawGraph(0, 0, TableBgImg, FALSE); // 背景画像表示(透明OFF)
+	else if (OperationFlg == TRUE) {
+		SetFontSize(40);
+		DrawFormatString(500, 0, 0xffffff, "＜操作方法＞");
+		DrawFormatString(500, 240, 0xffffff, "＜ルール＞");
 
+
+		SetFontSize(30);
+		DrawFormatString(0, 50, 0xffffff, "○十字キーの←、→で色を選択するカーソルが動く。");
+		DrawFormatString(0, 80, 0xffffff, "○十字キーの↑、↓で色を置く場所のカーソルが動く。");
+		DrawFormatString(0, 110, 0xffffff, "○Aボタンで色を置くことが出来る。");
+		DrawFormatString(0, 140, 0xffffff, "○Bボタンで置いていた色を取ることが出来る。");
+		DrawFormatString(0, 170, 0xffffff, "○4つ全て置いた状態で、Xボタンを押すと、");
+		DrawFormatString(0, 200, 0xffffff, "置いている色が確定する。");
+		/* ヒットピンの画像と説明 */
+		DrawFormatString(0, 280, 0xffffff, "○");
+		DrawGraph(30, 280, HitBlowImg[1], TRUE);
+		DrawFormatString(70, 280, 0xffffff, "ヒットピン：色と場所があっている");
+		/* ブローピンの画像と説明 */
+		DrawFormatString(0, 310, 0xffffff, "○");
+		DrawGraph(30, 310, HitBlowImg[0], TRUE);
+		DrawFormatString(70, 310, 0xffffff, "ブローピン：色のみがあっている");
+		DrawFormatString(0, 340, 0xffffff, "○先攻・後攻はランダムで決められる。");
+		DrawFormatString(0, 370, 0xffffff, "○プレイヤーのターンの場所は、");
+		DrawFormatString(480, 370, 0xff0000, "P");
+		DrawFormatString(0, 400, 0xffffff, "○相手のターンの場所は、");
+		DrawFormatString(390, 400, 0x00ffff, "E");
+		DrawFormatString(420, 400, 0xffffff, "と上に表示される。");
+
+		SetFontSize(60);
+		DrawFormatString(300, 560, 0xffffff, "Aボタンでゲームスタート");
+		DrawFormatString(300, 620, 0xffffff, "Bボタンでゲームの遊び方画面へ");
+
+
+	}
+	else { // ゲームメイン画像処理
 		DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
 
 		for (int i = 0; i < 6; i++) { // 駒を表示
@@ -280,6 +325,7 @@ void HitAndBlow::Draw() const
 		}
 
 	}
+
 }
 
 void HitAndBlow::RandomDecision()
