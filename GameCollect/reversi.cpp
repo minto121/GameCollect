@@ -15,6 +15,11 @@ Reversi::Reversi()
 	/*CursorPoint = { 0, 0 };*/
 
 	K_Flg = FALSE;
+	C_Flg = FALSE;
+	//ポーズ処理
+	PauseFlg = FALSE;
+	PauseFlashFlg = FALSE;
+	PauseFlashTime = 0;
 
 	//フラグ初期化
 	Fla.Xr = 0;
@@ -70,13 +75,19 @@ AbstractScene* Reversi::Update()
 	Cursor();
 	turn();
 
-	e.x.m = Cur.X / 85 -3;
+	//ポーズフラグ切り替え処理
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+	{
+		PauseFlg = !PauseFlg;
+	}
+
+	e.x.m = Cur.X / 85 - 3;
 	e.y.m = Cur.Y / 85;
 
 	e.x.r = e.x.m + 1;
 	e.x.l = e.x.m - 1;
-	e.y.u = e.y.m - 1;
 	e.y.d = e.y.m + 1;
+	e.y.u = e.y.m - 1;
 
 	if (Fla.button == 1/*&&Sto.Typ == 0*/)
 	{
@@ -100,23 +111,28 @@ AbstractScene* Reversi::Update()
 		}
 
 		//右に石が置かれているかの確認
-		for (x = e.x.r; x < 8; x = x++)
-		{
-			if (Sto.Typ[x][e.y.m] == 0)break;
-			else if (Sto.Typ[x][e.y.m] == same)
+		if (C_Flg == TRUE) {
+			for (x = e.x.r; x < 8; x++)
 			{
-				for ( x = e.x.r; x < e.x.r + cou; x = x + 1)
+				if (Sto.Typ[x][e.y.m] == 0)break;
+				else if (Sto.Typ[x][e.y.m] == same)
 				{
-					Sto.Typ[x][e.y.m] = same;
-				}break;
+					for (x = e.x.r; x < e.x.r + cou; x++)
+					{
+						Sto.Typ[x][e.y.m] = same;
+					}break;
+				}
+				else if (Sto.Typ[x][e.y.m] == diff)cou = cou + 1;
+				else break;
 			}
-			else if (Sto.Typ[x][e.y.m] == diff)cou = cou + 1;
-			else break;
+			cou = 0;
 		}
-		cou = 0;
+		else {
+			C_Flg = FALSE;
+		}
 
 		//左に石が置かれているかの確認
-		for (x = e.x.l; x > 0; x = x--)
+		for (x = e.x.l; x > 0; x--)
 		{
 			if (Sto.Typ[x][e.y.m] == 0)break;
 			else if (Sto.Typ[x][e.y.m] == same)
@@ -132,7 +148,7 @@ AbstractScene* Reversi::Update()
 		cou = 0;
 
 		//下に石が置かれているかの確認
-		for (y = e.y.d; y < 8; y = y++)
+		for (y = e.y.d; y < 8;y++)
 		{
 			if (Sto.Typ[e.x.m][y] == 0)break;
 			else if (Sto.Typ[e.x.m][y] == same)
@@ -147,8 +163,32 @@ AbstractScene* Reversi::Update()
 		}
 		cou = 0;
 
+		//// 下に石が置かれているかの確認
+		//for (y = e.y.d + 1; y < 8; y++) {
+		//	if (y >= 0 && y < 8 && Sto.Typ[e.x.m][y] != 0) {
+		//		if (Sto.Typ[e.x.m][y] == same) {
+		//			for (int i = e.y.d + 1; i <= e.y.d + cou; i++) {
+		//				Sto.Typ[e.x.m][i] = same;
+		//			}
+		//			break;
+		//		}
+		//		else if (Sto.Typ[e.x.m][y] == diff) {
+		//			cou = cou + 1;
+		//		}
+		//		else {
+		//			cou = 0;
+		//			break;
+		//		}
+		//	}
+		//	else {
+		//		cou = 0;
+		//		break;
+		//	}
+		//}
+		//cou = 0;
+
 		//上に石が置かれているかの確認
-		for (y = e.y.u; y > 0; y = y--)
+		for (y = e.y.u; y > 0;y--)
 		{
 			if (Sto.Typ[e.x.m][y] == 0)break;
 			else if (Sto.Typ[e.x.m][y] == same)
@@ -163,11 +203,34 @@ AbstractScene* Reversi::Update()
 		}
 		cou = 0;
 
-		//右上に石が置かれているかの確認
+		//// 上に石が置かれているかの確認
+		//cou = 0;  // cou の初期化
+		//for (y = e.y.u - 1; y >= 0; y--) {
+		//	if (y >= 0 && y < 8 && Sto.Typ[e.x.m][y] != 0) {
+		//		if (Sto.Typ[e.x.m][y] == same) {
+		//			for (int i = e.y.u - 1; i >= e.y.u - cou; i--) {
+		//				Sto.Typ[e.x.m][i] = same;
+		//			}
+		//			break;
+		//		}
+		//		else if (Sto.Typ[e.x.m][y] == diff) {
+		//			cou = cou + 1;
+		//		}
+		//		else {
+		//			cou = 0;
+		//			break;
+		//		}
+		//	}
+		//	else {
+		//		cou = 0;
+		//		break;
+		//	}
+		//}
 
+		//右上に石が置かれているかの確認
 		for (x = e.x.r, y = e.y.u;
 			x < 8,y > 0;
-			x = x++,y = y--)
+			x++,y--)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
@@ -188,14 +251,14 @@ AbstractScene* Reversi::Update()
 		//右下に石が置かれているかの確認
 		for (x = e.x.r, y = e.y.d;
 			x < 8, y < 8;
-			x = x++, y = y++)
+			x++,y++)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.r, y = e.y.d;
 					x < e.x.r + cou, y < e.y.d + cou;
-					x = x++, y = y++)
+					x++, y++)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
@@ -208,14 +271,14 @@ AbstractScene* Reversi::Update()
 		//左上に石が置かれているかの確認
 		for (x = e.x.l, y = e.y.u;
 			x > 0, y > 0;
-			x = x--, y = y--)
+			x--, y--)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.l, y = e.y.u;
 					x > e.x.r - cou, y > e.y.u - cou;
-					x = x--, y = y--)
+					x--,y--)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
@@ -229,14 +292,14 @@ AbstractScene* Reversi::Update()
 		//左下に石が置かれているかの確認
 		for (x = e.x.l, y = e.y.d;
 			x > 0, y < 8;
-			x = x--, y = y++)
+			x--, y++)
 		{
 			if (Sto.Typ[x][y] == 0)break;
 			else if (Sto.Typ[x][y] == same)
 			{
 				for (x = e.x.l, y = e.y.d;
 					x > e.x.r - cou, y < e.y.d + cou;
-					x = x--, y = y++)
+					x--,y++)
 				{
 					Sto.Typ[x][y] = same;
 				}break;
@@ -245,7 +308,28 @@ AbstractScene* Reversi::Update()
 			else break;
 		}
 		cou = 0;
+
+		// 駒を置く前に裏返せる石がある場合
+		if (cou > 0 && Sto.Typ[e.x.r][e.y.m] == 0) {
+			Sto.Typ[e.x.r][e.y.m] = same; // 駒を置く
+			// その他の処理（現在のプレイヤーの切り替えなど）
+		}
+		else {
+			// 裏返せる石がない場合、または空でないセルに駒を置こうとした場合、駒を置かない
+		}
 	}
+
+
+	//一時停止中
+	if (PauseFlg == TRUE)
+	{
+		if (++PauseFlashTime >= 10)
+		{
+			PauseFlashFlg = !PauseFlashFlg;
+			PauseFlashTime = 0;
+		}
+	}
+
 
 	return this;
 }
@@ -257,16 +341,17 @@ void Reversi::Draw() const
 	int cou_b = 0;
 	int cou_w = 0;
 
+	DrawGraph(0, 0, BackImg, TRUE);
 	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
-	for (int y = 0; y < 8; y = y + 1)
+	for (int y = 0; y < 8; y++)
 	{
-		for (int x = 0; x < 8; x = x + 1)
+		for (int x = 0; x < 8; x++)
 		{
 			DrawGraph(x * 85 + 300, y * 85 + 20, Bac, TRUE);
 		}
 	}
 
-	for (int y = 0; y < 8; y = y++)
+	for (int y = 0; y < 8;y++)
 	{
 		for (int x = 0; x < 8; x++)
 		{
@@ -288,9 +373,9 @@ void Reversi::Draw() const
 		}
 	}
 
-	for (int y = 0; y < 8; y = y++)
+	for (int y = 0; y < 8;y++)
 	{
-		for (int x = 0; x < 8; x = x++)
+		for (int x = 0; x < 8;x++)
 		{
 			if (Sto.Typ[x][y] == 1) {
 				cou_b++;
@@ -332,6 +417,21 @@ void Reversi::Draw() const
 	{
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn White", Tur);
 
+	}
+
+	//一時停止中の描画
+	if (PauseFlg == TRUE)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+		DrawBox(0, 0, 1000, 780, 0x000000, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		if (PauseFlashFlg == TRUE) {
+			DrawString(370, 370, "---ポーズ中---", 0x000000,TRUE);
+		}
+		else {
+			DrawString(370, 370, "---ポーズ中---", 0xffffff,TRUE);
+		}
+		DrawString(370, 520, "Startボタンで再開", 0xffffff,TRUE);
 	}
 }
 

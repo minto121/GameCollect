@@ -13,10 +13,12 @@ class Reversi :
 {
 private:
 
-    bool K_Flg;
     int R_Img;
     int bor;
+    int cou;
     int B_Storn_Img;
+    int BackImg;
+    int PauseFlashTime;
 
     struct {
         int Typ[8][8];
@@ -31,6 +33,11 @@ private:
     }Cur;
 
     //フラグ
+    bool K_Flg;
+    bool C_Flg;
+    bool PauseFlg;
+    bool PauseFlashFlg;
+
     struct {
         bool Xr = 0;
         bool Xl = 0;
@@ -38,7 +45,7 @@ private:
         bool Yd = 0;
         bool button = 0;
     }Fla;
-
+    
     struct {
         struct {
             int l;
@@ -58,8 +65,6 @@ private:
     //POINT CursorPoint;	//カーソルの座標用
     bool XOnce;	//Lスティック入力重複防止用（横）
     bool YOnce;	//Lスティック入力重複防止用（縦）
-
-
 
 public:
     //コンストラクタ
