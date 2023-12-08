@@ -6,6 +6,13 @@ public:
 
 	sinkeisuijaku();
 
+	int  GetScore(int _x) {
+		return  peacount;
+	}
+
+	int GetCScore(int _y) {
+		return Cpeacount;
+	}
 private:
 
 	int isPlayerTurn = 1;  // プレイヤーのターンかどうかを示すフラグ
@@ -32,8 +39,7 @@ private:
 
 
 	void ComputerTurn();
-	void Sound();
-	void Shuffle();
+	void Memory();
 	int first;
 
 	int S_timg;
@@ -101,7 +107,11 @@ private:
 	int test1 = 0;
 
 
-	int i, j = 0;
+	int Resultflg = 0;
 
+	int MemoryCount[5];
+	int Memoryrebirth;
+	int Memoryflg = 0;
+	int M = 0;
 };
 

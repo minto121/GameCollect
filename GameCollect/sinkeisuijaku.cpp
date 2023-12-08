@@ -2,7 +2,6 @@
 #include "DxLib.h"
 #include <stdlib.h>
 #include <time.h>
-#include "sinkensuijaku_ResultScene.h"
 sinkeisuijaku::sinkeisuijaku()
 {
     Select = LoadSoundMem("sound/SE/shuffle2.wav");
@@ -44,6 +43,65 @@ AbstractScene* sinkeisuijaku::Update()
 
 
 
+    //何枚かめくったカードの数字を覚えさせて、一枚目にそのカードと同じ数字を引いたら2枚目にめくらせる
+
+    if (M == 0) {
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+                if (trumps[j][i].flg == 1) {
+                    MemoryCount[0] = trumps[j][i].syurui;
+                }
+            }
+        }
+    }        
+
+          if (M == 1) {
+              for (int j = 0; j < 4; j++) {
+                  for (int i = 0; i < 5; i++) {
+                      if (trumps[j][i].flg == 1) {
+                          MemoryCount[M] = trumps[j][i].syurui;
+                      }
+                  }
+              }
+          }
+
+
+
+          if (M == 2) {
+              for (int j = 0; j < 4; j++) {
+                  for (int i = 0; i < 5; i++) {
+                      if (trumps[j][i].flg == 1) {
+                          MemoryCount[M] = trumps[j][i].syurui;
+                      }
+                  }
+              }
+          }
+  
+
+
+          if (M == 3) {
+              for (int j = 0; j < 4; j++) {
+                  for (int i = 0; i < 5; i++) {
+                      if (trumps[j][i].flg == 1) {
+                          MemoryCount[M] = trumps[j][i].syurui;
+                      }
+                  }
+              }
+          }
+
+
+
+          if (M == 4) {
+              for (int j = 0; j < 4; j++) {
+                  for (int i = 0; i < 5; i++) {
+                      if (trumps[j][i].flg == 1) {
+                          MemoryCount[M] = trumps[j][i].syurui;
+                      }
+                  }
+              }
+          }
+
+
 
     // トランプに値を入れる
     if (count < 2) {
@@ -71,9 +129,11 @@ AbstractScene* sinkeisuijaku::Update()
 
     //カードすべてが揃ったら画面遷移
     if (Cpeacount + peacount == 20) {
-        return new sinkensuijaku_ResultScene();
+        Resultflg = 1;
         }
 
+
+    // プレイヤーのターン
     if (isPlayerTurn == 1) {
 
         if (testcount == 0) {
@@ -107,10 +167,6 @@ AbstractScene* sinkeisuijaku::Update()
             selectcount = 0;
         }
 
-
-
-
-        // プレイヤーのターン
 
     // 上移動
         if (g_KeyFlg & PAD_INPUT_UP) {
@@ -154,7 +210,12 @@ AbstractScene* sinkeisuijaku::Update()
            
 
             // カード選択
-            if (g_KeyFlg & PAD_INPUT_1 && rCount < 2 && (trumps[S_ber][S2_ber].syurui != lastSelect)) {
+            if (g_KeyFlg & PAD_INPUT_1 && rCount < 2 && (trumps[S_ber][S2_ber].syurui != lastSelect ) && trumps[S_ber][S2_ber].visible != 1 && trumps[S_ber][S2_ber].visible != 2) {
+
+                M++;
+                if (M > 4) {
+                    M = 0;
+                }
                 if (trumpflg == 0) {
 
                     //選択音
@@ -288,7 +349,7 @@ AbstractScene* sinkeisuijaku::Update()
 
         }
     }
-
+    
 
     
 
@@ -315,69 +376,119 @@ AbstractScene* sinkeisuijaku::Update()
 
 void sinkeisuijaku::Draw() const
 {
-   
+    if (Resultflg == 0) {
 
-    SetFontSize(50);
-    DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
+        SetFontSize(50);
+        DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
 
-    DrawFormatString(100, 230, 0x00ffff, "pea%d ", peacount);
-    DrawFormatString(100, 270, 0x00ffff, "pea%d ",Cpeacount);
+        DrawFormatString(100, 230, 0x00ffff, "pea%d ", peacount);
+        DrawFormatString(100, 270, 0x00ffff, "pea%d ", Cpeacount);
 
 
-    // トランプの表示
-    for (int j = 0; j < 4; j++) {
-        for (int i = 0; i < 5; i++) {
+        DrawFormatString(100, 400, 0x00ffff, "M%d ", MemoryCount[0]);
+        DrawFormatString(100, 440, 0x00ffff, "M%d ", MemoryCount[1]);
+        DrawFormatString(100, 480, 0x00ffff, "M%d ", MemoryCount[2]);
+        DrawFormatString(100, 520, 0x00ffff, "M%d ", MemoryCount[3]);
+        DrawFormatString(100, 560, 0x00ffff, "M%d ", MemoryCount[4]);
 
-            if (trumps[j][i].visible == 0) {
-                if (trumps[j][i].flg == 0) {
-                    // カードが選択されていない場合、カードの裏を表示
-                    DrawRotaGraph(400 + i * 120, 130 + j * 150, 1, 0, S_T[0], TRUE);
-                }
-                else {
-                    if (trumps[j][i].syurui <= 10) {
-                        // カードが選択されている場合、カードの表を表示
-                        DrawGraph(340 + i * 120, 0 + j * 150, S_T[trumps[j][i].syurui], TRUE);
+
+
+
+
+
+
+
+
+        // トランプの表示
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 5; i++) {
+
+                if (trumps[j][i].visible == 0) {
+                    if (trumps[j][i].flg == 0) {
+                        // カードが選択されていない場合、カードの裏を表示
+                        DrawRotaGraph(400 + i * 120, 130 + j * 150, 1, 0, S_T[0], TRUE);
                     }
-                    if (trumps[j][i].syurui > 10) {
-                        DrawGraph(340 + i * 120, 0 + j * 150, S_T[trumps[j][i].syurui + 18], TRUE);
+                    else {
+                        if (trumps[j][i].syurui <= 10) {
+                            // カードが選択されている場合、カードの表を表示
+                            DrawGraph(340 + i * 120, 0 + j * 150, S_T[trumps[j][i].syurui], TRUE);
+                        }
+                        if (trumps[j][i].syurui > 10) {
+                            DrawGraph(340 + i * 120, 0 + j * 150, S_T[trumps[j][i].syurui + 18], TRUE);
+                        }
                     }
                 }
-            }
-            //プレイヤーがカードを揃えたら
-            if (trumps[j][i].visible == 1) {
-                DrawGraph(340 + i * 120, 0 + j * 150, S_T[42], TRUE);
-            }
+                //プレイヤーがカードを揃えたら
+                if (trumps[j][i].visible == 1) {
+                    DrawGraph(340 + i * 120, 0 + j * 150, S_T[42], TRUE);
+                }
 
-            //コンピューターがカードを揃えたら
-            if (trumps[j][i].visible == 2) {
-                DrawGraph(340 + i * 120, 0 + j * 150, S_T[39], TRUE);
+                //コンピューターがカードを揃えたら
+                if (trumps[j][i].visible == 2) {
+                    DrawGraph(340 + i * 120, 0 + j * 150, S_T[39], TRUE);
+                }
             }
+        }
+
+
+        // 選択中のトランプにハイライトを表示
+        DrawBox(355 + S2_ber * 120, 55 + S_ber * 150, 450 + S2_ber * 120, 200 + S_ber * 150, 0xff0000, FALSE);
+
+
+
+
+
+        // その他の情報表示
+        DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
+
+        // ターン情報表示
+        if (first == 1) {
+            DrawFormatString(50, 30, 0xff00ff, "先行です！");
+        }
+        else {
+            DrawFormatString(50, 30, 0xff00ff, "後攻です！");
         }
     }
 
-  
-    // 選択中のトランプにハイライトを表示
-    DrawBox(355 + S2_ber * 120, 55 + S_ber * 150, 450 + S2_ber * 120, 200 + S_ber * 150, 0xff0000, FALSE);
+    if (Resultflg == 1) {
 
 
-
-
-
-    // その他の情報表示
-    DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
-
-    // ターン情報表示
-    if (first == 1) {
-        DrawFormatString(50, 30, 0xff00ff, "先行です！");
+    //引き分け
+    if (peacount == Cpeacount) {
+        SetFontSize(100);
+        DrawFormatString(600, 300, 0xffffff, "Draw");
     }
-    else {
-        DrawFormatString(50, 30, 0xff00ff, "後攻です！");
+
+    if (peacount != Cpeacount) {
+            SetFontSize(50);
+            DrawFormatString(300, 300, 0xffffff, "PLAYER");
+            DrawFormatString(850, 300, 0xffffff, "COMPUTER");
+
+            DrawFormatString(300, 350, 0xffffff, "%d枚", peacount);
+            DrawFormatString(850, 350, 0xffffff, "%d枚", Cpeacount);
+
+        }
+
+        //playerが勝った場合
+        if (peacount > Cpeacount) {
+            DrawFormatString(300, 400, 0xffffff, "Winner！");
+            DrawFormatString(850, 400, 0xffffff, "Lose...");
+        }
+
+        if (peacount < Cpeacount) {
+
+            //computerが勝った場合
+            DrawFormatString(300, 400, 0xffffff, "Lose..");
+            DrawFormatString(850, 400, 0xffffff, "Winner！");
+        }
+
+      
     }
+
 }
 
 void sinkeisuijaku::ComputerTurn()
 {
-
     if (count >= 10) {
         //カウント
         cTime++;
@@ -400,11 +511,12 @@ void sinkeisuijaku::ComputerTurn()
 
 
 
-                // 選択した2枚のカードをめくる
+             // 選択した2枚のカードをめくる
 
             trumps[randRow][randCol].flg = 1;
             trumps[randRow2][randCol2].flg = 1;
             rebirth = rebirth + 1;
+
 
             if (trumps[randRow][randCol].syurui + 10 == trumps[randRow2][randCol2].syurui || trumps[randRow][randCol].syurui - 10 == trumps[randRow2][randCol2].syurui) {
 
@@ -451,8 +563,9 @@ void sinkeisuijaku::ComputerTurn()
         }
     }
 }
-void sinkeisuijaku::Sound()
+void sinkeisuijaku::Memory()
 {
+  
 }
 
 
