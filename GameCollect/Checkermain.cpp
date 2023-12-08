@@ -436,8 +436,6 @@ void Checkermain::Gameover()
 
 bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
 {
-   // F_totteta = false;
-    //cantake = true;
     // 移動先がボードの範囲外である場合、無効
     if (SelectX < 0 || SelectY < 0 || SelectX >= 8 || SelectY >= 8) {
         return false;
