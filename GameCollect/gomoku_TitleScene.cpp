@@ -3,8 +3,7 @@
 
 gomokuTitle::gomokuTitle()
 {
-	gomokuTitle_Back = LoadGraph("../images/Gomoku/BackGround02.png");
-    gomokuTitle_Img = LoadGraph("../images/Gomoku/gomokuTitle.png");
+	gomokuTitle_Back = LoadGraph("../images/gomoku/BackGround02.png");
     gomokuTitle_MenuNumber = 0;
     gomokuMenuY = 0;
     g_OldKey = 0;
@@ -56,12 +55,11 @@ AbstractScene* gomokuTitle::Update()
 void gomokuTitle::Draw() const
 {
     DrawGraph(0, 0, gomokuTitle_Back, FALSE);
-    DrawGraph(0, 0, gomokuTitle_Img, FALSE);
     SetFontSize(100);
     /*DrawFormatString(10, 10, 0xffffff, "%d", gomokuTitle_MenuNumber);*/
     DrawFormatString(900, 350, 0xffffff, "START");
     DrawFormatString(900, 450, 0xffffff, "HELP");
     DrawFormatString(900, 550, 0xffffff, "BACK");
-    DrawFormatString(0, 0, 0xffffff, "ŒÜ–Ú•À‚×");
+    DrawFormatString(250, 100, 0xffffff, "ŒÜ–Ú•À‚×");
     DrawTriangle(850, 400 + gomokuMenuY, 800, 350 + gomokuMenuY, 800, 450 + gomokuMenuY, 0xffffff, TRUE);
 }
