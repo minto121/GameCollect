@@ -27,6 +27,7 @@ protected:
 	struct Tile {
 		int flg;
 		int x, y;
+		int cnt;
 	};
 
 	struct Tile gStage[13][13];
