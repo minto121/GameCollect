@@ -30,6 +30,8 @@ private:
 
 	int gStage[HEIGHT][WIDTH];	//ステージ配列
 	int gBlockImg[10];					//ブロック画像
+	int gLevel;			//	レベルアップ変数
+	int gSpeed[6] = { 1000,800,600,500,300,150 };	//	落下スピード配列
 
 	float ballX[MaxBalls];     // X座標の配列
 	float ballY[MaxBalls];     // Y座標の配列
@@ -59,15 +61,14 @@ private:
 
 
 public:
-	void StageInit(void); // ステージの初期化
-	void DrawStage(void); // ステージ描画
-	void CreateBlock(void); //ブロック生成とNEXTブロックの移動
-	void ControlBlock(void); // ブロックの座標処理
+	void StageInit(void);				// ステージの初期化
+	void CreateBlock(void);				//ブロック生成とNEXTブロックの移動
+	void ControlBlock(void);			// ブロックの座標処理
 	int CheckOverlap(int x2, int y2);	//　ブロックの移動可能チェック処理
-	void TurnBlock(void);	//ブロックの回転処理
-	void LockBlock(int x2, int y2);	//着地したブロックを固定済みブロックに加える
-	void CheckLines(void);		//　ブロックが横一列の時の処理
-	void ChangeBlock(void);		//　ブロックの交換（ストック処理）
+	void TurnBlock(void);				// ブロックの回転処理
+	void LockBlock(int x2, int y2);		// 着地したブロックを固定済みブロックに加える
+	void CheckLines(void);				//　ブロックが横一列の時の処理
+	void ChangeBlock(void);				//　ブロックの交換（ストック処理）
 
 	SixBallPuzzle();
 
