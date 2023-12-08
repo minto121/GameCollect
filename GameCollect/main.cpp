@@ -13,7 +13,6 @@
 #include"Reversi.h"
 #include"Title.h"
 #include"Hex_GameMain.h"
-#include"Porker.h"
 
 #define FRAMERATE 60.0 //フレームレート
 
@@ -77,6 +76,9 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 		}
 		ScreenFlip();			// 裏画面の内容を表画面に反映
 	}
+
+	DxLib_End;
+
 	return 0;
 
 }

@@ -1,8 +1,9 @@
 #include "DxLib.h"
 #include "Title.h"
-#include "Porker.h"
+
 #include "PadInput.h"
-#include "GameSelect.h"
+
+#include "LastCard.h"
 
 //タイトルメニュー
 enum class TITLE_MENU
@@ -72,7 +73,7 @@ AbstractScene* Title::Update()
 		//default:
 		//	break;
 		//}
-		return new Porker();
+		return new LastCard();
 	}
 
 	

@@ -36,6 +36,8 @@ private:
 	int Count; // 画面遷移の時間管理する変数
 	int CoveringFlg; // 色と場所が被っているか確認するフラグ
 	int Covering; // 色と場所被ってないか確認する時に必要な変数
+	int DescriptionFlg; // 最初に説明を入れるためのフラグを追加
+	int OperationFlg; // ゲームの操作方法を確認するためのフラグ
 
 public:
 	// インクリメント
