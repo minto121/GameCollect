@@ -10,6 +10,8 @@ gomokuScene::gomokuScene()
 	bTopImg = LoadGraph("../images/Gomoku/WK.png");
 	gomoku_BackImg = LoadGraph("../images/Gomoku/BackGround02.png");
 	gomoku_HelpImg1 = LoadGraph("../images/Gomoku/BackGround_Help.png");
+	gomoku_HelpImg2 = LoadGraph("../images/Gomoku/BackGround_Help2.png");
+	gomoku_ScrollSE = LoadSoundMem("sound/SE/gomoku_scroll.wav");
 	cX = 0;
 	cY = 0;
 	bCount = 0;
@@ -41,6 +43,9 @@ gomokuScene::gomokuScene()
 	gomoku_BGM1 = LoadSoundMem("sound/BGM/gomoku_BGM1.wav");
 	gomoku_SoundStart = 0;
 	gomoku_HelpDisplayflg = 0;
+	gomokuHelp_Number = 0;
+	gomoku_HelpWaitTime = 0;
+	gomoku_ScrollWaitTime = 0;
 }
 
 gomokuScene::~gomokuScene()
@@ -48,23 +53,41 @@ gomokuScene::~gomokuScene()
 
 AbstractScene* gomokuScene::Update()
 {
-	if (gomoku_Battle == 0) { // 試合中なら実行する
-		if (gomoku_SoundStart == 0) {
-			ChangeVolumeSoundMem(100, gomoku_BGM1);
-			PlaySoundMem(gomoku_BGM1, DX_PLAYTYPE_LOOP);
-			gomoku_SoundStart++;
-		}
-		g_OldKey = g_NowKey;
-		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-		g_KeyFlg = g_NowKey & ~g_OldKey;
+	g_OldKey = g_NowKey;
+	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	g_KeyFlg = g_NowKey & ~g_OldKey;
 
+	if (gomoku_SoundStart == 0) {
+		ChangeVolumeSoundMem(75, gomoku_ScrollSE);
+		ChangeVolumeSoundMem(100, gomoku_BGM1);
+		PlaySoundMem(gomoku_BGM1, DX_PLAYTYPE_LOOP);
+		gomoku_SoundStart++;
+	}
+
+	if (gomoku_HelpWaitTime < 100) {
+		gomoku_HelpWaitTime++;
+	}
+	if (gomoku_ScrollWaitTime < 100) {
+		gomoku_ScrollWaitTime++;
+	}
+
+	if (gomoku_Battle == 0 && gomoku_HelpDisplayflg == 0) { // 試合中またはヘルプ画面でなければ実行する
+
+		if (g_KeyFlg & PAD_INPUT_8 && gomoku_HelpWaitTime > 60) {
+			gomoku_HelpDisplayflg = 1;
+			gomoku_HelpWaitTime = 0;
+		}
+		/*g_OldKey = g_NowKey;
+		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+		g_KeyFlg = g_NowKey & ~g_OldKey;*/
 
 		// 初手は盤面の真ん中にしか置くことができない
 		if (Key_Count <= 1 && gomoku_TurnSetFlg != 1) {
 			srand((unsigned int)time(NULL));
 			gomoku_Turn = (rand() % 2); // 0または1を生成
 			gomoku_PlayerTurn = gomoku_Turn;
-			gomoku_Pfs = gomoku_PlayerTurn + 1;
+			gomoku_Pfs = gomoku_PlayerTurn 
+				+ 1;
 			gomoku_TurnSetFlg = 1;
 		}
 		if (gomoku_PlayerTurn == 0) {
@@ -353,6 +376,24 @@ AbstractScene* gomokuScene::Update()
 			return new gomokuTitle();
 			}
 	}
+	if (gomoku_HelpDisplayflg == 1) {
+		if (g_KeyFlg & PAD_INPUT_RIGHT && gomokuHelp_Number == 0 && gomoku_ScrollWaitTime > 15) {
+			PlaySoundMem(gomoku_ScrollSE, DX_PLAYTYPE_BACK);
+			gomokuHelp_Number = 1;
+			gomoku_ScrollWaitTime = 0;
+		}
+		if (g_KeyFlg & PAD_INPUT_LEFT && gomokuHelp_Number == 1 && gomoku_ScrollWaitTime > 15) {
+			PlaySoundMem(gomoku_ScrollSE, DX_PLAYTYPE_BACK);
+			gomokuHelp_Number = 0;
+			gomoku_ScrollWaitTime = 0;
+		}
+		if (g_KeyFlg & PAD_INPUT_8 && gomoku_HelpWaitTime > 60) {
+			gomokuHelp_Number = 0;
+			gomoku_Result_WaitTime = 0;
+			gomoku_HelpWaitTime = 0;
+			gomoku_HelpDisplayflg = 0;
+		}
+	}
 	return this;
 }
 
@@ -361,7 +402,7 @@ void gomokuScene::Draw() const
 {
 	if (gomoku_HelpDisplayflg == 0) {
 		DrawGraph(0, 0, gomoku_BackImg, FALSE);
-		DrawFormatString(10, 10, 0xffffff, "%d", gomoku_Turn);
+		DrawFormatString(10, 10, 0xffffff, "%d", gomoku_HelpWaitTime);
 		DrawGraph(180, 0, TitleImg, TRUE);
 		for (int y = 0; y < 13; y++) {
 			for (int x = 0; x < 13; x++) {
@@ -405,7 +446,19 @@ void gomokuScene::Draw() const
 		}
 	}
 	if (gomoku_HelpDisplayflg == 1) {
-		DrawGraph(0, 0, gomoku_HelpImg1, FALSE);
+		if (gomokuHelp_Number == 0) {
+			DrawGraph(0, 0, gomoku_HelpImg1, FALSE);
+		}
+		if (gomokuHelp_Number == 1) {
+			DrawGraph(0, 0, gomoku_HelpImg2, FALSE);
+		}
+		DrawBox(540 + (gomokuHelp_Number * 150), 595, 640 + (gomokuHelp_Number * 150), 695, 0xff0000, FALSE);
+		SetFontSize(36);
+		DrawFormatString(900, 650, 0xffffff, "Startボタンで閉じる");
+		SetFontSize(64);
+		DrawFormatString(575, 620, 0xffffff, "1");
+		DrawFormatString(650, 620, 0xffffff, "|");
+		DrawFormatString(725, 620, 0xffffff, "2");
 	}
 	/*if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
 		DrawFormatString(0, 600, 0x000000, ("STARTボタンでタイトルに戻る"));

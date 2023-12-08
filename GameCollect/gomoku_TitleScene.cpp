@@ -4,6 +4,7 @@
 gomokuTitle::gomokuTitle()
 {
 	gomokuTitle_Back = LoadGraph("../images/Gomoku/BackGround02.png");
+    gomokuTitle_Img = LoadGraph("../images/Gomoku/gomokuTitle.png");
     gomokuTitle_MenuNumber = 0;
     gomokuMenuY = 0;
     g_OldKey = 0;
@@ -55,6 +56,7 @@ AbstractScene* gomokuTitle::Update()
 void gomokuTitle::Draw() const
 {
     DrawGraph(0, 0, gomokuTitle_Back, FALSE);
+    DrawGraph(0, 0, gomokuTitle_Img, FALSE);
     SetFontSize(100);
     /*DrawFormatString(10, 10, 0xffffff, "%d", gomokuTitle_MenuNumber);*/
     DrawFormatString(900, 350, 0xffffff, "START");

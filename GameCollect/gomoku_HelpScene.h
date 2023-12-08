@@ -12,6 +12,8 @@ private:
 	int g_OldKey;
 	int g_NowKey;
 	int g_KeyFlg;
+	int gomoku_HelpSE1;
+	int gomokuHelp_ScrollWaitTIme;
 public:
 	gomoku_HelpScene();
 	~gomoku_HelpScene();

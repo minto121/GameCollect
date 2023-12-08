@@ -39,6 +39,10 @@ private:
 	int gomoku_BGM1;
 	int gomoku_SoundStart;
 	bool gomoku_HelpDisplayflg;
+	int gomokuHelp_Number;
+	int gomoku_HelpWaitTime;
+	int gomoku_ScrollWaitTime;
+	int gomoku_ScrollSE;
 public:
 	gomokuScene();
 	~gomokuScene();
