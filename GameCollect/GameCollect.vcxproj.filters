@@ -14,20 +14,9 @@
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
-    <ClCompile Include="reversi.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
-    <ClCompile Include="SixBallPuzzle.cpp" />
-    <ClCompile Include="gomoku.cpp" />
-    <ClCompile Include="gomokuScene.cpp" />
-    <ClCompile Include="gomoku_AI.cpp" />
-    <ClCompile Include="gomoku_TitleScene.cpp" />
-    <ClCompile Include="Hex_GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gomoku_AI.h" />
-    <ClInclude Include="gomokuScene.h" />
-    <ClInclude Include="gomoku.h" />
-    <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
@@ -41,10 +30,7 @@
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
-    <ClInclude Include="reversi.h" />
     <ClInclude Include="sinkeisuijaku.h" />
-    <ClInclude Include="SixBallPuzzle.h" />
-    <ClInclude Include="Hex_GameMain.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />
