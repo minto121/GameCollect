@@ -3,92 +3,45 @@
 class Porker : public AbstractScene
 {
 private:
-
-	int a;
-	int wt;
-	int ps1;
-	int es1;
-	int Bs;
-	int BTN_flg;
-	int P_FPS;
-	int P_TEKI;
-	int WP;
-	int WP2;
-	int WP3;
-	int WP4;
-	int WP_FLG[20];
-	int YP[31];
-	int YP2[31];
-	int YP3[31];
+	int a[10];         //取り敢えず作った変数用の配列
 
 
-	int Winflg;
-	int Loseflg;
-	int Drawflg;
-	int E_Fouldflg;
-	int E_CAllflg;
-	int E_Raiseflg;
-	int P_Call_H_flg;
-	int P_Raise_H_flg;
-	int P_Fould_H_flg;
-	int E_Fould_H_flg;
-	int G_Over_H_flg;
-	int WTflg[4];
-	int WT2flg[3];
+	int Cursor[2];        //カーソル用変数
 
-	int WTRelese[4];
 
-	int BTN_RELESE_FLG[6];
+	int Round_Count;   //ラウンド数変数
 
-	int P_F_flg;
-	int RC_H_flg;
-	int CARD_URA_H_flg;
 
-	int Tranpu_Img[56];
-	int Back;
-	int P_rand[2];
+	int CheckUI[3];    //確認用のUI(コールが0,レイズが1フォールドが2)
+	
 
-	int E_rand[2];
+	int Pot;           //プレイヤーと敵が賭けてるスコア(チップ)の合計
 
-	int C_rand[5];
 
-	int C_flg[4];
+	int Score[2];      //Score[0]がプレイヤー、Score[1]が敵のスコア(チップ)
 
-	int P_CARD_S[2];//プレイヤーカードの商格納用
-	int P_CARD_A[2];//プレイヤーカードの余り格納用
 
-	int E_CARD_S[2];//敵カードの商格納用
-	int E_CARD_A[2];//敵カードの余り格納用
+	int Player_Choice[3]; //プレイヤーの選択 0がコール、1がレイズ、2がフォールド
 
-	int C_CARD_S[5];//場に出ているカード1~5の商格納用
-	int C_CARD_A[5];//場に出ているカード1~5の余り格納用
 
-	int P_SORT[16];
-	int E_SORT[16];
-	int WINandLOSE[2];
-	int R_Win_FLG[2];
+	int  Enemy_Choice[3];//敵の選択 0がコール、1がレイズ、2がフォールド
 
-	int P_PEA_FLG;//プレイヤーの1ペアのフラグ
-	int P_2PEA_FLG;//プレイヤーの2ペアのフラグ
-	int P_3CARD_FLG;//プレイヤーのスリーカードのフラグ
-	int P_FH_FLG;
-	int P_FLASH_FLG;
-	int P_STRAIGHT_FLG;
-	int P_4CARD_FLG;
-	int P_SF_FLG;
-	int P_RSF_FLG;
+	int Wait_TimeFLG;
+	int Poker_Second[2];//待機時間計測用(0がプレイヤーの選択後1が敵の選択後
 
-	int E_PEA_FLG;//
-	int E_2PEA_FLG;//
-	int E_3CARD_FLG;//
-	int E_FH_FLG;
-	int E_FLASH_FLG;
-	int E_STRAIGHT_FLG;
-	int E_4CARD_FLG;
-	int E_SF_FLG;
-	int E_RSF_FLG;
+	int P_Rand[2];    //Randでとった画像配列の番号を入れとく箱(プレイヤーカード用)
+	int P_CARD_A[2];  //Randでとった数を14で割った余りを入れとく箱(プレイヤーカード用)
+	int P_CARD_S[2];  //Randでとった数を14で割った商を入れとく箱(プレイヤーカード用)
 
+	int E_Rand[2];    //Randでとった画像配列の番号を入れとく箱(敵カード用)
+	int E_CARD_A[2];  //Randでとった数を14で割った余りを入れとく箱(敵カード用)
+	int E_CARD_S[2];  //Randでとった数を14で割った商を入れとく箱(敵カード用)
+
+	int C_Rand[5];    //Randでとった画像配列の番号を入れとく箱(テーブルカード用)
+	int C_CARD_A[5];  //Randでとった数を14で割った余りを入れとく箱(テーブルカード用)
+	int C_CARD_S[5];  //Randでとった数を14で割った商を入れとく箱(テーブルカード用)
 public:
+
 	Porker();
 
 	~Porker();
@@ -99,50 +52,15 @@ public:
 	//描画に関することを実装
 	void Draw() const override;
 
-	void PLAYER_CHOISE();
 
-	void ROUND_INIT();//ラウンド初期化
-
-	void CARD_SETTING();//カードの呼び出し用関数
-
-	void CARD_SETTING2();//カードの呼び出し用関数
-
-	void PLAYER_CALL();//プレイヤーのコール用関数
-
-	void PLAYER_RAISE();//プレイヤーのレイズ用関数
-
-	void ENEMIE_CHOISE();//敵の選択用関数
-
-	void CARD_ANALYSIS();//カードの数字とマークを調べる用の関数
-
-	void P_CARD_PEA();//1,2ペア判断のための関数
-
-	void P_CARD_3_CARD();//3カードのための関数
-
-	void P_CARD_4_CARD();//3カードのための関数
-
-	void P_CARD_FLASH();//フラッシュのための関数
-
-	void P_CARD_STRAIGHT();//ストレートのための関数
-
-	void P_CARD_STRAIGHTFALSH();//ストレートフラッシュのための関数
-
-	void P_YAKU();
-
-	void E_CARD_PEA();//1,2ペア判断のための関数
-
-	void E_CARD_3_CARD();//3カードのための関数
-
-	void E_CARD_4_CARD();//3カードのための関数
-
-	void E_CARD_FLASH();//フラッシュのための関数
-
-	void E_CARD_STRAIGHT();//ストレートのための関数
-
-	void E_CARD_STRAIGHTFALSH();//ストレートフラッシュのための関数
-
-	void E_YAKU();
-
-	void WINANDLOSE();
+	void ROUND_INIT();
+	void ROUND();
+	void FIRST_BET();
+	void UI();
+	void PLAYER_CHOICE();
+	void ENEMY_CHOICE();
+	void CARD_SETTING();
+	void WAIT_TIME();
+	//void ();
 };
 
