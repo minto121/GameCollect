@@ -59,7 +59,22 @@ Mankara::Mankara()
 		pocket++;
 	}
 
-	
+	for (int i = 4; i < 16; i++) {
+		gStone[i][0].img = FALSE ;
+		gStone[i][1].img = FALSE ;
+		gStone[i][2].img = FALSE ;
+		gStone[i][3].img = FALSE ;
+		gStone[i][4].img = FALSE ;
+		gStone[i][5].img = FALSE ;
+	}
+	for (int i = 4; i < 16; i++) {
+		gStone2[i][0].img = FALSE ;
+		gStone2[i][1].img = FALSE ;
+		gStone2[i][2].img = FALSE ;
+		gStone2[i][3].img = FALSE ;
+		gStone2[i][4].img = FALSE ;
+		gStone2[i][5].img = FALSE ;
+	}
 
 }
 
@@ -509,6 +524,7 @@ void Mankara::MoveStone()
 	//　画像移動時の数的処理
 	if (P1Turn == 1) {
 
+		// ポケット０
 		// ポケットを選択
 		if (PlayerPocket == 0) {
 			// ポケットの中身を別のポケットの中にいれる
@@ -521,8 +537,13 @@ void Mankara::MoveStone()
 						P2StoneSave[i] += 1;
 					}
 				}
+
 				P1StoneSave[PlayerPocket + i] += 1;
 
+				for (int t = 0; t < 5; t++) {
+					gStone[i][t].img = TRUE;
+
+				}
 			}
 			// ぴったりゴール以外で石の移動が済んだ時、2Pターンに切り替わる
 			if (P1StoneSave[PlayerPocket] == 6) {
@@ -535,9 +556,14 @@ void Mankara::MoveStone()
 			}
 			// 石を移動したポケットの中身を０にする
 			P1StoneSave[PlayerPocket] = 0;
+			for (int y = 0; y < 16; y++) {
+				gStone[y][PlayerPocket].img = FALSE;
+			}
+			
 
 		}
 
+		// ポケット１
 		else if (PlayerPocket == 1) {
 			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
 				if (P1StoneSave[PlayerPocket] > 5) {
@@ -546,7 +572,12 @@ void Mankara::MoveStone()
 						P2StoneSave[i] += 1;
 					}
 				}
+				//
 				P1StoneSave[PlayerPocket + i] += 1;
+				for (int t = 0; t < 4; t++) {
+					gStone[i][t].img = TRUE;
+
+				}
 			}
 			if (P1StoneSave[PlayerPocket] == 5) {
 				P1Turn = 1;
@@ -557,7 +588,11 @@ void Mankara::MoveStone()
 				P1Turn = 0;
 			}
 			P1StoneSave[PlayerPocket] = 0;
+			for (int y = 0; y < 16; y++) {
+				gStone[y][PlayerPocket].img = FALSE;
+			}
 		}
+		// ポケット２
 		else if (PlayerPocket == 2) {
 			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
 				if (P1StoneSave[PlayerPocket] > 4) {
@@ -567,6 +602,10 @@ void Mankara::MoveStone()
 					}
 				}
 				P1StoneSave[PlayerPocket + i] += 1;
+				for (int t = 0; t < 3; t++) {
+					gStone[i][t].img = TRUE;
+
+				}
 			}
 			if (P1StoneSave[PlayerPocket] == 4) {
 				P2Turn = 0;
@@ -577,7 +616,11 @@ void Mankara::MoveStone()
 				P1Turn = 0;
 			}
 			P1StoneSave[PlayerPocket] = 0;
+			for (int y = 0; y < 16; y++) {
+				gStone[y][PlayerPocket].img = FALSE;
+			}
 		}
+		// ポケット３
 		else if (PlayerPocket == 3) {
 			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
 				if (P1StoneSave[PlayerPocket] > 3) {
@@ -587,6 +630,10 @@ void Mankara::MoveStone()
 					}
 				}
 				P1StoneSave[PlayerPocket + i] += 1;
+				for (int t = 0; t < 2; t++) {
+					gStone[i][t].img = TRUE;
+
+				}
 			}
 			if (P1StoneSave[PlayerPocket] == 3) {
 				P1Turn = 1;
@@ -597,7 +644,11 @@ void Mankara::MoveStone()
 				P1Turn = 0;
 			}
 			P1StoneSave[PlayerPocket] = 0;
+			for (int y = 0; y < 16; y++) {
+				gStone[y][PlayerPocket].img = FALSE;
+			}
 		}
+		// ポケット４
 		else if (PlayerPocket == 4) {
 			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
 				if (P1StoneSave[PlayerPocket] > 2) {
@@ -607,6 +658,10 @@ void Mankara::MoveStone()
 					}
 				}
 				P1StoneSave[PlayerPocket + i] += 1;
+				for (int t = 0; t < 1; t++) {
+					gStone[i][t].img = TRUE;
+
+				}
 			}
 			if (P1StoneSave[PlayerPocket] == 2) {
 				P1Turn = 1;
@@ -617,7 +672,11 @@ void Mankara::MoveStone()
 				P2Turn = 1;
 			}
 			P1StoneSave[PlayerPocket] = 0;
+			for (int y = 0; y < 16; y++) {
+				gStone[y][PlayerPocket].img = FALSE;
+			}
 		}
+		// ポケット５
 		else if (PlayerPocket == 5) {
 			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
 				if (P1StoneSave[PlayerPocket] > 2) {
@@ -627,6 +686,10 @@ void Mankara::MoveStone()
 					}
 				}
 				P1StoneSave[PlayerPocket + i] += 1;
+				for (int t = 0; t < 0; t++) {
+					gStone[i][t].img = TRUE;
+
+				}
 			}
 			if (P1StoneSave[PlayerPocket] == 1) {
 				P1Turn = 1;
@@ -637,7 +700,9 @@ void Mankara::MoveStone()
 				P2Turn = 1;
 			}
 			P1StoneSave[PlayerPocket] = 0;
-
+			for (int y = 0; y < 16; y++) {
+				gStone[y][PlayerPocket].img = FALSE;
+			}
 		}
 	}
 	if (P2Turn == 1) {
@@ -752,6 +817,7 @@ void Mankara::MoveStone()
 					P2BigPocket += 1;
 					for (int h = 5; h < (P2StoneSave[PartnerPocket] -= 5); h++) {
 						P1StoneSave[i] += 1;
+
 					}
 				}
 				P2StoneSave[PartnerPocket + i] += 1;

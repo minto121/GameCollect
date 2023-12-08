@@ -160,7 +160,6 @@
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mancala_Tutrial.cpp" />
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="Porker.cpp" />
     <ClCompile Include="Rabbit.cpp" />
@@ -184,7 +183,6 @@
     <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
-    <ClInclude Include="Mancala_Tutrial.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />

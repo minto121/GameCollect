@@ -22,7 +22,6 @@
     <ClCompile Include="gomoku_AI.cpp" />
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
-    <ClCompile Include="Mancala_Tutrial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gomoku_AI.h" />
@@ -46,7 +45,6 @@
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="Hex_GameMain.h" />
-    <ClInclude Include="Mancala_Tutrial.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />
