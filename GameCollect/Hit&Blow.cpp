@@ -162,10 +162,12 @@ AbstractScene* HitAndBlow::Update()
 			}
 			else if (MoveFlg == 0) {
 				Count = 0; // カウントをリセット
+				SetFontSize(FontSize); // フォントサイズを元に戻す
 				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーWin)
 			}
 			else {
 				Count = 0; // カウントをリセット
+				SetFontSize(FontSize); // フォントサイズを元に戻す
 				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーLose)
 			}
 		}
@@ -175,6 +177,7 @@ AbstractScene* HitAndBlow::Update()
 			}
 			else {
 				Count = 0; // カウントをリセット
+				SetFontSize(FontSize); // フォントサイズを元に戻す
 				return new GameSelect();// 遷移場所は一旦置いてるだけ(ドロー)
 			}
 		}
@@ -256,7 +259,6 @@ void HitAndBlow::Draw() const
 
 	}
 	else { // ゲームメイン画像処理
-		SetFontSize(FontSize); // フォントサイズを元に戻す
 		DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
 
 		for (int i = 0; i < 6; i++) { // 駒を表示
