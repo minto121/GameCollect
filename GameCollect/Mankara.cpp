@@ -18,10 +18,15 @@ Mankara::Mankara()
 	P2Pocket[0] = 1;
 	// 初期石
 	InitialStone = 4;
+
 	Stone_cnt = 1;
+
 	movePocket = 0;
+
 	// ぴったりゴール用変数
 	JustGoal = 0;
+
+	MoveStoneFlg = FALSE;
 
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y] = 0;
@@ -148,7 +153,7 @@ AbstractScene* Mankara::Update()
 	//1P用石の移動処理
 	if (P1Turn == 1) {
 		if (Pocket_cnt == 0) {
-			if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+			if (MoveStoneFlg == TRUE) {
 				// Aボタンで決定した時に選択したポケット以外をFALSEにする処理
 				PlayerPocket = Pocket_cnt;
 				P1Pocket[0] = TRUE;
@@ -157,7 +162,7 @@ AbstractScene* Mankara::Update()
 				P1Pocket[3] = FALSE;
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
-
+				MoveStoneFlg = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 1) {
@@ -528,29 +533,47 @@ void Mankara::Draw()const
 
 void Mankara::MoveStone()
 {
-	if (P1Turn == 1) {
+	if (P1Turn == 1 && MoveStoneFlg == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 		// ポケット0が選ばれた時、
 		if (P1Pocket[0] == 1) {
-			// ポケット０の中身の石の数の分だけ、石を移動させる
-			for (int i = 0; i < StonePocket[0]; i++) {
-				// 各ポケットの石の数に１ずつ追加する
-				StonePocket[i + 1] += 1;
-				//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-				gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
-				// その後　移動元のポケットの石の描画数を0にする
-				gStone[i][0].img = FALSE;
-				// 各ポケットのカウントを1ずつ追加する
-				P1StoneSave[i + 1] += 1;
-			}
-		// 石の移動量が6以上の時、ゴールに1追加する
-			if (StonePocket[0] >= 6) {
-				P1BigPocket += 1;
+			if (StonePocket[0] > 0) {
+				// ポケット０の中身の石の数の分だけ、石を移動させる
+				for (int i = 0; i < StonePocket[0]; i++) {
+					// 各ポケットの石の数に１ずつ追加する
+					StonePocket[i + 1] += 1;
+					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
+					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+					// その後　移動元のポケットの石の描画数を0にする
+					gStone[i][0].img = FALSE;
+					// 各ポケットのカウントを1ずつ追加する
+					P1StoneSave[i + 1] += 1;
+					P1StoneSave[0] -= 1;
+					// ゴールに入った時(2個以上あった時)
+					if (P1StoneSave[0] > 1 && i + 1 == 5) {
+						P1BigPocket += 1; // ゴールに1追加する
+						i += 1;
+					}
+				}
 			}
 			// 移動元のポケットの中身の石の数を０にする
 			StonePocket[0] = 0;
-			// ポケット０のカウントを０にする
-			P1StoneSave[0] = 0;
+
+
+		//// 石の移動量が6以上の時、ゴールに1追加する
+		//	if (StonePocket[0] >= 5) {
+		//		P1BigPocket += 1;
+
+		//	}
+		//	// ポケット０のカウントを０にする
+		//	P1StoneSave[0] = 0;
 		}
+
+
+
+
+
+
+
 		/*if (P1Pocket[1] == 1) {
 			for (int i = 1; i < StonePocket[1]; i++) {
 				gStone[StonePocket[i + 1]][i].img = TRUE;
@@ -577,6 +600,7 @@ void Mankara::MoveStone()
 				gStone[StonePocket[i + 1]][i].img = TRUE;
 			}
 		}*/
+		MoveStoneFlg = TRUE;
 	}
 }
 

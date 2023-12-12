@@ -83,6 +83,8 @@ private:
 
 	int JustGoal; //ぴったりゴール用 
 
+	int MoveStoneFlg; // 動いたかどうか確認するフラグ
+
 public:
 	Mankara();
 	AbstractScene* Update();
