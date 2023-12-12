@@ -74,33 +74,38 @@ AbstractScene* Checkermain::Update() {
                     SelectY = selectY;
                     F_select = false;
                     if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-                      
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
                     }
                     if (F_totteta == true) {
+                        /*cantake = true;*/
+                        phase = 0;
                         StartX = SelectX;
                         StartY = SelectY;
                         SelectX = selectX;
                         SelectY = selectY;
                         CanTakeMore(StartX, StartY, SelectX, SelectY);
                     }
-                    if (F_totteta == false) {
+                    else if (F_totteta == false) {
                         cantake = false;
+                        /*if (cantake == false) {
+                            phase = 1;
+                        }*/
 
+                    }
+                    if (cantake == true) {
+                        phase = 0;
+                        F_totteta == false;
+                    }
+                    else {
+                        phase = 1;
                     }
                     // 特定の条件で成金する処理を追加
                     if (board[SelectX][SelectY] == 1 && SelectY == 7) {
                         board[SelectX][SelectY] = 4; // 4は成金を表す
                     }
                     
-                    if (cantake == true) {
-                        phase = 0;
-                    }
-
-                    else {
-                        phase = 1;
-                    }
+                   
                     
                 }
 
@@ -121,33 +126,38 @@ AbstractScene* Checkermain::Update() {
                     SelectY = selectY;
                     F_select = false;
                     if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-
                         board[SelectX][SelectY] = board[StartX][StartY];
                         board[StartX][StartY] = 0;
-                       
                     }
+                       
                     if (F_totteta == true) {
+                        /*cantake = true;*/
                         StartX = SelectX;
                         StartY = SelectY;
                         SelectX = selectX;
                         SelectY = selectY;
-                        CanTakeMore(StartX, StartY, SelectX, SelectY);
+                        CanTakeMore(StartX, StartY, SelectX, SelectY);  
                     }
-                    if (F_totteta == false) {
+                    else if (F_totteta == false) {
                         cantake = false;
+                    }
+                   /* if (cantake == false) {
+                        phase = 0;
+                    }*/
+                    if (cantake == true) {
+                        /*phase = 1;*/
+                        F_totteta == false;
+                    }
+                    else {
+                        phase = 0;
+
                     }
                     // 特定の条件で成金する処理を追加
                     if (board[SelectX][SelectY] == 2 && SelectY == 0) {
                         board[SelectX][SelectY] = 3; // 4は成金を表す
                     }
                     
-                    if (cantake == true) {
-                        phase = 1;
-                    }
-
-                    else {
-                        phase = 0;
-                    }
+                 
                     
                 }
 
@@ -436,6 +446,7 @@ void Checkermain::Gameover()
 
 bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
 {
+   
     // 移動先がボードの範囲外である場合、無効
     if (SelectX < 0 || SelectY < 0 || SelectX >= 8 || SelectY >= 8) {
         return false;
@@ -443,7 +454,8 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
 
     // 移動先にすでに駒がある場合、無効
     if (board[SelectX][SelectY] != 0) {
-        
+        cantake=false;
+        F_totteta = false;
         return false;
     }
   
@@ -457,7 +469,9 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
             if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
                 // 飛び越えた相手の駒を削除
                 board[jumpedX][jumpedY] = 0;
-                
+                cantake = true;
+                F_totteta = false;
+            
                 return true;
             }
         }
@@ -474,6 +488,8 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
                 // 飛び越えた相手の駒を削除
                 board[jumpedX][jumpedY] = 0;
                 cantake = true;
+                F_totteta = false;
+           
                 return true;
             }
 
@@ -490,6 +506,8 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
                 // 飛び越えた相手の駒を削除
                 board[jumpedX][jumpedY] = 0;
                 cantake = false;
+                F_totteta = false;
+
                 return true;
             }
         }
@@ -505,6 +523,7 @@ bool Checkermain::CanTakeMore(int StartX, int StartY, int SelectX, int SelectY)
                 // 飛び越えた相手の駒を削除
                 board[jumpedX][jumpedY] = 0;
                 cantake = false;
+                F_totteta = false;
                 return true;
             }
         }
