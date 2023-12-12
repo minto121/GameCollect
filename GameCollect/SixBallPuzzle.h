@@ -21,28 +21,28 @@ private:
 	int Back_Ground;		//背景画像
 
 	//int FallingX = 360;			//落下するブロックのX座標（固定位置）
-	//int FallingY = 100;		//落下するブロックのY座標（初期位置）
+	//int FallingY = 100;			//落下するブロックのY座標（初期位置）
 	//int randomBallIndex;
 	
 	int g01dKey;			// 前回の入力キー
 	int gNowKey;			// 今回の入力キー
 	int gKeyFlg;			// 入力キー情報
 
-	int gStage[HEIGHT][WIDTH];	//ステージ配列
-	int gBlockImg[10];					//ブロック画像
-	int gLevel;			//	レベルアップ変数
+	int gStage[HEIGHT][WIDTH];						//ステージ配列
+	int gBlockImg[10];								//ブロック画像
+	int gLevel;										//	レベルアップ変数
 	int gSpeed[6] = { 1000,800,600,500,300,150 };	//	落下スピード配列
 
 	float ballX[MaxBalls];     // X座標の配列
 	float ballY[MaxBalls];     // Y座標の配列
 	float ballSpeed[MaxBalls]; // 落下速度の配列
-	bool ballActive[MaxBalls];  // ボールがアクティブかどうかの配列
+	bool ballActive[MaxBalls]; // ボールがアクティブかどうかの配列
 	
 	//int gStage[ScreenHeight][ScreenWidth];	//ステージ配列
-	int gNewBlock[4][4] = { 0 };		//新しいブロック用
-	int gNextBlock[4][4] = { 0 };		//次のブロック用
-	int gStokBlock[4][4] = { 0 };		//	ストックブロック用
-	int gStokFlg = 0;					//	ストックフラグ
+	int gNewBlock[4][4] = { 0 };				//新しいブロック用
+	int gNextBlock[4][4] = { 0 };				//次のブロック用
+	int gStokBlock[4][4] = { 0 };				//	ストックブロック用
+	int gStokFlg = 0;							//	ストックフラグ
 
 	int gBlockList[7][4][4] = {
 	{ {0,0,0,0},{0,1,1,0},{0,1,1,0},{0,0,0,0} },
@@ -59,7 +59,6 @@ private:
 
 	int gStartTime;			//　時間計測の開始時間
 
-
 public:
 	void StageInit(void);				// ステージの初期化
 	void CreateBlock(void);				//ブロック生成とNEXTブロックの移動
@@ -69,6 +68,8 @@ public:
 	void LockBlock(int x2, int y2);		// 着地したブロックを固定済みブロックに加える
 	void CheckLines(void);				//　ブロックが横一列の時の処理
 	void ChangeBlock(void);				//　ブロックの交換（ストック処理）
+
+	
 
 	SixBallPuzzle();
 

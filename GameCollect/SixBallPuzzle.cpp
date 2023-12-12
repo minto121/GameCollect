@@ -8,13 +8,10 @@
 
 SixBallPuzzle::SixBallPuzzle()
 {
-	// FPSの計測と表示を行うローカル変数の宣言
+	//FPSの計測と表示を行うローカル変数の宣言
 	LONGLONG nowTime = GetNowHiPerformanceCount();
 	LONGLONG oldTime = nowTime;
-	LONGLONG fpsCheckTime;
 	double deltaTime = 0;
-	int fpsCounter = 0;
-	int fps = 0;
 
 	//背景画像読込
 	Back_Ground = LoadGraph("../images/SixBallPuzzle/square.png");
@@ -38,7 +35,7 @@ SixBallPuzzle::SixBallPuzzle()
 	//自動落下
 	nowTime = GetNowCount();
 
-	if (nowTime >= (gStartTime + gSpeed[gLevel - 1])) {
+	if (nowTime >= (gStartTime )) {
 		if (CheckOverlap(gPosX, gPosY + 1) == 0) {
 			gPosY++;
 		}
@@ -52,18 +49,16 @@ SixBallPuzzle::SixBallPuzzle()
 			//　新しいブロックの作成
 			CreateBlock();
 		}
-		gStartTime += gSpeed[gLevel - 1];
 	}
 
-
 	// ボールの初期位置と速度を設定
-	//for (int i = 0; i < MaxBalls; i++)
-	//{
-	//	ballX[i] = rand() % (WIDTH - 64);  // X座標
-	//	ballY[i] = - 64 * i;  // ボールのY座標をランダムに設定
-	//	ballSpeed[i] = 2;  // 落下速度
-	//	ballActive[i] = true;  // ボールがアクティブかどうか
-	//}
+	for (int i = 0; i < MaxBalls; i++)
+	{
+		ballX[i] = rand() % (WIDTH - 64);  // X座標
+		ballY[i] = - 64 * i;  // ボールのY座標をランダムに設定
+		ballSpeed[i] = 2;  // 落下速度
+		ballActive[i] = true;  // ボールがアクティブかどうか
+	}
 	//乱数生成器を初期化
 	//srand(static_cast<unsigned int>(time(0)));
 }
@@ -330,7 +325,7 @@ void SixBallPuzzle::Draw() const
 	}
 
 	//　ローカル変数
-	int posX, tempScore;
+	//int posX, tempScore;
 
 	//ステージの値でブロックを表示
 	for (int i = 0; i < HEIGHT; i++) {
