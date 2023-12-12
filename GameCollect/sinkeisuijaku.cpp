@@ -5,15 +5,14 @@
 sinkeisuijaku::sinkeisuijaku()
 {
     Select = LoadSoundMem("sound/SE/shuffle2.wav");
-  
+    Select2 = LoadSoundMem("sound/SE/Select.wav");
 
     testflg = 0;
 
     //先行後攻決め
     srand((unsigned int)time(NULL)); // 現在の時間を使って初期化q
-    first = (rand() % 2) + 1; // 1または2をランダムに生成
-    //srand((unsigned int)time(NULL));
-    first = 0;
+    first = (rand() % 2); // 1または2をランダムに生成
+
     // 初手のプレイヤーとコンピューターの設定
     if (first == 1) {
         isPlayerTurn = 1;
@@ -40,68 +39,6 @@ AbstractScene* sinkeisuijaku::Update()
 
     // ゲームロジック
     count++;
-
-
-
-    //何枚かめくったカードの数字を覚えさせて、一枚目にそのカードと同じ数字を引いたら2枚目にめくらせる
-
-    if (M == 0) {
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 5; i++) {
-                if (trumps[j][i].flg == 1) {
-                    MemoryCount[0] = trumps[j][i].syurui;
-                }
-            }
-        }
-    }        
-
-          if (M == 1) {
-              for (int j = 0; j < 4; j++) {
-                  for (int i = 0; i < 5; i++) {
-                      if (trumps[j][i].flg == 1) {
-                          MemoryCount[M] = trumps[j][i].syurui;
-                      }
-                  }
-              }
-          }
-
-
-
-          if (M == 2) {
-              for (int j = 0; j < 4; j++) {
-                  for (int i = 0; i < 5; i++) {
-                      if (trumps[j][i].flg == 1) {
-                          MemoryCount[M] = trumps[j][i].syurui;
-                      }
-                  }
-              }
-          }
-  
-
-
-          if (M == 3) {
-              for (int j = 0; j < 4; j++) {
-                  for (int i = 0; i < 5; i++) {
-                      if (trumps[j][i].flg == 1) {
-                          MemoryCount[M] = trumps[j][i].syurui;
-                      }
-                  }
-              }
-          }
-
-
-
-          if (M == 4) {
-              for (int j = 0; j < 4; j++) {
-                  for (int i = 0; i < 5; i++) {
-                      if (trumps[j][i].flg == 1) {
-                          MemoryCount[M] = trumps[j][i].syurui;
-                      }
-                  }
-              }
-          }
-
-
 
     // トランプに値を入れる
     if (count < 2) {
@@ -219,7 +156,7 @@ AbstractScene* sinkeisuijaku::Update()
                 if (trumpflg == 0) {
 
                     //選択音
-                    PlaySoundMem(Select, DX_PLAYTYPE_BACK);
+                    PlaySoundMem(Select, DX_PLAYTYPE_NORMAL);
 
 
                     trumps[S_ber][S2_ber].flg = 1;
@@ -327,6 +264,11 @@ AbstractScene* sinkeisuijaku::Update()
                 }
             }
 
+            if (pea == 1 && soundcount == 0) {
+                soundcount = 1;
+                PlaySoundMem(Select2, DX_PLAYTYPE_BACK);
+            }
+
             //プレイヤーの揃えた枚数をカウント
             for (int j = 0; j < 4; j++) {
                 for (int i = 0; i < 5; i++) {
@@ -361,6 +303,7 @@ AbstractScene* sinkeisuijaku::Update()
         ComputerTurn();
         lastSelect = -1;
         pea = 0;
+        soundcount = 0;
     }
 
     for (int j = 0; j < 4; j++) {
@@ -381,16 +324,11 @@ void sinkeisuijaku::Draw() const
         SetFontSize(50);
         DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
 
-        DrawFormatString(100, 230, 0x00ffff, "pea%d ", peacount);
-        DrawFormatString(100, 270, 0x00ffff, "pea%d ", Cpeacount);
+        DrawFormatString(100, 230, 0x00ffff, "first%d ", first);
 
 
-        DrawFormatString(100, 400, 0x00ffff, "M%d ", MemoryCount[0]);
-        DrawFormatString(100, 440, 0x00ffff, "M%d ", MemoryCount[1]);
-        DrawFormatString(100, 480, 0x00ffff, "M%d ", MemoryCount[2]);
-        DrawFormatString(100, 520, 0x00ffff, "M%d ", MemoryCount[3]);
-        DrawFormatString(100, 560, 0x00ffff, "M%d ", MemoryCount[4]);
 
+ 
 
 
 
@@ -516,14 +454,17 @@ void sinkeisuijaku::ComputerTurn()
             trumps[randRow][randCol].flg = 1;
             trumps[randRow2][randCol2].flg = 1;
             rebirth = rebirth + 1;
+            PlaySoundMem(Select, DX_PLAYTYPE_NORMAL);
 
 
             if (trumps[randRow][randCol].syurui + 10 == trumps[randRow2][randCol2].syurui || trumps[randRow][randCol].syurui - 10 == trumps[randRow2][randCol2].syurui) {
-
-                trumps[randRow][randCol].visible = 2;
-                trumps[randRow2][randCol2].visible = 2;
-                selectcount = selectcount + 1;
-
+                cTime = 0;
+                if (cTime % 100 == 0) {
+                    trumps[randRow][randCol].visible = 2;
+                    trumps[randRow2][randCol2].visible = 2;
+                    selectcount = selectcount + 1;
+                    PlaySoundMem(Select2, DX_PLAYTYPE_NORMAL);
+                }
             }
 
         }

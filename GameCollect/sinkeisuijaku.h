@@ -100,10 +100,9 @@ private:
 	//ƒTƒEƒ“ƒh
 	int BGM;
 	int Select;
-	int shuffle;
-	int S_Pea;
+	int Select2;
 
-
+	int soundcount = 0;
 	int test1 = 0;
 
 
@@ -113,5 +112,8 @@ private:
 	int Memoryrebirth;
 	int Memoryflg = 0;
 	int M = 0;
+	int M2;
+	int M3;
+
 };
 
