@@ -10,9 +10,7 @@ class SixBallPuzzle:public AbstractScene{
 
 private:
 	/*定数の宣言*/
-	
 	const int BLOCKSIZE = 24;	// ブロック画像のサイズ
-
 	const int NEWBLOCK_X = 4;	// NewブロックX座標
 	const int NEWBLOCK_Y = 0;	// NewブロックY座標
 

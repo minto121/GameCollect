@@ -88,7 +88,7 @@ void SixBallPuzzle::CreateBlock(void)
 	//ランダムにブロック選択
 	int r = GetRand(6);
 
-	//新しいブロックをセット＆次のブロックを生成と
+	//新しいブロックをセット＆次のブロックを生成
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			gNewBlock[i][j] = gNextBlock[i][j];
@@ -99,38 +99,37 @@ void SixBallPuzzle::CreateBlock(void)
 	gPosX = NEWBLOCK_X;		// NewブロックのX座標
 	gPosY = NEWBLOCK_Y;		// NewブロックのY座標
 
-	////　ゲームオーバーの判定
-	//if (CheckOverlap(gPosX, gPosY) != 0) {
-	//	gGameMode = GAMEOVER;
-	//	StopSoundMem(gStageBGM);
-	//}
+	//　ゲームオーバーの判定
+	if (CheckOverlap(gPosX, gPosY) != 0) {
+		//gGameMode = GAMEOVER;
+	}
 }
 
 void SixBallPuzzle::ControlBlock(void)
 {
-	//左移動
-	if (gKeyFlg & PAD_INPUT_LEFT) {
-		if (CheckOverlap(gPosX - 1, gPosY) == 0) {
-			gPosX--;
-		}
-	}
-	//右移動
-	if (gKeyFlg & PAD_INPUT_RIGHT) {
-		if (CheckOverlap(gPosX + 1, gPosY) == 0) {
-			gPosX++;
-		}
-	}
-	//下移動
-	if (gKeyFlg & PAD_INPUT_DOWN) {
-		if (CheckOverlap(gPosX, gPosY + 1) == 0) {
-			gPosY++;
-		}
-		WaitTimer(60);
-	}
-	//↑キーで右に９０°回転
-	if (gKeyFlg & PAD_INPUT_UP) {
-		TurnBlock();
-	}
+	////左移動
+	//if (gKeyFlg & PAD_INPUT_LEFT) {
+	//	if (CheckOverlap(gPosX - 1, gPosY) == 0) {
+	//		gPosX--;
+	//	}
+	//}
+	////右移動
+	//if (gKeyFlg & PAD_INPUT_RIGHT) {
+	//	if (CheckOverlap(gPosX + 1, gPosY) == 0) {
+	//		gPosX++;
+	//	}
+	//}
+	////下移動
+	//if (gKeyFlg & PAD_INPUT_DOWN) {
+	//	if (CheckOverlap(gPosX, gPosY + 1) == 0) {
+	//		gPosY++;
+	//	}
+	//	WaitTimer(60);
+	//}
+	////↑キーで右に９０°回転
+	//if (gKeyFlg & PAD_INPUT_UP) {
+	//	TurnBlock();
+	//}
 
 	//zキーを押したらブロックの交換を行う
 	if (gKeyFlg & PAD_INPUT_A) {
