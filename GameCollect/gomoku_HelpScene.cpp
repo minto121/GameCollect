@@ -5,6 +5,7 @@ gomoku_HelpScene::gomoku_HelpScene()
 	gomokuHelp_BackImg1 = LoadGraph("../images/Gomoku/BackGround_Help.png");
 	gomokuHelp_BackImg2 = LoadGraph("../images/Gomoku/BackGround_Help2.png");
 	gomoku_HelpSE1 = LoadSoundMem("sound/SE/gomoku_scroll.wav");
+	gomoku_HelpSE2 = LoadSoundMem("sound/SE/gomoku_ExitSE.wav");
 	gomokuHelp_MenuNumber = 0;
 	gomokuHelp_SelectWaitTIme = 60;
 	g_KeyFlg = 0;
@@ -23,7 +24,8 @@ AbstractScene* gomoku_HelpScene::Update()
 	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	g_KeyFlg = g_NowKey & ~g_OldKey;
 
-	ChangeVolumeSoundMem(75, gomoku_HelpSE1);
+	ChangeVolumeSoundMem(100, gomoku_HelpSE1);
+	ChangeVolumeSoundMem(150, gomoku_HelpSE2);
 
 	if (gomokuHelp_MenuNumber != 2) {
 		gomokuHelp_ScrollWaitTIme++;
@@ -40,6 +42,7 @@ AbstractScene* gomoku_HelpScene::Update()
 		gomokuHelp_MenuNumber = 0;
 	}
 	if (g_KeyFlg & PAD_INPUT_8) {
+		PlaySoundMem(gomoku_HelpSE2, DX_PLAYTYPE_BACK);
 		return new gomokuTitle;
 	}
 	return this;

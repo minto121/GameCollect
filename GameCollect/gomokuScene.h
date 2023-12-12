@@ -37,6 +37,8 @@ private:
 	int gomoku_elapsedturn; // 経過ターンをカウントする変数
 	int gomoku_Cursordisplaytime; // カーソルに動きを持たせる
 	int gomoku_BGM1;
+	int gomoku_SE1; // ヘルプ画面表示時に出す音
+	int gomoku_SE2; // ヘルプ画面を閉じるときに出す音
 	int gomoku_SoundStart;
 	bool gomoku_HelpDisplayflg;
 	int gomokuHelp_Number;

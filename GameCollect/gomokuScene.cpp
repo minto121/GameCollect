@@ -11,7 +11,10 @@ gomokuScene::gomokuScene()
 	gomoku_BackImg = LoadGraph("../images/Gomoku/BackGround02.png");
 	gomoku_HelpImg1 = LoadGraph("../images/Gomoku/BackGround_Help.png");
 	gomoku_HelpImg2 = LoadGraph("../images/Gomoku/BackGround_Help2.png");
+	gomoku_BGM1 = LoadSoundMem("sound/BGM/gomoku_BGM1.wav");
 	gomoku_ScrollSE = LoadSoundMem("sound/SE/gomoku_scroll.wav");
+	gomoku_SE1 = LoadSoundMem("sound/SE/gomoku_EnterSE.wav");
+	gomoku_SE2 = LoadSoundMem("sound/SE/gomoku_ExitSE.wav");
 	cX = 0;
 	cY = 0;
 	bCount = 0;
@@ -40,7 +43,6 @@ gomokuScene::gomokuScene()
 	gomoku_Result_WaitTime = 0;
 	gomoku_elapsedturn = 0;
 	gomoku_Cursordisplaytime = 0;
-	gomoku_BGM1 = LoadSoundMem("sound/BGM/gomoku_BGM1.wav");
 	gomoku_SoundStart = 0;
 	gomoku_HelpDisplayflg = 0;
 	gomokuHelp_Number = 0;
@@ -58,7 +60,9 @@ AbstractScene* gomokuScene::Update()
 	g_KeyFlg = g_NowKey & ~g_OldKey;
 
 	if (gomoku_SoundStart == 0) {
-		ChangeVolumeSoundMem(75, gomoku_ScrollSE);
+		ChangeVolumeSoundMem(100, gomoku_ScrollSE);
+		ChangeVolumeSoundMem(100, gomoku_SE1);
+		ChangeVolumeSoundMem(150, gomoku_SE2);
 		ChangeVolumeSoundMem(100, gomoku_BGM1);
 		PlaySoundMem(gomoku_BGM1, DX_PLAYTYPE_LOOP);
 		gomoku_SoundStart++;
@@ -72,8 +76,8 @@ AbstractScene* gomokuScene::Update()
 	}
 
 	if (gomoku_Battle == 0 && gomoku_HelpDisplayflg == 0) { // ŽŽ‡’†‚Ü‚½‚Íƒwƒ‹ƒv‰æ–Ê‚Å‚È‚¯‚ê‚ÎŽÀs‚·‚é
-
 		if (g_KeyFlg & PAD_INPUT_8 && gomoku_HelpWaitTime > 60) {
+			PlaySoundMem(gomoku_SE1, DX_PLAYTYPE_BACK);
 			gomoku_HelpDisplayflg = 1;
 			gomoku_HelpWaitTime = 0;
 		}
@@ -388,6 +392,7 @@ AbstractScene* gomokuScene::Update()
 			gomoku_ScrollWaitTime = 0;
 		}
 		if (g_KeyFlg & PAD_INPUT_8 && gomoku_HelpWaitTime > 60) {
+			PlaySoundMem(gomoku_SE2, DX_PLAYTYPE_BACK);
 			gomokuHelp_Number = 0;
 			gomoku_Result_WaitTime = 0;
 			gomoku_HelpWaitTime = 0;

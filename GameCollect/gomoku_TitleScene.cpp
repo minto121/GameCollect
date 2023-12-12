@@ -4,6 +4,8 @@
 gomokuTitle::gomokuTitle()
 {
 	gomokuTitle_Back = LoadGraph("../images/gomoku/BackGround02.png");
+    gomoku_TitleSE1 = LoadSoundMem("sound/SE/gomoku_SelectSE.wav");
+    gomoku_TitleSE2 = LoadSoundMem("sound/SE/gomoku_EnterSE.wav");
     gomokuTitle_MenuNumber = 0;
     gomokuMenuY = 0;
     g_OldKey = 0;
@@ -26,27 +28,36 @@ AbstractScene* gomokuTitle::Update()
     gomoku_transitionTime++;
     gomoku_inputWaitTime++;
 
+    ChangeVolumeSoundMem(100, gomoku_TitleSE1);
+    ChangeVolumeSoundMem(100, gomoku_TitleSE2);
+
     gomokuMenuY = gomokuTitle_MenuNumber * 100;
     
     if (g_KeyFlg & PAD_INPUT_UP && gomokuTitle_MenuNumber == 1 && gomoku_inputWaitTime > 5|| g_KeyFlg & PAD_INPUT_DOWN && gomokuTitle_MenuNumber == 2 && gomoku_inputWaitTime > 5) {
+        PlaySoundMem(gomoku_TitleSE1, DX_PLAYTYPE_BACK);
         gomoku_inputWaitTime = 0;
         gomokuTitle_MenuNumber = 0;
     }
     if (g_KeyFlg & PAD_INPUT_UP && gomokuTitle_MenuNumber == 2 && gomoku_inputWaitTime > 5 || g_KeyFlg & PAD_INPUT_DOWN && gomokuTitle_MenuNumber == 0 && gomoku_inputWaitTime > 5) {
+        PlaySoundMem(gomoku_TitleSE1, DX_PLAYTYPE_BACK);
         gomoku_inputWaitTime = 0;
        gomokuTitle_MenuNumber = 1;
     }
     if (g_KeyFlg & PAD_INPUT_UP && gomokuTitle_MenuNumber == 0 && gomoku_inputWaitTime > 5 || g_KeyFlg & PAD_INPUT_DOWN && gomokuTitle_MenuNumber == 1 && gomoku_inputWaitTime > 5) {
+        PlaySoundMem(gomoku_TitleSE1, DX_PLAYTYPE_BACK);
         gomoku_inputWaitTime = 0;
         gomokuTitle_MenuNumber = 2;
     }
     if (g_KeyFlg & PAD_INPUT_1 && gomokuTitle_MenuNumber == 0 && gomoku_transitionTime > 15) {
+        PlaySoundMem(gomoku_TitleSE2, DX_PLAYTYPE_BACK);
         return new gomokuScene;
     }
     if (g_KeyFlg & PAD_INPUT_1 && gomokuTitle_MenuNumber == 1 && gomoku_transitionTime > 15) {
+        PlaySoundMem(gomoku_TitleSE2, DX_PLAYTYPE_BACK);
         return new gomoku_HelpScene;
     }
     if (g_KeyFlg & PAD_INPUT_1 && gomokuTitle_MenuNumber == 2 && gomoku_transitionTime > 15) {
+        PlaySoundMem(gomoku_TitleSE2, DX_PLAYTYPE_BACK);
         return new GameSelect;
     }
         return this;

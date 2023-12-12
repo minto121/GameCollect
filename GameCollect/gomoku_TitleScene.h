@@ -14,6 +14,8 @@ private:
 	int g_KeyFlg;
 	int gomoku_transitionTime;
 	int gomoku_inputWaitTime;
+	int gomoku_TitleSE1; // モードセレクト時に流す
+	int gomoku_TitleSE2; // モードを決定した時に流す
 public:
 	gomokuTitle();
 	~gomokuTitle();
