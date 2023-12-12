@@ -23,7 +23,7 @@ AbstractScene* gomoku_HelpScene::Update()
 	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	g_KeyFlg = g_NowKey & ~g_OldKey;
 
-	ChangeVolumeSoundMem(100, gomoku_HelpSE1);
+	ChangeVolumeSoundMem(75, gomoku_HelpSE1);
 
 	if (gomokuHelp_MenuNumber != 2) {
 		gomokuHelp_ScrollWaitTIme++;
