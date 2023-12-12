@@ -17,22 +17,22 @@ private:
 	{
 		int img;
 	} ;
-	// 色と個数
-	struct STONE gStone[6][16];
+	// 石の数とポケット
+	struct STONE gStone[16][6];
 
 	struct STONE2
 	{
 		int img;
 	} ;
-	// 石の色と個数
-	struct STONE2 gStone2[6][16];
+	// 石の数とポケット
+	struct STONE2 gStone2[16][6];
 
 	struct GOAL
 	{
 		int img;
 	} ;
 	// 石の色と個数
-	struct GOAL gGoal[30][6];
+	struct GOAL gGoal[30][2];
 
 
 
@@ -69,7 +69,7 @@ private:
 	int Stone_cnt;
 	int movePocket;
 	int Stone_count;
-	int StonePocket[2][6]; // 石入れてるポケット
+	int StonePocket[12]; // 石入れてるポケット
 	int sideAddition;      // 移動させるための処理
 	int Stonenum;          // 配列の中の石の総数
 

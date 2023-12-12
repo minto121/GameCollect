@@ -24,18 +24,18 @@ Mankara::Mankara()
 	JustGoal = 0;
 
 	for (int y = 0; y < 6; y++) {
-		P1Pocket[y] += 1;
+		P1Pocket[y] = 0;
 	}
 
 	for (int y = 0; y < 6; y++) {
-		P2Pocket[y] += 1;
+		P2Pocket[y] = 0;
 	}
 
 	// 石の画像処理(ポケット)
 	for (int i = 0; i < 6; i++) {
 		for (int y = 0; y < 6; y++) {
-			gStone[y][i].img = StoneImg[y];//ポケット１
-			gStone2[y][i].img = StoneImg[y];//ポケット１
+			gStone[y][i].img = StoneImg[y], P1Pocket[i];//ポケット１
+			gStone2[y][i].img = StoneImg[y],P2Pocket[i] ;//ポケット１
 		}
 	}
 
@@ -48,9 +48,8 @@ Mankara::Mankara()
 	}
 
 
-	for (int i = 0; i < 7; i++) {
-		StonePocket[0][i] = InitialStone; // 1P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
-		StonePocket[1][i] = InitialStone; // 2P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
+	for (int i = 0; i < 12; i++) {
+		StonePocket[i] = InitialStone; // 1P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
 	}
 
 	for (int pocket = 0; pocket < 6;) {
@@ -529,317 +528,55 @@ void Mankara::Draw()const
 
 void Mankara::MoveStone()
 {
-	//　画像移動時の数的処理
 	if (P1Turn == 1) {
-
-		// ポケット０
-		// ポケットを選択
-		if (PlayerPocket == 0) {
-			// ポケットの中身を別のポケットの中にいれる
-			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
-				// ぴったりゴール用処理
-				if (P1StoneSave[PlayerPocket] > 6) {
-					P1BigPocket += 1;
-					// ポケットを超過した時、2Pポケットに入れる
-					for (int h = 7; h < (P1StoneSave[PlayerPocket] -= 7); h++) {
-						P2StoneSave[i] += 1;
-					}
-				}
-
-				P1StoneSave[PlayerPocket + i] += 1;
-
-				for (int t = 0; t < 5; t++) {
-					gStone[i][t].img = TRUE;
-
-				}
+		// ポケット0が選ばれた時、
+		if (P1Pocket[0] == 1) {
+			// ポケット０の中身の石の数の分だけ、石を移動させる
+			for (int i = 0; i < StonePocket[0]; i++) {
+				// 各ポケットの石の数に１ずつ追加する
+				StonePocket[i + 1] += 1;
+				//石の移動量の分だけ、各ポケットの石を1ずつ描画する
+				gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+				// その後　移動元のポケットの石の描画数を0にする
+				gStone[i][0].img = FALSE;
+				// 各ポケットのカウントを1ずつ追加する
+				P1StoneSave[i + 1] += 1;
 			}
-			// ぴったりゴール以外で石の移動が済んだ時、2Pターンに切り替わる
-			if (P1StoneSave[PlayerPocket] == 6) {
-				P1Turn = 1;
-				P2Turn = 0;
+		// 石の移動量が6以上の時、ゴールに1追加する
+			if (StonePocket[0] >= 6) {
+				P1BigPocket += 1;
 			}
-			else {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			// 石を移動したポケットの中身を０にする
-			P1StoneSave[PlayerPocket] = 0;
-			for (int y = 0; y < 16; y++) {
-				gStone[y][PlayerPocket].img = FALSE;
-			}
-			
-
+			// 移動元のポケットの中身の石の数を０にする
+			StonePocket[0] = 0;
+			// ポケット０のカウントを０にする
+			P1StoneSave[0] = 0;
 		}
+		/*if (P1Pocket[1] == 1) {
+			for (int i = 1; i < StonePocket[1]; i++) {
+				gStone[StonePocket[i + 1]][i].img = TRUE;
 
-		// ポケット１
-		else if (PlayerPocket == 1) {
-			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
-				if (P1StoneSave[PlayerPocket] > 5) {
-					P1BigPocket += 1;
-					for (int h = 6; h < (P1StoneSave[PlayerPocket] -= 6); h++) {
-						P2StoneSave[i] += 1;
-					}
-				}
-				//
-				P1StoneSave[PlayerPocket + i] += 1;
-				for (int t = 0; t < 4; t++) {
-					gStone[i][t].img = TRUE;
-
-				}
-			}
-			if (P1StoneSave[PlayerPocket] == 5) {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			else {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			P1StoneSave[PlayerPocket] = 0;
-			for (int y = 0; y < 16; y++) {
-				gStone[y][PlayerPocket].img = FALSE;
 			}
 		}
-		// ポケット２
-		else if (PlayerPocket == 2) {
-			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
-				if (P1StoneSave[PlayerPocket] > 4) {
-					P1BigPocket += 1;
-					for (int h = 5; h < (P1StoneSave[PlayerPocket] -= 5); h++) {
-						P2StoneSave[i] += 1;
-					}
-				}
-				P1StoneSave[PlayerPocket + i] += 1;
-				for (int t = 0; t < 3; t++) {
-					gStone[i][t].img = TRUE;
-
-				}
-			}
-			if (P1StoneSave[PlayerPocket] == 4) {
-				P2Turn = 0;
-				P1Turn = 1;
-			}
-			else {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			P1StoneSave[PlayerPocket] = 0;
-			for (int y = 0; y < 16; y++) {
-				gStone[y][PlayerPocket].img = FALSE;
+		if (P1Pocket[2] == 1) {
+			for (int i = 1; i < StonePocket[2]; i++) {
+				gStone[StonePocket[i + 1]][i].img = TRUE;
 			}
 		}
-		// ポケット３
-		else if (PlayerPocket == 3) {
-			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
-				if (P1StoneSave[PlayerPocket] > 3) {
-					P1BigPocket += 1;
-					for (int h = 4; h < (P1StoneSave[PlayerPocket] -= 4); h++) {
-						P2StoneSave[i] += 1;
-					}
-				}
-				P1StoneSave[PlayerPocket + i] += 1;
-				for (int t = 0; t < 2; t++) {
-					gStone[i][t].img = TRUE;
-
-				}
-			}
-			if (P1StoneSave[PlayerPocket] == 3) {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			else {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			P1StoneSave[PlayerPocket] = 0;
-			for (int y = 0; y < 16; y++) {
-				gStone[y][PlayerPocket].img = FALSE;
+		if (P1Pocket[3] == 1) {
+			for (int i = 1; i < StonePocket[3]; i++) {
+				gStone[StonePocket[i + 1]][i].img = TRUE;
 			}
 		}
-		// ポケット４
-		else if (PlayerPocket == 4) {
-			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
-				if (P1StoneSave[PlayerPocket] > 2) {
-					P1BigPocket += 1;
-					for (int h = 3; h < (P1StoneSave[1] -= 4); h++) {
-						P2StoneSave[i] += 1;
-					}
-				}
-				P1StoneSave[PlayerPocket + i] += 1;
-				for (int t = 0; t < 1; t++) {
-					gStone[i][t].img = TRUE;
-
-				}
-			}
-			if (P1StoneSave[PlayerPocket] == 2) {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			else {
-				P1Turn = 0;
-				P2Turn = 1;
-			}
-			P1StoneSave[PlayerPocket] = 0;
-			for (int y = 0; y < 16; y++) {
-				gStone[y][PlayerPocket].img = FALSE;
+		if (P1Pocket[4] == 1) {
+			for (int i = 1; i < StonePocket[4]; i++) {
+				gStone[StonePocket[i + 1]][i].img = TRUE;
 			}
 		}
-		// ポケット５
-		else if (PlayerPocket == 5) {
-			for (int i = 0; i < P1StoneSave[PlayerPocket]; i++) {
-				if (P1StoneSave[PlayerPocket] > 2) {
-					P1BigPocket += 1;
-					for (int h = 5; h < (P1StoneSave[PlayerPocket] -= 5); h++) {
-						P2StoneSave[i] += 1;
-					}
-				}
-				P1StoneSave[PlayerPocket + i] += 1;
-				for (int t = 0; t < 0; t++) {
-					gStone[i][t].img = TRUE;
-
-				}
+		if (P1Pocket[5] == 1) {
+			for (int i = 1; i < StonePocket[5]; i++) {
+				gStone[StonePocket[i + 1]][i].img = TRUE;
 			}
-			if (P1StoneSave[PlayerPocket] == 1) {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			else {
-				P1Turn = 0;
-				P2Turn = 1;
-			}
-			P1StoneSave[PlayerPocket] = 0;
-			for (int y = 0; y < 16; y++) {
-				gStone[y][PlayerPocket].img = FALSE;
-			}
-		}
-	}
-	if (P2Turn == 1) {
-
-
-		// ポケットを選択
-		if (PartnerPocket == 0) {
-			for (int i = 0; i < P2StoneSave[PartnerPocket]; i++) {
-				if (P2StoneSave[PartnerPocket] > 6) {
-					P2BigPocket += 1;
-					for (int h = 7; h < (P2StoneSave[PartnerPocket] -= 7); h++) {
-						P1StoneSave[i] += 1;
-					}
-				}
-				P2StoneSave[PartnerPocket + i] += 1;
-
-			}
-			if (P2StoneSave[PartnerPocket] == 6) {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			else {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			P2StoneSave[PartnerPocket] = 0;
-
-		}
-		else if (PartnerPocket == 1) {
-			for (int i = 0; i < P2StoneSave[PartnerPocket]; i++) {
-				if (P2StoneSave[PartnerPocket] > 5) {
-					P2BigPocket += 1;
-					for (int h = 6; h < (P2StoneSave[PartnerPocket] -= 6); h++) {
-						P1StoneSave[i] += 1;
-					}
-				}
-				P2StoneSave[PartnerPocket + i] += 1;
-			}
-			if (P2StoneSave[PartnerPocket] == 5) {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			else {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			P2StoneSave[PartnerPocket] = 0;
-		}
-		else if (PartnerPocket == 2) {
-			for (int i = 0; i < P2StoneSave[PartnerPocket]; i++) {
-				if (P2StoneSave[PartnerPocket] > 4) {
-					P2BigPocket += 1;
-					for (int h = 5; h < (P2StoneSave[PartnerPocket] -= 5); h++) {
-						P1StoneSave[i] += 1;
-					}
-				}
-				P2StoneSave[PartnerPocket + i] += 1;
-			}
-			if (P2StoneSave[PartnerPocket] == 4) {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			else {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			P2StoneSave[PartnerPocket] = 0;
-		}
-		else if (PartnerPocket == 3) {
-			for (int i = 0; i < P2StoneSave[PartnerPocket]; i++) {
-				if (P2StoneSave[PartnerPocket] > 3) {
-					P2BigPocket += 1;
-					for (int h = 4; h < (P2StoneSave[PartnerPocket] -= 4); h++) {
-						P1StoneSave[i] += 1;
-					}
-				}
-				P2StoneSave[PartnerPocket + i] += 1;
-			}
-			if (P2StoneSave[PartnerPocket] == 3) {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			else {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			P2StoneSave[PartnerPocket] = 0;
-		}
-		else if (PartnerPocket == 4) {
-			for (int i = 0; i < P2StoneSave[PartnerPocket]; i++) {
-				if (P2StoneSave[PartnerPocket] > 3) {
-					P2BigPocket += 1;
-					for (int h = 4; h < (P2StoneSave[PartnerPocket] -= 4); h++) {
-						P1StoneSave[i] += 1;
-					}
-				}
-				P2StoneSave[PartnerPocket + i] += 1;
-			}
-			if (P2StoneSave[PartnerPocket] == 2) {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			else {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			P2StoneSave[PartnerPocket] = 0;
-		}
-		else if (PartnerPocket == 5) {
-			for (int i = 0; i < P2StoneSave[PartnerPocket]; i++) {
-				if (P2StoneSave[PartnerPocket] > 2) {
-					P2BigPocket += 1;
-					for (int h = 5; h < (P2StoneSave[PartnerPocket] -= 5); h++) {
-						P1StoneSave[i] += 1;
-
-					}
-				}
-				P2StoneSave[PartnerPocket + i] += 1;
-			}
-			if (P2StoneSave[PartnerPocket] == 1) {
-				P2Turn = 1;
-				P1Turn = 0;
-			}
-			else {
-				P1Turn = 1;
-				P2Turn = 0;
-			}
-			P2StoneSave[PartnerPocket] = 0;
-		}
+		}*/
 	}
 }
 
