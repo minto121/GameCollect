@@ -82,7 +82,7 @@ AbstractScene* Rabbit::Update()
 		case 0:
 			if (bord[5][3].flg = 0)
 			{
-
+				return ;
 			};
 
 		default:
