@@ -62,6 +62,8 @@ AbstractScene* HitAndBlow::Update()
 {
 	RandomDecision(); // 答えの配列をランダムに設定する
 
+	FontSize = GetFontSize();
+
 	if (DescriptionFlg == TRUE) { // 説明画面にいる間
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 			//if (Count < 60) { // 1秒立ってなかったら、
@@ -254,6 +256,7 @@ void HitAndBlow::Draw() const
 
 	}
 	else { // ゲームメイン画像処理
+		SetFontSize(FontSize); // フォントを元に戻す
 		DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
 
 		for (int i = 0; i < 6; i++) { // 駒を表示

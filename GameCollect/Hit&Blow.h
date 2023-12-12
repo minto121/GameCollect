@@ -39,6 +39,8 @@ private:
 	int DescriptionFlg; // 最初に説明を入れるためのフラグを追加
 	int OperationFlg; // ゲームの操作方法を確認するためのフラグ
 
+	int FontSize; // 説明画面以外のフォントの大きさを統一にするための変数
+
 public:
 	// インクリメント
 	HitAndBlow();
