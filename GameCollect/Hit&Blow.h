@@ -12,6 +12,7 @@ private:
 	/* SE */
 	int PutPinSE; // ピンを置くSE
 	int HitPinSE; // ヒットピンのSE
+	int BlowPinSE; // ブローピンのSE
 
 	/* 配列 */
 	int Color[6]; // 色の駒を入れる配列
@@ -29,7 +30,7 @@ private:
 	int SidePosition;  // 色を選択する場所の変数
 	int Turns; // ターン数を数える変数
 	int ChangeColor; // 色が全部分かった時、順番だけを入れ替えるための変数
-	int MoveFlg; // 先攻後攻決めるフラグ
+	int MoveFlg; // 先攻後攻決めるフラグ(0:エネミーターン 1:プレイヤーターン)
 	int FirstMoveFlg; // 最初が先攻か後攻かを暗記する変数
 	bool TurnFlg; // ターン数を決めるフラグ
 	int WaitTimeFlg; // 待ち時間を作るための変数
@@ -69,4 +70,6 @@ public:
 	// 今までのターンと被りないか確認する関数
 	void CheckCovered();
 
+	// ヒットとブローのSE鳴らす関数
+	void PlaySoundSE();
 };

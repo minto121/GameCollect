@@ -21,6 +21,7 @@ HitAndBlow::HitAndBlow()
 	/* BGM・SE読み込み */
 	PutPinSE = LoadSoundMem("../sound/SE/PutPin.wav");
 	HitPinSE = LoadSoundMem("../sound/SE/HitPin.wav");
+	BlowPinSE = LoadSoundMem("../sound/SE/BlowPin.wav");
 
 	DecisionFlg = TRUE; // 答えを一回だけ決めるフラグをTRUEにする
 	TurnFlg = TRUE;
@@ -55,7 +56,10 @@ HitAndBlow::HitAndBlow()
 
 HitAndBlow::~HitAndBlow()
 {
-
+	/* メモリ容量軽くするため、音楽ファイル消しておく */
+	DeleteSoundMem(PutPinSE);
+	DeleteSoundMem(HitPinSE);
+	DeleteSoundMem(BlowPinSE);
 }
 
 AbstractScene* HitAndBlow::Update()
@@ -117,31 +121,27 @@ AbstractScene* HitAndBlow::Update()
 		}
 
 		if (MoveFlg == 0) { // 敵がやる処理		
-			ERandomChoice();
-			Judgment();
+			ERandomChoice(); // 適当に色を入れて
 
+			Judgment(); // ジャッジ処理呼ぶ
+
+			/* 音を鳴らす処理 */
+			PlaySoundSE();
+
+			/* プレイヤーターンに行く前に色をリセット */
 			ResetColor();
-
-			MoveFlg = 1;
+			MoveFlg = 1; // 自分のターンに移動
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && Reasoning[0] != -1 && Reasoning[1] != -1 && Reasoning[2] != -1 && Reasoning[3] != -1) // 色が入っている時
 		{
-			/* ジャッジ処理を書く */
-			Judgment();
+			Judgment(); // ジャッジ処理を呼ぶ
 
-			for (int i = 0; i < SaveHit[Turns]; i++) {
-				if (Count % 60 == 0) {
-					Count++;
-					PlaySoundMem(HitPinSE, DX_PLAYTYPE_BACK, TRUE);
-				}
-				else {
-					Count++;
-					i--;
-				}
-			}
-			Count = 0;
+			/* 音を鳴らす処理 */
+			PlaySoundSE();
+
+			/* エネミーターンに行く前に色をリセット */
 			ResetColor();
-			MoveFlg = 0;
+			MoveFlg = 0; // 敵のターンに移動
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) // 色を入れる処理
 		{
@@ -388,16 +388,6 @@ void HitAndBlow::ERandomChoice()
 		}
 		else {
 			Reasoning[i] = rand() % 6;
-			/* デバック用 */
-			//if (CoveringFlg == FALSE) {
-			//	Reasoning[0] = 0;
-			//	Reasoning[1] = 1;
-			//	Reasoning[2] = 2;
-			//	Reasoning[3] = 3;
-			//}
-			//else {
-			//	Reasoning[i] = rand() % 6; // 違う奴にする
-			//}
 
 			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 色が重なったら
 				i--; // 選別をやり直す
@@ -526,4 +516,43 @@ void HitAndBlow::CheckCovered()
 		}
 
 	}
+}
+
+void HitAndBlow::PlaySoundSE() 
+{
+	/* 音を鳴らす処理 */
+	for (int i = 0; i < SaveHit[Turns]; i++) {
+		if (CheckSoundMem(HitPinSE) == 0) { // 再生させていなかったら
+			if (CheckSoundMem(BlowPinSE) == 0) {
+				PlaySoundMem(HitPinSE, DX_PLAYTYPE_BACK, TRUE); // 再生する
+				Count = 0; // カウント時間をリセット
+			}
+			else {
+				i--;
+			}
+		}
+		else {
+			Count++;
+			i--;
+		}
+		Count = 0;// カウント時間をリセット
+	}
+	Count = 0; // カウント時間をリセット
+	for (int i = 0; i < SaveBlow[Turns] + 1; i++) {
+		if (CheckSoundMem(BlowPinSE) == 0) { // 再生させていなかったら
+			if (CheckSoundMem(HitPinSE) == 0) {
+				PlaySoundMem(BlowPinSE, DX_PLAYTYPE_BACK, TRUE); // 再生する
+				Count = 0; // カウント時間をリセット
+			}
+			else {
+				i--;
+			}	
+		}
+		else {
+			Count++;
+			i--;
+		}
+	}
+	StopSoundMem(BlowPinSE);
+	Count = 0;// カウント時間をリセット
 }
