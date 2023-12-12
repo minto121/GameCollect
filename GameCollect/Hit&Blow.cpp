@@ -256,7 +256,7 @@ void HitAndBlow::Draw() const
 
 	}
 	else { // ゲームメイン画像処理
-		SetFontSize(FontSize); // フォントを元に戻す
+		SetFontSize(FontSize); // フォントサイズを元に戻す
 		DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
 
 		for (int i = 0; i < 6; i++) { // 駒を表示
