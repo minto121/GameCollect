@@ -120,7 +120,9 @@ AbstractScene* Checkermain::Update() {
 					else {
 						phase = 2;
 					}
-					
+					if (cantake == false) {
+						phase = 2;
+					}
 					// 特定の条件で成金する処理を追加
 					if (board[SelectX][SelectY] == 1 && SelectY == 7) {
 						board[SelectX][SelectY] = 4; // 4は成金を表す
@@ -312,12 +314,13 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 			if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
 				// 飛び越えた相手の駒を削除
 				board[jumpedX][jumpedY] = 0;
-				F_totteta = false;
+				F_totteta = true;
 				return true;
 			}
 		}
 
 	}
+	// 赤駒
 	else if (board[StartX][StartY] == 1 && phase == 1) {
 		
 		 if ((SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
@@ -330,6 +333,11 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 				F_totteta = true;
 				return true;
 			}
+		 }
+		 else if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
+
+			 F_totteta = false;
+			 cantake = false;
 		 }
 		
 	}
@@ -368,6 +376,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 
 	}
+	// 黒駒
 	else if (board[StartX][StartY] == 2 && phase == 3) {
 		// 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
 		if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2)) {
@@ -431,6 +440,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 
 	}
+	// 黒駒(成金）
 	else if (board[StartX][StartY] == 3 && phase == 3) {
 		// 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
 		if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
@@ -491,6 +501,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 			}
 		}
 	}
+	// 赤駒(成金）
 	else if (board[StartX][StartY] == 4 && phase == 1) {
 		// 上下左右斜めそれぞれのジャンプ可能な場合を個別にチェック
 		if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
