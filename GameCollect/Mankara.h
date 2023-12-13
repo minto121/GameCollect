@@ -84,6 +84,11 @@ private:
 	int JustGoal; //ぴったりゴール用 
 
 	int MoveStoneFlg; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg2; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg3; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg4; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg5; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg6; // 動いたかどうか確認するフラグ
 
 public:
 	Mankara();
