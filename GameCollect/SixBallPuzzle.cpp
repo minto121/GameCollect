@@ -8,10 +8,10 @@
 SixBallPuzzle::SixBallPuzzle()
 {
 	//背景画像読込
-	Back_Ground = LoadGraph("../images/SixBallPuzzle/square.png");
+	Back_Ground = LoadGraph("images/SixBallPuzzle/square.png");
 	
 	//ボールの分割読込
-	LoadDivGraph("../images/SixBallPuzzle/ball.png", 5, 5, 1, 64, 64, Ball_img);	//画像の全体サイズ：320px*64px
+	LoadDivGraph("images/SixBallPuzzle/ball.png", 5, 5, 1, 64, 64, Ball_img);	//画像の全体サイズ：320px*64px
 
 	// ボールの初期位置と速度を設定
 	for (int i = 0; i < MaxBalls; i++)

@@ -9,10 +9,10 @@ Takoyaki::Takoyaki()
 {
 	Select = 0;
 	Cards_img[42];
-	cardimg = LoadGraph("../images/Takoyaki/PlayingCardsfake.png");//カード画像読み込み
-	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");//カーソル画像読み込み
+	cardimg = LoadGraph("images/Takoyaki/PlayingCardsfake.png");//カード画像読み込み
+	CursolImg = LoadGraph("images/Takoyaki/cursor.png");//カーソル画像読み込み
 	select_X = 0;
-	BackCard_Img = LoadGraph("../image/Takoyaki/card_back.png");
+	BackCard_Img = LoadGraph("image/Takoyaki/card_back.png");
 }
 
 Takoyaki::~Takoyaki() {
