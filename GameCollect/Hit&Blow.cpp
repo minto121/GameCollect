@@ -11,12 +11,12 @@
 HitAndBlow::HitAndBlow()
 {
 	/* 画像読み込み */
-	TableBgImg = LoadGraph("../images/HitAndBlow/BackGround02.png");
+	TableBgImg = LoadGraph("images/HitAndBlow/BackGround02.png");
 
-	BoardImg = LoadGraph("../images/HitAndBlow/HitBlowBoard.png");
+	BoardImg = LoadGraph("images/HitAndBlow/HitBlowBoard.png");
 
-	LoadDivGraph("../images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
-	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
+	LoadDivGraph("images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
+	LoadDivGraph("images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
 
 	/* BGM・SE読み込み */
 	PutPinSE = LoadSoundMem("../sound/SE/PutPin.wav");
@@ -52,6 +52,8 @@ HitAndBlow::HitAndBlow()
 
 	DescriptionFlg = TRUE;
 	OperationFlg = TRUE;
+
+	WinLoseDrawFlg = -1;
 }
 
 HitAndBlow::~HitAndBlow()
@@ -90,7 +92,7 @@ AbstractScene* HitAndBlow::Update()
 			OperationFlg = FALSE; // 操作説明画面を閉じる
 			DescriptionFlg = TRUE; // 説明画面に戻る
 		}
-	}else if (DescriptionFlg == FALSE && OperationFlg == FALSE && Turns < 8 && SaveHit[Turns - 1] != 4) {
+	}else if (DescriptionFlg == FALSE && OperationFlg == FALSE && WinLoseDrawFlg == -1 && Turns < 8 && SaveHit[Turns - 1] != 4) {
 	
 		//十字キー↑入力
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
@@ -162,13 +164,11 @@ AbstractScene* HitAndBlow::Update()
 			}
 			else if (MoveFlg == 0) {
 				Count = 0; // カウントをリセット
-				SetFontSize(FontSize); // フォントサイズを元に戻す
-				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーWin)
+				WinLoseDrawFlg = 1; // 勝敗フラグを勝利状態にする
 			}
 			else {
 				Count = 0; // カウントをリセット
-				SetFontSize(FontSize); // フォントサイズを元に戻す
-				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーLose)
+				WinLoseDrawFlg = 2; // 勝敗フラグを負け状態にする
 			}
 		}
 		else {
@@ -177,9 +177,12 @@ AbstractScene* HitAndBlow::Update()
 			}
 			else {
 				Count = 0; // カウントをリセット
-				SetFontSize(FontSize); // フォントサイズを元に戻す
-				return new GameSelect();// 遷移場所は一旦置いてるだけ(ドロー)
+				WinLoseDrawFlg = 0; // 勝敗フラグを引き分け状態にする
 			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && WinLoseDrawFlg != -1) {
+			SetFontSize(FontSize); // フォントサイズを元に戻す
+			return new GameSelect();// ゲームセレクト画面に遷移
 		}
 	}
 
@@ -257,6 +260,25 @@ void HitAndBlow::Draw() const
 		DrawFormatString(300, 620, 0xffffff, "Bボタンでゲームの遊び方画面へ");
 
 
+	}
+	else if (WinLoseDrawFlg == 0 || WinLoseDrawFlg == 1 || WinLoseDrawFlg == 2) {
+		switch (WinLoseDrawFlg) {
+		case 0:
+			SetFontSize(60);
+			DrawFormatString(300, 360, 0x00ff00, "引き分けです。");
+			DrawFormatString(300, 500, 0xffffff, "Aボタンでゲームせレクト画面へ");
+			break;
+		case 1:
+			SetFontSize(60);
+			DrawFormatString(300, 360, 0xff0000, "あなたの勝ちです！！");
+			DrawFormatString(300, 500, 0xffffff, "Aボタンでゲームせレクト画面へ");
+			break;
+		case 2:
+			SetFontSize(60);
+			DrawFormatString(300, 360, 0x0000ff, "あなたの負けです・・・");
+			DrawFormatString(300, 500, 0xffffff, "Aボタンでゲームせレクト画面へ");
+			break;
+		}
 	}
 	else { // ゲームメイン画像処理
 		DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
