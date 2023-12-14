@@ -27,6 +27,9 @@
     <ClCompile Include="gomoku_TitleScene.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="LastCard.cpp" />
+    <ClCompile Include="DotAndBox.cpp" />
+    <ClCompile Include="Line.cpp" />
+     <ClCompile Include="GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gomoku_AI.h" />
@@ -54,6 +57,9 @@
     <ClInclude Include="Select.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="Hanafuda_GameMain.h" />
+    <ClInclude Include="DotAndBox.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="GameMain.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />
