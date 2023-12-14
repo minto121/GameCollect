@@ -1,22 +1,23 @@
 #include "Reversi.h"
 #include<DxLib.h>
 #include "PadInput.h"
+#include"GameSelect.h"
 
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
 #define SCREEN_WIDTH 1280	//画面サイズ (横)
 
 
 
-// 先攻後攻を表示する画面
-void Reversi::FirstTurnScreen() {
-	DrawFormatString(100, 100, GetColor(255, 255, 255), "先攻後攻を決定します。");
-	DrawFormatString(100, 150, GetColor(255, 255, 255), "スペースキーを押してください。");
-
-	if (CheckHitKey(XINPUT_BUTTON_A)) {
-		SelectTurn();
-		// 先攻後攻が決まったら、ゲーム画面に遷移するなどの処理をここに追加
-	}
-}
+//// 先攻後攻を表示する画面
+//void Reversi::FirstTurnScreen() {
+//	DrawFormatString(100, 100, GetColor(255, 255, 255), "先攻後攻を決定します。");
+//	DrawFormatString(100, 150, GetColor(255, 255, 255), "スペースキーを押してください。");
+//
+//	if (CheckHitKey(XINPUT_BUTTON_A)) {
+//		SelectTurn();
+//		// 先攻後攻が決まったら、ゲーム画面に遷移するなどの処理をここに追加
+//	}
+//}
 
 Reversi::Reversi()
 {
@@ -44,6 +45,7 @@ Reversi::Reversi()
 	Fla.button = 0;
 
 	Tur = 0;
+	End = FALSE;
 
 	//配列の初期値
 	for (int y = 0; y < 8; y = y++)
@@ -296,6 +298,14 @@ AbstractScene* Reversi::Update()
 		}
 	}
 
+	if (Tur>=60)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_START))
+		{
+			return new GameSelect;
+		}
+	}
+
 
 	return this;
 }
@@ -308,7 +318,7 @@ void Reversi::Draw() const
 	int cou_w = 0;
 
 	DrawGraph(0, 0, BackImg, TRUE);
-	DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
+	//DrawFormatString(0, 100, GetColor(255, 255, 255), " %d:button", Fla.button);
 	for (int y = 0; y < 8; y++)
 	{
 		for (int x = 0; x < 8; x++)
@@ -339,6 +349,23 @@ void Reversi::Draw() const
 		}
 	}
 
+	//一時停止中の描画
+	if (PauseFlg == TRUE)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+		DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		if (PauseFlashFlg == TRUE) {
+			DrawString(540, 360, "---ポーズ中---", 0x000000, TRUE);
+		}
+		else {
+			DrawString(540, 360, "---ポーズ中---", 0xffffff, TRUE);
+		}
+		DrawString(520, 520, "Startボタンで再開", 0xffffff, TRUE);
+	}
+
+	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
+
 	for (int y = 0; y < 8;y++)
 	{
 		for (int x = 0; x < 8;x++)
@@ -353,52 +380,49 @@ void Reversi::Draw() const
 			if (Tur >= 60)
 			{
 				if (cou_w < cou_b) {
-					DrawFormatString(0, 320, GetColor(255, 255, 255), "Black Win");
+					SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+					DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+					SetFontSize(60);
+					DrawString(500, 320, "Black Win!", GetColor(255, 255, 255));
+					DrawString(170, 450, "Startボタンでセレクト画面に戻る", GetColor(255, 255, 255));
 				}
 				else if (cou_w > cou_b) {
-					DrawFormatString(0, 340, GetColor(255, 255, 255), "White Win");
+					SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+					DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+					SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+					SetFontSize(60);
+					DrawString(500, 160,"White Win!", GetColor(255, 255, 255));
+					DrawString(170, 450, "Startボタンでセレクト画面に戻る", GetColor(255, 255, 255));
+
 				}
 				else {
-					DrawFormatString(0, 360, GetColor(255, 255, 255), "Draw");
+					DrawFormatString(540, 160, GetColor(255, 255, 255), "Draw");
 				}
 			}
 		}
 	}
-	DrawFormatString(0, 120, GetColor(255, 255, 255), "Cur.X,Cur.Y=(%d,%d)", Cur.X, Cur.Y);
+	/*DrawFormatString(0, 120, GetColor(255, 255, 255), "Cur.X,Cur.Y=(%d,%d)", Cur.X, Cur.Y);
 	DrawFormatString(0, 140, GetColor(255, 255, 255), "Tur,%d", Tur);
 	DrawFormatString(0, 180, GetColor(255, 255, 255), "Sto.X,%d", Sto.X);
 	DrawFormatString(0, 200, GetColor(255, 255, 255), "Sto.Typ,%d", Sto.Typ);
 	DrawFormatString(0, 280, GetColor(255, 255, 255), "e.x.m,%d", e.x.m);
-	DrawFormatString(0, 300, GetColor(255, 255, 255), "e.y.m,%d", e.y.m);
+	DrawFormatString(0, 300, GetColor(255, 255, 255), "e.y.m,%d", e.y.m);*/
 
-	DrawBox(Cur.X, Cur.Y, Cur.X + 85, Cur.Y + 85, 0xffffff, FALSE);
+	
 
-	DrawFormatString(0, 220, GetColor(255, 255, 255), "No,Black,White (%d,%d,%d)", cou_n, cou_b, cou_w);
+	//DrawFormatString(0, 220, GetColor(255, 255, 255), "No,Black,White (%d,%d,%d)", cou_n, cou_b, cou_w);
 
-	if (Tur % 2 == 0)
+	/*if (Tur % 2 == 0)
 	{
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn Black", Tur);
 	}
 	else
 	{
 		DrawFormatString(0, 160, GetColor(255, 255, 255), "%dTurn White", Tur);
+	}*/
 
-	}
-
-	//一時停止中の描画
-	if (PauseFlg == TRUE)
-	{
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-		DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
-		if (PauseFlashFlg == TRUE) {
-			DrawString(640, 360, "---ポーズ中---", 0x000000,TRUE);
-		}
-		else {
-			DrawString(640, 360, "---ポーズ中---", 0xffffff,TRUE);
-		}
-		DrawString(370, 520, "Startボタンで再開", 0xffffff,TRUE);
-	}
+	
 }
 
 

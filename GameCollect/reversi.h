@@ -67,6 +67,7 @@ private:
     bool YOnce;	//Lスティック入力重複防止用（縦）
 
     bool PTurn;
+    bool End;
 
 public:
     //コンストラクタ
