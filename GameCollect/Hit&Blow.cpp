@@ -19,9 +19,9 @@ HitAndBlow::HitAndBlow()
 	LoadDivGraph("images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
 
 	/* BGMESE“Ç‚İ‚İ */
-	PutPinSE = LoadSoundMem("../sound/SE/PutPin.wav");
-	HitPinSE = LoadSoundMem("../sound/SE/HitPin.wav");
-	BlowPinSE = LoadSoundMem("../sound/SE/BlowPin.wav");
+	PutPinSE = LoadSoundMem("sound/SE/PutPin.wav");
+	HitPinSE = LoadSoundMem("sound/SE/HitPin.wav");
+	BlowPinSE = LoadSoundMem("sound/SE/BlowPin.wav");
 
 	DecisionFlg = TRUE; // “š‚¦‚ğˆê‰ñ‚¾‚¯Œˆ‚ß‚éƒtƒ‰ƒO‚ğTRUE‚É‚·‚é
 	TurnFlg = TRUE;
