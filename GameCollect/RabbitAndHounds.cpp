@@ -1,5 +1,6 @@
 #include"RabbitAndHounds.h"
 #include "Rabbit.h"
+#include "Hound.h"
 #include "DxLib.h"
 #include "PadInput.h"
 #include<iostream>
@@ -11,8 +12,8 @@ RabbitAndHounds::RabbitAndHounds()
 {
 	BackGroundImg = LoadGraph("images/RabbitAndHounds/BackGround01.png");
 	//3Dモデルの読込
-	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
-	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
+	//HoundImg = MV1LoadModel("Dog_Model.mv1");
+	//RabbitImg = MV1LoadModel("Rabbit_Model.mv1");
 
 	////ウサギ座標
 	//rabbit_X = 100, rabbit_Y = 100;
@@ -54,6 +55,7 @@ AbstractScene* RabbitAndHounds::Update()
 	}
 	else if (Cursor_X >= 300 && PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 	{
+		return new Hound();
 	}
 		return this;
 }

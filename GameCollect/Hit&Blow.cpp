@@ -21,6 +21,7 @@ HitAndBlow::HitAndBlow()
 	/* BGM・SE読み込み */
 	PutPinSE = LoadSoundMem("../sound/SE/PutPin.wav");
 	HitPinSE = LoadSoundMem("../sound/SE/HitPin.wav");
+	BlowPinSE = LoadSoundMem("../sound/SE/BlowPin.wav");
 
 	DecisionFlg = TRUE; // 答えを一回だけ決めるフラグをTRUEにする
 	TurnFlg = TRUE;
@@ -49,20 +50,48 @@ HitAndBlow::HitAndBlow()
 	Covering = 0;
 	CoveringFlg = FALSE;
 
+	DescriptionFlg = TRUE;
+	OperationFlg = TRUE;
 }
 
 HitAndBlow::~HitAndBlow()
 {
-
+	/* メモリ容量軽くするため、音楽ファイル消しておく */
+	DeleteSoundMem(PutPinSE);
+	DeleteSoundMem(HitPinSE);
+	DeleteSoundMem(BlowPinSE);
 }
 
 AbstractScene* HitAndBlow::Update()
 {
 	RandomDecision(); // 答えの配列をランダムに設定する
 
-	/* ここに自分が駒を入れる処理を書く */
-	if (Turns < 8 && SaveHit[Turns - 1] != 4)
-	{
+	FontSize = GetFontSize();
+
+	if (DescriptionFlg == TRUE) { // 説明画面にいる間
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+			//if (Count < 60) { // 1秒立ってなかったら、
+			//	Count++; // 1フレーム足す
+			//}
+			//else { // ボタンを押して、1秒たったら
+			//	Count = 0; // カウントをリセットして、
+			//	DescriptionFlg = FALSE; // 説明画面を閉じる
+			//}
+			DescriptionFlg = FALSE; // 説明画面を閉じる
+			OperationFlg = TRUE; // 操作説明画面に入る
+		}
+		/* ここに自分が駒を入れる処理を書く */
+	}
+	else if (OperationFlg == TRUE) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+			OperationFlg = FALSE; // 操作説明画面を閉じる
+		}
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+			OperationFlg = FALSE; // 操作説明画面を閉じる
+			DescriptionFlg = TRUE; // 説明画面に戻る
+		}
+	}else if (DescriptionFlg == FALSE && OperationFlg == FALSE && Turns < 8 && SaveHit[Turns - 1] != 4) {
+	
 		//十字キー↑入力
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP))
 		{
@@ -90,33 +119,29 @@ AbstractScene* HitAndBlow::Update()
 			Color[SidePosition++];
 			if (SidePosition > 5) SidePosition = 0; // 位置が5を超えたら、0に戻す
 		}
-		
+
 		if (MoveFlg == 0) { // 敵がやる処理		
-			ERandomChoice();
-			Judgment();
+			ERandomChoice(); // 適当に色を入れて
 
+			Judgment(); // ジャッジ処理呼ぶ
+
+			/* 音を鳴らす処理 */
+			PlaySoundSE();
+
+			/* プレイヤーターンに行く前に色をリセット */
 			ResetColor();
-
-			MoveFlg = 1;
+			MoveFlg = 1; // 自分のターンに移動
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_X) && Reasoning[0] != -1 && Reasoning[1] != -1 && Reasoning[2] != -1 && Reasoning[3] != -1) // 色が入っている時
 		{
-			/* ジャッジ処理を書く */
-			Judgment();
+			Judgment(); // ジャッジ処理を呼ぶ
 
-			for (int i = 0; i < SaveHit[Turns]; i++) {
-				if (Count % 60 == 0) {
-					Count++;
-					PlaySoundMem(HitPinSE, DX_PLAYTYPE_BACK, TRUE);
-				}
-				else {
-					Count++;
-					i--;
-				}
-			}
-			Count = 0;
+			/* 音を鳴らす処理 */
+			PlaySoundSE();
+
+			/* エネミーターンに行く前に色をリセット */
 			ResetColor();
-			MoveFlg = 0;
+			MoveFlg = 0; // 敵のターンに移動
 		}
 		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) // 色を入れる処理
 		{
@@ -135,12 +160,14 @@ AbstractScene* HitAndBlow::Update()
 			if (Count < WAITTIME) {
 				Count++;
 			}
-			else if(MoveFlg == 0){
+			else if (MoveFlg == 0) {
 				Count = 0; // カウントをリセット
+				SetFontSize(FontSize); // フォントサイズを元に戻す
 				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーWin)
 			}
 			else {
 				Count = 0; // カウントをリセット
+				SetFontSize(FontSize); // フォントサイズを元に戻す
 				return new Title();// 遷移場所は一旦置いてるだけ(プレイヤーLose)
 			}
 		}
@@ -150,11 +177,15 @@ AbstractScene* HitAndBlow::Update()
 			}
 			else {
 				Count = 0; // カウントをリセット
+				SetFontSize(FontSize); // フォントサイズを元に戻す
 				return new GameSelect();// 遷移場所は一旦置いてるだけ(ドロー)
 			}
 		}
 	}
 
+
+
+	
 	return this;
 }
 
@@ -162,75 +193,144 @@ void HitAndBlow::Draw() const
 {
 	DrawGraph(0, 0, TableBgImg, FALSE); // 背景画像表示(透明OFF)
 
-	DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
+	if (DescriptionFlg == TRUE) { // ゲームの遊び方・勝敗について
+		SetFontSize(40);
+		DrawFormatString(500, 0, 0xffffff, "＜ゲームの遊び方＞");
+		DrawFormatString(500, 480, 0xffffff, "＜ゲームの勝敗＞");
 
-	for (int i = 0; i < 6; i++) { // 駒を表示
-		DrawGraph(350 + i * 100, 600, ColorImg[i], TRUE); // それぞれの色の駒を表示(位置は決定)
-	}
-	if (Turns < 8 && SaveHit[Turns - 1] != 4) {
-		DrawBox(350 + SidePosition * 100, 595, 420 + SidePosition * 100, 665, 0xff0000, FALSE); // 色を埋める場所がどこにあるかを見せるボックス
-		DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
-	}
-	
-	//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", CoveringFlg); // デバック用
-	//DrawFormatString(100, 700, 0xffffff, "Coveringは%d", Covering); // デバック用
-	/* 予想したカラーを表示する */
-	if (Reasoning[WarpPosition % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 220 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
-	}
+		SetFontSize(30);
+		/* ゲームの遊び方 */
+		DrawFormatString(0, 50, 0xffffff, "○６色の色（赤、青、緑、黄、紫、白）からランダムに選ばれる");
+		DrawFormatString(0, 80, 0xffffff, "４色の色と位置を当てるゲーム!");
+		DrawFormatString(0, 110, 0xffffff, "○プレイヤーおよび対戦相手は、４色の色と位置を予想する。");
+		DrawFormatString(0, 140, 0xff0000, "○ヒントとして、色と位置が当たっている「ヒット」と、");
+		DrawFormatString(0, 170, 0xff0000, "色だけ当たっている「バイト」が何個あるか、");
+		DrawFormatString(0, 200, 0xff0000, "それぞれ教えてもらえる。ただし、");
+		DrawFormatString(0, 230, 0xff0000, "どこがヒットしていて、どの色がバイトしているかまでは教えてもらえない。");
+		DrawFormatString(0, 260, 0x00ff00, "例）設定された色が紫・白・赤・黄だとして、");
+		DrawFormatString(0, 290, 0x00ff00, "プレイヤーが青・赤・緑・黄と予想した場合、");
+		DrawFormatString(0, 320, 0x00ff00, "プレイヤーのヒントとして、1ヒット1ブロー");
+		DrawFormatString(0, 350, 0x00ff00, "（黄は色と位置が合ってるので1ヒット、赤は色だけ合ってるので1ブロー）");
+		DrawFormatString(0, 380, 0x00ff00, "という情報が与えられる。");
+		DrawFormatString(0, 410, 0xffffff, "○これを繰り返して、先に4ヒット");
+		DrawFormatString(0, 440, 0xffffff, "（つまり、4つの色と位置が全て当たっている状態）すれば勝ちとなる。");
 
-	if (Reasoning[(WarpPosition + 1) % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
-	}
-	
-	if (Reasoning[(WarpPosition + 2) % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
-	}
-	
-	if (Reasoning[(WarpPosition + 3) % 4] >= 0) {
-		DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
-	}
+		/* ゲームの勝敗 */
+		DrawFormatString(0, 520, 0xffffff, "○ランダムに決まっている色と場所を全て当てた（4ヒットした）方の勝利！");
+		DrawFormatString(0, 550, 0xffffff, "○自分と対戦相手が合計8ターン以内に色と場所を全て当てられなかった場合は、");
+		DrawFormatString(0, 580, 0xffffff, "引き分けとなる。");
 
-	
-	for (int i = 0; i < 4; i++) {
-		if (SaveHit[Turns - 1] == 4 || Turns == 8) { // 8ターン経過か、4ヒットしたら表示
-		DrawGraph(1125, 220 + i * 80, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
+		/* 遷移を教える文章*/
+		SetFontSize(60);
+		DrawFormatString(300, 620, 0xffffff, "Aボタンで操作方法画面へ");
+	}
+	else if (OperationFlg == TRUE) {
+		SetFontSize(40);
+		DrawFormatString(500, 0, 0xffffff, "＜操作方法＞");
+		DrawFormatString(500, 240, 0xffffff, "＜ルール＞");
+
+
+		SetFontSize(30);
+		DrawFormatString(0, 50, 0xffffff, "○十字キーの←、→で色を選択するカーソルが動く。");
+		DrawFormatString(0, 80, 0xffffff, "○十字キーの↑、↓で色を置く場所のカーソルが動く。");
+		DrawFormatString(0, 110, 0xffffff, "○Aボタンで色を置くことが出来る。");
+		DrawFormatString(0, 140, 0xffffff, "○Bボタンで置いていた色を取ることが出来る。");
+		DrawFormatString(0, 170, 0xffffff, "○4つ全て置いた状態で、Xボタンを押すと、");
+		DrawFormatString(0, 200, 0xffffff, "置いている色が確定する。");
+		/* ヒットピンの画像と説明 */
+		DrawFormatString(0, 280, 0xffffff, "○");
+		DrawGraph(30, 280, HitBlowImg[1], TRUE);
+		DrawFormatString(70, 280, 0xffffff, "ヒットピン：色と場所があっている");
+		/* ブローピンの画像と説明 */
+		DrawFormatString(0, 310, 0xffffff, "○");
+		DrawGraph(30, 310, HitBlowImg[0], TRUE);
+		DrawFormatString(70, 310, 0xffffff, "ブローピン：色のみがあっている");
+		DrawFormatString(0, 340, 0xffffff, "○先攻・後攻はランダムで決められる。");
+		DrawFormatString(0, 370, 0xffffff, "○プレイヤーのターンの場所は、");
+		DrawFormatString(480, 370, 0xff0000, "P");
+		DrawFormatString(0, 400, 0xffffff, "○相手のターンの場所は、");
+		DrawFormatString(390, 400, 0x00ffff, "E");
+		DrawFormatString(420, 400, 0xffffff, "と上に表示される。");
+
+		SetFontSize(60);
+		DrawFormatString(300, 560, 0xffffff, "Aボタンでゲームスタート");
+		DrawFormatString(300, 620, 0xffffff, "Bボタンでゲームの遊び方画面へ");
+
+
+	}
+	else { // ゲームメイン画像処理
+		DrawGraph(0, 0, BoardImg, TRUE); // ボード画像表示
+
+		for (int i = 0; i < 6; i++) { // 駒を表示
+			DrawGraph(350 + i * 100, 600, ColorImg[i], TRUE); // それぞれの色の駒を表示(位置は決定)
 		}
-	}
-	
-	for (int i = 0; i < Turns; i++) {
-		/* 過去に入れた色を表示 */
-		DrawGraph(90 + i * 130, 220, ColorImg[SaveReasoning[i][0]], TRUE);
-		DrawGraph(90 + i * 130, 220 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
-		DrawGraph(90 + i * 130, 220 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
-		DrawGraph(90 + i * 130, 220 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
+		if (Turns < 8 && SaveHit[Turns - 1] != 4) {
+			DrawBox(350 + SidePosition * 100, 595, 420 + SidePosition * 100, 665, 0xff0000, FALSE); // 色を埋める場所がどこにあるかを見せるボックス
+			DrawBox(80 + Turns * 130, 210 + WarpPosition * 80, 160 + Turns * 130, 290 + WarpPosition * 80, 0x00ff00, FALSE); // どこの場所を埋めようとしているか表示
+		}
 
-		/* ジャッジ用の描画処理を書く */
-		for (int j = 0; j < SaveHit[i]; j++) {
-			DrawGraph(80 + (j % 2) * 35 + i * 130, 100 + (j / 2) * 40, HitBlowImg[1], TRUE);
+		//DrawFormatString(100, 600, 0xffffff, "Turnsは%d", CoveringFlg); // デバック用
+		//DrawFormatString(100, 700, 0xffffff, "Coveringは%d", Covering); // デバック用
+		/* 予想したカラーを表示する */
+		if (Reasoning[WarpPosition % 4] >= 0) {
+			DrawGraph(90 + Turns * 130, 220 + WarpPosition * 80, ColorImg[Reasoning[WarpPosition % 4]], TRUE); // 予想を画像で表示
 		}
-		for (int k = 0; k < SaveBlow[i]; k++) {
-			DrawGraph(80 + ((SaveHit[i] + k) % 2) * 35 + i * 130, 100 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
+
+		if (Reasoning[(WarpPosition + 1) % 4] >= 0) {
+			DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
 		}
-	}
-	for (int i = 0; i < 8; i++) {
-		SetFontSize(32);
-		if (FirstMoveFlg == TRUE) {
-			if (i % 2 == 0) {
-				DrawFormatString(110 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+
+		if (Reasoning[(WarpPosition + 2) % 4] >= 0) {
+			DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 2) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 2) % 4]], TRUE); // 予想を画像で表示
+		}
+
+		if (Reasoning[(WarpPosition + 3) % 4] >= 0) {
+			DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 3) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 3) % 4]], TRUE); // 予想を画像で表示
+		}
+
+
+		for (int i = 0; i < 4; i++) {
+			if (SaveHit[Turns - 1] == 4 || Turns == 8) { // 8ターン経過か、4ヒットしたら表示
+				DrawGraph(1125, 220 + i * 80, ColorImg[Answer[i]], TRUE); // 答えを画像で表示
+			}
+		}
+
+		for (int i = 0; i < Turns; i++) {
+			/* 過去に入れた色を表示 */
+			DrawGraph(90 + i * 130, 220, ColorImg[SaveReasoning[i][0]], TRUE);
+			DrawGraph(90 + i * 130, 220 + 1 * 80, ColorImg[SaveReasoning[i][1]], TRUE);
+			DrawGraph(90 + i * 130, 220 + 2 * 80, ColorImg[SaveReasoning[i][2]], TRUE);
+			DrawGraph(90 + i * 130, 220 + 3 * 80, ColorImg[SaveReasoning[i][3]], TRUE);
+
+			/* ジャッジ用の描画処理を書く */
+			for (int j = 0; j < SaveHit[i]; j++) {
+				DrawGraph(80 + (j % 2) * 35 + i * 130, 100 + (j / 2) * 40, HitBlowImg[1], TRUE);
+			}
+			for (int k = 0; k < SaveBlow[i]; k++) {
+				DrawGraph(80 + ((SaveHit[i] + k) % 2) * 35 + i * 130, 100 + ((SaveHit[i] + k) / 2) * 40, HitBlowImg[0], TRUE);
+			}
+		}
+		for (int i = 0; i < 8; i++) {
+			SetFontSize(32);
+			if (FirstMoveFlg == TRUE) {
+				if (i % 2 == 0) {
+					DrawFormatString(110 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+				}
+				else {
+					DrawFormatString(240 + (i / 2) * 260, 50, 0x00ffff, "E"); // エネミーの順番を上に表示
+				}
+			}
+			else if (i % 2 == 0) {
+				DrawFormatString(110 + (i / 2) * 260, 50, 0x00ffff, "E"); // エネミーの順番を上に表示
 			}
 			else {
-				DrawFormatString(240 + (i / 2) * 260, 50, 0x00ffff, "E"); // エネミーの順番を上に表示
+				DrawFormatString(240 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
 			}
-		}
-		else if (i % 2 == 0) {
-			DrawFormatString(110 + (i / 2) * 260, 50, 0x00ffff, "E"); // エネミーの順番を上に表示
-		}
-		else {
-			DrawFormatString(240 + (i / 2) * 260, 50, 0xff0000, "P"); // プレイヤーの順番を上に表示
+
 		}
 
 	}
+
 }
 
 void HitAndBlow::RandomDecision()
@@ -290,16 +390,6 @@ void HitAndBlow::ERandomChoice()
 		}
 		else {
 			Reasoning[i] = rand() % 6;
-			/* デバック用 */
-			//if (CoveringFlg == FALSE) {
-			//	Reasoning[0] = 0;
-			//	Reasoning[1] = 1;
-			//	Reasoning[2] = 2;
-			//	Reasoning[3] = 3;
-			//}
-			//else {
-			//	Reasoning[i] = rand() % 6; // 違う奴にする
-			//}
 
 			if (Reasoning[i] == Reasoning[(i + 1) % 4] || Reasoning[i] == Reasoning[(i + 2) % 4] || Reasoning[i] == Reasoning[(i + 3) % 4]) { // 色が重なったら
 				i--; // 選別をやり直す
@@ -428,4 +518,43 @@ void HitAndBlow::CheckCovered()
 		}
 
 	}
+}
+
+void HitAndBlow::PlaySoundSE() 
+{
+	/* 音を鳴らす処理 */
+	for (int i = 0; i < SaveHit[Turns]; i++) {
+		if (CheckSoundMem(HitPinSE) == 0) { // 再生させていなかったら
+			if (CheckSoundMem(BlowPinSE) == 0) {
+				PlaySoundMem(HitPinSE, DX_PLAYTYPE_BACK, TRUE); // 再生する
+				Count = 0; // カウント時間をリセット
+			}
+			else {
+				i--;
+			}
+		}
+		else {
+			Count++;
+			i--;
+		}
+		Count = 0;// カウント時間をリセット
+	}
+	Count = 0; // カウント時間をリセット
+	for (int i = 0; i < SaveBlow[Turns] + 1; i++) {
+		if (CheckSoundMem(BlowPinSE) == 0) { // 再生させていなかったら
+			if (CheckSoundMem(HitPinSE) == 0) {
+				PlaySoundMem(BlowPinSE, DX_PLAYTYPE_BACK, TRUE); // 再生する
+				Count = 0; // カウント時間をリセット
+			}
+			else {
+				i--;
+			}	
+		}
+		else {
+			Count++;
+			i--;
+		}
+	}
+	StopSoundMem(BlowPinSE);
+	Count = 0;// カウント時間をリセット
 }

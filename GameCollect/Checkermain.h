@@ -30,7 +30,6 @@ private:
 
     // ゲームの状態を管理する変数
     bool F_select = false;  // 選択中の駒があるかどうか
-    bool phase;             // 先攻（0）後攻（1）を表す
     bool movevail;          // 移動が有効かどうかを表す
     bool cantake = false;
     bool F_totteta = false;
@@ -40,7 +39,7 @@ private:
     int g_OldKey;   // 前回のキー入力状態
     int g_NowKey;   // 現在のキー入力状態
     int g_KeyFlg;   // キーの変化を示すフラグ
-
+    int phase = 0;
     // 駒の移動に関する変数
     int StartX;     // 移動させたい駒の座標X
     int StartY;     // 移動させたい駒の座標Y

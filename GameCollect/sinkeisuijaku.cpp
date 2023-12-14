@@ -1,4 +1,4 @@
-ï»¿#include "sinkeisuijaku.h"
+#include "sinkeisuijaku.h"
 #include "DxLib.h"
 #include <stdlib.h>
 #include <time.h>
@@ -9,12 +9,12 @@ sinkeisuijaku::sinkeisuijaku()
 
     testflg = 0;
 
-     //å…ˆè¡Œå¾Œæ”»æ±ºã‚
-   srand((unsigned int)time(NULL)); // ç¾åœ¨ã®æ™‚é–“ã‚’ä½¿ã£ã¦åˆæœŸåŒ–q
-    first = (rand() % 2) + 1; // 1ã¾ãŸã¯2ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«ç”Ÿæˆ
+     //æsŒãUŒˆ‚ß
+   srand((unsigned int)time(NULL)); // Œ»İ‚ÌŠÔ‚ğg‚Á‚Ä‰Šú‰»q
+    first = (rand() % 2) + 1; // 1‚Ü‚½‚Í2‚ğƒ‰ƒ“ƒ_ƒ€‚É¶¬
     //srand((unsigned int)time(NULL));
     first = 0;
-    // åˆæ‰‹ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãƒ¼ã®è¨­å®š
+    // ‰è‚ÌƒvƒŒƒCƒ„[‚ÆƒRƒ“ƒsƒ…[ƒ^[‚Ìİ’è
     if (first == 1) {
         isPlayerTurn = 1;
     }
@@ -26,29 +26,29 @@ sinkeisuijaku::sinkeisuijaku()
 
 AbstractScene* sinkeisuijaku::Update()
 {
-    S_Select = LoadSoundMem("sound/SE/ã‚«ãƒ¼ãƒˆã‚™ã‚·ãƒ£ãƒƒãƒ•ãƒ«2.wav");
+    S_Select = LoadSoundMem("sound/SE/ƒJ[ƒg?ƒVƒƒƒbƒtƒ‹2.wav");
     PlaySoundMem(S_Select, DX_PLAYTYPE_BACK);
 
 
-    // ãƒˆãƒ©ãƒ³ãƒ—ã®ç”»åƒã‚’åˆ†å‰²èª­ã¿è¾¼ã¿
+    // ƒgƒ‰ƒ“ƒv‚Ì‰æ‘œ‚ğ•ªŠ„“Ç‚İ‚İ
     LoadDivGraph("images/Concentration/PlayingCards.png", 56, 14, 4, 128, 256, S_T);
 
   
 
 
-    // ã‚­ãƒ¼å…¥åŠ›å‡¦ç†
-    // å…¥åŠ›ã‚­ãƒ¼å–å¾—
+    // ƒL[“ü—Íˆ—
+    // “ü—ÍƒL[æ“¾
     g_OldKey = g_NowKey;
     g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
     g_KeyFlg = g_NowKey & ~g_OldKey;
 
-    // ã‚²ãƒ¼ãƒ ãƒ­ã‚¸ãƒƒã‚¯
+    // ƒQ[ƒ€ƒƒWƒbƒN
     count++;
    
   
 
    
-    // ãƒˆãƒ©ãƒ³ãƒ—ã«å€¤ã‚’å…¥ã‚Œã‚‹
+    // ƒgƒ‰ƒ“ƒv‚É’l‚ğ“ü‚ê‚é
     if (count < 2) {
         int x = 1;
         for (int j = 0; j < 4; j++) {
@@ -81,7 +81,7 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
     
-            // ã‚«ãƒ¼ãƒ‰ã‚’é¸æŠã—ãŸã¨ãã®ç¨®é¡ã‚’2å›ã¾ã§è¨˜éŒ²
+            // ƒJ[ƒh‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚Ìí—Ş‚ğ2‰ñ‚Ü‚Å‹L˜^
             if (selectcount == 1) {
                 test1 = trumps[S_ber][S2_ber].syurui;
                 testcount += 1;
@@ -107,9 +107,9 @@ AbstractScene* sinkeisuijaku::Update()
 
 
 
-        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³
+        // ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“
       
-    // ä¸Šç§»å‹•
+    // ãˆÚ“®
         if (g_KeyFlg & PAD_INPUT_UP) {
             if (S_ber >= 0 && S_ber <= 4) {
                 S_ber = S_ber - 1;
@@ -119,7 +119,7 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
 
-        // ä¸‹ç§»å‹•
+        // ‰ºˆÚ“®
         if (g_KeyFlg & PAD_INPUT_DOWN) {
             if (S_ber >= 0 && S_ber <= 4) {
                 S_ber = S_ber + 1;
@@ -129,7 +129,7 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
 
-        // å³ç§»å‹•
+        // ‰EˆÚ“®
         if (g_KeyFlg & PAD_INPUT_RIGHT) {
             S2_ber = S2_ber + 1;
             if (S2_ber == 5 || S2_ber == 9 || S2_ber == 14 || S2_ber == 19 || S2_ber == 24) {
@@ -137,7 +137,7 @@ AbstractScene* sinkeisuijaku::Update()
             }
         }
 
-        // å·¦ç§»å‹•
+        // ¶ˆÚ“®
         if (g_KeyFlg & PAD_INPUT_LEFT) {
             S2_ber = S2_ber - 1;
             if (S2_ber == -1 || S2_ber == 6 || S2_ber == 11 || S2_ber == 16 || S2_ber == 21) {
@@ -148,7 +148,7 @@ AbstractScene* sinkeisuijaku::Update()
       
 
         if (count >= 10) {
-            // ã‚«ãƒ¼ãƒ‰é¸æŠ
+            // ƒJ[ƒh‘I‘ğ
             if (g_KeyFlg & PAD_INPUT_1 && rCount < 2 && (trumps[S_ber][S2_ber].syurui != lastSelect )) {
                 if (trumpflg == 0 ) {
 
@@ -158,23 +158,23 @@ AbstractScene* sinkeisuijaku::Update()
                     rCount++;
                     selectcount++;
 
-                    // ã‚«ãƒ¼ãƒ‰ãŒã¾ã é¸æŠã•ã‚Œã¦ã„ãªã„ã‹ç¢ºèª
-                    // ã‚«ãƒ¼ãƒ‰ã‚’é¸æŠã—ãŸã¨ãã®ç¨®é¡ã‚’1å›ç›®ã«è¨˜éŒ²
+                    // ƒJ[ƒh‚ª‚Ü‚¾‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢‚©Šm”F
+                    // ƒJ[ƒh‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚Ìí—Ş‚ğ1‰ñ–Ú‚É‹L˜^
                     test1 = trumps[S_ber][S2_ber].syurui;
                     testcount++;
 
-                    // æœ€å¾Œã«é¸æŠã•ã‚ŒãŸã‚«ãƒ¼ãƒ‰ã®ä½ç½®ã‚’æ›´æ–°
+                    // ÅŒã‚É‘I‘ğ‚³‚ê‚½ƒJ[ƒh‚ÌˆÊ’u‚ğXV
                     lastSelect = trumps[S_ber][S2_ber].syurui;
                  
                 }
                 else if (rCount < 2 ) {
-                    // 2å›ç›®ã®ã‚«ãƒ¼ãƒ‰é¸æŠæ™‚ã«æƒã£ã¦ã„ã‚‹ã‹åˆ¤å®š
+                    // 2‰ñ–Ú‚ÌƒJ[ƒh‘I‘ğ‚É‘µ‚Á‚Ä‚¢‚é‚©”»’è
                     test2 = trumps[S_ber][S2_ber].syurui;
                     rCount++;
 
                
 
-                    // ã‚«ãƒ¼ãƒ‰ã‚’è£è¿”ã™
+                    // ƒJ[ƒh‚ğ— •Ô‚·
                     for (int j = 0; j < 4; j++) {
                         for (int i = 0; i < 5; i++) {
                             trumps[j][i].flg = 0;
@@ -182,13 +182,13 @@ AbstractScene* sinkeisuijaku::Update()
                     }
 
 
-                    // ã‚«ãƒ¼ãƒ‰ãŒè£ã®çŠ¶æ…‹ã§ã‚ã‚Œã°ã€è¡¨ã«ã™ã‚‹
+                    // ƒJ[ƒh‚ª— ‚Ìó‘Ô‚Å‚ ‚ê‚ÎA•\‚É‚·‚é
                     if (trumpflg == 1) {
                         trumps[S_ber][S2_ber].flg = 1;
                         trumpflg = 1;
                     }
 
-                    // ã‚«ãƒ¼ãƒ‰é¸æŠæ™‚ã« rCount ãŒ2ã‚ˆã‚Šå¤§ãã„å ´åˆã§ã‚‚é€£ç¶šã—ã¦è£è¿”ã›ãªã„ã‚ˆã†ã«ãƒªã‚»ãƒƒãƒˆ
+                    // ƒJ[ƒh‘I‘ğ‚É rCount ‚ª2‚æ‚è‘å‚«‚¢ê‡‚Å‚à˜A‘±‚µ‚Ä— •Ô‚¹‚È‚¢‚æ‚¤‚ÉƒŠƒZƒbƒg
                     rCount = 0;
                 }
             }
@@ -208,7 +208,7 @@ AbstractScene* sinkeisuijaku::Update()
                 randend = 1;
             }
         
-            //ãƒˆãƒ©ãƒ³ãƒ—ã®é¸æŠ3å›ç›®ã§è£é¢ã«æˆ»ã™
+            //ƒgƒ‰ƒ“ƒv‚Ì‘I‘ğ3‰ñ–Ú‚Å— –Ê‚É–ß‚·
 
             if (rCount >= 2) {
                 pTime = pTime += 1;
@@ -226,7 +226,7 @@ AbstractScene* sinkeisuijaku::Update()
                     rCount = 0;
                     selectcount = 0;
 
-                    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ‰‹ç•ªãŒçµ‚äº†ã—ãŸã‚‰ã€isPlayerTurn ãƒ•ãƒ©ã‚°ã‚’ false ã«è¨­å®šã—ã€ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãƒ¼ã®ã‚¿ãƒ¼ãƒ³ã¸ç§»è¡Œã—ã¾ã™ã€‚
+                    // ƒvƒŒƒCƒ„[‚Ìè”Ô‚ªI—¹‚µ‚½‚çAisPlayerTurn ƒtƒ‰ƒO‚ğ false ‚Éİ’è‚µAƒRƒ“ƒsƒ…[ƒ^[‚Ìƒ^[ƒ“‚ÖˆÚs‚µ‚Ü‚·B
                     isPlayerTurn = 0;
                     isComputerTurn = 1;
                 }
@@ -236,7 +236,7 @@ AbstractScene* sinkeisuijaku::Update()
 
 
 
-            // æƒã£ãŸã‚«ãƒ¼ãƒ‰ã®ç¢ºèªã¨ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
+            // ‘µ‚Á‚½ƒJ[ƒh‚ÌŠm”F‚ÆƒƒbƒZ[ƒW•\¦
             for (int j = 0; j < 4; j++) {
                 for (int i = 0; i < 5; i++) {
                     if (trumps[j][i].flg == 1 ) {
@@ -256,7 +256,7 @@ AbstractScene* sinkeisuijaku::Update()
 
 
 
-            // ã‚«ãƒ¼ãƒ‰ã‚’é¸æŠã—ãŸã¨ãã®ç¨®é¡ã‚’2å›ã¾ã§è¨˜éŒ²
+            // ƒJ[ƒh‚ğ‘I‘ğ‚µ‚½‚Æ‚«‚Ìí—Ş‚ğ2‰ñ‚Ü‚Å‹L˜^
             if (selectcount == 1) {
                 test1 = trumps[S_ber][S2_ber].syurui;
                 testcount++;
@@ -276,7 +276,7 @@ AbstractScene* sinkeisuijaku::Update()
   
 
     if (isComputerTurn == 1) {
-        // ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãƒ¼ã®ã‚¿ãƒ¼ãƒ³
+        // ƒRƒ“ƒsƒ…[ƒ^[‚Ìƒ^[ƒ“
         ComputerTurn();
         lastSelect = -1;
     }
@@ -286,7 +286,7 @@ AbstractScene* sinkeisuijaku::Update()
 void sinkeisuijaku::Draw() const
 {
     SetFontSize(50);
-    DrawFormatString(20, 100, 0x00ffff, "æ®‹ã‚Šæ™‚é–“ %d", 5 - pTime / 10);
+    DrawFormatString(20, 100, 0x00ffff, "c‚èŠÔ %d", 5 - pTime / 10);
 
   
 
@@ -296,18 +296,18 @@ void sinkeisuijaku::Draw() const
 
 
 
-     // ãƒˆãƒ©ãƒ³ãƒ—ã®è¡¨ç¤º
+     // ƒgƒ‰ƒ“ƒv‚Ì•\¦
     for (int j = 0; j < 4; j++) {
         for (int i = 0; i < 5; i++) {
            
             if (trumps[j][i].visible == 0) {
             if (trumps[j][i].flg == 0) {
-                // ã‚«ãƒ¼ãƒ‰ãŒé¸æŠã•ã‚Œã¦ã„ãªã„å ´åˆã€ã‚«ãƒ¼ãƒ‰ã®è£ã‚’è¡¨ç¤º
+                // ƒJ[ƒh‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚È‚¢ê‡AƒJ[ƒh‚Ì— ‚ğ•\¦
                 DrawRotaGraph(400 + i * 120, 130 + j * 150, 1, 0, S_T[0], TRUE);
             }
             else {
                 if (trumps[j][i].syurui <= 10) {
-                    // ã‚«ãƒ¼ãƒ‰ãŒé¸æŠã•ã‚Œã¦ã„ã‚‹å ´åˆã€ã‚«ãƒ¼ãƒ‰ã®è¡¨ã‚’è¡¨ç¤º
+                    // ƒJ[ƒh‚ª‘I‘ğ‚³‚ê‚Ä‚¢‚éê‡AƒJ[ƒh‚Ì•\‚ğ•\¦
                     DrawGraph(340 + i * 120, 0 + j * 150, S_T[trumps[j][i].syurui], TRUE);
                 }
                 if (trumps[j][i].syurui > 10) {
@@ -315,34 +315,34 @@ void sinkeisuijaku::Draw() const
                 }
             }
         }
-            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚«ãƒ¼ãƒ‰ã‚’æƒãˆãŸã‚‰
+            //ƒvƒŒƒCƒ„[‚ªƒJ[ƒh‚ğ‘µ‚¦‚½‚ç
             if (trumps[j][i].visible == 1) {
                 DrawGraph(340 + i * 120, 0 + j * 150, S_T[42], TRUE);
             }
 
-            //ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãƒ¼ãŒã‚«ãƒ¼ãƒ‰ã‚’æƒãˆãŸã‚‰
+            //ƒRƒ“ƒsƒ…[ƒ^[‚ªƒJ[ƒh‚ğ‘µ‚¦‚½‚ç
             if (trumps[j][i].visible == 2) {
                     DrawGraph(340 + i * 120, 0 + j * 150, S_T[39], TRUE);
             }
     }
 }
 
-    // é¸æŠä¸­ã®ãƒˆãƒ©ãƒ³ãƒ—ã«ãƒã‚¤ãƒ©ã‚¤ãƒˆã‚’è¡¨ç¤º
+    // ‘I‘ğ’†‚Ìƒgƒ‰ƒ“ƒv‚ÉƒnƒCƒ‰ƒCƒg‚ğ•\¦
     DrawBox(355 + S2_ber * 120, 55 + S_ber * 150, 450 + S2_ber * 120, 200 + S_ber * 150, 0xff0000, FALSE);
 
 
  
 
 
-    // ãã®ä»–ã®æƒ…å ±è¡¨ç¤º
-    DrawFormatString(100, 180, 0xfff00f, "ç¨®é¡%d", trumps[S_ber][S2_ber].syurui);
+    // ‚»‚Ì‘¼‚Ìî•ñ•\¦
+    DrawFormatString(100, 180, 0xfff00f, "í—Ş%d", trumps[S_ber][S2_ber].syurui);
 
-    // ã‚¿ãƒ¼ãƒ³æƒ…å ±è¡¨ç¤º
+    // ƒ^[ƒ“î•ñ•\¦
     if (first == 1) {
-        DrawFormatString(50, 30, 0xff00ff, "å…ˆè¡Œã§ã™ï¼");
+        DrawFormatString(50, 30, 0xff00ff, "æs‚Å‚·I");
     }
     else {
-        DrawFormatString(50, 30, 0xff00ff, "å¾Œæ”»ã§ã™ï¼");
+        DrawFormatString(50, 30, 0xff00ff, "ŒãU‚Å‚·I");
     }
 }
 
@@ -350,7 +350,7 @@ void sinkeisuijaku::ComputerTurn()
 {
  
     if (count >= 10) {
-        //ã‚«ã‚¦ãƒ³ãƒˆ
+        //ƒJƒEƒ“ƒg
         cTime++;
     
 
@@ -358,7 +358,7 @@ void sinkeisuijaku::ComputerTurn()
 
             int randRow, randCol, randRow2, randCol2;
 
-            // ãƒ©ãƒ³ãƒ€ãƒ ãªåº§æ¨™ã‚’ç”Ÿæˆ
+            // ƒ‰ƒ“ƒ_ƒ€‚ÈÀ•W‚ğ¶¬
             do {
                 randRow = rand() % 4;
                 randCol = rand() % 5;
@@ -367,11 +367,11 @@ void sinkeisuijaku::ComputerTurn()
             do {
                 randRow2 = rand() % 4;
                 randCol2 = rand() % 5;
-            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1 || trumps[randRow][randCol].visible == 2 || trumps[randRow][randCol].visible == 1 || trumps[randRow2][randCol2].visible == 1);  // 2æšç›®ãŒ1æšç›®ã¨ç•°ãªã‚‹åº§æ¨™ã«ãªã‚‹ã‚ˆã†ã«
+            } while (randRow2 == randRow && randCol2 == randCol || trumps[randRow2][randCol2].visible == 1 || trumps[randRow][randCol].visible == 2 || trumps[randRow][randCol].visible == 1 || trumps[randRow2][randCol2].visible == 1);  // 2–‡–Ú‚ª1–‡–Ú‚ÆˆÙ‚È‚éÀ•W‚É‚È‚é‚æ‚¤‚É
 
 
 
-                // é¸æŠã—ãŸ2æšã®ã‚«ãƒ¼ãƒ‰ã‚’ã‚ãã‚‹
+                // ‘I‘ğ‚µ‚½2–‡‚ÌƒJ[ƒh‚ğ‚ß‚­‚é
 
                 trumps[randRow][randCol].flg = 1;
                 trumps[randRow2][randCol2].flg = 1;
@@ -383,7 +383,7 @@ void sinkeisuijaku::ComputerTurn()
                     trumps[randRow2][randCol2].visible = 2;
                     selectcount = selectcount + 1;
 
-                    //ã‚«ãƒ¼ãƒ‰ãŒæƒã£ãŸå›æ•°ã‚’è¨˜éŒ²
+                    //ƒJ[ƒh‚ª‘µ‚Á‚½‰ñ”‚ğ‹L˜^
                     peacount = peacount + 1;
                 
             }
@@ -391,7 +391,7 @@ void sinkeisuijaku::ComputerTurn()
         }
 
 
-        //ã¨ã‚Šã‚ãˆãšã‚«ãƒ¼ãƒ‰ã‚’è£é¢ã«æˆ»ã™
+        //‚Æ‚è‚ ‚¦‚¸ƒJ[ƒh‚ğ— –Ê‚É–ß‚·
 
         if (cTime % 50 == 0) {
                 for (int j = 0; j < 4; j++) {
@@ -400,7 +400,7 @@ void sinkeisuijaku::ComputerTurn()
                         trumps[j][i].flg2 = 100;
                     }
                 }
-            // ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãƒ¼ã®æ‰‹ç•ªãŒçµ‚äº†ã—ãŸã‚‰ã€isComputerTurn ãƒ•ãƒ©ã‚°ã‚’ false ã«è¨­å®šã—ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³ã¸ç§»è¡Œã—ã¾ã™ã€‚
+            // ƒRƒ“ƒsƒ…[ƒ^[‚Ìè”Ô‚ªI—¹‚µ‚½‚çAisComputerTurn ƒtƒ‰ƒO‚ğ false ‚Éİ’è‚µAƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“‚ÖˆÚs‚µ‚Ü‚·B
             isComputerTurn = 0;
             isPlayerTurn = 1;
             rebirth = 0;
