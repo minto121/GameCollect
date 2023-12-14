@@ -84,12 +84,18 @@ private:
 	int JustGoal; //ぴったりゴール用 
 
 	int MoveStoneFlg; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg2; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg3; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg4; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg5; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg6; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg2;
+	int MoveStoneFlg3; 
+	int MoveStoneFlg4; 
+	int MoveStoneFlg5; 
+	int MoveStoneFlg6; 
 
+	int MoveStoneFlg7; // 動いたかどうか確認するフラグ
+	int MoveStoneFlg8;
+	int MoveStoneFlg9;
+	int MoveStoneFlg10;
+	int MoveStoneFlg11;
+	int MoveStoneFlg12;
 public:
 	Mankara();
 	AbstractScene* Update();
