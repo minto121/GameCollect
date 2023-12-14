@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include <stdlib.h>
 #include <time.h>
+#include "GameSelect.h"
 sinkeisuijaku::sinkeisuijaku()
 {
     Select = LoadSoundMem("sound/SE/shuffle2.wav");
@@ -314,6 +315,13 @@ AbstractScene* sinkeisuijaku::Update()
         }
     }
 
+
+    if (Resultflg == 1) {
+        if ((g_KeyFlg & PAD_INPUT_1)) {
+            return new GameSelect();
+        }
+    }
+
     return this;
 }
 
@@ -322,21 +330,6 @@ void sinkeisuijaku::Draw() const
     if (Resultflg == 0) {
 
         SetFontSize(50);
-        DrawFormatString(20, 100, 0x00ffff, "残り時間 %d", 5 - pTime / 10);
-
-        DrawFormatString(100, 230, 0x00ffff, "first%d ", first);
-
-
-
- 
-
-
-
-
-
-
-
-
         // トランプの表示
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 5; i++) {
@@ -370,14 +363,7 @@ void sinkeisuijaku::Draw() const
 
 
         // 選択中のトランプにハイライトを表示
-        DrawBox(355 + S2_ber * 120, 55 + S_ber * 150, 450 + S2_ber * 120, 200 + S_ber * 150, 0xff0000, FALSE);
-
-
-
-
-
-        // その他の情報表示
-        DrawFormatString(100, 180, 0xfff00f, "種類%d", trumps[S_ber][S2_ber].syurui);
+        DrawBox(350 + S2_ber * 120, 55 + S_ber * 150, 455 + S2_ber * 120, 200 + S_ber * 150, 0xff00ff, FALSE);
 
         // ターン情報表示
         if (first == 1) {
