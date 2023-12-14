@@ -7,16 +7,16 @@
 
 
 
-// 先攻後攻を表示する画面
-void Reversi::FirstTurnScreen() {
-	DrawFormatString(100, 100, GetColor(255, 255, 255), "先攻後攻を決定します。");
-	DrawFormatString(100, 150, GetColor(255, 255, 255), "スペースキーを押してください。");
-
-	if (CheckHitKey(XINPUT_BUTTON_A)) {
-		SelectTurn();
-		// 先攻後攻が決まったら、ゲーム画面に遷移するなどの処理をここに追加
-	}
-}
+//// 先攻後攻を表示する画面
+//void Reversi::FirstTurnScreen() {
+//	DrawFormatString(100, 100, GetColor(255, 255, 255), "先攻後攻を決定します。");
+//	DrawFormatString(100, 150, GetColor(255, 255, 255), "スペースキーを押してください。");
+//
+//	if (CheckHitKey(XINPUT_BUTTON_A)) {
+//		SelectTurn();
+//		// 先攻後攻が決まったら、ゲーム画面に遷移するなどの処理をここに追加
+//	}
+//}
 
 Reversi::Reversi()
 {
