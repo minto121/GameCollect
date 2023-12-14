@@ -82,7 +82,7 @@ AbstractScene* Rabbit::Update()
 		case 0:
 			if (bord[5][3].flg = 0)
 			{
-
+				return 0;
 			};
 
 		default:
@@ -174,17 +174,3 @@ void Rabbit::Draw() const
 	}
 
 }
-
-//void Rabbit::DrawBord() const
-//{
-//	for (int i = 0; i < 5; i++) {
-//		for (int j = 0; j < 3; j++) {
-//			if (bord[i][j].flg == 1) {
-//				DrawBox(100, 100, 200, 200, 0xffffff, TRUE);
-//			}
-//			else if (bord[i][j].flg != 1) {
-//				DrawBox(10, 10, 20, 20, 0x000000, TRUE);
-//			}
-//		}
-//	}
-//}
