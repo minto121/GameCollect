@@ -9,7 +9,7 @@ Title::Title()
 {
 
 	//フォントの追加
-	MenuFont = CreateFontToHandle("HG創英角ﾎﾟｯﾌﾟ体", 64, 8, DX_FONTTYPE_ANTIALIASING);
+	MenuFont = CreateFontToHandle("HG創英角ﾎﾟｯﾌﾟ体", 64, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
 	now_menu = static_cast<int>(TITLE_MENU::GAME_START);
 	input_margin = 0;
 
@@ -115,9 +115,9 @@ void Title::Draw()const
 		const int margin_y = 100;
 
 		// 文字色
-		int color = 0x000000;
+		int color = 0xFFFFFF;
 		// 文字外枠色
-		int border_color = 0xFFFFFF;
+		int border_color = 0x000000;
 
 		// カーソルが合っている場合、文字色と文字外枠色を反転させる
 		if (now_menu == i) {

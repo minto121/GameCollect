@@ -11,12 +11,12 @@
 HitAndBlow::HitAndBlow()
 {
 	/* âÊëúì«Ç›çûÇ› */
-	TableBgImg = LoadGraph("../images/HitAndBlow/BackGround02.png");
+	TableBgImg = LoadGraph("images/HitAndBlow/BackGround02.png");
 
-	BoardImg = LoadGraph("../images/HitAndBlow/HitBlowBoard.png");
+	BoardImg = LoadGraph("images/HitAndBlow/HitBlowBoard.png");
 
-	LoadDivGraph("../images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
-	LoadDivGraph("../images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
+	LoadDivGraph("images/HitAndBlow/ColorBall.png", 6, 6, 1, 64, 64, ColorImg);
+	LoadDivGraph("images/HitAndBlow/HitBlowPin.png", 2, 2, 1, 32, 32, HitBlowImg);
 
 	/* BGMÅESEì«Ç›çûÇ› */
 	PutPinSE = LoadSoundMem("../sound/SE/PutPin.wav");
