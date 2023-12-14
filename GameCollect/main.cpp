@@ -41,7 +41,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new Porker());
+		sceneMng = new SceneManager((AbstractScene*)new Title());
 
 	}
 	catch (const char* err)

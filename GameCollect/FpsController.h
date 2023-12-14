@@ -30,7 +30,7 @@ public:
     //•`‰æˆ—
     void Disp() {
         SetFontSize(10);
-        DrawFormatString(10, 10, 0xffffff, "fps:%0.1f", Fps);
+       /* DrawFormatString(10, 10, 0xffffff, "fps:%0.1f", Fps);*/
         SetFontSize(24);
     }
     //ˆ—‚ğ‚Ü‚Æ‚ß‚½‚à‚Ì
