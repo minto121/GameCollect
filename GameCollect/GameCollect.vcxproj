@@ -95,6 +95,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <StackReserveSize>4194304</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,6 +130,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <StackReserveSize>4194304</StackReserveSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,8 +153,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Checkermain.cpp" />
+    <ClCompile Include="DotAndBox.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
@@ -178,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="DotAndBox.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="gomoku.h" />
