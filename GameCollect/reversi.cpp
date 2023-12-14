@@ -484,38 +484,38 @@ void Reversi::turn()
 
 }
 
-void SelectTurn()
-{
-	static int turn = 0;
-	//カーソルを右移動させる
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+//void SelectTurn()
+//{
+//	static int turn = 0;
+//	//カーソルを右移動させる
+//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+//
+//
+//	}
+//	//カーソルを左移動させる
+//	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+//
+//	}
+//
+//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+//	{
+//		switch (turn)
+//		{
+//		case 0:
+//			Sto.Typ
+//		default:
+//			break;
+//		}
+//	}
+//
+//	DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+//}
 
-
-	}
-	//カーソルを左移動させる
-	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-
-	}
-
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	{
-		switch (turn)
-		{
-		case 0:
-			Sto.Typ
-		default:
-			break;
-		}
-	}
-
-	DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
-}
-
-void Reversi::SelectTurn()
-{
-	//0ならプレイヤーのターン
-	PTurn = (GetRand(2) == 0);
-}
+//void Reversi::SelectTurn()
+//{
+//	//0ならプレイヤーのターン
+//	PTurn = (GetRand(2) == 0);
+//}
 
 
 
