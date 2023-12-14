@@ -3,26 +3,34 @@
   <ItemGroup>
     <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="FpsController.cpp" />
-    <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Porker.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="Hanafuda_GameMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Hit&amp;Blow.cpp" />
+    <ClCompile Include="Porker.cpp" />
     <ClCompile Include="GameSelect.cpp" />
     <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="Hound.cpp" />
+    <ClCompile Include="reversi.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
+    <ClCompile Include="SixBallPuzzle.cpp" />
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
     <ClCompile Include="gomoku_TitleScene.cpp" />
-    <ClCompile Include="Hanafuda_GameMain.cpp" />
-    <ClCompile Include="Chekkermain.cpp" />
-    <ClCompile Include="reversi.cpp" />
-    <ClCompile Include="SixBollPuzzle.cpp" />
+    <ClCompile Include="gomoku_HelpScene.cpp" />
+    <ClCompile Include="Hex_GameMain.cpp" />
+    <ClCompile Include="LastCard.cpp" />
+    <ClCompile Include="DotAndBox.cpp" />
+    <ClCompile Include="Line.cpp" />
+     <ClCompile Include="GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gomoku_AI.h" />
@@ -34,19 +42,26 @@
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
-    <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="PadInput.h" />
-    <ClInclude Include="GameSelect.h" />
     <ClInclude Include="takoyaki.h" />
-    <ClInclude Include="Title.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
-    <ClInclude Include="sinkeisuijaku.h" />
-    <ClInclude Include="Hanafuda_GameMain.h" />
-    <ClInclude Include="Chekkermain.h" />
+    <ClInclude Include="Hound.h" />
     <ClInclude Include="reversi.h" />
-    <ClInclude Include="SixBollPuzzle.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="gomoku_HelpScene.h" />
+    <ClInclude Include="SixBallPuzzle.h" />
+    <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="LastCard.h" />
+    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="PadInput.h" />
+    <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="Select.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="Hanafuda_GameMain.h" />
+    <ClInclude Include="DotAndBox.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="GameMain.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />
