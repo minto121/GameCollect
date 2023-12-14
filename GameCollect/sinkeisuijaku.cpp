@@ -20,6 +20,9 @@ sinkeisuijaku::sinkeisuijaku()
     }
     else {
         isComputerTurn = 1;
+
+
+
     }
 }
 
