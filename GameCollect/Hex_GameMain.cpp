@@ -31,7 +31,8 @@ AbstractScene* Hex::Update() {
 		}
 		if (TurnFlg % 2 == 0) {
 			TurnSave = TurnFlg;
-			Enemy();
+			//Enemy();
+			Select();
 		}
 		Check_P();
 		Check_E();
@@ -55,15 +56,26 @@ void Hex::Draw()const {
 		DrawStage();
 
 		DrawGraph(gStage[Select_i][Select_j].x, gStage[Select_i][Select_j].y, GreenHexImg, TRUE);
-
+		if (TurnFlg % 2 == 1) {
+			SetFontSize(24);
+			DrawString(0, 0, "Turn:Player1", 0xffffff, 0x000000);
+		}
+		else {
+			SetFontSize(24);
+			DrawString(0, 0, "Turn:Player2", 0xffffff, 0x000000);
+		}
 		//DrawGraph(gStage[1][2].x, gStage[1][2].y, GreenHexImg, TRUE);
 
 	}
 	if (ClearFlg == 1) {
-		DrawGraph(0, 0, BackImg, FALSE);
+		DrawGraph(0, 0, BackImg, TRUE);
+		SetFontSize(36);
+		DrawString(360, 456, "Player1Win", 0xffffff, 0x000000);
 	}
 	else if (ClearFlg == 2) {
-		DrawGraph(615, 335, GreenHexImg, TRUE);
+		DrawGraph(0, 0, BackImg, TRUE);
+		SetFontSize(36);
+		DrawString(360, 456, "Player2Win", 0xffffff, 0x000000);
 	}
 }
 
@@ -137,17 +149,19 @@ void Hex::Select() {
 			}
 		}
 	}
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	{
-		if (gStage[Select_i][Select_j].flg == 0) {
-			gStage[Select_i][Select_j].flg = 1;
-			Select_i = 6;
-			Select_j = 6;
-			TurnFlg++;
+	if (TurnFlg % 2 == 1) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (gStage[Select_i][Select_j].flg == 0) {
+				gStage[Select_i][Select_j].flg = 1;
+				Select_i = 6;
+				Select_j = 6;
+				TurnFlg++;
+			}
 		}
 	}
-	/*if (TurnFlg % 2 == 0) {
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+	if (TurnFlg % 2 == 0) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			if (gStage[Select_i][Select_j].flg == 0) {
 				gStage[Select_i][Select_j].flg = 2;
@@ -156,7 +170,7 @@ void Hex::Select() {
 				TurnFlg++;
 			}
 		}
-	}*/
+	}
 }
 
 //ステージ描画
@@ -412,176 +426,176 @@ void Hex::Check_E() {
 	}
 }
 
-void Hex::Enemy() {
-
-	int x = 1;
-	int y = 1;
-	int rand = GetRand(1);
-
-	if (TurnFlg == 0) {
-		gStage[6][6].flg = 2;
-		TurnFlg++;
-	}
-	else if (TurnFlg == 1) {
-		if (gStage[6][6].flg == 0) {
-			gStage[6][6].flg = 2;
-			TurnFlg++;
-		}	
-		else if (gStage[4][8].flg != 0) {
-		gStage[4][8].flg = 2;
-		TurnFlg++;
-		}
-	}
-
-	if(TurnFlg > 1){
-		rand = GetRand(1);
-		switch (rand) {	//0:左下 1:左
-		case 0:
-			for (int i = 1; i < 12; i++) {
-				for (int j = 1; j < 12; j++) {
-					if (gStage[i][j].flg == 2) {
-						x = i;
-						y = j;
-						rand = GetRand(1);
-						switch (rand) {
-						case 0:	//左下
-							x = x - 2;
-							--y;
-							//制限
-							if (x <= 0 || x > 11 || y <= 0 || y > 11) {
-								break;
-							}//配置
-							else if (gStage[x][y].flg == 0) {
-								gStage[x][y].flg = 2;
-								x = i;
-								y = j;
-								TurnFlg++;
-								break;
-							}
-							else {
-								x = i;
-								y = j;
-							}
-						case 1:	//左
-							++x;
-							++y;
-							//制限
-							if (x <= 0 || x > 11 || y <= 0 || y > 11) {
-								break;
-							}//配置
-							else if(gStage[x][y].flg == 0) {
-								gStage[x][y].flg = 2;
-								x = i;
-								y = j;
-								TurnFlg++;
-								break;
-							}
-							else {
-								x = i;
-								y = j;
-								rand = GetRand(2);
-								switch(rand){
-								case 0:	//下
-									if (gStage[++x][--y].flg == 0) {
-										gStage[x][y].flg = 2;
-										x = i;
-										y = j;
-										TurnFlg++;
-										break;
-									}
-									else {
-										x = i;
-										y = j;
-									}
-								case 1:	//左下１
-									if (gStage[++x][y].flg == 0) {
-										gStage[x][y].flg = 2;
-										x = i;
-										y = j;
-										TurnFlg++;
-										break;
-									}
-									else {
-										x = i;
-										y = j;
-									}
-								case 2:	//左上１
-									if (gStage[x][++y].flg == 0) {
-										gStage[x][y].flg = 2;
-										x = i;
-										y = j;
-										TurnFlg++;
-										break;
-									}
-									else {
-										x = i;
-										y = j;
-									}
-								}
-							}
-						}
-						////右上
-						//if (gStage[++i][j - 2].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
-						//	gStage[i][j].flg = 2;
-						//	TurnFlg++;
-						//	break;
-						//}
-						////右
-						//else if (gStage[--i][--j].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
-						//	gStage[i][j].flg = 2;
-						//	TurnFlg++;
-						//	break;
-						//}
-						//else {
-						//	rand = GetRand(2);
-						//	switch (rand) {
-						//	case 0:
-						//		if (gStage[--i][j].flg == 0) {
-						//			gStage[i][j].flg = 2;
-						//			TurnFlg++;
-						//		}
-						//		break;
-						//	case 1:
-						//		if (gStage[i][--j].flg == 0) {
-						//			gStage[i][j].flg = 2;
-						//			TurnFlg++;
-						//		}
-						//		break;
-						//	case 2:
-						//		if (gStage[++i][--j].flg == 0) {
-						//			gStage[i][j].flg = 2;
-						//			TurnFlg++;
-						//		}
-						//		break;
-						//	}
-						//	break;
-						//}
-					}
-				}
-				if (TurnSave != TurnFlg)break;
-			}
-		case 1:
-			for (int i = 12; i > 1; i--) {
-				for (int j = 1; j < 12; j++) {
-					if (gStage[i][j].flg == 2) {
-						
-					}
-				}
-				if (TurnSave != TurnFlg)break;
-			}
-			break;
-		}
-	}
-	if (TurnSave == TurnFlg) {
-		for (int i = 1; i < 12; i++) {
-			for (int j = 1; j < 12; j++) {
-				if (gStage[j][i].flg == 0) {
-					gStage[j][i].flg = 2;
-					TurnFlg++;
-					break;
-				}
-			}
-			if (TurnSave != TurnFlg)break;
-		}
-	}
-}
+//void Hex::Enemy() {
+//
+//	int x = 1;
+//	int y = 1;
+//	int rand = GetRand(1);
+//
+//	if (TurnFlg == 0) {
+//		gStage[6][6].flg = 2;
+//		TurnFlg++;
+//	}
+//	else if (TurnFlg == 1) {
+//		if (gStage[6][6].flg == 0) {
+//			gStage[6][6].flg = 2;
+//			TurnFlg++;
+//		}	
+//		else if (gStage[4][8].flg != 0) {
+//		gStage[4][8].flg = 2;
+//		TurnFlg++;
+//		}
+//	}
+//
+//	if(TurnFlg > 1){
+//		rand = GetRand(1);
+//		switch (rand) {	//0:左下 1:左
+//		case 0:
+//			for (int i = 1; i < 12; i++) {
+//				for (int j = 1; j < 12; j++) {
+//					if (gStage[i][j].flg == 2) {
+//						x = i;
+//						y = j;
+//						rand = GetRand(1);
+//						switch (rand) {
+//						case 0:	//左下
+//							x = x - 2;
+//							--y;
+//							//制限
+//							if (x <= 0 || x > 11 || y <= 0 || y > 11) {
+//								break;
+//							}//配置
+//							else if (gStage[x][y].flg == 0) {
+//								gStage[x][y].flg = 2;
+//								x = i;
+//								y = j;
+//								TurnFlg++;
+//								break;
+//							}
+//							else {
+//								x = i;
+//								y = j;
+//							}
+//						case 1:	//左
+//							++x;
+//							++y;
+//							//制限
+//							if (x <= 0 || x > 11 || y <= 0 || y > 11) {
+//								break;
+//							}//配置
+//							else if(gStage[x][y].flg == 0) {
+//								gStage[x][y].flg = 2;
+//								x = i;
+//								y = j;
+//								TurnFlg++;
+//								break;
+//							}
+//							else {
+//								x = i;
+//								y = j;
+//								rand = GetRand(2);
+//								switch(rand){
+//								case 0:	//下
+//									if (gStage[++x][--y].flg == 0) {
+//										gStage[x][y].flg = 2;
+//										x = i;
+//										y = j;
+//										TurnFlg++;
+//										break;
+//									}
+//									else {
+//										x = i;
+//										y = j;
+//									}
+//								case 1:	//左下１
+//									if (gStage[++x][y].flg == 0) {
+//										gStage[x][y].flg = 2;
+//										x = i;
+//										y = j;
+//										TurnFlg++;
+//										break;
+//									}
+//									else {
+//										x = i;
+//										y = j;
+//									}
+//								case 2:	//左上１
+//									if (gStage[x][++y].flg == 0) {
+//										gStage[x][y].flg = 2;
+//										x = i;
+//										y = j;
+//										TurnFlg++;
+//										break;
+//									}
+//									else {
+//										x = i;
+//										y = j;
+//									}
+//								}
+//							}
+//						}
+//						////右上
+//						//if (gStage[++i][j - 2].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
+//						//	gStage[i][j].flg = 2;
+//						//	TurnFlg++;
+//						//	break;
+//						//}
+//						////右
+//						//else if (gStage[--i][--j].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
+//						//	gStage[i][j].flg = 2;
+//						//	TurnFlg++;
+//						//	break;
+//						//}
+//						//else {
+//						//	rand = GetRand(2);
+//						//	switch (rand) {
+//						//	case 0:
+//						//		if (gStage[--i][j].flg == 0) {
+//						//			gStage[i][j].flg = 2;
+//						//			TurnFlg++;
+//						//		}
+//						//		break;
+//						//	case 1:
+//						//		if (gStage[i][--j].flg == 0) {
+//						//			gStage[i][j].flg = 2;
+//						//			TurnFlg++;
+//						//		}
+//						//		break;
+//						//	case 2:
+//						//		if (gStage[++i][--j].flg == 0) {
+//						//			gStage[i][j].flg = 2;
+//						//			TurnFlg++;
+//						//		}
+//						//		break;
+//						//	}
+//						//	break;
+//						//}
+//					}
+//				}
+//				if (TurnSave != TurnFlg)break;
+//			}
+//		case 1:
+//			for (int i = 12; i > 1; i--) {
+//				for (int j = 1; j < 12; j++) {
+//					if (gStage[i][j].flg == 2) {
+//						
+//					}
+//				}
+//				if (TurnSave != TurnFlg)break;
+//			}
+//			break;
+//		}
+//	}
+//	if (TurnSave == TurnFlg) {
+//		for (int i = 1; i < 12; i++) {
+//			for (int j = 1; j < 12; j++) {
+//				if (gStage[j][i].flg == 0) {
+//					gStage[j][i].flg = 2;
+//					TurnFlg++;
+//					break;
+//				}
+//			}
+//			if (TurnSave != TurnFlg)break;
+//		}
+//	}
+//}
