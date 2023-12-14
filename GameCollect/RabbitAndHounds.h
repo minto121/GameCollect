@@ -36,8 +36,8 @@ public:
 	//•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ðŽÀ‘•
 	void Draw() const override;
 
-	void RabbitPiece();
-	void HoundIPiece();
+	/*void RabbitPiece();
+	void HoundIPiece();*/
 
 };
 

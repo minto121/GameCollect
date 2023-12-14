@@ -4,7 +4,7 @@
 #include "DxLib.h"
 //#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
 #include"Hit&Blow.h"
-//#include"Hanafuda_GameMain.h"
+#include "Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
@@ -21,67 +21,59 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-// 操作間隔時間
-const int max_input_margin = 15;
-// スティックの感度
-const int stick_sensitivity = 20000;
+	// 操作間隔時間
+	const int max_input_margin = 15;
+	// スティックの感度
+	const int stick_sensitivity = 20000;
 
-if (input_margin < max_input_margin) {
-	input_margin++;
-}
-else {
-	// スティックのY座標を取得
-	int stick_y = PAD_INPUT::GetLStick().ThumbY;
-
-	if (std::abs(stick_y) > stick_sensitivity) {
-		//playsoundmem
-		// スティックが上に移動した場合
-		if (stick_y > 0) {
-			// メニュー選択肢を一つ前に移動
-			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
-		}
-		// スティックが下に移動した場合
-		else if (stick_y < 0) {
-			// メニュー選択肢を一つ次に移動
-			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
-		}
-		input_margin = 0;
+	if (input_margin < max_input_margin) {
+		input_margin++;
 	}
-}
-if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
-{
-	input_margin = 0;
-	SELECT current_selection = static_cast<SELECT>(now_menu);
-	switch (current_selection)
+	else {
+		// スティックのY座標を取得
+		int stick_y = PAD_INPUT::GetLStick().ThumbY;
+
+		if (std::abs(stick_y) > stick_sensitivity) {
+			//playsoundmem
+			// スティックが上に移動した場合
+			if (stick_y > 0) {
+				// メニュー選択肢を一つ前に移動
+				now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
+			}
+			// スティックが下に移動した場合
+			else if (stick_y < 0) {
+				// メニュー選択肢を一つ次に移動
+				now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
+			}
+			input_margin = 0;
+		}
+	}
+	if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true))
 	{
-	/*case SELECT::sinnkeisuizyaku:
-			return new sinkeisuijaku(); // エラー出るので、一旦コメントアウト中
-			break;*/ 
-	case SELECT::rabbiitdog:
+		input_margin = 0;
+		SELECT current_selection = static_cast<SELECT>(now_menu);
+		switch (current_selection)
+		{
+			/*case SELECT::sinnkeisuizyaku:
+					return new sinkeisuijaku(); // エラー出るので、一旦コメントアウト中
+					break;*/
+		case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
-	/*case SELECT::Hanafuda:
-		return new Hanafuda();
-		break;*/
-	/*case LEVEL::NORMAL:
-	{
-		return new GameMain(current_selection);
-		break;
-	}
-	case LEVEL::HARD:
-		return new GameMain(current_selection);
-		break;*/
-	case SELECT::Hitblow:
-		return new HitAndBlow();
-		break;
+		case SELECT::HanafudaD:
+			return new Hanafuda();
+			break;
+		case SELECT::Hitblow:
+			return new HitAndBlow();
+			break;
 
-	default:
-		printfDx("未実装な機能です。\n");
-		break;
+		default:
+			printfDx("未実装な機能です。\n");
+			break;
+		}
 	}
-}
 
-return this;
+	return this;
 }
 
 

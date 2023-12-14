@@ -3,9 +3,8 @@
 #include"PadInput.h"
 #include "Title.h"
 #include "FpsController.h"
-//#include"Hanafuda_GameMain.h"
+#include"Hanafuda_GameMain.h"
 #include "takoyaki.h"
-//#include"Hanafuda_GameMain.h"
 //#include "Checkermain.h"
 #include "SixBollPuzzle.h"
 #include "RabbitAndHounds.h"
@@ -42,7 +41,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
+		sceneMng = new SceneManager((AbstractScene*)new Hanafuda());
 
 	}
 	catch (const char* err)

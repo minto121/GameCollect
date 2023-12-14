@@ -15,16 +15,20 @@
     <ClCompile Include="RabbitAndHounds.cpp" />
     <ClCompile Include="Rabbit.cpp" />
     <ClCompile Include="sinkeisuijaku.cpp" />
-    <ClCompile Include="gomoku.cpp"/>
-    <ClCompile Include="gomokuScene.cpp"/>
-    <ClCompile Include="gomoku_AI.cpp"/>
-    <ClCompile Include="gomoku_TitleScene.cpp"/>
+    <ClCompile Include="gomoku.cpp" />
+    <ClCompile Include="gomokuScene.cpp" />
+    <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_TitleScene.cpp" />
+    <ClCompile Include="Hanafuda_GameMain.cpp" />
+    <ClCompile Include="Chekkermain.cpp" />
+    <ClCompile Include="reversi.cpp" />
+    <ClCompile Include="SixBollPuzzle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="gomoku_AI.h"/>
-    <ClInclude Include="gomokuScene.h"/>
-    <ClInclude Include="gomoku.h"/>
-    <ClInclude Include="gomoku_TitleScene.h"/>
+    <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomokuScene.h" />
+    <ClInclude Include="gomoku.h" />
+    <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
@@ -39,6 +43,10 @@
     <ClInclude Include="RabbitAndHounds.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="Hanafuda_GameMain.h" />
+    <ClInclude Include="Chekkermain.h" />
+    <ClInclude Include="reversi.h" />
+    <ClInclude Include="SixBollPuzzle.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />
