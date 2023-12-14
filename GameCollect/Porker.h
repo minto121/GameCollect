@@ -136,6 +136,16 @@ private:
 	int Hand[9];
 
 	int GameOver;
+
+	int R_Win[2];
+
+	int W_point[2];
+
+	int PP[5];
+
+	int EP[5];
+
+	int WL[2];
 public:
 
 	Porker();
@@ -163,6 +173,7 @@ public:
 	void ROUND_UI();
 	void HAND();
 	void GAMEOVER();
+	void WINANDLOSE();
 
 	//void ();
 };
