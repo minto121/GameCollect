@@ -487,7 +487,7 @@ void Hanafuda::Draw()const
 	case 3:
 		//ŽRŽD
 		DrawRotaGraph(200, 345, 0.6f, 0, UraImg, TRUE);
-		DrawFormatString(200, 245, GetColor(255, 0, 0), "%dŒŽ", Y_month);
+		//DrawFormatString(200, 245, GetColor(255, 0, 0), "%dŒŽ", Y_month);
 		//Player
 		if (Player[0].display == TRUE) {
 			DrawRotaGraph(Player[0].FudaX, Player[0].FudaY, 0.6f, 0, Player[0].Img, TRUE);

@@ -8,7 +8,7 @@ enum class  SELECT {
     Gomoku,
     Osero,
     Hekusu,
-    HanafudaD,
+    Hanafuda,
     poker,
     sixballpuzzle,
     sinnkeisuizyaku,
