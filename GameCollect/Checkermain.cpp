@@ -338,6 +338,12 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 
 			 F_totteta = false;
 			 cantake = false;
+			 return true;
+		 }
+		 else if (board[StartX + 1][StartY + 1] == 0 && board[StartX - 1][StartY + 1] == 0) {
+			 	 F_totteta = false;
+			 cantake = false;
+			 return true;
 		 }
 		
 	}
