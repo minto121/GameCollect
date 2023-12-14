@@ -25,6 +25,7 @@
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
     <ClCompile Include="gomoku_TitleScene.cpp" />
+    <ClCompile Include="gomoku_HelpScene.cpp" />
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="LastCard.cpp" />
     <ClCompile Include="DotAndBox.cpp" />
@@ -36,6 +37,9 @@
     <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomoku_TitleScene.h" />
+    <ClInclude Include="AbstractScene.h" />
+    <ClInclude Include="Checkermain.h" />
+    <ClInclude Include="FpsController.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="takoyaki.h" />
@@ -45,12 +49,10 @@
     <ClInclude Include="Hound.h" />
     <ClInclude Include="reversi.h" />
     <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="gomoku_HelpScene.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="LastCard.h" />
-    <ClInclude Include="AbstractScene.h" />
-    <ClInclude Include="Checkermain.h" />
-    <ClInclude Include="FpsController.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />

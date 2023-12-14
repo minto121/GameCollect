@@ -1,5 +1,6 @@
 #pragma once
 #include"AbstractScene.h"
+#include <windows.h>
 #define GAME_FUDA 8 //場（自分の手札、相手の手札、置き札それぞれの最初の枚数　８）
 //#define KAS 24  //カス　全部で２４枚
 //#define TAN 10  //タン　全部で１０枚
@@ -44,8 +45,52 @@ private:
 			bool display = FALSE; //表示
 		}Hikari;//取り札配列　光札　５
 		struct Hikari hikari[5];
+		bool TaneYaku = FALSE;
+		bool TanYaku = FALSE;
+		bool KasYaku = FALSE;
 	}P_MOTIFUDA;
 	struct P_MOTIFUDA P_Motifuda;
+
+	//敵の持ち札
+	typedef struct E_MOTIFUDA {
+		int kas_count = 0; //役用カウント
+		typedef struct Kas {
+			int x;
+			int y;
+			int Img;
+			bool display = FALSE; //表示
+		}Kas;
+		struct Kas kas[24];//取り札配列　カス　２４
+		int tan_count = 0; //役用カウント
+		typedef struct Tan {
+			int x;
+			int y;
+			int Img;
+			bool display = FALSE; //表示
+		}Tan;
+		struct Tan tan[10];//取り札配列　タン　１０
+		int tane_count = 0;  //役用カウント
+		typedef struct Tane {
+			int x;
+			int y;
+			int Img;
+			bool display = FALSE; //表示
+		}Tane;
+		struct Tane tane[9];//取り札配列　タネ　９
+		int hikari_count = 0;
+		typedef struct Hikari {
+			int x;
+			int y;
+			int Img;
+			bool display = FALSE; //表示
+		}Hikari;//取り札配列　光札　５
+		struct Hikari hikari[5];
+		bool TaneYaku = FALSE;
+		bool TanYaku = FALSE;
+		bool KasYaku = FALSE;
+	}E_MOTIFUDA;
+	struct E_MOTIFUDA E_Motifuda;
+
 	//取り札構造体（取り札情報の代入先、最大８枚）の情報を持ち札に代入
 	typedef struct TORIFUDA { //0が手札からだした時の取り札、
 		int Img;              //1は山札から出したときの取り札か総取りするに１から３を使う
@@ -63,14 +108,14 @@ private:
 	//手札から場に出す札の構造体（選択した手札情報の代入先、場の札とは月で判定する、ゲームとして完成するまでは移動場の横に移動する）
 	typedef struct JUDGEFUDA {
 		int Img;
-		int month;
-		int judgeX;
-		int judgeY;
+		int month = 0;
+		int X;
+		int Y;
+		bool display = FALSE;
 		bool Hikari = FALSE;
 		bool Tane = FALSE;
 		bool Tan = FALSE;
 		bool Kas = FALSE;
-	    bool Judge = FALSE;
 	}JUDGEFUDA;
 	struct JUDGEFUDA Judgefuda;
 	//札の構造体
@@ -98,8 +143,8 @@ private:
 	}PLAYER;
 	struct PLAYER Player[8];
 	int P_count = 0; //手札の数
-	int GameScore = 0;  //ゲーム中のスコア（こいこい時などで扱う）
-	int TotalScore = 0; //最終的な勝敗を決めるスコア
+	int P_Score = 0;  //ゲーム中のスコア（こいこい時などで扱う）
+	int P_TotalScore = 0;//最終的な勝敗を決めるスコア
 	//敵の構造体
 	typedef struct ENEMY {
 			int Img; //札画像
@@ -114,7 +159,7 @@ private:
 			bool in = FALSE;
 	}ENEMY;
 	struct ENEMY Enemy[8];
-	int E_GameScore = 0; //ゲーム中のスコア(こいこい時などで扱う)
+	int E_Score = 0; //ゲーム中のスコア(こいこい時などで扱う)
 	int E_TotalScore = 0; //最終的な勝敗を決めるスコア
 	int E_count= 0; //手札の数
 	//置き札（場）の構造体（最大１２枚置ける、）
@@ -127,25 +172,33 @@ private:
 		bool Tane = FALSE;
 		bool Tan = FALSE;
 		bool Kas = FALSE;
-		bool diplay = FALSE;
+		bool display = FALSE;
 		bool in = FALSE;
 	}FIELD;
 	struct FIELD Field[12];
 	int F_count = 0;//置き札の枚数（場の札の増減時に使うカウント用）
+
 	typedef struct YAMAFUDA {
 		int Img;
 		int month;
 		int X;
 		int Y;
-		bool draw = FALSE;
 		int judge = 0;
 		bool Hikari = FALSE;
 		bool Tane = FALSE;
 		bool Tan = FALSE;
 		bool Kas = FALSE;
+		bool display = FALSE;
 	}YAMAFUDA;
 	struct YAMAFUDA yamafuda;
 
+	typedef struct OyaGime {
+		int P_Img;
+		int P_month;
+		int E_Img;
+		int E_month;
+	}OyaGime;
+	struct OyaGime oyagime;
 	int FudaImg[48]; //札画像
 	int UraImg; //札裏画像
 	int U_Img;
@@ -176,10 +229,14 @@ private:
 	int Gameflg;
 	int P_shuffleflg;
 	int E_shuffleflg;
-	int CursorX; //手持ち札カーソル座標（X軸）
-	int CursorY; //手持ち札カーソル座標（Y軸）
-	int CenterX;
-	int CenterY;
+	int P_CursorX; //手持ち札カーソル座標（X軸）
+	int P_CursorY; //手持ち札カーソル座標（Y軸）
+	int E_CursorX;
+	int E_CursorY;
+	int P_CenterX;
+	int P_CenterY;
+	int E_CenterX;
+	int E_CenterY;
 	int Trash = 0;
 	int P_fudaImg;
 	int E_fudaImg;
@@ -187,13 +244,22 @@ private:
 	int s = 0;
 	int x = 0;
 	int stick_x;
+	int Sute = 0;
+	int FieldCount = 0;
+	int MoveJudge = 0;
+	int K_Judge = 0;
+	int Y_month;
+	bool P_Win = FALSE;
+	bool E_Win = FALSE;
 	bool P_turn = FALSE;
 	bool E_turn = FALSE; //ターン判定
 	bool P_draw = FALSE;
 	bool E_draw = FALSE; //山札から引く判定
 	bool Moveflg = FALSE;
-	bool Cursor = FALSE;
-	bool MoveCursor = FALSE;
+	bool P_Cursor = FALSE;
+	bool E_Cursor = FALSE;
+	bool P_MoveCursor = FALSE;
+	bool E_MoveCursor = FALSE;
 public:
 	Hanafuda();
 	~Hanafuda();
@@ -201,22 +267,24 @@ public:
 	void Draw()const;
 	void shuffleFuda(); //札配布
 	void OyaGime();// 親決め
-	void Oyaban();
-	void Koban();
-	//void Month();
+	void P_ban();
+	void E_ban();
 	void location();
-	/*void Init();*/
+	void Init();
 	void Tefudalocation();
 	void Hiku();
 	void Move();
-	void Init(); //初期化
-	/*void FudaMove();*/
-	//void Kas();
-	//void Tan();
-	//void Tane();
-	//int Akatan();
-	//int Aotan();
-	//int Inosikatyou();
+	void Sutefuda();
+	void Judge();
+	void Koikoi();
+	//void Agari();
+	//役
+	void Tane();
+	void Tan();
+	void Kas();
+	//void Akatan();
+	//void Aotan();
+	//void Inosikatyou();
 	//int Hanami();
 	//int Tukimi();
 	//int Sankou();

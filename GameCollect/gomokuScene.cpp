@@ -5,10 +5,16 @@
 
 gomokuScene::gomokuScene()
 {
-	TitleImg = LoadGraph("../images/Gomoku/gomoku.png");
-	wTopImg = LoadGraph("../images/Gomoku/BK.png");
-	bTopImg = LoadGraph("../images/Gomoku/WK.png");
-	gomoku_BackImg = LoadGraph("../images/Gomoku/BackGround02.png");
+	TitleImg = LoadGraph("images/Gomoku/gomoku.png");
+	wTopImg = LoadGraph("images/Gomoku/BK.png");
+	bTopImg = LoadGraph("images/Gomoku/WK.png");
+	gomoku_BackImg = LoadGraph("images/Gomoku/BackGround02.png");
+	gomoku_HelpImg1 = LoadGraph("images/Gomoku/BackGround_Help.png");
+	gomoku_HelpImg2 = LoadGraph("images/Gomoku/BackGround_Help2.png");
+	gomoku_BGM1 = LoadSoundMem("sound/BGM/gomoku_BGM1.wav");
+	gomoku_ScrollSE = LoadSoundMem("sound/SE/gomoku_scroll.wav");
+	gomoku_SE1 = LoadSoundMem("sound/SE/gomoku_EnterSE.wav");
+	gomoku_SE2 = LoadSoundMem("sound/SE/gomoku_ExitSE.wav");
 	cX = 0;
 	cY = 0;
 	bCount = 0;
@@ -37,8 +43,11 @@ gomokuScene::gomokuScene()
 	gomoku_Result_WaitTime = 0;
 	gomoku_elapsedturn = 0;
 	gomoku_Cursordisplaytime = 0;
-
-
+	gomoku_SoundStart = 0;
+	gomoku_HelpDisplayflg = 0;
+	gomokuHelp_Number = 0;
+	gomoku_HelpWaitTime = 0;
+	gomoku_ScrollWaitTime = 0;
 }
 
 gomokuScene::~gomokuScene()
@@ -46,18 +55,43 @@ gomokuScene::~gomokuScene()
 
 AbstractScene* gomokuScene::Update()
 {
-	if (gomoku_Battle == 0) { // 試合中なら実行する
+	g_OldKey = g_NowKey;
+	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	g_KeyFlg = g_NowKey & ~g_OldKey;
 
-		g_OldKey = g_NowKey;
+	if (gomoku_SoundStart == 0) {
+		ChangeVolumeSoundMem(100, gomoku_ScrollSE);
+		ChangeVolumeSoundMem(100, gomoku_SE1);
+		ChangeVolumeSoundMem(150, gomoku_SE2);
+		ChangeVolumeSoundMem(100, gomoku_BGM1);
+		PlaySoundMem(gomoku_BGM1, DX_PLAYTYPE_LOOP);
+		gomoku_SoundStart++;
+	}
+
+	if (gomoku_HelpWaitTime < 100) {
+		gomoku_HelpWaitTime++;
+	}
+	if (gomoku_ScrollWaitTime < 100) {
+		gomoku_ScrollWaitTime++;
+	}
+
+	if (gomoku_Battle == 0 && gomoku_HelpDisplayflg == 0) { // 試合中またはヘルプ画面でなければ実行する
+		if (g_KeyFlg & PAD_INPUT_8 && gomoku_HelpWaitTime > 60) {
+			PlaySoundMem(gomoku_SE1, DX_PLAYTYPE_BACK);
+			gomoku_HelpDisplayflg = 1;
+			gomoku_HelpWaitTime = 0;
+		}
+		/*g_OldKey = g_NowKey;
 		g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-		g_KeyFlg = g_NowKey & ~g_OldKey;
+		g_KeyFlg = g_NowKey & ~g_OldKey;*/
 
 		// 初手は盤面の真ん中にしか置くことができない
 		if (Key_Count <= 1 && gomoku_TurnSetFlg != 1) {
 			srand((unsigned int)time(NULL));
 			gomoku_Turn = (rand() % 2); // 0または1を生成
 			gomoku_PlayerTurn = gomoku_Turn;
-			gomoku_Pfs = gomoku_PlayerTurn + 1;
+			gomoku_Pfs = gomoku_PlayerTurn 
+				+ 1;
 			gomoku_TurnSetFlg = 1;
 		}
 		if (gomoku_PlayerTurn == 0) {
@@ -128,6 +162,7 @@ AbstractScene* gomokuScene::Update()
 			if (gomoku_Phase == gomoku_PlayerTurn) {
 				bCount += 1;
 				gomoku_Banmen[cX][cY] = gomoku_Pfs;
+				PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 				gomoku_elapsedturn++;
 				gomoku_Phase = gomoku_AITurn;
 			}
@@ -165,6 +200,7 @@ AbstractScene* gomokuScene::Update()
 		if (gomoku_AI_WaitTime > 180) {
 			if (gomoku_AITurn == 0 && gomoku_Banmen[6][6] == 0 && gomoku_elapsedturn == 0) {
 				gomoku_Banmen[5][5] = gomoku_Efs;
+				PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 				Key_Count++;
 				gomoku_elapsedturn++;
 				gomoku_Phase = gomoku_PlayerTurn;
@@ -179,7 +215,8 @@ AbstractScene* gomokuScene::Update()
 						}
 						// 盤面に黒がつ四つ並んでいて、端のどちらかに石が置かれていない場合白を置くプログラミング
 						if (y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y + 1] == gomoku_Pfs && gomoku_Banmen[x][y + 2] == gomoku_Pfs && gomoku_Banmen[x][y + 3] == gomoku_Pfs && gomoku_Banmen[x][y + 4] == gomoku_Pfs ||
-							y > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x][y - 1] == gomoku_Pfs && gomoku_Banmen[x][y - 2] == gomoku_Pfs && gomoku_Banmen[x][y - 3] == gomoku_Pfs && gomoku_Banmen[x][y - 4] == gomoku_Pfs ||
+							y > 3 && gomoku_Banmen[x][y] ==
+							0 && gomoku_Banmen[x][y - 1] == gomoku_Pfs && gomoku_Banmen[x][y - 2] == gomoku_Pfs && gomoku_Banmen[x][y - 3] == gomoku_Pfs && gomoku_Banmen[x][y - 4] == gomoku_Pfs ||
 							x < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y] == gomoku_Pfs && gomoku_Banmen[x + 2][y] == gomoku_Pfs && gomoku_Banmen[x + 3][y] == gomoku_Pfs && gomoku_Banmen[x + 4][y] == gomoku_Pfs ||
 							x > 3 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x - 1][y] == gomoku_Pfs && gomoku_Banmen[x - 2][y] == gomoku_Pfs && gomoku_Banmen[x - 3][y] == gomoku_Pfs && gomoku_Banmen[x - 4][y] == gomoku_Pfs ||
 							x < 8 && y < 8 && gomoku_Banmen[x][y] == 0 && gomoku_Banmen[x + 1][y + 1] == gomoku_Pfs && gomoku_Banmen[x + 2][y + 2] == gomoku_Pfs && gomoku_Banmen[x + 3][y + 3] == gomoku_Pfs && gomoku_Banmen[x + 4][y + 4] == gomoku_Pfs ||
@@ -297,6 +334,7 @@ AbstractScene* gomokuScene::Update()
 				}
 				if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == gomoku_AITurn) {
 					gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = gomoku_Efs;
+					PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 					gomoku_AI_MoveX = 0;
 					gomoku_AI_MoveY = 0;
 					gomoku_elapsedturn++;
@@ -305,6 +343,7 @@ AbstractScene* gomokuScene::Update()
 				for (int r = 0; r < 144 && gomoku_Phase == gomoku_AITurn; r++) {
 					if (gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] == 0 && gomoku_Phase == gomoku_AITurn) {
 						gomoku_Banmen[gomoku_AI_MoveX][gomoku_AI_MoveY] = gomoku_Efs;
+						PlaySoundFile("sound/SE/gomoku_SE1.wav", DX_PLAYTYPE_NORMAL);
 						gomoku_elapsedturn++;
 						gomoku_Phase = gomoku_PlayerTurn;
 					}
@@ -320,23 +359,45 @@ AbstractScene* gomokuScene::Update()
 			for (int y = 0; y < 13; y++) {
 				for (int x = 0; x < 13; x++) {
 					// 白(Banmen[x][y] = 2)の勝利判定
-					if (x < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y] == gomoku_Efs && gomoku_Banmen[x + 2][y] == gomoku_Efs && gomoku_Banmen[x + 3][y] == gomoku_Efs && gomoku_Banmen[x + 4][y] == gomoku_Efs ||
-						y < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x][y + 1] == gomoku_Efs && gomoku_Banmen[x][y + 2] == gomoku_Efs && gomoku_Banmen[x][y + 3] == gomoku_Efs && gomoku_Banmen[x][y + 4] == gomoku_Efs ||
-						x < 8 && y < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y + 1] == gomoku_Efs && gomoku_Banmen[x + 2][y + 2] == gomoku_Efs && gomoku_Banmen[x + 3][y + 3] == gomoku_Efs && gomoku_Banmen[x + 4][y + 4] == gomoku_Efs ||
+					if (x < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y] == gomoku_Efs && gomoku_Banmen[x + 2][y] == gomoku_Efs && gomoku_Banmen[x + 3][y] == gomoku_Efs && gomoku_Banmen[x + 4][y] == gomoku_Efs ||
+						y < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x][y + 1] == gomoku_Efs && gomoku_Banmen[x][y + 2] == gomoku_Efs && gomoku_Banmen[x][y + 3] == gomoku_Efs && gomoku_Banmen[x][y + 4] == gomoku_Efs ||
+						x < 7 && y < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y + 1] == gomoku_Efs && gomoku_Banmen[x + 2][y + 2] == gomoku_Efs && gomoku_Banmen[x + 3][y + 3] == gomoku_Efs && gomoku_Banmen[x + 4][y + 4] == gomoku_Efs ||
 						x > 3 && y > 3 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x - 1][y - 1] == gomoku_Efs && gomoku_Banmen[x - 2][y - 2] == gomoku_Efs && gomoku_Banmen[x - 3][y - 3] == gomoku_Efs && gomoku_Banmen[x - 4][y - 4] == gomoku_Efs ||
-						x < 8 && y > 3 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y - 1] == gomoku_Efs && gomoku_Banmen[x + 2][y - 2] == gomoku_Efs && gomoku_Banmen[x + 3][y - 3] == gomoku_Efs && gomoku_Banmen[x + 4][y - 4] == gomoku_Efs ||
-						x > 3 && y < 8 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x - 1][y + 1] == gomoku_Efs && gomoku_Banmen[x - 2][y + 2] == gomoku_Efs && gomoku_Banmen[x - 3][y + 3] == gomoku_Efs && gomoku_Banmen[x - 4][y + 4] == gomoku_Efs) {
+						x < 7 && y > 3 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x + 1][y - 1] == gomoku_Efs && gomoku_Banmen[x + 2][y - 2] == gomoku_Efs && gomoku_Banmen[x + 3][y - 3] == gomoku_Efs && gomoku_Banmen[x + 4][y - 4] == gomoku_Efs ||
+						x > 3 && y < 7 && gomoku_Banmen[x][y] == gomoku_Efs && gomoku_Banmen[x - 1][y + 1] == gomoku_Efs && gomoku_Banmen[x - 2][y + 2] == gomoku_Efs && gomoku_Banmen[x - 3][y + 3] == gomoku_Efs && gomoku_Banmen[x - 4][y + 4] == gomoku_Efs) {
 						gomoku_Battle = 2;
 					}
 				}
 			}
 		}
 	}
+
 	else {
 		gomoku_Result_WaitTime++;
-		if (gomoku_Result_WaitTime > 210 && g_KeyFlg & PAD_INPUT_9 && gomoku_Battle != 0) {
-				return new gomokuTitle();
+		if (gomoku_Result_WaitTime > 210 &&  gomoku_Battle != 0) {
+			StopSoundMem(gomoku_BGM1);
+			gomoku_SoundStart = 0;
+			return new gomokuTitle();
 			}
+	}
+	if (gomoku_HelpDisplayflg == 1) {
+		if (g_KeyFlg & PAD_INPUT_RIGHT && gomokuHelp_Number == 0 && gomoku_ScrollWaitTime > 10) {
+			PlaySoundMem(gomoku_ScrollSE, DX_PLAYTYPE_BACK);
+			gomokuHelp_Number = 1;
+			gomoku_ScrollWaitTime = 0;
+		}
+		if (g_KeyFlg & PAD_INPUT_LEFT && gomokuHelp_Number == 1 && gomoku_ScrollWaitTime > 10) {
+			PlaySoundMem(gomoku_ScrollSE, DX_PLAYTYPE_BACK);
+			gomokuHelp_Number = 0;
+			gomoku_ScrollWaitTime = 0;
+		}
+		if (g_KeyFlg & PAD_INPUT_8 && gomoku_HelpWaitTime > 60) {
+			PlaySoundMem(gomoku_SE2, DX_PLAYTYPE_BACK);
+			gomokuHelp_Number = 0;
+			gomoku_Result_WaitTime = 0;
+			gomoku_HelpWaitTime = 0;
+			gomoku_HelpDisplayflg = 0;
+		}
 	}
 	return this;
 }
@@ -344,51 +405,68 @@ AbstractScene* gomokuScene::Update()
 
 void gomokuScene::Draw() const
 {
-	DrawGraph(0, 0, gomoku_BackImg, FALSE);
-	DrawFormatString(10, 10,0xffffff, "%d", gomoku_Turn);
-	DrawGraph(180, 0, TitleImg, TRUE);
-	for (int y = 0; y < 13; y++) {
-		for (int x = 0; x < 13; x++) {
-			if (gomoku_Banmen[x][y] == 1) {
-				DrawGraph(270 + (56 * x) + x, -25 + (56 * y) + y, bTopImg, TRUE);
-			}
-			else if (gomoku_Banmen[x][y] == 2) {
-				DrawGraph(270 + (56 * x) + x , -25 + (56 * y) + y, wTopImg, TRUE);
+	if (gomoku_HelpDisplayflg == 0) {
+		DrawGraph(0, 0, gomoku_BackImg, FALSE);
+		DrawFormatString(10, 10, 0xffffff, "%d", gomoku_HelpWaitTime);
+		DrawGraph(180, 0, TitleImg, TRUE);
+		for (int y = 0; y < 13; y++) {
+			for (int x = 0; x < 13; x++) {
+				if (gomoku_Banmen[x][y] == 1) {
+					DrawGraph(270 + (56 * x) + x, -25 + (56 * y) + y, bTopImg, TRUE);
+				}
+				else if (gomoku_Banmen[x][y] == 2) {
+					DrawGraph(270 + (56 * x) + x, -25 + (56 * y) + y, wTopImg, TRUE);
+				}
 			}
 		}
+		if (gomoku_Player_WaitTime > 60 && gomoku_Player_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
+			SetFontSize(80);
+			DrawFormatString(500, 300, 0xFF00FF, "自分の手番");
+		}
+		else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_Player_WaitTime > 0 && gomoku_Player_WaitTime < 90 && gomoku_Battle == 0) {
+			SetFontSize(80);
+			DrawFormatString(500, 300, 0xFF00FF, "自分の手番");
+		}
+		if (gomoku_AI_WaitTime > 60 && gomoku_AI_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
+			SetFontSize(80);
+			DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
+		}
+		else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_AI_WaitTime > 0 && gomoku_AI_WaitTime < 90 && gomoku_Battle == 0) {
+			SetFontSize(80);
+			DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
+		}
+		if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime < 30 && gomoku_Player_WaitTime > 155) {
+			DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
+		}
+		else if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime > 29 && gomoku_Player_WaitTime > 155) {
+			DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xff0000, FALSE);
+		}
+		if (gomoku_Battle == 1) {
+			SetFontSize(80);
+			DrawFormatString(700, 300, 0xFF00FF, ("WIN"));
+		}
+		else if (gomoku_Battle == 2) {
+			SetFontSize(80);
+			DrawFormatString(650, 300, 0xFF00FF, ("LOSE"));
+		}
 	}
-	if (gomoku_Player_WaitTime > 60 && gomoku_Player_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
-		SetFontSize(80);
-		DrawFormatString(500, 300, 0xFF00FF, "自分の手番");
+	if (gomoku_HelpDisplayflg == 1) {
+		if (gomokuHelp_Number == 0) {
+			DrawGraph(0, 0, gomoku_HelpImg1, FALSE);
+		}
+		if (gomokuHelp_Number == 1) {
+			DrawGraph(0, 0, gomoku_HelpImg2, FALSE);
+		}
+		DrawBox(540 + (gomokuHelp_Number * 150), 595, 640 + (gomokuHelp_Number * 150), 695, 0xff0000, FALSE);
+		SetFontSize(36);
+		DrawFormatString(900, 650, 0xffffff, "Startボタンで閉じる");
+		SetFontSize(64);
+		DrawFormatString(575, 620, 0xffffff, "1");
+		DrawFormatString(650, 620, 0xffffff, "|");
+		DrawFormatString(725, 620, 0xffffff, "2");
 	}
-	else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_Player_WaitTime > 0 && gomoku_Player_WaitTime < 90 && gomoku_Battle == 0) {
-		SetFontSize(80);
-		DrawFormatString(500, 300, 0xFF00FF, "自分の手番");
-	}
-	if (gomoku_AI_WaitTime > 60 && gomoku_AI_WaitTime < 150 && gomoku_Battle == 0 && gomoku_elapsedturn != 0) {
-		SetFontSize(80);
-		DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
-	}
-	else if (gomoku_elapsedturn == 0 && gomoku_TurnSetFlg == 1 && gomoku_AI_WaitTime > 0 && gomoku_AI_WaitTime < 90 && gomoku_Battle == 0){
-		SetFontSize(80);
-		DrawFormatString(500, 300, 0xFF00FF, "相手の手番");
-	}
-	if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime < 30) {
-		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xffff00, FALSE);
-	}
-	else if (gomoku_Battle == 0 && gomoku_Phase == gomoku_PlayerTurn && gomoku_Cursordisplaytime > 29) {
-		DrawBox(285 + (56 * cX), -15 + (56 * cY), 345 + (56 * cX), 45 + (56 * cY), 0xff0000, FALSE);
-	}
-	if (gomoku_Battle == 1) {
-		SetFontSize(80);
-		DrawFormatString(500, 300, 0xFF00FF, ("WIN"));
-	}
-	else if (gomoku_Battle == 2) {
-		SetFontSize(80);
-		DrawFormatString(500, 300, 0xFF00FF, ("LOSE"));
-	}
-	if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
+	/*if (gomoku_Battle != 0 && gomoku_Result_WaitTime > 150) {
 		DrawFormatString(0, 600, 0x000000, ("STARTボタンでタイトルに戻る"));
-	}
+	}*/
 	
 }
