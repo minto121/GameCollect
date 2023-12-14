@@ -6,6 +6,13 @@ public:
 
 	sinkeisuijaku();
 
+	int  GetScore(int _x) {
+		return  peacount;
+	}
+
+	int GetCScore(int _y) {
+		return Cpeacount;
+	}
 private:
 
 	int isPlayerTurn = 1;  // プレイヤーのターンかどうかを示すフラグ
@@ -32,8 +39,7 @@ private:
 
 
 	void ComputerTurn();
-	void Sound();
-
+	void Memory();
 	int first;
 
 	int S_timg;
@@ -69,9 +75,9 @@ private:
 	int r2Count = 0;
 
 
-	int test1;
-	int test2;
-	int test3;
+	int select1;
+	int select2;
+	int select3;
 
 	int testcount = 0;
 
@@ -89,12 +95,25 @@ private:
 	int selectedCard[2][2];
 	int selectcount = 0;
 
-	int peacountflg = 0;
 	int peacount = 0;
+	int Cpeacount = 0;
 	//サウンド
 	int BGM;
-	int S_Select;
-	int S_Pea;
+	int Select;
+	int Select2;
+
+	int soundcount = 0;
+	int test1 = 0;
+
+
+	int Resultflg = 0;
+
+	int MemoryCount[5];
+	int Memoryrebirth;
+	int Memoryflg = 0;
+	int M = 0;
+	int M2;
+	int M3;
 
 };
 

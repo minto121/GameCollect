@@ -2,15 +2,20 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
-//#include "sinkeisuijaku.h" エラー出るので、一旦コメントアウト中
+#include "sinkeisuijaku.h"
 #include"Hit&Blow.h"
-//#include"Hanafuda_GameMain.h"
+#include"Hanafuda_GameMain.h"
 #include"Mankara.h"
 #include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
 #include "SixBallPuzzle.h"
 #include "Porker.h"
 #include "Reversi.h"
+#include "Checkermain.h"
+#include "LastCard.h"
+#include "takoyaki.h"
+#include"gomoku_TitleScene.h"
+#include "GameMain.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -59,15 +64,15 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	SELECT current_selection = static_cast<SELECT>(now_menu);
 	switch (current_selection)
 	{
-	/*case SELECT::sinnkeisuizyaku:
-			return new sinkeisuijaku(); // エラー出るので、一旦コメントアウト中
-			break;*/ 
+	case SELECT::sinnkeisuizyaku:
+			return new sinkeisuijaku();
+			break; 
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
-	/*case SELECT::Hanafuda:
+	case SELECT::Hanafuda:
 		return new Hanafuda();
-		break;*/
+		break;
 	/*case LEVEL::NORMAL:
 	{
 		return new GameMain(current_selection);
@@ -94,6 +99,23 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case SELECT::Osero:
 		return new Reversi();
 		break;
+	case SELECT::Checker:
+		return new Checkermain();
+		break;
+	case SELECT::lastcard:
+		return new LastCard();
+		break;
+	case SELECT::takoyaaki:
+		return new Takoyaki();
+		break;
+	case SELECT::Gomoku:
+		// 一旦仮で置いてます。五目並べ担当者は変更があれば変更してください。
+		return new gomokuTitle(); 
+		break;
+	case SELECT::Dotbox:
+		return new GameMain();
+		break;
+
 	default:
 		printfDx("未実装な機能です。\n");
 		break;
