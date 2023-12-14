@@ -255,15 +255,15 @@ void Checkermain::Draw() const {
 	DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);
 	(SetFontSize(30));
 	// デバッグ情報を表示
-	DrawFormatString(0, 0, 0x000000, "Y: %d", selectY);                 // カーソル移動Y
-	DrawFormatString(0, 30, 0x000000, "X: %d", selectX);                // カーソル移動X
-	DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
-	DrawFormatString(0, 125, 0x000000, "cantake: %d", cantake);
-	DrawFormatString(0, 150, 0x000000, "Phase(0:赤 1:黒): %d", phase);
-	DrawFormatString(0, 175, 0x000000, "totteta: %d", F_totteta);
-	DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
-	DrawFormatString(0, 300, 0x000000, " player1Pieces: %d", player1Pieces);
-	DrawFormatString(0, 350, 0x000000, " player2Pieces: %d", player2Pieces);
+	//DrawFormatString(0, 0, 0x000000, "Y: %d", selectY);                 // カーソル移動Y
+	//DrawFormatString(0, 30, 0x000000, "X: %d", selectX);                // カーソル移動X
+	//DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
+	//DrawFormatString(0, 125, 0x000000, "cantake: %d", cantake);
+	//DrawFormatString(0, 150, 0x000000, "Phase(0:赤 1:黒): %d", phase);
+	//DrawFormatString(0, 175, 0x000000, "totteta: %d", F_totteta);
+	//DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
+	//DrawFormatString(0, 300, 0x000000, " player1Pieces: %d", player1Pieces);
+	//DrawFormatString(0, 350, 0x000000, " player2Pieces: %d", player2Pieces);
 }
 
 void Checkermain::InitBoard() {
@@ -338,12 +338,12 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 
 			 F_totteta = false;
 			 cantake = false;
-			 return true;
+			 return false;
 		 }
 		 else if (board[StartX + 1][StartY + 1] == 0 && board[StartX - 1][StartY + 1] == 0) {
 			 	 F_totteta = false;
 			 cantake = false;
-			 return true;
+			 return false;
 		 }
 		
 	}
