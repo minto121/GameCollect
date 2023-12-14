@@ -657,7 +657,7 @@ void Mankara::MoveStone()
 			// 移動元のポケットの中身の石の数を０にする
 			StonePocket[3] = 0;
 		}
-		MoveStoneFlg3 = TRUE;
+		MoveStoneFlg4 = TRUE;
 	}
 
 	if (P1Turn == 1 && MoveStoneFlg5 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
@@ -685,7 +685,7 @@ void Mankara::MoveStone()
 		 // 移動元のポケットの中身の石の数を０にする
 			StonePocket[4] = 0;
 		}
-		MoveStoneFlg4 = TRUE;
+		MoveStoneFlg5 = TRUE;
 	}
 	if (P1Turn == 1 && MoveStoneFlg6 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 		// ポケット4が選ばれた時、
@@ -712,7 +712,7 @@ void Mankara::MoveStone()
 			// 移動元のポケットの中身の石の数を０にする
 			StonePocket[5] = 0;
 		}
-		MoveStoneFlg5 = TRUE;
+		MoveStoneFlg6 = TRUE;
 	}
 }
 
