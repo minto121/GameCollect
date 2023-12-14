@@ -157,23 +157,63 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="Checkermain.cpp" />
+    <ClCompile Include="FpsController.cpp" />
+    <ClCompile Include="gomoku.cpp" />
+    <ClCompile Include="gomokuScene.cpp" />
+    <ClCompile Include="gomoku_AI.cpp" />
+    <ClCompile Include="gomoku_TitleScene.cpp" />
+    <ClCompile Include="Hanafuda_GameMain.cpp" />
+    <ClCompile Include="Hex_GameMain.cpp" />
+    <ClCompile Include="Hit&amp;Blow.cpp" />
+    <ClCompile Include="Hound.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mankara.cpp" />
+    <ClCompile Include="LastCard.cpp" />
+    <ClCompile Include="Porker.cpp" />
+    <ClCompile Include="Rabbit.cpp" />
+    <ClCompile Include="RabbitAndHounds.cpp" />
+    <ClCompile Include="reversi.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
+    <ClCompile Include="SixBallPuzzle.cpp" />
     <ClCompile Include="GameSelect.cpp" />
+    <ClCompile Include="sinkeisuijaku.cpp" />
+    <ClCompile Include="takoyaki.cpp" />
     <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="DotAndBox.h" />
     <ClInclude Include="Line.h" />
-    <ClInclude Include="FpsController.h" />
     <ClInclude Include="GameMain.h" />
-    <ClInclude Include="Hanahuda_GameMain.h" />
+    <ClInclude Include="Checkermain.h" />
+    <ClInclude Include="FpsController.h" />
+    <ClInclude Include="gomoku.h" />
+    <ClInclude Include="gomokuScene.h" />
+    <ClInclude Include="gomoku_AI.h" />
+    <ClInclude Include="gomoku_TitleScene.h" />
+    <ClInclude Include="Hanafuda_GameMain.h" />
+    <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="Hit&amp;Blow.h" />
+    <ClInclude Include="Hound.h" />
+    <ClInclude Include="Mankara.h" />
+    <ClInclude Include="LastCard.h" />
+    <ClInclude Include="Porker.h" />
+    <ClInclude Include="Rabbit.h" />
+    <ClInclude Include="RabbitAndHounds.h" />
+    <ClInclude Include="reversi.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
+    <ClInclude Include="Select.h" />
+    <ClInclude Include="SixBallPuzzle.h" />
+    <ClInclude Include="sinkeisuijaku.h" />
+    <ClInclude Include="takoyaki.h" />
     <ClInclude Include="Title.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Log.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
