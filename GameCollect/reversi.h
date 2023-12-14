@@ -66,6 +66,8 @@ private:
     bool XOnce;	//Lスティック入力重複防止用（横）
     bool YOnce;	//Lスティック入力重複防止用（縦）
 
+    bool PTurn;
+
 public:
     //コンストラクタ
     Reversi();
@@ -81,6 +83,9 @@ public:
 
    void Cursor();
    void turn();
+   void TurnOver();
+   void SelectTurn();
+   void FirstTurnScreen();
 
 
    int Bac;

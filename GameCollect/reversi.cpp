@@ -5,13 +5,28 @@
 #define SCREEN_HEIGHT 720	//画面サイズ (縦)
 #define SCREEN_WIDTH 1280	//画面サイズ (横)
 
+
+
+// 先攻後攻を表示する画面
+void Reversi::FirstTurnScreen() {
+	DrawFormatString(100, 100, GetColor(255, 255, 255), "先攻後攻を決定します。");
+	DrawFormatString(100, 150, GetColor(255, 255, 255), "スペースキーを押してください。");
+
+	if (CheckHitKey(XINPUT_BUTTON_A)) {
+		SelectTurn();
+		// 先攻後攻が決まったら、ゲーム画面に遷移するなどの処理をここに追加
+	}
+}
+
 Reversi::Reversi()
 {
+	
+	BackImg = LoadGraph("images/Reversi/BackGround01.png");
 	Bac = LoadGraph("images/Reversi/banmen_4.png");
 	Bla = LoadGraph("images/Reversi/osero(black).png");
 	Whi= LoadGraph("images/Reversi/osero(white).png");
 	XOnce = TRUE;
-	XOnce = TRUE;
+	YOnce = TRUE;
 	/*CursorPoint = { 0, 0 };*/
 
 	K_Flg = FALSE;
@@ -68,51 +83,52 @@ Reversi::~Reversi()
 
 }
 
-
 AbstractScene* Reversi::Update()
 {
-	Fla.button = 0;
-	Cursor();
-	turn();
+
 
 	//ポーズフラグ切り替え処理
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_START))
 	{
 		PauseFlg = !PauseFlg;
 	}
+	//ポーズ中でないなら
+	if (PauseFlg == FALSE) {
+		Fla.button = 0;
+		Cursor();
+		turn();
 
-	e.x.m = Cur.X / 85 - 3;
-	e.y.m = Cur.Y / 85;
+		e.x.m = Cur.X / 85 - 3;
+		e.y.m = Cur.Y / 85;
 
-	e.x.r = e.x.m + 1;
-	e.x.l = e.x.m - 1;
-	e.y.d = e.y.m + 1;
-	e.y.u = e.y.m - 1;
+		e.x.r = e.x.m + 1;
+		e.x.l = e.x.m - 1;
+		e.y.d = e.y.m + 1;
+		e.y.u = e.y.m - 1;
 
-	if (Fla.button == 1/*&&Sto.Typ == 0*/)
-	{
-		int x, y;
-		int cou = 0;
-
-		//黒
-		int same;
-		//白
-		int diff;
-
-		if (Tur % 2 == 0)
+		if (Fla.button == 1/*&&Sto.Typ == 0*/)
 		{
-			same = 2;
-			diff = 1;
-		}
-		else
-		{
-			same = 1;
-			diff = 2;
-		}
+			int x, y;
+			int cou = 0;
 
-		//右に石が置かれているかの確認
-		if (C_Flg == TRUE) {
-			for (x = e.x.r; x < 8; x++)
+			//黒
+			int same;
+			//白
+			int diff;
+
+			if (Tur % 2 == 0)
+			{
+				same = 2;
+				diff = 1;
+			}
+			else
+			{
+				same = 1;
+				diff = 2;
+			}
+
+			//右に石が置かれているかの確認
+			for (x = e.x.r; x < 9; x++)
 			{
 				if (Sto.Typ[x][e.y.m] == 0)break;
 				else if (Sto.Typ[x][e.y.m] == same)
@@ -125,200 +141,150 @@ AbstractScene* Reversi::Update()
 				else if (Sto.Typ[x][e.y.m] == diff)cou = cou + 1;
 				else break;
 			}
+				cou = 0;
+
+			//左に石が置かれているかの確認
+			for (x = e.x.l; x > 0; x--)
+			{
+				if (Sto.Typ[x][e.y.m] == 0)break;
+				else if (Sto.Typ[x][e.y.m] == same)
+				{
+					for (x = e.x.l; x > e.x.l - cou; x--)
+					{
+						Sto.Typ[x][e.y.m] = same;
+					}break;
+				}
+				else if (Sto.Typ[x][e.y.m] == diff)cou = cou + 1;
+				else break;
+			}
 			cou = 0;
-		}
-		else {
-			C_Flg = FALSE;
-		}
 
-		//左に石が置かれているかの確認
-		for (x = e.x.l; x > 0; x--)
-		{
-			if (Sto.Typ[x][e.y.m] == 0)break;
-			else if (Sto.Typ[x][e.y.m] == same)
+			//下に石が置かれているかの確認
+			for (y = e.y.d; y < 9; y++)
 			{
-				for ( x = e.x.l; x > e.x.l - cou; x = x - 1)
+				if (Sto.Typ[e.x.m][y] == 0)break;
+				else if (Sto.Typ[e.x.m][y] == same)
 				{
-					Sto.Typ[x][e.y.m] = same;
-				}break;
+					for (y = e.y.d; y < e.y.d + cou; y++)
+					{
+						Sto.Typ[e.x.m][y] = same;
+					}break;
+				}
+				else if (Sto.Typ[e.x.m][y] == diff)cou = cou + 1;
+				else break;
 			}
-			else if (Sto.Typ[x][e.y.m] == diff)cou = cou + 1;
-			else break;
-		}
-		cou = 0;
+			cou = 0;
 
-		//下に石が置かれているかの確認
-		for (y = e.y.d; y < 8;y++)
-		{
-			if (Sto.Typ[e.x.m][y] == 0)break;
-			else if (Sto.Typ[e.x.m][y] == same)
+			//上に石が置かれているかの確認
+			for (y = e.y.u; y > 0; y--)
 			{
-				for (y = e.y.d; y < e.y.d + cou; y = y + 1)
+				if (Sto.Typ[e.x.m][y] == 0)break;
+				else if (Sto.Typ[e.x.m][y] == same)
 				{
-					Sto.Typ[e.x.m][y] = same;
-				}break;
+					for (y = e.y.u; y > e.y.u - cou; y--)
+					{
+						Sto.Typ[e.x.m][y] = same;
+					}break;
+				}
+				else if (Sto.Typ[e.x.m][y] == diff)cou = cou + 1;
+				else break;
 			}
-			else if (Sto.Typ[e.x.m][y] == diff)cou = cou + 1;
-			else break;
-		}
-		cou = 0;
+			cou = 0;
 
-		//// 下に石が置かれているかの確認
-		//for (y = e.y.d + 1; y < 8; y++) {
-		//	if (y >= 0 && y < 8 && Sto.Typ[e.x.m][y] != 0) {
-		//		if (Sto.Typ[e.x.m][y] == same) {
-		//			for (int i = e.y.d + 1; i <= e.y.d + cou; i++) {
-		//				Sto.Typ[e.x.m][i] = same;
-		//			}
-		//			break;
-		//		}
-		//		else if (Sto.Typ[e.x.m][y] == diff) {
-		//			cou = cou + 1;
-		//		}
-		//		else {
-		//			cou = 0;
-		//			break;
-		//		}
-		//	}
-		//	else {
-		//		cou = 0;
-		//		break;
-		//	}
-		//}
-		//cou = 0;
 
-		//上に石が置かれているかの確認
-		for (y = e.y.u; y > 0;y--)
-		{
-			if (Sto.Typ[e.x.m][y] == 0)break;
-			else if (Sto.Typ[e.x.m][y] == same)
+			//右上に石が置かれているかの確認
+			for (x = e.x.r, y = e.y.u;
+				x < 8, y > 0;
+				x++, y--)
 			{
-				for (y = e.y.u; y > e.y.u - cou; y = y - 1)
+				if (Sto.Typ[x][y] == 0)break;
+				else if (Sto.Typ[x][y] == same)
 				{
-					Sto.Typ[e.x.m][y] = same;
-				}break;
+					for (x = e.x.r, y = e.y.u;
+						x < e.x.r + cou, y > e.y.u - cou;
+						x = x++, y = y--)
+					{
+						Sto.Typ[x][y] = same;
+					}break;
+				}
+				else if (Sto.Typ[x][y] == diff)cou = cou++;
+				else break;
 			}
-			else if (Sto.Typ[e.x.m][y] == diff)cou = cou + 1;
-			else break;
-		}
-		cou = 0;
+			cou = 0;
 
-		//// 上に石が置かれているかの確認
-		//cou = 0;  // cou の初期化
-		//for (y = e.y.u - 1; y >= 0; y--) {
-		//	if (y >= 0 && y < 8 && Sto.Typ[e.x.m][y] != 0) {
-		//		if (Sto.Typ[e.x.m][y] == same) {
-		//			for (int i = e.y.u - 1; i >= e.y.u - cou; i--) {
-		//				Sto.Typ[e.x.m][i] = same;
-		//			}
-		//			break;
-		//		}
-		//		else if (Sto.Typ[e.x.m][y] == diff) {
-		//			cou = cou + 1;
-		//		}
-		//		else {
-		//			cou = 0;
-		//			break;
-		//		}
-		//	}
-		//	else {
-		//		cou = 0;
-		//		break;
-		//	}
-		//}
 
-		//右上に石が置かれているかの確認
-		for (x = e.x.r, y = e.y.u;
-			x < 8,y > 0;
-			x++,y--)
-		{
-			if (Sto.Typ[x][y] == 0)break;
-			else if (Sto.Typ[x][y] == same)
+			//右下に石が置かれているかの確認
+			for (x = e.x.r, y = e.y.d;
+				x < 8, y < 8;
+				x++, y++)
 			{
-				for (x = e.x.r, y = e.y.u;
-					x < e.x.r + cou, y > e.y.u - cou;
-					x = x++, y = y--)
+				if (Sto.Typ[x][y] == 0)break;
+				else if (Sto.Typ[x][y] == same)
 				{
-					Sto.Typ[x][y] = same;
-				}break;
+					for (x = e.x.r, y = e.y.d;
+						x < e.x.r + cou, y < e.y.d + cou;
+						x++, y++)
+					{
+						Sto.Typ[x][y] = same;
+					}break;
+				}
+				else if (Sto.Typ[x][y] == diff)cou = cou++;
+				else break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou++;
-			else break;
-		}
-		cou = 0;
+			cou = 0;
 
-
-		//右下に石が置かれているかの確認
-		for (x = e.x.r, y = e.y.d;
-			x < 8, y < 8;
-			x++,y++)
-		{
-			if (Sto.Typ[x][y] == 0)break;
-			else if (Sto.Typ[x][y] == same)
+			//左上に石が置かれているかの確認
+			for (x = e.x.l, y = e.y.u;
+				x > 0, y > 0;
+				x--, y--)
 			{
-				for (x = e.x.r, y = e.y.d;
-					x < e.x.r + cou, y < e.y.d + cou;
-					x++, y++)
+				if (Sto.Typ[x][y] == 0)break;
+				else if (Sto.Typ[x][y] == same)
 				{
-					Sto.Typ[x][y] = same;
-				}break;
+					for (x = e.x.l, y = e.y.u;
+						x > e.x.r - cou, y > e.y.u - cou;
+						x--, y--)
+					{
+						Sto.Typ[x][y] = same;
+					}break;
+				}
+				else if (Sto.Typ[x][y] == diff)cou = cou++;
+				else break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou++;
-			else break;
-		}
-		cou = 0;
+			cou = 0;
 
-		//左上に石が置かれているかの確認
-		for (x = e.x.l, y = e.y.u;
-			x > 0, y > 0;
-			x--, y--)
-		{
-			if (Sto.Typ[x][y] == 0)break;
-			else if (Sto.Typ[x][y] == same)
+
+			//左下に石が置かれているかの確認
+			for (x = e.x.l, y = e.y.d;
+				x > 0, y < 8;
+				x--, y++)
 			{
-				for (x = e.x.l, y = e.y.u;
-					x > e.x.r - cou, y > e.y.u - cou;
-					x--,y--)
+				if (Sto.Typ[x][y] == 0)break;
+				else if (Sto.Typ[x][y] == same)
 				{
-					Sto.Typ[x][y] = same;
-				}break;
+					for (x = e.x.l, y = e.y.d;
+						x > e.x.r - cou, y < e.y.d + cou;
+						x--, y++)
+					{
+						Sto.Typ[x][y] = same;
+					}break;
+				}
+				else if (Sto.Typ[x][y] == diff)cou = cou++;
+				else break;
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou++;
-			else break;
-		}
-		cou = 0;
+			cou = 0;
 
-
-		//左下に石が置かれているかの確認
-		for (x = e.x.l, y = e.y.d;
-			x > 0, y < 8;
-			x--, y++)
-		{
-			if (Sto.Typ[x][y] == 0)break;
-			else if (Sto.Typ[x][y] == same)
-			{
-				for (x = e.x.l, y = e.y.d;
-					x > e.x.r - cou, y < e.y.d + cou;
-					x--,y++)
-				{
-					Sto.Typ[x][y] = same;
-				}break;
+			// 駒を置く前に裏返せる石がある場合
+			if (cou > 0 && Sto.Typ[e.x.r][e.y.m] == 0) {
+				Sto.Typ[e.x.r][e.y.m] = same; // 駒を置く
+				// その他の処理（現在のプレイヤーの切り替えなど）
 			}
-			else if (Sto.Typ[x][y] == diff)cou = cou++;
-			else break;
+			else {
+				// 裏返せる石がない場合、または空でないセルに駒を置こうとした場合、駒を置かない
+			}
 		}
-		cou = 0;
-
-		// 駒を置く前に裏返せる石がある場合
-		if (cou > 0 && Sto.Typ[e.x.r][e.y.m] == 0) {
-			Sto.Typ[e.x.r][e.y.m] = same; // 駒を置く
-			// その他の処理（現在のプレイヤーの切り替えなど）
-		}
-		else {
-			// 裏返せる石がない場合、または空でないセルに駒を置こうとした場合、駒を置かない
-		}
+		
 	}
-
 
 	//一時停止中
 	if (PauseFlg == TRUE)
@@ -423,17 +389,18 @@ void Reversi::Draw() const
 	if (PauseFlg == TRUE)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-		DrawBox(0, 0, 1000, 780, 0x000000, TRUE);
+		DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 		if (PauseFlashFlg == TRUE) {
-			DrawString(370, 370, "---ポーズ中---", 0x000000,TRUE);
+			DrawString(640, 360, "---ポーズ中---", 0x000000,TRUE);
 		}
 		else {
-			DrawString(370, 370, "---ポーズ中---", 0xffffff,TRUE);
+			DrawString(640, 360, "---ポーズ中---", 0xffffff,TRUE);
 		}
 		DrawString(370, 520, "Startボタンで再開", 0xffffff,TRUE);
 	}
 }
+
 
 void Reversi::Cursor()
 {
@@ -516,4 +483,39 @@ void Reversi::turn()
 	}
 
 }
+
+void SelectTurn()
+{
+	static int turn = 0;
+	//カーソルを右移動させる
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+
+
+	}
+	//カーソルを左移動させる
+	else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+
+	}
+
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	{
+		switch (turn)
+		{
+		case 0:
+			Sto.Typ
+		default:
+			break;
+		}
+	}
+
+	DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+}
+
+void Reversi::SelectTurn()
+{
+	//0ならプレイヤーのターン
+	PTurn = (GetRand(2) == 0);
+}
+
+
 
