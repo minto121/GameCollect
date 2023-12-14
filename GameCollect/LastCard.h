@@ -52,4 +52,3 @@ public:
     // ƒvƒŒƒCƒ„[‚ÌèD‚ğ‰Šú‰»‚·‚éŠÖ”
     void InitPlayerHands();
 };
-
