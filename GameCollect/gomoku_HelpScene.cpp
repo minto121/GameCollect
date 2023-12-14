@@ -2,8 +2,8 @@
 
 gomoku_HelpScene::gomoku_HelpScene()
 {
-	gomokuHelp_BackImg1 = LoadGraph("../images/Gomoku/BackGround_Help.png");
-	gomokuHelp_BackImg2 = LoadGraph("../images/Gomoku/BackGround_Help2.png");
+	gomokuHelp_BackImg1 = LoadGraph("images/Gomoku/BackGround_Help.png");
+	gomokuHelp_BackImg2 = LoadGraph("images/Gomoku/BackGround_Help2.png");
 	gomoku_HelpSE1 = LoadSoundMem("sound/SE/gomoku_scroll.wav");
 	gomoku_HelpSE2 = LoadSoundMem("sound/SE/gomoku_ExitSE.wav");
 	gomokuHelp_MenuNumber = 0;

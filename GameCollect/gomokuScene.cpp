@@ -5,12 +5,12 @@
 
 gomokuScene::gomokuScene()
 {
-	TitleImg = LoadGraph("../images/Gomoku/gomoku.png");
-	wTopImg = LoadGraph("../images/Gomoku/BK.png");
-	bTopImg = LoadGraph("../images/Gomoku/WK.png");
-	gomoku_BackImg = LoadGraph("../images/Gomoku/BackGround02.png");
-	gomoku_HelpImg1 = LoadGraph("../images/Gomoku/BackGround_Help.png");
-	gomoku_HelpImg2 = LoadGraph("../images/Gomoku/BackGround_Help2.png");
+	TitleImg = LoadGraph("images/Gomoku/gomoku.png");
+	wTopImg = LoadGraph("images/Gomoku/BK.png");
+	bTopImg = LoadGraph("images/Gomoku/WK.png");
+	gomoku_BackImg = LoadGraph("images/Gomoku/BackGround02.png");
+	gomoku_HelpImg1 = LoadGraph("images/Gomoku/BackGround_Help.png");
+	gomoku_HelpImg2 = LoadGraph("images/Gomoku/BackGround_Help2.png");
 	gomoku_BGM1 = LoadSoundMem("sound/BGM/gomoku_BGM1.wav");
 	gomoku_ScrollSE = LoadSoundMem("sound/SE/gomoku_scroll.wav");
 	gomoku_SE1 = LoadSoundMem("sound/SE/gomoku_EnterSE.wav");
