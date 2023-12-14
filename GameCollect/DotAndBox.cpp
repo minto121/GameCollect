@@ -8,6 +8,7 @@
 
 #define MAX_POINTS 1000  // 保存できる最大の点の数
 
+
 // 配列を使用して描画した点の座標を保存
 Point drawnPoints[MAX_POINTS];
 int numDrawnPoints = 0;
@@ -20,13 +21,12 @@ DotAndBox::DotAndBox() {
     int ScreenWidth = SCREEN_WIDTH;
     int ScreenHeight = SCREEN_HEIGHT;
 
-    // Line クラスのインスタンスを生成
-    line = new Line();
+   
 
 }
 
 DotAndBox::~DotAndBox() {
-    delete line;
+  
 }
 
 void DotAndBox::DrawGridOfPoints(int startX, int startY, int gridSize, int rows, int columns) const {
@@ -50,7 +50,6 @@ void DotAndBox::DrawGridOfPoints(int startX, int startY, int gridSize, int rows,
         }
     }
 }
-
 void DotAndBox::Update() {
 
     
@@ -88,21 +87,14 @@ void DotAndBox::Update() {
     
 }
 
+
 void DotAndBox::Draw() const {
 
 
     // ポインターを描画
     DrawCircle(pointerX, pointerY, 10, GetColor(255, 0, 0), TRUE);
 
-    //// 描画した点を点線で結ぶ
-    //for (int i = 1; i < numDrawnPoints; ++i) {
-    //    int x1 = drawnPoints[i - 1].x + 30;
-    //    int y1 = drawnPoints[i - 1].y - 25;
-    //    int x2 = drawnPoints[i].x + 30;
-    //    int y2 = drawnPoints[i].y - 25;
-
-    //    DrawLine(x1, y1, x2, y2, GetColor(255, 255, 255));
-    //}
+ 
 
      // グリッド内の点を描画(ドットの開始位置が定数化しているため今度修正 startX, startY, rows, columnsの変更)
     int gridSize = 150;  // グリッドの間隔

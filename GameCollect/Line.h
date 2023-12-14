@@ -1,56 +1,52 @@
 #pragma once
 
 #include "DotAndBox.h"
+#include "DxLib.h"
 #include <math.h>
 
 class DotAndBox;
 
-
 class Line {
 private:
 
+    DotAndBox* dotandbox;
 
-	int startX;
-	int startY;
-	int gridSize = 150;
-	int row;
-	int col;
-	int x1;
-	int x2;
-	int y1;
-	int y2;
+    int startX;
+    int startY;
+    int gridSize;
+    int row;
+    int col;
+ 
 
-	int g_Oldkey;
-	int g_Nowkey;
-	int Keyflg;
+    int g_Oldkey;
+    int g_Nowkey;
+    int Keyflg;
 
-	bool Drawflg;
+    bool Drawflg;
 
-	// 描画した点の座標を保持する変数
-	int drawnPointX;
-	int drawnPointY;
+    // 描画した点の座標を保持する変数
+    int drawnPointX;
+    int drawnPointY;
 
-	int selectedPointX;  // 選択された点の座標
-	int selectedPointY;
-	bool firstButtonClick;  // 最初のボタンクリックかどうかのフラグ
+    int selectedPointX;  // 選択された点の座標
+    int selectedPointY;
+    bool firstButtonClick;  // 最初のボタンクリックかどうかのフラグ
 
 public:
+    Line(DotAndBox* dotandbox);
+    Line();
+    ~Line();
 
-	Line();
-	~Line();
+    void Update();
+    void Draw() const;
 
+    // DotAndBox クラスから座標を受け取る関数
+    void SetDrawnPoint(int x, int y);
 
-	void Update();
-	void Draw() const;
+    int GetgridSize() { return gridSize; }
 
-	// DotAndBox クラスから座標を受け取る関数
-	void SetDrawnPoint(int x, int y);
+    // 新しいメソッドを追加
+    void SelectNearestPoint(int pointerX, int pointerY);
 
-	int GetgridSize() { return gridSize; }
-
-	// 新しいメソッドを追加
-	void SelectNearestPoint(int pointerX, int pointerY);
-
-	void ResetSelection();
-
+    void ResetSelection();
 };

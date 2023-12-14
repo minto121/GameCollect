@@ -1,5 +1,4 @@
 #pragma once
-#include "Line.h"
 #include "DxLib.h"
 #include <math.h>
 
@@ -16,7 +15,6 @@ struct Point {
 
 class DotAndBox {
 private:
-
 	Line* line;
 
 	int pointerX;
@@ -36,11 +34,14 @@ public:
 	void Update();
 	void Draw() const;
 
-	void Getpointer(int& x, int& y) {
+	void Getpointer(int& x, int& y){
 		x = pointerX;
 		y = pointerY;
 	}
 
-	int GetPointerX() const { return pointerX; }
-	int GetPointerY() const { return pointerY; }
+	void SetPointer(int x, int y) {
+		pointerX = x;
+		pointerY = y;
+	}
+
 };

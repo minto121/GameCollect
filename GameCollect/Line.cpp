@@ -4,19 +4,19 @@
 #include <math.h>
 
 
-Line::Line() {
+Line::Line(DotAndBox* dotandbox) : dotandbox(dotandbox) {
+    
+}
 
+Line::Line(){
+
+   
     startX = 0;
     startY = 0;
 
     // プレイヤーが選択した行と列
     row = 490;
     col = 400;
-
-    x1 = 0;
-    x2 = 0;
-    y1 = 0;
-    y2 = 0;
 
     g_Oldkey;
     g_Nowkey;
@@ -28,10 +28,12 @@ Line::Line() {
     selectedPointX = 0;
     selectedPointY = 0;
 
+    dotandbox = new DotAndBox;
 }
 
-Line::~Line() {
 
+Line::~Line() {
+    delete dotandbox;
 }
 
 
@@ -71,17 +73,14 @@ void Line::Draw() const {
 
 }
 
-    // DotAndBox クラスから座標を受け取る関数
-    void Line::SetDrawnPoint(int x, int y) {
-        drawnPointX = x;
-        drawnPointY = y;
-        Drawflg = true;
-    }
-
     void Line::SelectNearestPoint(int pointerX, int pointerY) {
         int nearestPointX = startX;
         int nearestPointY = startY;
         double minDistance = sqrt(pow(startX - pointerX, 2) + pow(startY - pointerY, 2));
+
+        // 最初の点からカーソルまでの線上の点を選択
+        int deltaX = pointerX - startX;
+        int deltaY = pointerY - startY;
 
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
@@ -89,10 +88,22 @@ void Line::Draw() const {
                 int y = startY + j * gridSize;
                 double distance = sqrt(pow(x - pointerX, 2) + pow(y - pointerY, 2));
 
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearestPointX = x;
-                    nearestPointY = y;
+                // 最初の点からカーソルまでの線上の点を選択
+                if (deltaX != 0) {
+                    int calculatedY = startY + (deltaY * (x - startX)) / deltaX;
+                    if (y == calculatedY && distance < minDistance) {
+                        minDistance = distance;
+                        nearestPointX = x;
+                        nearestPointY = y;
+                    }
+                }
+                else if (deltaY != 0) {
+                    int calculatedX = startX + (deltaX * (y - startY)) / deltaY;
+                    if (x == calculatedX && distance < minDistance) {
+                        minDistance = distance;
+                        nearestPointX = x;
+                        nearestPointY = y;
+                    }
                 }
             }
         }
@@ -114,4 +125,12 @@ void Line::Draw() const {
         selectedPointX = 0;
         selectedPointY = 0;
         firstButtonClick = true;  // 初回のクリックかどうかを管理するフラグをリセット
+    }
+
+    void Line::SetDrawnPoint(int x, int y) {
+        drawnPointX = x;
+        drawnPointY = y;
+
+        // DotAndBox クラスに描画された点の座標を渡す
+        dotandbox->SetPointer(x, y);
     }
