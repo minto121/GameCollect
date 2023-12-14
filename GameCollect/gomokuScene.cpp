@@ -381,12 +381,12 @@ AbstractScene* gomokuScene::Update()
 			}
 	}
 	if (gomoku_HelpDisplayflg == 1) {
-		if (g_KeyFlg & PAD_INPUT_RIGHT && gomokuHelp_Number == 0 && gomoku_ScrollWaitTime > 15) {
+		if (g_KeyFlg & PAD_INPUT_RIGHT && gomokuHelp_Number == 0 && gomoku_ScrollWaitTime > 10) {
 			PlaySoundMem(gomoku_ScrollSE, DX_PLAYTYPE_BACK);
 			gomokuHelp_Number = 1;
 			gomoku_ScrollWaitTime = 0;
 		}
-		if (g_KeyFlg & PAD_INPUT_LEFT && gomokuHelp_Number == 1 && gomoku_ScrollWaitTime > 15) {
+		if (g_KeyFlg & PAD_INPUT_LEFT && gomokuHelp_Number == 1 && gomoku_ScrollWaitTime > 10) {
 			PlaySoundMem(gomoku_ScrollSE, DX_PLAYTYPE_BACK);
 			gomokuHelp_Number = 0;
 			gomoku_ScrollWaitTime = 0;
@@ -443,11 +443,11 @@ void gomokuScene::Draw() const
 		}
 		if (gomoku_Battle == 1) {
 			SetFontSize(80);
-			DrawFormatString(500, 300, 0xFF00FF, ("WIN"));
+			DrawFormatString(700, 300, 0xFF00FF, ("WIN"));
 		}
 		else if (gomoku_Battle == 2) {
 			SetFontSize(80);
-			DrawFormatString(500, 300, 0xFF00FF, ("LOSE"));
+			DrawFormatString(650, 300, 0xFF00FF, ("LOSE"));
 		}
 	}
 	if (gomoku_HelpDisplayflg == 1) {

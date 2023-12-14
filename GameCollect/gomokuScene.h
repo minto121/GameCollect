@@ -4,13 +4,13 @@
 class gomokuScene : public AbstractScene
 {
 private:
-	int TitleImg;
-	int wTopImg;
-	int bTopImg;
-	int gomoku_BackImg;
-	int gomoku_HelpImg1;
-	int gomoku_HelpImg2;
-	int cX;
+	int TitleImg; // ”wŒi‰æ‘œ
+	int wTopImg; // ”’Î‚Ì‰æ‘œ
+	int bTopImg; // •Î‚Ì‰æ‘œ
+	int gomoku_BackImg; // ”Õ–Ê‰æ‘œ
+	int gomoku_HelpImg1; // ƒwƒ‹ƒv‰æ–Ê1
+	int gomoku_HelpImg2; // ƒwƒ‹ƒv‰æ–Ê2
+	int cX; // ”Õ–ÊxÀ•W
 	int cY;
 	int g_OldKey;
 	int g_NowKey;
