@@ -13,7 +13,7 @@ private:
     int Checkerback;   // 背景の画像
     int size = 100;    // 画像のサイズ
 
-    // チェッカーボードの状態
+    // チェッカーボードの状態 0:赤1:黒
     int board[8][8] = {
         // チェッカーボードの初期配置
         // 数値の意味：
@@ -30,16 +30,16 @@ private:
 
     // ゲームの状態を管理する変数
     bool F_select = false;  // 選択中の駒があるかどうか
-    bool phase;             // 先攻（0）後攻（1）を表す
     bool movevail;          // 移動が有効かどうかを表す
     bool cantake = false;
+    bool F_totteta = false;
     // カーソルの位置とキー入力関連の変数
     int selectX;    // カーソルのX座標
     int selectY;    // カーソルのY座標
     int g_OldKey;   // 前回のキー入力状態
     int g_NowKey;   // 現在のキー入力状態
     int g_KeyFlg;   // キーの変化を示すフラグ
-
+    int phase = 0;
     // 駒の移動に関する変数
     int StartX;     // 移動させたい駒の座標X
     int StartY;     // 移動させたい駒の座標Y
@@ -47,7 +47,8 @@ private:
     int SelectY;    // 駒を移動させい座標Y
     int jumpedX;    // ジャンプした際のX座標
     int jumpedY;    // ジャンプした際のY座標
-
+    int SjumpedX;   // ジャンプした際のX座標
+    int SjumpedY;   // ジャンプした際のY座標
     // プレイヤーの駒数を表す変数
     int player1Pieces;
     int player2Pieces;
@@ -67,11 +68,14 @@ public:
     void InitBoard();
 
     // 移動の妥当性を判定する
-    bool IsMoveValid(int startX, int startY, int SelectX, int SelectY);
+    bool IsMoveValid(int StartX, int StartY, int SelectX, int SelectY);
 
     // ゲーム終了の判定を行う
     void Gameover();
 
     // ジャンプ後にさらに駒を取れるかどうかを判定する
-    bool CanTakeMore(int x, int y);
+    bool CanTakeMore(int startX, int startY, int SelectX, int SelectY);
+
+    
+  
 };

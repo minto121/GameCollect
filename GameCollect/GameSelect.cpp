@@ -15,6 +15,7 @@
 #include "LastCard.h"
 #include "takoyaki.h"
 #include"gomoku_TitleScene.h"
+#include "GameMain.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -111,10 +112,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		// 一旦仮で置いてます。五目並べ担当者は変更があれば変更してください。
 		return new gomokuTitle(); 
 		break;
-	//case SELECT::Dotbox:
-	//	/* ドットアンドボックス担当者は後で、自分の奴に差し替えてください。 */
-	//	return new DotAndBox();
-	//	break;
+	case SELECT::Dotbox:
+		return new GameMain();
+		break;
 
 	default:
 		printfDx("未実装な機能です。\n");
