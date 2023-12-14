@@ -37,12 +37,6 @@ AbstractScene* Hex::Update() {
 		Check_P();
 		Check_E();
 	}
-	else if (ClearFlg == 1) {
-
-	}
-	else if (ClearFlg == 2) {
-
-	}
 	return this;
 }
 
@@ -64,8 +58,6 @@ void Hex::Draw()const {
 			SetFontSize(24);
 			DrawString(0, 0, "Turn:Player2", 0xffffff, 0x000000);
 		}
-		//DrawGraph(gStage[1][2].x, gStage[1][2].y, GreenHexImg, TRUE);
-
 	}
 	if (ClearFlg == 1) {
 		DrawGraph(0, 0, BackImg, TRUE);
@@ -197,7 +189,7 @@ void Hex::DrawStage() const {
 		}
 	}
 }
-
+//プレイヤー１クリア判定
 void Hex::Check_P() {
 	//保存用
 	int i = 1;
@@ -311,7 +303,7 @@ void Hex::Check_P() {
 		}
 	}
 }
-
+//プレイヤー２クリア判定
 void Hex::Check_E() {
 	//保存用
 	int i = 1;
@@ -425,7 +417,7 @@ void Hex::Check_E() {
 		}
 	}
 }
-
+//CPU
 //void Hex::Enemy() {
 //
 //	int x = 1;
