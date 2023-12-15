@@ -17,11 +17,11 @@ Hex::Hex() {
 	ClearFlg = 0;
 	E_CheckFlg = 0;
 	E_CheckCnt = 0;
-	TurnFlg = /*GetRand(1)*/0;
+	TurnFlg = GetRand(1);
 	TurnSave = TurnFlg;
 	GameInit();
 }
-	
+
 //描画以外
 AbstractScene* Hex::Update() {
 	if (ClearFlg == 0) {
@@ -29,18 +29,13 @@ AbstractScene* Hex::Update() {
 		if (TurnFlg % 2 == 1) {
 			Select();
 		}
-		if (TurnSave != TurnFlg || TurnFlg % 2 == 0) {
+		if (TurnFlg % 2 == 0) {
 			TurnSave = TurnFlg;
-			Enemy();
+			//Enemy();
+			Select();
 		}
 		Check_P();
 		Check_E();
-	}
-	else if (ClearFlg == 1) {
-
-	}
-	else if (ClearFlg == 2) {
-
 	}
 	return this;
 }
@@ -48,19 +43,31 @@ AbstractScene* Hex::Update() {
 //描画のみ
 void Hex::Draw()const {
 
-	//if (ClearFlg == 0) {
+	if (ClearFlg == 0) {
 		//背景画像
 		DrawGraph(0, 0, BackImg, FALSE);
 
 		DrawStage();
 
 		DrawGraph(gStage[Select_i][Select_j].x, gStage[Select_i][Select_j].y, GreenHexImg, TRUE);
-	//}
+		if (TurnFlg % 2 == 1) {
+			SetFontSize(24);
+			DrawString(0, 0, "Turn:Player1", 0xffffff, 0x000000);
+		}
+		else {
+			SetFontSize(24);
+			DrawString(0, 0, "Turn:Player2", 0xffffff, 0x000000);
+		}
+	}
 	if (ClearFlg == 1) {
-		DrawGraph(0, 0, BackImg, FALSE);
+		DrawGraph(0, 0, BackImg, TRUE);
+		SetFontSize(36);
+		DrawString(360, 456, "Player1Win", 0xffffff, 0x000000);
 	}
 	else if (ClearFlg == 2) {
-		DrawGraph(615, 335, GreenHexImg, TRUE);
+		DrawGraph(0, 0, BackImg, TRUE);
+		SetFontSize(36);
+		DrawString(360, 456, "Player2Win", 0xffffff, 0x000000);
 	}
 }
 
@@ -69,6 +76,7 @@ void Hex::GameInit() {
 	//ステージ初期化
 	for (int i = 0; i < 13; i++) {
 		for (int j = 0; j < 13; j++) {
+			gStage[i][j].cnt = 0;
 			if (j == 0 && i == 0 || j == 12 && i == 12) {
 				gStage[i][j].flg = 3;	//黒
 			}
@@ -81,8 +89,8 @@ void Hex::GameInit() {
 			else {
 				gStage[i][j].flg = 0;	//白
 			}
-			gStage[i][j].x = (j + i - 1) * -30 + 945;	
-			gStage[i][j].y = (j - i - 1) * -17 + 320;	
+			gStage[i][j].x = (j + i - 1) * -30 + 945;
+			gStage[i][j].y = (j - i - 1) * -17 + 320;
 		}
 	}
 }
@@ -133,17 +141,19 @@ void Hex::Select() {
 			}
 		}
 	}
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-	{
-		if (gStage[Select_i][Select_j].flg == 0) {
-			gStage[Select_i][Select_j].flg = 1;
-			Select_i = 6;
-			Select_j = 6;
-			TurnFlg++;
+	if (TurnFlg % 2 == 1) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (gStage[Select_i][Select_j].flg == 0) {
+				gStage[Select_i][Select_j].flg = 1;
+				Select_i = 6;
+				Select_j = 6;
+				TurnFlg++;
+			}
 		}
 	}
-	/*if (TurnFlg % 2 == 0) {
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B))
+	if (TurnFlg % 2 == 0) {
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			if (gStage[Select_i][Select_j].flg == 0) {
 				gStage[Select_i][Select_j].flg = 2;
@@ -152,7 +162,7 @@ void Hex::Select() {
 				TurnFlg++;
 			}
 		}
-	}*/
+	}
 }
 
 //ステージ描画
@@ -179,189 +189,231 @@ void Hex::DrawStage() const {
 		}
 	}
 }
-
+//プレイヤー１クリア判定
 void Hex::Check_P() {
-	for (int i = 1; i < 12; i++) {
-		P_CheckCnt = P_CheckFlg;
-		for (int j = 1; j < 12; j++) {
-			if (gStage[i][j].flg == 1) {
-				if (gStage[++i][j].flg == 1) {
-					P_CheckFlg++;
-					break;
-				}
-				if (gStage[i][++j].flg == 1) {
-					P_CheckFlg++;
-					break;
-				}
-				if (gStage[--i][++j].flg == 1) {
-					P_CheckFlg++;
-					break;
-				}
-				/*if (gStage[--i][j].flg == 0) {
+	//保存用
+	int i = 1;
+	int j = 1;
+	//変更用
+	int x = 1;
+	int y = 1;
+	//カウント保存
+	int SaveCnt = P_CheckCnt;
 
+	for (i = 1; i < 12; i++) {
+		for (j = 1; j < 12; j++) {
+			//最初の列の検査
+			if (i == 1) {
+				//駒があったら隣接するマスを記憶する
+				if (gStage[j][i].flg == 1) {
+					x = i;
+					y = j;
+					//上
+					gStage[--y][++x].cnt = 1;
+					x = i;
+					y = j;
+					//下
+					gStage[++y][--x].cnt = 1;
+					x = i;
+					y = j;
+					//左上
+					gStage[y][++x].cnt = 1;
+					x = i;
+					//右上
+					gStage[--y][x].cnt = 1;
+					y = j;
+					//左
+					gStage[++y][x].cnt = 1;
+					y = j;
+					//右
+					gStage[y][--x].cnt = 1;
+					x = i;
+					P_CheckCnt++;
+					SaveCnt = P_CheckCnt;
+				}	//最初の列に駒がなかったら終了
+				else if (j == 11) {
+					if (P_CheckCnt == 0) {
+						break;
+					}
 				}
-				if (gStage[i][--j].flg == 0) {
-					
+			}	//次の列の検査（駒がなかったら終了）
+			else {
+				if (P_CheckCnt != 0) {
+					//駒があるマスが記憶されていたら隣接するマスを記憶する
+					if (gStage[j][i].flg == 1) {
+						if (gStage[j][i].cnt == 1) {
+							x = i;
+							y = j;
+							//上
+							gStage[--y][++x].cnt = 1;
+							x = i;
+							y = j;
+							//下
+							gStage[++y][--x].cnt = 1;
+							x = i;
+							y = j;
+							//左上
+							gStage[y][++x].cnt = 1;
+							x = i;
+							//右上
+							gStage[--y][x].cnt = 1;
+							y = j;
+							//左
+							gStage[++y][x].cnt = 1;
+							y = j;
+							//右
+							gStage[y][--x].cnt = 1;
+							x = i;
+							P_CheckCnt++;
+							//11列検査が継続したときクリアか調べる
+							if (i > 10) {
+								if (gStage[y][++x].flg == 4) {
+									P_CheckFlg = 1;
+									break;
+								}
+								else {
+									x = i;
+								}
+							}//最後まで検査して駒がなかった場合終了
+							else if (j == 11 && SaveCnt == P_CheckCnt) {
+								SaveCnt = P_CheckCnt;
+								P_CheckCnt = 0;
+								break;
+							}//途中なので継続
+							else {
+								SaveCnt = P_CheckCnt;
+							}
+						}
+					}
 				}
-				if (gStage[++i][--j].flg == 0) {
-
-				}*/
 			}
 		}
-		if (P_CheckFlg == P_CheckCnt) {
+
+		//クリア条件を満たしていたら終了
+		if (P_CheckFlg == 1) {
+			ClearFlg = 1;
+			P_CheckCnt = 0;
+			P_CheckFlg = 0;
+			break;
+		}
+
+		//列に駒がなかったら終了
+		if (P_CheckCnt == 0) {
 			break;
 		}
 	}
-	if (P_CheckFlg >= 11) {
-		ClearFlg = 1;
-	}
-	P_CheckFlg = 0;
-	P_CheckCnt = 0;
 }
-
+//プレイヤー２クリア判定
 void Hex::Check_E() {
-	for (int i = 1; i < 12; i++) {
-		E_CheckCnt = E_CheckFlg;
-		for (int j = 1; j < 12; j++) {
-			if (gStage[j][i].flg == 2) {
-				E_CheckFlg++;
-				break;
+	//保存用
+	int i = 1;
+	int j = 1;
+	//変更用
+	int x = 1;
+	int y = 1;
+	//カウント保存
+	int SaveCnt = E_CheckCnt;
+
+	for (i = 1; i < 12; i++) {
+		for (j = 1; j < 12; j++) {
+			//最初の列の検査
+			if (i == 1) {
+				//駒があったら隣接するマスを記憶する
+				if (gStage[i][j].flg == 2) {
+					x = i;
+					y = j;
+					//上
+					gStage[--x][++y].cnt = 2;
+					x = i;
+					y = j;
+					//下
+					gStage[++x][--y].cnt = 2;
+					x = i;
+					y = j;
+					//左上
+					gStage[x][++y].cnt = 2;
+					y = j;
+					//右上
+					gStage[--x][y].cnt = 2;
+					x = i;
+					//左
+					gStage[++x][y].cnt = 2;
+					x = i;
+					//右
+					gStage[x][--y].cnt = 2;
+					y = j;
+					E_CheckCnt++;
+					SaveCnt = E_CheckCnt;
+				}	//最初の列に駒がなかったら終了
+				else if (j == 11) {
+					if (E_CheckCnt == 0) {
+						break;
+					}
+				}
+			}	//次の列の検査（駒がなかったら終了）
+			else {
+				if (E_CheckCnt != 0) {
+					//駒があるマスが記憶されていたら隣接するマスを記憶する
+					if (gStage[i][j].flg == 2) {
+						if (gStage[i][j].cnt == 2) {
+							x = i;
+							y = j;
+							//上
+							gStage[--x][++y].cnt = 2;
+							x = i;
+							y = j;
+							//下
+							gStage[++x][--y].cnt = 2;
+							x = i;
+							y = j;
+							//左上o
+							gStage[x][++y].cnt = 2;
+							y = j;
+							//右上o
+							gStage[--x][y].cnt = 2;
+							x = i;
+							//左o
+							gStage[++x][y].cnt = 2;
+							x = i;
+							//右o
+							gStage[x][--y].cnt = 2;
+							y = j;
+							E_CheckCnt++;
+							//11列検査が継続したときクリアか調べる
+							if (i > 10) {
+								if (gStage[++x][y].flg == 5) {
+									E_CheckFlg = 1;
+									break;
+								}
+								else {
+									x = i;
+								}
+							}	//最後まで検査して駒がなかった場合終了
+							else if (j == 11 && SaveCnt == E_CheckCnt) {
+								SaveCnt = E_CheckCnt;
+								E_CheckCnt = 0;
+								break;
+							}//途中なので継続
+							else {
+								SaveCnt = E_CheckCnt;
+							}
+						}
+					}
+				}
 			}
 		}
-		if (E_CheckFlg == E_CheckCnt) {
+
+		//クリア条件を満たしていたら終了
+		if (E_CheckFlg == 1) {
+			ClearFlg = 2;
+			E_CheckCnt = 0;
+			E_CheckFlg = 0;
+			break;
+		}
+
+		//列に駒がなかったら終了
+		if (E_CheckCnt == 0) {
 			break;
 		}
 	}
-	if (E_CheckFlg >= 11) {
-		ClearFlg = 2;
-	}
-	E_CheckFlg = 0;
-	E_CheckCnt = 0;
-
-}
-
-void Hex::Enemy() {
-
-	int rand = GetRand(1);
-
-	/*if (TurnFlg == 0) {
-		gStage[6][6].flg = 2;
-		TurnFlg++;
-	}
-	if (TurnFlg == 1) {
-		if (gStage[6][6].flg == 0) {
-			gStage[6][6].flg = 2;
-			TurnFlg++;
-		}	
-		else if (gStage[5][8].flg != 0) {
-		gStage[5][8].flg = 2;
-		TurnFlg++;
-		}
-	}*/
-
-	//if(TurnFlg > 1){
-	//	rand = GetRand(1);
-	//	switch (rand) {	//0:左上 1:右下
-	//		case 0:
-	//		for (int i = 1; i < 12; i++) {
-	//			for (int j = 1; j < 12; j++) {
-	//				if (gStage[i][j].flg == 2) {
-	//					//右上
-	//					if (gStage[++i][j - 2].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
-	//						gStage[i][j].flg = 2;
-	//						TurnFlg++;
-	//						break;
-	//					}
-	//					//右
-	//					else if (gStage[--i][--j].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
-	//						gStage[i][j].flg = 2;
-	//						TurnFlg++;
-	//						break;
-	//					}
-	//					else {
-	//						rand = GetRand(2);
-	//						switch (rand) {
-	//						case 0:
-	//							if (gStage[--i][j].flg == 0) {
-	//								gStage[i][j].flg = 2;
-	//								TurnFlg++;
-	//							}
-	//							break;
-	//						case 1:
-	//							if (gStage[i][--j].flg == 0) {
-	//								gStage[i][j].flg = 2;
-	//								TurnFlg++;
-	//							}
-	//							break;
-	//						case 2:
-	//							if (gStage[++i][--j].flg == 0) {
-	//								gStage[i][j].flg = 2;
-	//								TurnFlg++;
-	//							}
-	//							break;
-	//						}
-	//						break;
-	//					}
-	//				}
-	//			}
-	//			if (TurnSave != TurnFlg)break;
-	//		}
-	//		break;
-	//		case 1:
-	//		for (int i = 12; i > 1; i--) {
-	//			for (int j = 12; j > 1; j--) {
-	//				if (gStage[i][j].flg == 2) {
-	//					if (gStage[--i][j + 2].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
-	//						gStage[i][j].flg = 2;
-	//						TurnFlg++;
-	//						break;
-	//					}
-	//					else if (gStage[++i][++j].flg == 0 || i <= 11 || i > 0 || j <= 11 || j > 0) {
-	//						gStage[i][j].flg = 2;
-	//						TurnFlg++;
-	//						break;
-	//					}
-	//					else {
-	//						rand = GetRand(2);
-	//						switch (rand) {
-	//							case 0:
-	//							if (gStage[++i][j].flg == 0) {
-	//								gStage[i][j].flg = 2;
-	//								TurnFlg++;
-	//							}
-	//							break;
-	//							case 1:
-	//							if (gStage[i][++j].flg == 0) {
-	//								gStage[i][j].flg = 2;
-	//								TurnFlg++;
-	//							}
-	//							break;
-	//							case 2:
-	//							if (gStage[--i][++j].flg == 0) {
-	//								gStage[i][j].flg = 2;
-	//								TurnFlg++;
-	//							}
-	//							break;
-	//						}
-	//						break;
-	//					}
-	//				}
-	//			}
-	//			if (TurnSave != TurnFlg)break;
-	//		}
-	//		break;
-	//	}
-	//}
-	//if (TurnSave == TurnFlg) {
-		for (int i = 1; i < 12; i++) {
-			for (int j = 1; j < 12; j++) {
-				if (gStage[j][i].flg == 0) {
-					gStage[j][i].flg = 2;
-					TurnFlg++;
-					break;
-				}
-			}
-			if (TurnSave != TurnFlg)break;
-		}
-	/*}*/
 }

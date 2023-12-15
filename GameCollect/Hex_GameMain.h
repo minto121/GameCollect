@@ -1,14 +1,14 @@
 #pragma once
 #include"AbstractScene.h"
 
-class Hex:public AbstractScene {
+class Hex :public AbstractScene {
 protected:
 	//int BackImg;
 	int BackImg;	//”wŒi‰æ‘œ
 	int RedHexImg;
 	int BlueHexImg;
 	int GreenHexImg;
-	int BlackHexImg;	
+	int BlackHexImg;
 	int HexImg;
 	//615
 	//335
@@ -27,6 +27,7 @@ protected:
 	struct Tile {
 		int flg;
 		int x, y;
+		int cnt;
 	};
 
 	struct Tile gStage[13][13];
