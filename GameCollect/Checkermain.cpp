@@ -93,40 +93,54 @@ AbstractScene* Checkermain::Update() {
 				}
 			}
 			else if (phase == 1) {
-				if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 1)) {
-					StartX = selectX;
-					StartY = selectY;
-					F_select = true;
-				}
-				else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 4)) {
-					StartX = selectX;
-					StartY = selectY;
-					F_select = true;
-				}
-				if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0) {
-					SelectX = selectX;
-					SelectY = selectY;
-					F_select = false;
-					if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-						board[SelectX][SelectY] = board[StartX][StartY];
-						board[StartX][StartY] = 0;
-					}
-					if (F_totteta == true) {
-						phase = 0;
-					}
-					else {
-						phase = 2;
-					}
-					if (cantake == false) {
-						phase = 2;
-					}
-					// ì¡íËÇÃèåèÇ≈ê¨ã‡Ç∑ÇÈèàóùÇí«â¡
-					if (board[SelectX][SelectY] == 1 && SelectY == 7) {
-						board[SelectX][SelectY] = 4; // 4ÇÕê¨ã‡Çï\Ç∑
-					}
+				if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
 
+					F_totteta = false;
+					cantake = false;
+				
 				}
+				else if (board[StartX + 1][StartY + 1] == 0 && board[StartX - 1][StartY + 1] == 0) {
+					F_totteta = false;
+					cantake = false;
+				
+				}
+				if (F_totteta == true) {
 
+
+					if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 1)) {
+						StartX = selectX;
+						StartY = selectY;
+						F_select = true;
+					}
+					else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 4)) {
+						StartX = selectX;
+						StartY = selectY;
+						F_select = true;
+					}
+					if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0) {
+						SelectX = selectX;
+						SelectY = selectY;
+						F_select = false;
+						if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
+							board[SelectX][SelectY] = board[StartX][StartY];
+							board[StartX][StartY] = 0;
+						}
+						if (F_totteta == true) {
+							phase = 0;
+						}
+						else {
+							phase = 2;
+						}
+						if (cantake == false) {
+							phase = 2;
+						}
+						// ì¡íËÇÃèåèÇ≈ê¨ã‡Ç∑ÇÈèàóùÇí«â¡
+						if (board[SelectX][SelectY] == 1 && SelectY == 7) {
+							board[SelectX][SelectY] = 4; // 4ÇÕê¨ã‡Çï\Ç∑
+						}
+
+					}
+				}
 			}
 			else if (phase == 2) {
 				if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 2)) {
