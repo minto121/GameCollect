@@ -6,8 +6,6 @@ Mankara::Mankara()
 	StoneImg[6] = LoadDivGraph("images/Mancala/MancalaStone.png", 6, 6, 1, 32, 32, StoneImg);
 	Board = LoadGraph("images/mancala/MancalaBoard.png");
 	Background = LoadGraph("images/Mancala/BackGround02.png");
-	//P1PocketImg = LoadGraph("images/Mancala/1PPocket.png");
-	//P2PocketImg = LoadGraph("images/Mancala/2PPocket.png");
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
@@ -509,12 +507,6 @@ void Mankara::Draw()const
 
 	}
 
-	////ポケットの中に値が入っているか
-	//for (int i = 0; i < 6; i++) {
-	//	DrawFormatString(300 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P1Pocket[i]);
-	//	DrawFormatString(500 + 50 * i, 100 + 50 * i, GetColor(255, 255, 255), "%d", P2Pocket[i]);
-	//}
-
 	SetFontSize(24);
 	// ゴールに入った石の数
 	DrawBox(1110, 100, 1160, 150, GetColor(200, 200, 255), TRUE);
@@ -906,7 +898,4 @@ void Mankara::WinLose()
 		DrawFormatString(500, 600, GetColor(255, 255, 255), "1P  LOSE");
 
 	}
-		
-		/*DrawFormatString(500, 500, GetColor(255, 255, 255), "DRAW");*/
-	
 }
