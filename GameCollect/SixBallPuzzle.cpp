@@ -13,9 +13,9 @@ SixBallPuzzle::SixBallPuzzle()
 	LONGLONG oldTime = nowTime;
 	double deltaTime = 0;
 
+	/*************画像の読込**************/
 	//背景画像読込
 	Back_Ground = LoadGraph("../images/SixBallPuzzle/square.png");
-	
 	//ボールの分割読込
 	LoadDivGraph("../images/SixBallPuzzle/ball.png", 5, 5, 1, 64, 64, Ball_img);	//画像の全体サイズ：320px*64px
 
@@ -31,6 +31,9 @@ SixBallPuzzle::SixBallPuzzle()
 	// Newボールの座標初期化
 	gPosX = NEWBLOCK_X;
 	gPosY = NEWBLOCK_Y;
+
+	// ブロックの移動処理
+	ControlBlock();
 
 	//自動落下
 	nowTime = GetNowCount();
@@ -86,7 +89,7 @@ void SixBallPuzzle::StageInit(void)
 void SixBallPuzzle::CreateBlock(void)
 {
 	//ランダムにブロック選択
-	int r = GetRand(6);
+	int r = GetRand(3);
 
 	//新しいブロックをセット＆次のブロックを生成
 	for (int i = 0; i < 4; i++) {
