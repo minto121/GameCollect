@@ -24,7 +24,7 @@ Takoyaki::Takoyaki()
 
 	AButtonPressed = false;
 	//手札の初期化
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 14; ++i) {
 		handCard[0][i] = 0;
 		handCard[1][i] = 0;
 		cardFlipped[0][i] = false;
@@ -43,7 +43,40 @@ Takoyaki::~Takoyaki() {
 
 AbstractScene* Takoyaki::Update()
 {
+	if (isPlayer1Turn) {
+		//カーソル　左
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
+		{
+			Select--;
+			select_X -= 120;
+		}
+		//カーソル右
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
+		{
+			Select++;
+			select_X += 120;
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+			if (select_X == select_X) {
+				AButtonPressed = true; // Aボタンが押されたことを記録
+				if (select_X >= 70 && select_X < 1180) { // カードが描画されている範囲内か確認
+					if (Select >= 0 && Select < 10) {
+						if (!cardFlipped[0][Select]) {
+							handCard[0][Select] = GetRand(8) + 1; // 1〜9のランダムな値をセット
+							cardFlipped[0][Select] = true; // カードを裏返す
+						}
+					}
+				}
+			}
+		}
+		else {
+			AButtonPressed = false; // Aボタンが押されていないことを記録
+		}
 
+		//手札の描画
+		Draw();
+		ScreenFlip();
+	}
 	//カーソル　左
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
 	{
@@ -59,10 +92,10 @@ AbstractScene* Takoyaki::Update()
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 		if (select_X == select_X) {
 			AButtonPressed = true; // Aボタンが押されたことを記録
-			if (select_X >= 70 && select_X < 1180) { // カードが描画されている範囲内か確認
+			if (select_X >= 70 && select_X < 1500) { // カードが描画されている範囲内か確認
 				if (Select >= 0 && Select < 10) {
 					if (!cardFlipped[0][Select]) {
-						handCard[0][Select] = GetRand(8) + 1; // 1〜9のランダムな値をセット
+						handCard[0][Select] = GetRand(13) + 1; // 1〜9のランダムな値をセット
 						cardFlipped[0][Select] = true; // カードを裏返す
 					}
 				}
@@ -105,6 +138,7 @@ void Takoyaki::Draw()const
 				DrawGraph(70 + i * 120, 300, BackCard_Img, TRUE); // カードが無効な場合、バックカードを描画
 			}
 		}
+		DrawString(10, 10, "a",GetColor(255, 255, 255));
 	//カーソルの描画
 	DrawGraph(select_X, 250, CursolImg, TRUE);
 	ScreenFlip();
