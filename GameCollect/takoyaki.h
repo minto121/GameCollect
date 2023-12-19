@@ -39,7 +39,7 @@ private:
     int handCard[2][10];
 public:
     //コンストラクタ
-    Takoyaki() {
+    Takoyaki () {
         isPlayer1Turn = true;
     }
 

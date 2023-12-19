@@ -25,10 +25,10 @@ Takoyaki::Takoyaki()
 	AButtonPressed = false;
 	//手札の初期化
 	for (int i = 0; i < 14; ++i) {
+		int row = i / 5;
+		int col = i % 5;
 		handCard[0][i] = 0;
-		handCard[1][i] = 0;
 		cardFlipped[0][i] = false;
-		cardFlipped[1][i] = false;
 	}
 
 
@@ -117,16 +117,21 @@ void Takoyaki::Draw()const
 	ClearDrawScreen();
 
 	// カード画像描画
-	for (int i = 0; i < 10; ++i) {
-		int cardIndex = handCard[0][i];
-		if (cardIndex >= 0 && cardIndex < 56) {
-			DrawGraph(70 + i * 120, 50, cardFlipped[0][i] ? Cards_img[cardIndex] : BackCard_Img, TRUE);
-		}
-		else {
-			// カードが無効な場合、バックカードを描画
-			DrawGraph(70 + i * 120, 50, BackCard_Img, TRUE);
-		}
-	}
+	// 手札の描画（2行5列）
+    for (int i = 0; i < 14; ++i) {
+        int row = i / 5; // 行
+        int col = i % 5; // 列
+        int x = 70 + col * 120; // X座標
+        int y = 50 + row * 120; // Y座標
+
+        int cardIndex = handCard[0][i];
+        if (cardIndex >= 0 && cardIndex < 56) {
+            DrawGraph(x, y, cardFlipped[0][i] ? Cards_img[cardIndex] : BackCard_Img, TRUE);
+        }
+        else {
+            DrawGraph(x, y, BackCard_Img, TRUE); // カードが無効な場合、バックカードを描画
+        }
+    }
 
 	// 2P側の手札のカード画像描画
 		for (int i = 0; i < 10; ++i) {
