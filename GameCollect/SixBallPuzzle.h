@@ -1,8 +1,10 @@
 #pragma once
 #include "AbstractScene.h"
 #include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-const int MaxBalls = 50;
+const int MaxBalls = 1;
 const int HEIGHT = 720;
 const int WIDTH = 1280;
 
@@ -26,6 +28,7 @@ private:
 	int gNowKey;			// 今回の入力キー
 	int gKeyFlg;			// 入力キー情報
 
+	int Random[10] = { 0,1,2,3,4,5,6,7,8,9 };
 	int gStage[HEIGHT][WIDTH];						//ステージ配列
 	int gBlockImg[10];								//ブロック画像
 	int gLevel;										//	レベルアップ変数
@@ -36,11 +39,10 @@ private:
 	float ballSpeed[MaxBalls]; // 落下速度の配列
 	bool ballActive[MaxBalls]; // ボールがアクティブかどうかの配列
 	
-	//int gStage[ScreenHeight][ScreenWidth];	//ステージ配列
 	int gNewBlock[4][4] = { 0 };				//新しいブロック用
 	int gNextBlock[4][4] = { 0 };				//次のブロック用
-	int gStokBlock[4][4] = { 0 };				//	ストックブロック用
-	int gStokFlg = 0;							//	ストックフラグ
+	int gStokBlock[4][4] = { 0 };				//ストックブロック用
+	int gStokFlg = 0;							//ストックフラグ
 
 	int gBlockList[3][5][3] = {
 	{ {0,0,0},{0,1,1},{0,1,1},{0,0,0} },
@@ -54,7 +56,6 @@ private:
 	int gStartTime;			//　時間計測の開始時間
 
 public:
-	void StageInit(void);				// ステージの初期化
 	void CreateBlock(void);				//ブロック生成とNEXTブロックの移動
 	void ControlBlock(void);			// ブロックの座標処理
 	int CheckOverlap(int x2, int y2);	//　ブロックの移動可能チェック処理

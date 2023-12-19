@@ -22,9 +22,6 @@ SixBallPuzzle::SixBallPuzzle()
 	oldTime = nowTime;
 	nowTime = GetNowHiPerformanceCount();
 
-	//ステージ配列の初期化
-	StageInit();
-
 	//ボール生成とNEXTボールの移動
 	CreateBlock();
 
@@ -52,38 +49,37 @@ SixBallPuzzle::SixBallPuzzle()
 			//　新しいブロックの作成
 			CreateBlock();
 		}
+
+		//ステージの初期化（壁設定とクリア）
+		for (int i = 0; i < HEIGHT; i++) {
+			for (int j = 0; j < WIDTH; j++) {
+				if (j == 0 || j == WIDTH - 1 || i == HEIGHT - 1) {
+					gStage[i][j] = 9; //壁
+				}
+				else {
+					gStage[i][j] = 0; //初期化 　確認(GetRand(9))
+				}
+			}
+		}
 	}
 
 	// ボールの初期位置と速度を設定
 	for (int i = 0; i < MaxBalls; i++)
 	{
-		ballX[i] = rand() % (WIDTH - 64);  // X座標
-		ballY[i] = - 64 * i;  // ボールのY座標をランダムに設定
-		ballSpeed[i] = 2;  // 落下速度
-		ballActive[i] = true;  // ボールがアクティブかどうか
+		int r = rand() % 10;		// ０～９までの乱数を取ってくる
+		ballX[i] = 32 + r * 64;		// X座標
+		ballY[i] = -64 * i;			// ボールのY座標をランダムに設定
+		ballSpeed[i] = 2;			// 落下速度
+		ballActive[i] = true;		// ボールがアクティブかどうか
 	}
+
 	//乱数生成器を初期化
-	//srand(static_cast<unsigned int>(time(0)));
+	srand(static_cast<unsigned int>(time(0)));
 }
 
 SixBallPuzzle::~SixBallPuzzle()
 {
 
-}
-
-void SixBallPuzzle::StageInit(void)
-{
-	//ステージの初期化（壁設定とクリア）
-	for (int i = 0; i < HEIGHT; i++) {
-		for (int j = 0; j < WIDTH; j++) {
-			if (j == 0 || j == WIDTH - 1 || i == HEIGHT - 1) {
-				gStage[i][j] = 9; //壁
-			}
-			else {
-				gStage[i][j] = 0; //初期化 　確認(GetRand(9))
-			}
-		}
-	}
 }
 
 void SixBallPuzzle::CreateBlock(void)
@@ -98,6 +94,7 @@ void SixBallPuzzle::CreateBlock(void)
 			gNextBlock[i][j] = gBlockList[r][i][j];
 		}
 	}
+
 	//　新しいブロックの出現位置をセット
 	gPosX = NEWBLOCK_X;		// NewブロックのX座標
 	gPosY = NEWBLOCK_Y;		// NewブロックのY座標
@@ -110,30 +107,6 @@ void SixBallPuzzle::CreateBlock(void)
 
 void SixBallPuzzle::ControlBlock(void)
 {
-	////左移動
-	//if (gKeyFlg & PAD_INPUT_LEFT) {
-	//	if (CheckOverlap(gPosX - 1, gPosY) == 0) {
-	//		gPosX--;
-	//	}
-	//}
-	////右移動
-	//if (gKeyFlg & PAD_INPUT_RIGHT) {
-	//	if (CheckOverlap(gPosX + 1, gPosY) == 0) {
-	//		gPosX++;
-	//	}
-	//}
-	////下移動
-	//if (gKeyFlg & PAD_INPUT_DOWN) {
-	//	if (CheckOverlap(gPosX, gPosY + 1) == 0) {
-	//		gPosY++;
-	//	}
-	//	WaitTimer(60);
-	//}
-	////↑キーで右に９０°回転
-	//if (gKeyFlg & PAD_INPUT_UP) {
-	//	TurnBlock();
-	//}
-
 	//zキーを押したらブロックの交換を行う
 	if (gKeyFlg & PAD_INPUT_A) {
 		ChangeBlock();
@@ -185,7 +158,7 @@ void SixBallPuzzle::TurnBlock(void)
 
 void SixBallPuzzle::LockBlock(int x2, int y2)
 {
-	// ブロックを固定する
+	 //ブロックを固定する
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
 			if (gNewBlock[i][j] != 0) {
@@ -269,10 +242,10 @@ AbstractScene* SixBallPuzzle::Update()
 		// 画面外に出たら再利用
 		if (ballY[i] > HEIGHT)
 		{
-			ballY[i] = -64;  // 画面上部から再利用
-			ballX[i] = rand() % (WIDTH - 64);  // ボールのX座標をランダムに設定
-			ballSpeed[i] = 1;  // 落下速度
-			ballActive[i] = true;  // ボールがアクティブかどうか
+			ballY[i] = -64;			// 画面上部から利用
+			ballX[i] = WIDTH - 64;  // ボールのX座標をランダムに設定
+			ballSpeed[i] = 1;		// 落下速度
+			ballActive[i] = true;	// ボールがアクティブかどうか
 		}
 	}
 
@@ -311,9 +284,6 @@ void SixBallPuzzle::Draw() const
 	//選択したランダムなボールを描画
 	//DrawGraph(100, FallingY, Ball_img[randomBallIndex], TRUE);
 
-	//ボールの分割描画
-	//DrawGraph(100, FallingY, Ball_img[1],FALSE);
-
 	//背景画像の描画
 	//DrawGraph(10, 10, Back_Ground, TRUE);
 
@@ -338,18 +308,19 @@ void SixBallPuzzle::Draw() const
 		}
 	}
 
-	// Newブロックを描画
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (gNewBlock[i][j] != 0) {
-				DrawGraph(BLOCKSIZE * (j + gPosX), BLOCKSIZE * (i + gPosY), gBlockImg[gNewBlock[i][j]], TRUE);
-			}
-		}
-	}
+	//// Newブロックを描画
+	//for (int i = 0; i < 4; i++) {
+	//	for (int j = 0; j < 4; j++) {
+	//		if (gNewBlock[i][j] != 0) {
+	//			DrawGraph(BLOCKSIZE * (j + gPosX), BLOCKSIZE * (i + gPosY), gBlockImg[gNewBlock[i][j]], TRUE);
+	//		}
+	//	}
+	//}
+
 	// Nextブロックとストックブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
-			DrawGraph(BLOCKSIZE * j + 480, BLOCKSIZE * i + 350, gBlockImg[gNextBlock[i][j]], TRUE);
+			//DrawGraph(BLOCKSIZE * j + 480, BLOCKSIZE * i + 350, gBlockImg[gNextBlock[i][j]], TRUE);
 			DrawGraph(BLOCKSIZE * j + 360, BLOCKSIZE * i + 240, gBlockImg[gStokBlock[i][j]], TRUE);
 		}
 	}
