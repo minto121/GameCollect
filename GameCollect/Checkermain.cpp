@@ -93,20 +93,21 @@ AbstractScene* Checkermain::Update() {
 				}
 			}
 			else if (phase == 1) {
-				if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
+			
+				if(F_totteta==true){
+					// ジャンプした後の場所が両方空いてなかったらphase2にいく
+					if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
 
 					F_totteta = false;
 					cantake = false;
-				
-				}
-				else if (board[StartX + 1][StartY + 1] == 0 && board[StartX - 1][StartY + 1] == 0) {
-					F_totteta = false;
-					cantake = false;
-				
-				}
-				if (F_totteta == true) {
-
-
+					
+					}
+					// 斜め前のマスが両方空いてるときphase2にいく
+					if (board[StartX + 1][StartY + 1] == 0 && board[StartX - 1][StartY + 1] == 0) {
+						F_totteta = false;
+						cantake = false;
+					
+					}
 					if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 1)) {
 						StartX = selectX;
 						StartY = selectY;
@@ -138,8 +139,10 @@ AbstractScene* Checkermain::Update() {
 						if (board[SelectX][SelectY] == 1 && SelectY == 7) {
 							board[SelectX][SelectY] = 4; // 4は成金を表す
 						}
-
 					}
+				}
+				else {
+					phase = 2;
 				}
 			}
 			else if (phase == 2) {
@@ -179,37 +182,51 @@ AbstractScene* Checkermain::Update() {
 
 			}
 			else if (phase == 3) {
-				if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 2)) {
-					StartX = selectX;
-					StartY = selectY;
-					F_select = true;
-				}
-				else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 3)) {
-					StartX = selectX;
-					StartY = selectY;
-					F_select = true;
-				}
-				if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0) {
-					SelectX = selectX;
-					SelectY = selectY;
-					F_select = false;
+				if (board[StartX - 2][StartY - 2] != 0 && board[StartX+ 2][StartY - 2] != 0) {
 
-					if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
-						board[SelectX][SelectY] = board[StartX][StartY];
-						board[StartX][StartY] = 0;
+					F_totteta = false;
+					cantake = false;
+					phase = 0;
+				}
+				else if (board[StartX - 1][StartY - 1] == 0 && board[StartX + 1][StartY - 1] == 0) {
+					F_totteta = false;
+					cantake = false;
+					phase = 0;
+				}
+				if (F_totteta == true) {
+
+
+					if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 2)) {
+						StartX = selectX;
+						StartY = selectY;
+						F_select = true;
 					}
-					if (F_totteta == true) {
-						phase = 2;
+					else if (g_KeyFlg & PAD_INPUT_1 && (board[selectX][selectY] == 3)) {
+						StartX = selectX;
+						StartY = selectY;
+						F_select = true;
 					}
-					else {
-						phase = 0;
-					}
-					// 特定の条件で成金する処理を追加
-					if (board[SelectX][SelectY] == 2 && SelectY == 0) {
-						board[SelectX][SelectY] = 3; // 4は成金を表す
+					if (g_KeyFlg & PAD_INPUT_1 && board[selectX][selectY] == 0) {
+						SelectX = selectX;
+						SelectY = selectY;
+						F_select = false;
+
+						if (IsMoveValid(StartX, StartY, SelectX, SelectY)) {
+							board[SelectX][SelectY] = board[StartX][StartY];
+							board[StartX][StartY] = 0;
+						}
+						if (F_totteta == true) {
+							phase = 2;
+						}
+						else {
+							phase = 0;
+						}
+						// 特定の条件で成金する処理を追加
+						if (board[SelectX][SelectY] == 2 && SelectY == 0) {
+							board[SelectX][SelectY] = 3; // 4は成金を表す
+						}
 					}
 				}
-
 			}
 
 		}
@@ -329,7 +346,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 				return true;
 			}
 		 }
-		 else if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
+	/*	 else if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
 
 			 F_totteta = false;
 			 cantake = false;
@@ -339,7 +356,7 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 			 F_totteta = false;
 			 cantake = false;
 			 return true;
-		 }
+		 }*/
 	}
 	// 黒駒
 	else if (board[StartX][StartY] == 2 && phase == 2) {
