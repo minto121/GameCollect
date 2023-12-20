@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int MaxBalls = 5;
+const int MaxBalls = 1;
 const int HEIGHT = 720;
 const int WIDTH = 1280;
 

@@ -13,11 +13,13 @@ SixBallPuzzle::SixBallPuzzle()
 	LONGLONG oldTime = nowTime;
 	double deltaTime = 0;
 
-	/*************画像の読込**************/
-	//背景画像読込
-	Back_Ground = LoadGraph("../images/SixBallPuzzle/square.png");
+	/*********************************画像の読込****************************************************/
+	
 	//ボールの分割読込
 	LoadDivGraph("../images/SixBallPuzzle/ball.png", 5, 5, 1, 64, 64, Ball_img);	//画像の全体サイズ：320px*64px
+
+	//背景画像読込
+	Back_Ground = LoadGraph("../images/SixBallPuzzle/square.png");
 
 	oldTime = nowTime;
 	nowTime = GetNowHiPerformanceCount();
@@ -109,9 +111,9 @@ void SixBallPuzzle::CreateBlock(void)
 
 void SixBallPuzzle::ControlBoll(void)
 {
-	//zキーを押したらブロックの交換を行う
-	if (gKeyFlg & PAD_INPUT_A) {
-		ChangeBlock();
+	//十字キーを押したらブロックの交換を行う
+	if (gKeyFlg & PAD_INPUT_RIGHT) {
+		ballX + 1, ballY == 0;
 	}
 }
 
@@ -201,34 +203,34 @@ void SixBallPuzzle::CheckLines(void)
 	}
 }
 
-void SixBallPuzzle::ChangeBlock(void)
-{
-	// 作業用
-	int temp[4][4] = { 0 };
-
-	//ストックなしなら実行
-	if (gStokFlg == 0) {
-		gStokFlg = 1;
-		//　新しいブロックをストックに保管
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				gStokBlock[i][j] = gNewBlock[i][j];
-			}
-		}
-		//　新しいブロックのセット
-		CreateBlock();
-	}
-	else {
-		//　ストックありならストックと交換
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				temp[i][j] = gNewBlock[i][j];
-				gNewBlock[i][j] = gStokBlock[i][j];
-				gStokBlock[i][j] = temp[i][j];
-			}
-		}
-	}
-}
+//void SixBallPuzzle::ChangeBlock(void)
+//{
+//	// 作業用
+//	int temp[4][4] = { 0 };
+//
+//	//ストックなしなら実行
+//	if (gStokFlg == 0) {
+//		gStokFlg = 1;
+//		//　新しいブロックをストックに保管
+//		for (int i = 0; i < 4; i++) {
+//			for (int j = 0; j < 4; j++) {
+//				gStokBlock[i][j] = gNewBlock[i][j];
+//			}
+//		}
+//		//　新しいブロックのセット
+//		CreateBlock();
+//	}
+//	else {
+//		//　ストックありならストックと交換
+//		for (int i = 0; i < 4; i++) {
+//			for (int j = 0; j < 4; j++) {
+//				temp[i][j] = gNewBlock[i][j];
+//				gNewBlock[i][j] = gStokBlock[i][j];
+//				gStokBlock[i][j] = temp[i][j];
+//			}
+//		}
+//	}
+//}
 
 AbstractScene* SixBallPuzzle::Update()
 {
@@ -282,12 +284,11 @@ AbstractScene* SixBallPuzzle::Update()
 
 void SixBallPuzzle::Draw() const
 {
-
 	//選択したランダムなボールを描画
 	//DrawGraph(100, FallingY, Ball_img[randomBallIndex], TRUE);
 
 	//背景画像の描画
-	//DrawGraph(10, 10, Back_Ground, TRUE);
+	DrawGraph(10, 10, Back_Ground, FALSE);
 
 	//ボールの分割描画
 	for (int i = 0; i < MaxBalls; i++)
