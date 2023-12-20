@@ -30,7 +30,7 @@
     <ClCompile Include="LastCard.cpp" />
     <ClCompile Include="DotAndBox.cpp" />
     <ClCompile Include="Line.cpp" />
-     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gomoku_AI.h" />

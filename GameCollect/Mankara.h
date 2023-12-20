@@ -40,7 +40,6 @@ private:
 
 
 
-
 	// 1Pが選択しているポケット
 	int PlayerPocket;
 	// 2Pが選択しているポケット
@@ -70,8 +69,6 @@ private:
 	int movePocket;
 	int Stone_count;
 	int StonePocket[12]; // 石入れてるポケット
-	int sideAddition;      // 移動させるための処理
-	int Stonenum;          // 配列の中の石の総数
 
 	int CountUp;
 	int moveStone; 
@@ -81,7 +78,7 @@ private:
 	// ポケットの数と入っている石の数
 	int P2StoneSave[6]; 
 
-	int JustGoal; //ぴったりゴール用 
+	int PocketEnter; 
 
 	int MoveStoneFlg; // 動いたかどうか確認するフラグ
 	int MoveStoneFlg2;
@@ -102,5 +99,4 @@ public:
 	void Draw() const;
 	// 石が移動した時の内部処理
 	void MoveStone();
-	void WinLose();
 };

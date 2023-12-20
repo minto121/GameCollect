@@ -1,15 +1,15 @@
 #include "Mankara.h"
 #include"DxLib.h"
 #include"PadInput.h"
+#include"GameSelect.h"
 Mankara::Mankara()
 {
-	StoneImg[6] = LoadDivGraph("images/Mancala/MancalaStone.png", 6, 6, 1, 32, 32, StoneImg);
+	//StoneImg[6] = LoadDivGraph("images/Mancala/MancalaStone.png", 6, 6, 1, 32, 32, StoneImg);
 	Board = LoadGraph("images/mancala/MancalaBoard.png");
 	Background = LoadGraph("images/Mancala/BackGround02.png");
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
-
 	Pocket_cnt = 0;
 
 	P1Pocket[0] = 1;
@@ -21,8 +21,7 @@ Mankara::Mankara()
 
 	movePocket = 0;
 
-	// ぴったりゴール用変数
-	JustGoal = 0;
+	PocketEnter = 0;
 
 	MoveStoneFlg = FALSE;
 	MoveStoneFlg2 = FALSE;
@@ -172,6 +171,7 @@ AbstractScene* Mankara::Update()
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
 				MoveStoneFlg = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 1) {
@@ -184,6 +184,7 @@ AbstractScene* Mankara::Update()
 					P1Pocket[4] = FALSE;
 					P1Pocket[5] = FALSE;
 					MoveStoneFlg2 = FALSE;
+					PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 2) {
@@ -196,6 +197,7 @@ AbstractScene* Mankara::Update()
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
 				MoveStoneFlg3 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 3) {
@@ -208,6 +210,7 @@ AbstractScene* Mankara::Update()
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
 				MoveStoneFlg4 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 4) {
@@ -220,6 +223,7 @@ AbstractScene* Mankara::Update()
 				P1Pocket[4] = TRUE;
 				P1Pocket[5] = FALSE;
 				MoveStoneFlg5 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 5) {
@@ -232,6 +236,7 @@ AbstractScene* Mankara::Update()
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = TRUE;
 				MoveStoneFlg6 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 	}
@@ -249,6 +254,7 @@ AbstractScene* Mankara::Update()
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
 				MoveStoneFlg7 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 1) {
@@ -261,6 +267,7 @@ AbstractScene* Mankara::Update()
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
 				MoveStoneFlg8 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 2) {
@@ -273,6 +280,7 @@ AbstractScene* Mankara::Update()
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
 				MoveStoneFlg9 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 3) {
@@ -285,6 +293,7 @@ AbstractScene* Mankara::Update()
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
 				MoveStoneFlg10 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 4) {
@@ -297,6 +306,7 @@ AbstractScene* Mankara::Update()
 				P2Pocket[4] = TRUE;
 				P2Pocket[5] = FALSE;
 				MoveStoneFlg11 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 		else if (Pocket_cnt == 5) {
@@ -309,13 +319,23 @@ AbstractScene* Mankara::Update()
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = TRUE;
 				MoveStoneFlg12 = FALSE;
+				PocketEnter = FALSE;
 			}
 		}
 	}
 
+	if (P1BigPocket >= 25) {
+		P1Turn = 0;
+		P2Turn = 0;
+
+	}
+	if (P2BigPocket >= 4) {
+		P1Turn = 0;
+		P2Turn = 0;
+	}
 
 	MoveStone();
-	WinLose();
+
 	return this;
 }
 
@@ -431,38 +451,38 @@ void Mankara::Draw()const
 	if (P1Turn == 1) {
 		if (Pocket_cnt == 0) {
 			/*	DrawGraph(255, 385, P1PocketImg, FALSE);*/
-			DrawBox(295, 425, 400, 640, GetColor(0, 0, 255), FALSE);
-			DrawBox(296, 426, 401, 641, GetColor(0, 0, 255), FALSE);
-			DrawBox(297, 427, 402, 642, GetColor(0, 0, 255), FALSE);
+			DrawBox(255, 385, 360, 600, GetColor(0, 0, 255), FALSE);
+			DrawBox(256, 386, 361, 601, GetColor(0, 0, 255), FALSE);
+			DrawBox(257, 387, 362, 602, GetColor(0, 0, 255), FALSE);
 		}
 		else if (Pocket_cnt == 1) {
-			DrawBox(425, 425, 530, 640, GetColor(0, 0, 255), FALSE);
-			DrawBox(426, 426, 531, 641, GetColor(0, 0, 255), FALSE);
-			DrawBox(427, 427, 532, 642, GetColor(0, 0, 255), FALSE);
+			DrawBox(385, 385, 490, 600, GetColor(0, 0, 255), FALSE);
+			DrawBox(386, 386, 491, 601, GetColor(0, 0, 255), FALSE);
+			DrawBox(387, 387, 492, 602, GetColor(0, 0, 255), FALSE);
 
 		}
 		else if (Pocket_cnt == 2) {
-			DrawBox(555, 425, 655, 640, GetColor(0, 0, 255), FALSE);
-			DrawBox(556, 426, 656, 641, GetColor(0, 0, 255), FALSE);
-			DrawBox(557, 427, 657, 642, GetColor(0, 0, 255), FALSE);
+			DrawBox(515, 385, 615, 600, GetColor(0, 0, 255), FALSE);
+			DrawBox(516, 386, 616, 601, GetColor(0, 0, 255), FALSE);
+			DrawBox(517, 387, 617, 602, GetColor(0, 0, 255), FALSE);
 
 		}
 		else if (Pocket_cnt == 3) {
-			DrawBox(685, 425, 785, 640, GetColor(0, 0, 255), FALSE);
-			DrawBox(686, 426, 786, 641, GetColor(0, 0, 255), FALSE);
-			DrawBox(687, 427, 787, 642, GetColor(0, 0, 255), FALSE);
+			DrawBox(645, 385, 745, 600, GetColor(0, 0, 255), FALSE);
+			DrawBox(646, 386, 746, 601, GetColor(0, 0, 255), FALSE);
+			DrawBox(647, 387, 747, 602, GetColor(0, 0, 255), FALSE);
 
 		}
 		else if (Pocket_cnt == 4) {
-			DrawBox(810, 415, 910, 640, GetColor(0, 0, 255), FALSE);
-			DrawBox(811, 416, 911, 641, GetColor(0, 0, 255), FALSE);
-			DrawBox(812, 417, 912, 642, GetColor(0, 0, 255), FALSE);
+			DrawBox(770, 385, 870, 600, GetColor(0, 0, 255), FALSE);
+			DrawBox(771, 386, 871, 601, GetColor(0, 0, 255), FALSE);
+			DrawBox(772, 387, 872, 602, GetColor(0, 0, 255), FALSE);
 
 		}
 		else if (Pocket_cnt == 5) {
-			DrawBox(940, 415, 1040, 640, GetColor(0, 0, 255), FALSE);
-			DrawBox(941, 416, 1041, 641, GetColor(0, 0, 255), FALSE);
-			DrawBox(942, 417, 1042, 642, GetColor(0, 0, 255), FALSE);
+			DrawBox(900, 385, 1000, 600, GetColor(0, 0, 255), FALSE);
+			DrawBox(901, 386, 1001, 601, GetColor(0, 0, 255), FALSE);
+			DrawBox(902, 387, 1002, 602, GetColor(0, 0, 255), FALSE);
 		}
 
 	}
@@ -471,38 +491,38 @@ void Mankara::Draw()const
 	// 2Pターン時のポケット移動
 	if (P2Turn == 1) {
 		if (Pocket_cnt == 0) {
-			DrawBox(940, 125, 1040, 340, GetColor(255, 0, 0), FALSE);
-			DrawBox(941, 126, 1041, 341, GetColor(255, 0, 0), FALSE);
-			DrawBox(942, 127, 1042, 342, GetColor(255, 0, 0), FALSE);
+			DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(901, 86, 1001, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(902, 87, 1002, 302, GetColor(255, 0, 0), FALSE);
 		}
 		else if (Pocket_cnt == 1) {
-			DrawBox(810, 125, 910, 340, GetColor(255, 0, 0), FALSE);
-			DrawBox(811, 126, 911, 341, GetColor(255, 0, 0), FALSE);
-			DrawBox(812, 127, 912, 342, GetColor(255, 0, 0), FALSE);
+			DrawBox(770, 85, 870, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(771, 86, 871, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(772, 87, 872, 302, GetColor(255, 0, 0), FALSE);
 		}
 		else if (Pocket_cnt == 2) {
-			DrawBox(685, 125, 785, 340, GetColor(255, 0, 0), FALSE);
-			DrawBox(686, 126, 786, 341, GetColor(255, 0, 0), FALSE);
-			DrawBox(687, 127, 787, 342, GetColor(255, 0, 0), FALSE);
+			DrawBox(645, 85, 745, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(646, 86, 746, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(647, 87, 747, 302, GetColor(255, 0, 0), FALSE);
 		}
 		else if (Pocket_cnt == 3) {
-			DrawBox(555, 125, 655, 340, GetColor(255, 0, 0), FALSE);
-			DrawBox(556, 126, 656, 341, GetColor(255, 0, 0), FALSE);
-			DrawBox(557, 127, 657, 342, GetColor(255, 0, 0), FALSE);
+			DrawBox(515, 85, 615, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(516, 86, 616, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(517, 87, 617, 302, GetColor(255, 0, 0), FALSE);
 
 		}
 		else if (Pocket_cnt == 4) {
 		
-			DrawBox(415, 125, 525, 340, GetColor(255, 0, 0), FALSE);
-			DrawBox(416, 126, 526, 341, GetColor(255, 0, 0), FALSE);
-			DrawBox(417, 127, 527, 342, GetColor(255, 0, 0), FALSE);
+			DrawBox(375, 85, 485, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(376, 86, 486, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(377, 87, 487, 302, GetColor(255, 0, 0), FALSE);
 
 		}
 		else if (Pocket_cnt == 5) {
 		
-			DrawBox(295, 125, 395, 340, GetColor(255, 0, 0), FALSE);
-			DrawBox(296, 126, 396, 341, GetColor(255, 0, 0), FALSE);
-			DrawBox(297, 127, 397, 342, GetColor(255, 0, 0), FALSE);
+			DrawBox(255, 85, 355, 300, GetColor(255, 0, 0), FALSE);
+			DrawBox(256, 86, 356, 301, GetColor(255, 0, 0), FALSE);
+			DrawBox(257, 87, 357, 302, GetColor(255, 0, 0), FALSE);
 		}
 
 	}
@@ -531,25 +551,50 @@ void Mankara::Draw()const
 	}
 	
 
-	DrawFormatString(340, 625, GetColor(255, 255, 255), "%d", P1StoneSave[0]);
-	DrawFormatString(340 + 125 * 1, 625, GetColor(255, 255, 255), "%d", P1StoneSave[1]);
-	DrawFormatString(340 + 125 * 2, 625, GetColor(255, 255, 255), "%d", P1StoneSave[2]);
-	DrawFormatString(340 + 125 * 3, 625, GetColor(255, 255, 255), "%d", P1StoneSave[3]);
-	DrawFormatString(340 + 125 * 4, 625, GetColor(255, 255, 255), "%d", P1StoneSave[4]);
-	DrawFormatString(340 + 125 * 5, 625, GetColor(255, 255, 255), "%d", P1StoneSave[5]);
+	DrawFormatString(260, 585, GetColor(255, 255, 255), "%d", P1StoneSave[0]);
+	DrawFormatString(260 + 125 * 1, 585, GetColor(255, 255, 255), "%d", P1StoneSave[1]);
+	DrawFormatString(260 + 125 * 2, 585, GetColor(255, 255, 255), "%d", P1StoneSave[2]);
+	DrawFormatString(260 + 125 * 3, 585, GetColor(255, 255, 255), "%d", P1StoneSave[3]);
+	DrawFormatString(260 + 125 * 4, 585, GetColor(255, 255, 255), "%d", P1StoneSave[4]);
+	DrawFormatString(260 + 125 * 5, 585, GetColor(255, 255, 255), "%d", P1StoneSave[5]);
 
 
-	DrawFormatString(340, 125, GetColor(255, 255, 255), "%d", P2StoneSave[5]);
-	DrawFormatString(340 + 125 * 1, 125, GetColor(255, 255, 255), "%d", P2StoneSave[4]);
-	DrawFormatString(340 + 125 * 2, 125, GetColor(255, 255, 255), "%d", P2StoneSave[3]);
-	DrawFormatString(340 + 125 * 3, 125, GetColor(255, 255, 255), "%d", P2StoneSave[2]);
-	DrawFormatString(340 + 125 * 4, 125, GetColor(255, 255, 255), "%d", P2StoneSave[1]);
-	DrawFormatString(340 + 125 * 5, 125, GetColor(255, 255, 255), "%d", P2StoneSave[0]);
+	DrawFormatString(300, 85, GetColor(255, 255, 255), "%d", P2StoneSave[5]);
+	DrawFormatString(300 + 125 * 1, 85, GetColor(255, 255, 255), "%d", P2StoneSave[4]);
+	DrawFormatString(300 + 125 * 2, 85, GetColor(255, 255, 255), "%d", P2StoneSave[3]);
+	DrawFormatString(300 + 125 * 3, 85, GetColor(255, 255, 255), "%d", P2StoneSave[2]);
+	DrawFormatString(300 + 125 * 4, 85, GetColor(255, 255, 255), "%d", P2StoneSave[1]);
+	DrawFormatString(300 + 125 * 5, 85, GetColor(255, 255, 255), "%d", P2StoneSave[0]);
+
+
+	// 勝敗条件（マンカラカラハ）
+	if (P1BigPocket >= 25) {
+		DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
+		
+		DrawFormatString(500, 300, GetColor(0, 0, 255), "1P  WIN");
+		DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
+	}
+
+	if (P2BigPocket >= 4) {
+		DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
+		DrawFormatString(500, 300, GetColor(255, 0, 0), "2P  WIN");
+		DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
+	}
 }
 
 void Mankara::MoveStone()
 {
-	if (P1Turn == 1 && MoveStoneFlg == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+
+	if (P1Turn &&PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		PocketEnter = TRUE;
+	}
+	if (P2Turn == 1&&PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		PocketEnter = TRUE;
+	}
+
+
+
+	if (P1Turn == 1 && MoveStoneFlg == FALSE&&PocketEnter ==TRUE) {
 
 		// ポケット0が選ばれた時、
 		if (P1Pocket[0] == 1) {
@@ -577,7 +622,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg = TRUE;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg2 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P1Turn == 1 && MoveStoneFlg2 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット1が選ばれた時、	
 		if (P1Pocket[1] == 1) {
@@ -606,7 +651,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg2 = TRUE;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg3 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P1Turn == 1 && MoveStoneFlg3 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット3が選ばれた時、	
 		if (P1Pocket[2] == 1) {
@@ -634,7 +679,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg3 = TRUE;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg4 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P1Turn == 1 && MoveStoneFlg4 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット3が選ばれた時、	
 		if (P1Pocket[3] == 1) {
@@ -662,7 +707,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg4 = TRUE;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg5 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P1Turn == 1 && MoveStoneFlg5 == FALSE && PocketEnter == TRUE) {
 		// ポケット4が選ばれた時、
 		if (P1Pocket[4] == 1) {
 			if (StonePocket[4] > 0) {
@@ -689,7 +734,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg5 = TRUE;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg6 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P1Turn == 1 && MoveStoneFlg6 == FALSE && PocketEnter == TRUE) {
 		// ポケット4が選ばれた時、
 		if (P1Pocket[5] == 1) {
 			if (StonePocket[5] > 0) {
@@ -716,7 +761,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg6 = TRUE;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg7 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P2Turn == 1 && MoveStoneFlg7 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット0が選ばれた時、
 		if (P2Pocket[0] == 1) {
@@ -744,7 +789,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg7 = TRUE;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg8 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P2Turn == 1 && MoveStoneFlg8 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット1が選ばれた時、	
 		if (P2Pocket[1] == 1) {
@@ -773,7 +818,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg8 = TRUE;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg9 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P2Turn == 1 && MoveStoneFlg9 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット3が選ばれた時、	
 		if (P2Pocket[2] == 1) {
@@ -802,7 +847,7 @@ void Mankara::MoveStone()
 		MoveStoneFlg9 = TRUE;
 
 	}
-	else if (P2Turn == 1 && MoveStoneFlg10 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P2Turn == 1 && MoveStoneFlg10 == FALSE && PocketEnter == TRUE) {
 
 		// ポケット3が選ばれた時、	
 		if (P2Pocket[3] == 1) {
@@ -830,7 +875,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg10 = TRUE;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg11 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P2Turn == 1 && MoveStoneFlg11 == FALSE && PocketEnter == TRUE) {
 		// ポケット4が選ばれた時、
 		if (P2Pocket[4] == 1) {
 			if (StonePocket[11] > 0) {
@@ -857,7 +902,7 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg11 = TRUE;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg12 == FALSE && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+	else if (P2Turn == 1 && MoveStoneFlg12 == FALSE && PocketEnter == TRUE) {
 		// ポケット4が選ばれた時、
 		if (P2Pocket[5] == 1) {
 			if (StonePocket[12] > 0) {
@@ -884,18 +929,8 @@ void Mankara::MoveStone()
 		}
 		MoveStoneFlg12 = TRUE;
 	}
+
+
+
 }
 
-void Mankara::WinLose()
-{
-	if (P1BigPocket >= 25) {
-		DrawFormatString(500, 500, GetColor(255, 255, 255), "1P  WIN");
-		DrawFormatString(500, 600, GetColor(255, 255, 255), "2P  LOSE");
-	}
-		
-	if (P2BigPocket >= 25) {
-		DrawFormatString(500, 500, GetColor(255, 255, 255), "2P  WIN");
-		DrawFormatString(500, 600, GetColor(255, 255, 255), "1P  LOSE");
-
-	}
-}
