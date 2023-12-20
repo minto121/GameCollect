@@ -22,6 +22,7 @@ Rabbit::Rabbit()
 	rabbit_X = 0;
 	rabbit_Y = 0;
 
+	rabbitFlg = 5;
 
 	//ステージ初期化
 	for (int i = 0; i < 5; i++){
@@ -47,57 +48,57 @@ Rabbit::Rabbit()
 				bord[i][j].y = 575;
 			}
 			else if (i == 1 && j == 0) {
-				bord[i][j].flg = 2;  //入れるフラグ
+				bord[i][j].flg = 1;  //入れるフラグ
 				bord[i][j].x = 390;  //上段　左
 				bord[i][j].y = 95;
 			}
 			else if (i == 2 && j == 0) {
-				bord[i][j].flg = 3;  //入れるフラグ
+				bord[i][j].flg = 2;  //入れるフラグ
 				bord[i][j].x = 625;  //上段　真ん中
 				bord[i][j].y = 95;
 			}
 			else if (i == 3 && j == 0) {
-				bord[i][j].flg = 4;  //入れるフラグ
+				bord[i][j].flg = 3;  //入れるフラグ
 				bord[i][j].x = 860;  //上段　右
 				bord[i][j].y = 95;
 			}
 			else if (i == 0 && j == 1) {
-				bord[i][j].flg = 6;  //入れるフラグ
+				bord[i][j].flg = 5;  //入れるフラグ
 				bord[i][j].x = 150;  //中段　左端
 				bord[i][j].y = 335;
 			}
 			else if (i == 1 && j == 1) {
-				bord[i][j].flg = 7;  //入れるフラグ
+				bord[i][j].flg = 6;  //入れるフラグ
 				bord[i][j].x = 390;  //中段　左
 				bord[i][j].y = 335;
 			}
 			else if (i == 2 && j == 1) {
-				bord[i][j].flg = 8;  //入れるフラグ
+				bord[i][j].flg = 7;  //入れるフラグ
 				bord[i][j].x = 625;  //中段　真ん中
 				bord[i][j].y = 335;
 			}
 			else if (i == 3 && j == 1) {
-				bord[i][j].flg = 9;  //入れるフラグ
+				bord[i][j].flg = 8;  //入れるフラグ
 				bord[i][j].x = 865;  //中段　右
 				bord[i][j].y = 335;
 			}
 			else if (i == 4 && j == 1) {
-				bord[i][j].flg = 10; //入れるフラグ
+				bord[i][j].flg = 9; //入れるフラグ
 				bord[i][j].x = 1080;  //中段　右端
 				bord[i][j].y = 335;
 			}
 			else if (i == 1 && j == 2) {
-				bord[i][j].flg = 12; //入れるフラグ
+				bord[i][j].flg = 11; //入れるフラグ
 				bord[i][j].x = 390;  //下段　左
 				bord[i][j].y = 575;
 			}
 			else if (i == 2 && j == 2) {
-				bord[i][j].flg = 13; //入れるフラグ
+				bord[i][j].flg = 12; //入れるフラグ
 				bord[i][j].x = 625;  //下段　真ん中
 				bord[i][j].y = 575;
 			}
 			else if (i == 3 && j == 2) {
-				bord[i][j].flg = 14; //入れるフラグ
+				bord[i][j].flg = 13; //入れるフラグ
 				bord[i][j].x = 860;  //下段　右
 				bord[i][j].y = 575;
 			}
@@ -115,7 +116,7 @@ Rabbit::~Rabbit()
 AbstractScene* Rabbit::Update()
 {	
 	// ウサギを移動
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		rabbit_Y -= 230;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
@@ -126,46 +127,28 @@ AbstractScene* Rabbit::Update()
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 		rabbit_X += 250;
-	}
+	}*/
 
 	// ウサギを移動
-	/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-		rabbit_Y = bord[5][3].flg;
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+		rabbitFlg += 5;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-		rabbit_Y = bord[5][3].flg;
+		rabbitFlg -= 5;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-		rabbit_X = bord[5][3].flg;
+		rabbitFlg += 1;
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-		rabbit_X = bord[5][3].flg;
-	}*/
+		rabbitFlg -= 1;
+	}
 	
 	//画面から出ないようにする
-	if (rabbit_X < 100 || rabbit_X > 1100 || rabbit_Y < -300 || rabbit_Y > 400)
+	/*if (rabbit_X < 100 || rabbit_X > 1100 || rabbit_Y < -300 || rabbit_Y > 400)
 	{
 		rabbit_X = 0;
 		rabbit_Y = 0;
-	}
-
-	//switch (bord[5][3].flg)
-	//{
-	//	case 0:
-	//		if (bord[5][3].flg = 0)
-	//		{
-	//			return 0;
-	//		};
-	//		break;
-	//	/*case 1:
-	//		if (bord[5][3].flg = -1)
-	//		{
-	//			return -1;
-	//		};*/
-	//		break;
-	//	default:
-	//		break;
-	//}
+	}*/
 
 	return this;
 }
@@ -199,65 +182,126 @@ void Rabbit::Draw() const
 	DrawCircle(hound_X, hound_Y, hound_X - 1, hound_Y - 1, GetColor(0, 0, 255), HoundImg);*/
 
 	//猟犬の駒(仮)
-	DrawBox(890, 140, 960, 210, 0x0000ff, TRUE);     //上
-	DrawBox(1100, 350, 1150, 400, 0x0000ff, TRUE);   //真ん中
-	DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
+	//DrawBox(890, 140, 960, 210, 0x0000ff, TRUE);     //上
+	//DrawBox(1080, 350, 1130, 400, 0x0000ff, TRUE);   //真ん中
+	//DrawBox(900, 550, 950, 600, 0x0000ff, TRUE);     //下
 	
 	//カーソル
-	//DrawGraph(-10 + rabbit_X, 250 + rabbit_Y, cursorImg, TRUE);
+	DrawGraph(-10 + rabbit_X, 250 + rabbit_Y, cursorImg, TRUE);
 
 	//ウサギの駒(仮)
-	DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
-	DrawGraph(100, 250, rabbitimg, TRUE);
+	//DrawBox(150 + rabbit_X, 340 + rabbit_Y, 200 + rabbit_X, 390 + rabbit_Y, 0xff0000, RabbitImg[2]);
+	//DrawGraph(100, 250, rabbitimg, TRUE);
 
-	/*if (bord[i][j].flg == 0) {
-		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
-	}
-	else if (bord[i][j].flg == 1) {
-		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-	}*/
+	//ボードのマス
+	//for (int i = 0; i < 5; i++) {
+	//	for (int j = 0; j < 3; j++) {
+	//		if (bord[i][j].flg == -1) {   //いけないマス表示
+	//			DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+	//		}
+	//		if (bord[i][j].flg == 1) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 2) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 3) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 5) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 6) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 7) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 8) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 9) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 11) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 12) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//		else if (bord[i][j].flg == 13) {
+	//			DrawBox(bord[i][j].x - 5, bord[i][j].y - 5, bord[i][j].x + 55, bord[i][j].y + 55, 0xffffff, TRUE);
+	//		}
+	//	}
+	//}
 
-	//ボード
+	//プレイヤー表示
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 3; j++) {
-			if (bord[i][j].flg == -1) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
-			}
-			else if (bord[i][j].flg == 2) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 3) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 4) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 6) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 7) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 8) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 9) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 10) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 12) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg ==13) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
-			else if (bord[i][j].flg == 14) {
-				DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xffffff, TRUE);
-			}
+			switch (rabbitFlg)
+			{
+			case 0:
+				if (rabbitFlg == 5 && bord[i][j].flg == 5) {   //初期位置
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 1:
+				if (rabbitFlg == 1 && bord[i][j].flg == 1) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 2:
+				if (rabbitFlg == 2 && bord[i][j].flg == 2) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 3:
+				if (rabbitFlg == 3 && bord[i][j].flg == 3) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 4:
+				if (rabbitFlg == 6 && bord[i][j].flg == 6) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 5:
+				if (rabbitFlg == 7 && bord[i][j].flg == 7) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 6:
+				if (rabbitFlg == 8 && bord[i][j].flg == 8) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 7:
+				if (rabbitFlg == 9 && bord[i][j].flg == 9) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 8:
+				if (rabbitFlg == 11 && bord[i][j].flg == 11) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 9:
+				if (rabbitFlg == 12 && bord[i][j].flg == 12) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			case 10:
+				if (rabbitFlg == 13 && bord[i][j].flg == 13) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				break;
+			default:
+				if (rabbitFlg == 5 && bord[i][j].flg == -1) {   //いけないマス表示
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x000000, TRUE);
+				}
+				break;
+	}
 		}
 	}
 
-	DrawBox(bord[5][3].x, bord[5][3].y, 200 + bord[5][3].x, 390 + bord[5][3].y, 0xff0000, RabbitImg[2]);
 }
