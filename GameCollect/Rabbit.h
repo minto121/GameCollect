@@ -24,8 +24,9 @@ private:
 	  {10, 11, 12, 13, 14}
 	};
 	
+	int PlayerFlg;
 
-	int RabbitImg[2];   //ウサギ画像
+	int RabbitImg[1];   //ウサギ画像
 	int R_texture;
 
 	int rabbit_X;  //ウサギX座標
