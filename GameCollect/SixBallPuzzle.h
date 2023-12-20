@@ -4,9 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int MaxBalls = 1;
+const int MaxBalls = 5;
 const int HEIGHT = 720;
 const int WIDTH = 1280;
+
 
 class SixBallPuzzle:public AbstractScene{
 
@@ -28,7 +29,8 @@ private:
 	int gNowKey;			// 今回の入力キー
 	int gKeyFlg;			// 入力キー情報
 
-	int Random[10] = { 0,1,2,3,4,5,6,7,8,9 };
+
+	int Random = 0;						//乱数の取得
 	int gStage[HEIGHT][WIDTH];						//ステージ配列
 	int gBlockImg[10];								//ブロック画像
 	int gLevel;										//	レベルアップ変数
@@ -57,7 +59,7 @@ private:
 
 public:
 	void CreateBlock(void);				//ブロック生成とNEXTブロックの移動
-	void ControlBlock(void);			// ブロックの座標処理
+	void ControlBoll(void);			// ブロックの座標処理
 	int CheckOverlap(int x2, int y2);	//　ブロックの移動可能チェック処理
 	void TurnBlock(void);				// ブロックの回転処理
 	void LockBlock(int x2, int y2);		// 着地したブロックを固定済みブロックに加える

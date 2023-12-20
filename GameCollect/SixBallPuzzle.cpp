@@ -30,7 +30,7 @@ SixBallPuzzle::SixBallPuzzle()
 	gPosY = NEWBLOCK_Y;
 
 	// ブロックの移動処理
-	ControlBlock();
+	ControlBoll();
 
 	//自動落下
 	nowTime = GetNowCount();
@@ -66,15 +66,17 @@ SixBallPuzzle::SixBallPuzzle()
 	// ボールの初期位置と速度を設定
 	for (int i = 0; i < MaxBalls; i++)
 	{
-		int r = rand() % 10;		// ０～９までの乱数を取ってくる
-		ballX[i] = 32 + r * 64;		// X座標
-		ballY[i] = -64 * i;			// ボールのY座標をランダムに設定
-		ballSpeed[i] = 2;			// 落下速度
-		ballActive[i] = true;		// ボールがアクティブかどうか
+		Random = GetRand(9);			//ランダムの取得
+		ballX[i] = 32 + Random * 64;	// X座標
+		ballY[i] = -64 * i;				// ボールのY座標をランダムに設定
+		ballSpeed[i] = 2;				// 落下速度
+		ballActive[i] = true;			// ボールがアクティブかどうか
 	}
 
+	SRand(GetNowCount());
+
 	//乱数生成器を初期化
-	srand(static_cast<unsigned int>(time(0)));
+	//srand(static_cast<unsigned int>(time(0)));
 }
 
 SixBallPuzzle::~SixBallPuzzle()
@@ -105,7 +107,7 @@ void SixBallPuzzle::CreateBlock(void)
 	}
 }
 
-void SixBallPuzzle::ControlBlock(void)
+void SixBallPuzzle::ControlBoll(void)
 {
 	//zキーを押したらブロックの交換を行う
 	if (gKeyFlg & PAD_INPUT_A) {
