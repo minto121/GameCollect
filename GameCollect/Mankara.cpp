@@ -604,7 +604,7 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+					//gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
 					gStone[i][0].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
@@ -633,9 +633,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone[i][1].img = FALSE;
+				//	gStone[i][1].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P1StoneSave[i + 1] += 1;
 					P1StoneSave[1] -= 1;
@@ -661,9 +661,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone[i][2].img = FALSE;
+				//	gStone[i][2].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P1StoneSave[i + 1] += 1;
 					P1StoneSave[2] -= 1;
@@ -689,9 +689,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone[i][3].img = FALSE;
+				//	gStone[i][3].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P1StoneSave[i + 1] += 1;
 					P1StoneSave[3] -= 1;
@@ -716,9 +716,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+					//gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone[i][4].img = FALSE;
+					//gStone[i][4].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P1StoneSave[i + 1] += 1;
 					P1StoneSave[4] -= 1;
@@ -743,9 +743,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone[P1StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone[i][5].img = FALSE;
+				//	gStone[i][5].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P1StoneSave[i + 1] += 1;
 					P1StoneSave[5] -= 1;
@@ -771,9 +771,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone2[i][0].img = FALSE;
+				//	gStone2[i][0].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P2StoneSave[i + 1] += 1;
 					P2StoneSave[0] -= 1;
@@ -800,9 +800,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone2[i][1].img = FALSE;
+				//	gStone2[i][1].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P2StoneSave[i + 1] += 1;
 					P2StoneSave[1] -= 1;
@@ -828,9 +828,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone2[i][2].img = FALSE;
+				//	gStone2[i][2].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P2StoneSave[i + 1] += 1;
 					P2StoneSave[2] -= 1;
@@ -857,9 +857,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone2[i][3].img = FALSE;
+				//	gStone2[i][3].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P2StoneSave[i + 1] += 1;
 					P2StoneSave[3] -= 1;
@@ -884,9 +884,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone2[i][4].img = FALSE;
+				//	gStone2[i][4].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P2StoneSave[i + 1] += 1;
 					P2StoneSave[4] -= 1;
@@ -911,9 +911,9 @@ void Mankara::MoveStone()
 					// 各ポケットの石の数に１ずつ追加する
 					StonePocket[i + 1] += 1;
 					//石の移動量の分だけ、各ポケットの石を1ずつ描画する
-					gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
+				//	gStone2[P2StoneSave[i + 1]][i + 1].img = TRUE;
 					// その後　移動元のポケットの石の描画数を0にする
-					gStone2[i][5].img = FALSE;
+				//	gStone2[i][5].img = FALSE;
 					// 各ポケットのカウントを1ずつ追加する
 					P2StoneSave[i + 1] += 1;
 					P2StoneSave[5] -= 1;
