@@ -79,6 +79,8 @@ private:
 	int P2StoneSave[6]; 
 
 	int PocketEnter; 
+	int PocketEnter2; 
+	
 
 	int MoveStoneFlg; // 動いたかどうか確認するフラグ
 	int MoveStoneFlg2;
