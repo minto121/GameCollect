@@ -17,10 +17,15 @@ Mankara::Mankara()
 	// 初期石
 	InitialStone = 4;
 
+	Stone_cnt = 1;
+
 	movePocket = 0;
 
 	PocketEnter = 0;
 	PocketEnter2 = 0;
+
+
+	
 
 
 	MoveStoneFlg = FALSE;
@@ -45,21 +50,26 @@ Mankara::Mankara()
 		P2Pocket[y] = 0;
 	}
 
-	// 石の画像処理(ポケット)
-	for (int i = 0; i < 6; i++) {
-		for (int y = 0; y < 6; y++) {
-			gStone[y][i].img = StoneImg[y], P1Pocket[i];//ポケット１
-			gStone2[y][i].img = StoneImg[y],P2Pocket[i] ;//ポケット１
-		}
-	}
+	//// 石の画像処理(ポケット)
+	//for (int i = 0; i < 6; i++) {
+	//	for (int y = 0; y < 6; y++) {
+	//		gStone[y][i].img = StoneImg[y], P1Pocket[i];//ポケット１
+	//		gStone2[y][i].img = StoneImg[y],P2Pocket[i] ;//ポケット１
+	//	}
+	//}
 
-	// 石の画像処理(ゴール)
-	for (int i = 0; i < 30; i++) {
-		for (int y = 0; y < 6; y++) {
-			gGoal[y][i].img = StoneImg[y];//ポケット１
-			
-		}
-	}
+	//// 石の画像処理(ゴール)
+	//for (int i = 0; i < 30; i++) {
+	//	for (int y = 0; y < 6; y++) {
+	//		gGoal[y][i].img = StoneImg[y];//ポケット１
+	//		
+	//	}
+	//}
+
+
+	//for (int i = 0; i < 12; i++) {
+	//	StonePocket[i] = InitialStone; // 1P（[1]）のポケット（[6]）の中にStone_cntの初期値（4）を格納
+	//}
 
 	for (int pocket = 0; pocket < 6;) {
 		P1StoneSave[pocket] = 4;
@@ -98,22 +108,15 @@ AbstractScene* Mankara::Update()
 		P1Turn = 0;
 	}
 
-	// ターン切り替え
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
-		P2Turn = 1;
-		P1Turn = 0;
-	}
+	
 
 	// プレイヤーのターンは相手は動かない
 	if (P1Turn == 1) {
 		P2Turn = 0;
 	}
 
-	// ターン切り替え
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_Y)) {
-		P1Turn = 1;
-		P2Turn = 0;
-	}
+	
+
 
 
 	if (P1Turn == 1) {
@@ -156,7 +159,7 @@ AbstractScene* Mankara::Update()
 	//1P用石の移動処理
 	if (P1Turn == 1) {
 		if (Pocket_cnt == 0) {
-			if (MoveStoneFlg == TRUE) {
+			
 				// Aボタンで決定した時に選択したポケット以外をFALSEにする処理
 				PlayerPocket = Pocket_cnt;
 				P1Pocket[0] = TRUE;
@@ -165,12 +168,9 @@ AbstractScene* Mankara::Update()
 				P1Pocket[3] = FALSE;
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
-				MoveStoneFlg = FALSE;
-				PocketEnter = FALSE;
-			}
 		}
 		else if (Pocket_cnt == 1) {
-			if (MoveStoneFlg2 == TRUE) {
+	
 					PlayerPocket = Pocket_cnt;
 					P1Pocket[0] = FALSE;
 					P1Pocket[1] = TRUE;
@@ -178,12 +178,9 @@ AbstractScene* Mankara::Update()
 					P1Pocket[3] = FALSE;
 					P1Pocket[4] = FALSE;
 					P1Pocket[5] = FALSE;
-					MoveStoneFlg2 = FALSE;
-					PocketEnter = FALSE;
-			}
+			
 		}
 		else if (Pocket_cnt == 2) {
-			if (MoveStoneFlg3 == TRUE) {
 				PlayerPocket = Pocket_cnt;
 				P1Pocket[0] = FALSE;
 				P1Pocket[1] = FALSE;
@@ -191,12 +188,9 @@ AbstractScene* Mankara::Update()
 				P1Pocket[3] = FALSE;
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
-				MoveStoneFlg3 = FALSE;
-				PocketEnter = FALSE;
-			}
+			
 		}
 		else if (Pocket_cnt == 3) {
-			if (MoveStoneFlg4 == TRUE) {
 				PlayerPocket = Pocket_cnt;
 				P1Pocket[0] = FALSE;
 				P1Pocket[1] = FALSE;
@@ -204,12 +198,10 @@ AbstractScene* Mankara::Update()
 				P1Pocket[3] = TRUE;
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = FALSE;
-				MoveStoneFlg4 = FALSE;
-				PocketEnter = FALSE;
-			}
+			
 		}
 		else if (Pocket_cnt == 4) {
-			if (MoveStoneFlg5 == TRUE) {
+			
 				PlayerPocket = Pocket_cnt;
 				P1Pocket[0] = FALSE;
 				P1Pocket[1] = FALSE;
@@ -217,12 +209,9 @@ AbstractScene* Mankara::Update()
 				P1Pocket[3] = FALSE;
 				P1Pocket[4] = TRUE;
 				P1Pocket[5] = FALSE;
-				MoveStoneFlg5 = FALSE;
-				PocketEnter = FALSE;
-			}
+			
 		}
 		else if (Pocket_cnt == 5) {
-			if (MoveStoneFlg6 == TRUE) {
 				PlayerPocket = Pocket_cnt;
 				P1Pocket[0] = FALSE;
 				P1Pocket[1] = FALSE;
@@ -230,16 +219,12 @@ AbstractScene* Mankara::Update()
 				P1Pocket[3] = FALSE;
 				P1Pocket[4] = FALSE;
 				P1Pocket[5] = TRUE;
-				MoveStoneFlg6 = FALSE;
-				PocketEnter = FALSE;
-			}
 		}
 	}
 
 
 	if (P2Turn == 1) {
 		if (Pocket_cnt == 0) {
-			if (MoveStoneFlg7 == TRUE) {
 				// Aボタンで決定した時に選択したポケット以外をFALSEにする処理
 				PartnerPocket = Pocket_cnt;
 				P2Pocket[0] = TRUE;
@@ -248,12 +233,8 @@ AbstractScene* Mankara::Update()
 				P2Pocket[3] = FALSE;
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
-				MoveStoneFlg7 = FALSE;
-				PocketEnter2 = FALSE;
-			}
 		}
 		else if (Pocket_cnt == 1) {
-			if (MoveStoneFlg8 == TRUE) {
 				PartnerPocket = Pocket_cnt;
 				P2Pocket[0] = FALSE;
 				P2Pocket[1] = TRUE;
@@ -261,12 +242,8 @@ AbstractScene* Mankara::Update()
 				P2Pocket[3] = FALSE;
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
-				MoveStoneFlg8 = FALSE;
-				PocketEnter2 = FALSE;
-			}
 		}
 		else if (Pocket_cnt == 2) {
-			if (MoveStoneFlg9 == TRUE) {
 				PartnerPocket = Pocket_cnt;
 				P2Pocket[0] = FALSE;
 				P2Pocket[1] = FALSE;
@@ -274,38 +251,27 @@ AbstractScene* Mankara::Update()
 				P2Pocket[3] = FALSE;
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = FALSE;
-				MoveStoneFlg9 = FALSE;
-				PocketEnter2 = FALSE;
-			}
 		}
 		else if (Pocket_cnt == 3) {
-			if (MoveStoneFlg10 == TRUE) {
 				PartnerPocket = Pocket_cnt;
 				P2Pocket[0] = FALSE;
 				P2Pocket[1] = FALSE;
 				P2Pocket[2] = FALSE;
 				P2Pocket[3] = TRUE;
 				P2Pocket[4] = FALSE;
-				P2Pocket[5] = FALSE;
-				MoveStoneFlg10 = FALSE;
-				PocketEnter2 = FALSE;
-			}
+				P2Pocket[5] = FALSE;			
 		}
 		else if (Pocket_cnt == 4) {
-			if (MoveStoneFlg11 == TRUE) {
+			
 				PartnerPocket = Pocket_cnt;
 				P2Pocket[0] = FALSE;
 				P2Pocket[1] = FALSE;
 				P2Pocket[2] = FALSE;
 				P2Pocket[3] = FALSE;
 				P2Pocket[4] = TRUE;
-				P2Pocket[5] = FALSE;
-				MoveStoneFlg11 = FALSE;
-				PocketEnter2 = FALSE;
-			}
+				P2Pocket[5] = FALSE;		
 		}
 		else if (Pocket_cnt == 5) {
-			if (MoveStoneFlg12 == TRUE) {
 				PartnerPocket = Pocket_cnt;
 				P2Pocket[0] = FALSE;
 				P2Pocket[1] = FALSE;
@@ -313,9 +279,6 @@ AbstractScene* Mankara::Update()
 				P2Pocket[3] = FALSE;
 				P2Pocket[4] = FALSE;
 				P2Pocket[5] = TRUE;
-				MoveStoneFlg12 = FALSE;
-				PocketEnter2 = FALSE;
-			}
 		}
 	}
 
@@ -580,6 +543,10 @@ void Mankara::Draw()const
 void Mankara::MoveStone()
 {
 
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
+		P1Turn = 1;
+	}
+
 	if (P1Turn &&PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 		PocketEnter = TRUE;
 	}
@@ -589,204 +556,281 @@ void Mankara::MoveStone()
 
 
 
-	if (P1Turn == 1 && MoveStoneFlg == FALSE&&PocketEnter ==TRUE) {
+	if (P1Turn == 1 &&PocketEnter ==TRUE&& P1Pocket[0] == TRUE) {
 
-		// ポケット0が選ばれた時、
-		if (P1Pocket[0] == TRUE) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[0] >= 6) {
 				P1BigPocket += 1;
 			}
+			if (P1StoneSave[0] >= 6) {
+				for (int i = 0; i < P1StoneSave[0] - 6; i++) {
+					P2StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 0; i < P1StoneSave[0]; i++) {
+				
 				P1StoneSave[i] += 1;
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[0] = 0;
-		}
-		MoveStoneFlg = TRUE;
+		PocketEnter = FALSE;
+		P1Turn = 0;
+		P2Turn = 1;
+		
 	}
-	else if (P1Turn == 1 && MoveStoneFlg2 == FALSE && PocketEnter == TRUE) {
-
-		// ポケット1が選ばれた時、	
-		if (P1Pocket[1] == 1) {
+	else if (P1Turn == 1 && PocketEnter == TRUE&& P1Pocket[1] == 1) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[1] >= 5) {
 				P1BigPocket += 1;
 			}
+			if (P1StoneSave[1] >= 5) {
+				for (int i = 0; i < P1StoneSave[1] - 5; i++) {
+					P2StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 1; i < P1StoneSave[1] + 1; i++) {
+				
 				P1StoneSave[i] += 1;
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[1] = 0;
-		}
-		MoveStoneFlg2 = TRUE;
-	}
-	else if (P1Turn == 1 && MoveStoneFlg3 == FALSE && PocketEnter == TRUE) {
 
-		// ポケット3が選ばれた時、	
-		if (P1Pocket[2] == 1) {
+		PocketEnter = FALSE;
+		P1Turn = 0;
+		P2Turn = 1;
+
+	}
+	else if (P1Turn == 1 &&PocketEnter == TRUE&& P1Pocket[2] == 1) {
+
+		
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[2] >= 4) {
 				P1BigPocket += 1;
 			}
+			if (P1StoneSave[2] >= 4) {
+				for (int i = 0; i < P1StoneSave[2] - 4; i++) {
+					P2StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 2; i < P1StoneSave[2] + 2; i++) {
+				
 				P1StoneSave[i] += 1;
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[2] = 0;
-		}
-		MoveStoneFlg3 = TRUE;
+		PocketEnter = FALSE;
+		P1Turn = 0;
+		P2Turn = 1;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg4 == FALSE && PocketEnter == TRUE) {
-
-		// ポケット3が選ばれた時、	
-		if (P1Pocket[3] == 1) {
+	else if (P1Turn == 1  && PocketEnter == TRUE&& P1Pocket[3] == 1) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[3] >= 3) {
 				P1BigPocket += 1;
 			}
+			if (P1StoneSave[3] >= 3) {
+				for (int i = 0; i < P1StoneSave[3] - 3; i++) {
+					P2StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 3; i < P1StoneSave[3] + 3; i++) {
+				
 				P1StoneSave[i] += 1;
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[3] = 0;
-		}
-		MoveStoneFlg4 = TRUE;
+		PocketEnter = FALSE;
+		P1Turn = 0;
+		P2Turn = 1;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg5 == FALSE && PocketEnter == TRUE) {
-		// ポケット4が選ばれた時、
-		if (P1Pocket[4] == 1) {
+	else if (P1Turn == 1  && PocketEnter == TRUE&& P1Pocket[4] == 1) {
+		
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[4] >= 2) {
 				P1BigPocket += 1;
 			}
+			if (P1StoneSave[4] >= 2) {
+				for (int i = 0; i < P1StoneSave[4] - 2; i++) {
+					P2StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 4; i < P1StoneSave[4] + 4; i++) {
+				
 				P1StoneSave[i] += 1;
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[4] = 0;
-		}
-		MoveStoneFlg5 = TRUE;
+
+		PocketEnter = FALSE;
+		P1Turn = 0;
+		P2Turn = 1;
 	}
-	else if (P1Turn == 1 && MoveStoneFlg6 == FALSE && PocketEnter == TRUE) {
-		// ポケット4が選ばれた時、
-		if (P1Pocket[5] == 1) {
+	else if (P1Turn == 1 && PocketEnter == TRUE&& P1Pocket[5] == 1) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[5] >= 6) {
 				P1BigPocket += 1;
 			}
+			if (P1StoneSave[5] >= 1) {
+				for (int i = 0; i < P1StoneSave[5] - 1; i++) {
+					P2StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 5; i < P1StoneSave[5] + 5; i++) {
+				
 				P1StoneSave[i] += 1;
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[5] = 0;
-		}
-		MoveStoneFlg6 = TRUE;
-	}
-	else if (P2Turn == 1 && MoveStoneFlg7 == FALSE && PocketEnter2 == TRUE) {
 
-		// ポケット0が選ばれた時、
-		if (P2Pocket[0] == TRUE) {
+		PocketEnter = FALSE;
+		P1Turn = 0;
+		P2Turn = 1;
+	}
+
+
+
+
+	else if (P2Turn == 1 &&  PocketEnter2 == TRUE&& P2Pocket[0] == TRUE) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P2StoneSave[0] >= 6) {
 				P2BigPocket += 1;
 			}
+			if (P2StoneSave[0] >= 6) {
+				for (int i = 0; i < P2StoneSave[0] - 6; i++) {
+					P1StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 0; i < P2StoneSave[0]; i++) {
+				
 				P2StoneSave[i] += 1;
+				
 			}
+			
 			// 移動が終わったので、石の数を０にする。
-			P2StoneSave[0] = 0;
-		}
-			MoveStoneFlg7 = TRUE;
+				P2StoneSave[0] = 0;
+		PocketEnter2 = FALSE;
+			P1Turn = 1;
+			P2Turn = 0;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg8 == FALSE && PocketEnter2 == TRUE) {
-
-		// ポケット0が選ばれた時、
-		if (P2Pocket[1] == TRUE) {
+	else if (P2Turn == 1  && PocketEnter2 == TRUE&& P2Pocket[1] == TRUE) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P2StoneSave[1] >= 5) {
 				P2BigPocket += 1;
 			}
+			if (P2StoneSave[1] >= 5) {
+				for (int i = 0; i < P2StoneSave[1] - 5; i++) {
+					P1StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
-			for (int i = 1; i < P2StoneSave[1] + 1; i++) {
+			for (int i = 1; i < P2StoneSave[1] + 1; i++) {	
+				
 				P2StoneSave[i] += 1;
+				
 			}
 			// 移動が終わったので、石の数を０にする。
-			P2StoneSave[1] = 0;
-		}
-			MoveStoneFlg8 = TRUE;
+				P2StoneSave[1] = 0;
+		PocketEnter2 = FALSE;
+			P1Turn = 1;
+			P2Turn = 0;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg9 == FALSE && PocketEnter2 == TRUE) {
-		// ポケット0が選ばれた時、
-		if (P2Pocket[2] == TRUE) {
+	else if (P2Turn == 1  && PocketEnter2 == TRUE&& P2Pocket[2] == TRUE) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P2StoneSave[2] >= 4) {
 				P2BigPocket += 1;
 			}
+			if (P2StoneSave[2] >= 4) {
+				for (int i = 0; i < P2StoneSave[2] - 4; i++) {
+					P1StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 2; i < P2StoneSave[2] + 2; i++) {
+
 				P2StoneSave[i] += 1;
+
 			}
 			// 移動が終わったので、石の数を０にする。
-			P2StoneSave[2] = 0;
-		}
-			MoveStoneFlg9 = TRUE;
+				P2StoneSave[2] = 0;
+			PocketEnter2 = FALSE;
+			P1Turn = 1;
+			P2Turn = 0;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg10 == FALSE && PocketEnter2== TRUE) {
-
-		// ポケット0が選ばれた時、
-		if (P2Pocket[3] == TRUE) {
+	else if (P2Turn == 1 && PocketEnter2== TRUE&& P2Pocket[3] == TRUE) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P2StoneSave[3] >= 3) {
 				P2BigPocket += 1;
 			}
+
+			if (P2StoneSave[3] >= 3) {
+				for (int i = 0; i < P2StoneSave[3] - 3; i++) {
+					P1StoneSave[i] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 3; i < P2StoneSave[3] + 3; i++) {
-				P2StoneSave[i] += 1;
+
+					P2StoneSave[i] += 1;
+
 			}
 			// 移動が終わったので、石の数を０にする。
 			P2StoneSave[3] = 0;
-		}
-			MoveStoneFlg10 = TRUE;
+		PocketEnter2 = FALSE; 
+			P1Turn = 1;
+			P2Turn = 0;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg11 == FALSE && PocketEnter2 == TRUE) {
-		// ポケット0が選ばれた時、
-		if (P2Pocket[4] == TRUE) {
+	else if (P2Turn == 1 && PocketEnter2 == TRUE&& P2Pocket[4] == TRUE) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P2StoneSave[4] >= 2) {
 				P2BigPocket += 1;
 			}
+			if (P2StoneSave[4] >= 2) {
+				for (int y = 0; y < P2StoneSave[1] - 2; y++) {
+					P1StoneSave[y] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
-			for (int i = 4; i < P2StoneSave[4] + 4; i++) {
+			for (int i = 4; i < P2StoneSave[4] + 4; i++) {	
+				
 				P2StoneSave[i] += 1;
+				
 			}
 			// 移動が終わったので、石の数を０にする。
-			P2StoneSave[4] = 0;
-		}
-			MoveStoneFlg11 = TRUE;
+				P2StoneSave[4] = 0;
+		
+		PocketEnter2 = FALSE;
+			P1Turn = 1;
+			P2Turn = 0;
 	}
-	else if (P2Turn == 1 && MoveStoneFlg12 == FALSE && PocketEnter2 == TRUE) {
-		// ポケット0が選ばれた時、
-		if (P2Pocket[5] == TRUE) {
+	else if (P2Turn == 1  && PocketEnter2 == TRUE&& P2Pocket[5] == TRUE) {
+	
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P2StoneSave[5] >= 1) {
 				P2BigPocket += 1;
 			}
+			if (P2StoneSave[5] >= 1) {
+				for (int y = 0; y < P2StoneSave[5] - 1; y++) {
+					P1StoneSave[y] += 1;
+				}
+			}
 			// 1番目のポケットの中の数になるまで、iを足し続ける
 			for (int i = 5; i < P2StoneSave[5] + 5; i++) {
+				
 				P2StoneSave[i] += 1;
+			
 			}
-			// 移動が終わったので、石の数を０にする。
-			P2StoneSave[5] = 0;
-		}
-			MoveStoneFlg12 = TRUE;
+			// 移動が終わったので、石の数を０にする。		
+			P2StoneSave[5] = 0;		
+
+		PocketEnter2 = FALSE;
+			P1Turn = 1;
+			P2Turn = 0;
 	}
 
 
