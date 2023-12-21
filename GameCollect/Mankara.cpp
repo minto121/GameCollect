@@ -19,28 +19,8 @@ Mankara::Mankara()
 
 	Stone_cnt = 1;
 
-	movePocket = 0;
-
 	PocketEnter = 0;
 	PocketEnter2 = 0;
-
-
-	
-
-
-	MoveStoneFlg = FALSE;
-	MoveStoneFlg2 = FALSE;
-	MoveStoneFlg3 = FALSE;
-	MoveStoneFlg4 = FALSE;
-	MoveStoneFlg5 = FALSE;
-	MoveStoneFlg6 = FALSE;
-
-	MoveStoneFlg7 = FALSE;
-	MoveStoneFlg8 = FALSE;
-	MoveStoneFlg9 = FALSE;
-	MoveStoneFlg10 = FALSE;
-	MoveStoneFlg11 = FALSE;
-	MoveStoneFlg12 = FALSE;
 
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y] = 0;
