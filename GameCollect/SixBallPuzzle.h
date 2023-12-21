@@ -36,6 +36,8 @@ private:
 	int gLevel;										//	レベルアップ変数
 	int gSpeed[6] = { 1000,800,600,500,300,150 };	//	落下スピード配列
 
+	int BallY;
+
 	float ballX[MaxBalls];     // X座標の配列
 	float ballY[MaxBalls];     // Y座標の配列
 	float ballSpeed[MaxBalls]; // 落下速度の配列

@@ -112,9 +112,8 @@ void SixBallPuzzle::CreateBlock(void)
 void SixBallPuzzle::ControlBoll(void)
 {
 	//十字キーを押したらブロックの交換を行う
-	if (gKeyFlg & PAD_INPUT_RIGHT) {
-		ballX + 1, ballY == 0;
-	}
+	// ↓キーを押していたらボール君を下に移動させる
+	if (CheckHitKey(KEY_INPUT_DOWN) == 1) BallY += 3;
 }
 
 int SixBallPuzzle::CheckOverlap(int x2, int y2)
