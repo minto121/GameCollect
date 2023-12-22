@@ -60,50 +60,12 @@ AbstractScene* RabbitAndHounds::Update()
 		return this;
 }
 
-//void RabbitAndHounds::RabbitPiece()
-//{
-//	
-//}
-//
-//void RabbitAndHounds::HoundIPiece()
-//{
-//	// —ÂŒ¢‚ğˆÚ“®
-//	if (rabbit_X < hound_X) {
-//		hound_X -= houndSpeed;
-//	}
-//	if (rabbit_X > hound_X) {
-//		hound_X += houndSpeed;
-//	}
-//	if (rabbit_Y < hound_Y) {
-//		hound_Y -= houndSpeed;
-//	}
-//	if (rabbit_Y > hound_Y) {
-//		hound_Y += houndSpeed;
-//	}
-//}
-
 void RabbitAndHounds::Draw() const
 {
 	//ƒ^ƒCƒgƒ‹
 	DrawString(10, 20, "ƒEƒTƒM‚Æ—ÂŒ¢", 0xffffff);
 	//”wŒi‰æ‘œ
 	DrawGraph(0, 0, BackGroundImg, TRUE);
-
-	//SetCameraPositionAndTarget_UpVecY(VGet(0, 0, -1000), VGet(0, 0, 0));
-
-	//// ‰æ–Ê‚É‰f‚éˆÊ’u‚É‚R‚cƒ‚ƒfƒ‹‚ğˆÚ“®
-	//MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
-	//MV1SetPosition(RabbitImg, VGet(320.0f, -300.0f, 600.0f));
-
-	////3Dƒ‚ƒfƒ‹‚Ì•`‰æ
-	//MV1DrawModel(HoundImg);
-	//MV1DrawModel(RabbitImg);
-
-	// ƒEƒTƒM‚Æ—ÂŒ¢‚ğ•`‰æ
-	/*DrawBox(rabbit_X, rabbit_Y, rabbit_X-1, rabbit_Y-1, GetColor(0, 0, 255), TRUE);
-	DrawCircle(hound_X, hound_Y, hound_X-1, hound_Y-1, GetColor(0, 0, 255), TRUE);*/
-
-	
 
 	// •`‰æ‚·‚é•¶š—ñ‚ÌƒTƒCƒY‚ğİ’è
 	SetFontSize(50);

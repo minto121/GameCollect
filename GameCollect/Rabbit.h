@@ -31,23 +31,17 @@ private:
 
 	int rabbit_X;  //ウサギX座標
 	int rabbit_Y;  //ウサギY座標
-	int rabbitFlg;
+	int RabbitFlg;
 
 	int hound_X;   //猟犬X座標
 	int hound_Y;   //猟犬Y座標
 	int houndSpeed;
 
-	int Ax;
-	int Ay;
-	int Aposition;
-
-	int Img;
-
 public:
 	Rabbit();
 	~Rabbit();
 
-	void DrawBord() const;
+	//void DrawBord() const;
 
 	//描画以外の更新を実行
 	AbstractScene* Update() override;
