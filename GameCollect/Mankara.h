@@ -37,7 +37,7 @@ private:
 
 
 
-
+	int InputFlg;
 
 
 	// 1Pが選択しているポケット
