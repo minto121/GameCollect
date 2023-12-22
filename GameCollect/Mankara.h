@@ -10,9 +10,8 @@ private:
 	//int P1PocketImg;
 	//int P2PocketImg;
 
-	int P1Turn;
-	int P2Turn;
-
+	int PocketEnter;// 0：未選択　１：選択した　２：相手のターン
+	int MyTurn; // 自分のターンかどうか
 	struct STONE
 	{
 		int img;
@@ -35,7 +34,7 @@ private:
 	struct GOAL gGoal[30][2];
 
 
-
+	int ResultFlg;
 
 	int InputFlg;
 
@@ -69,32 +68,14 @@ private:
 	int movePocket;
 	int Stone_count;
 	int StonePocket[12]; // 石入れてるポケット
-
-	int CountUp;
-	int moveStone; 
-	int moveStone2;
+	
 	// ポケットの数と格納されている石の数
 	int P1StoneSave[6]; 
 	// ポケットの数と入っている石の数
 	int P2StoneSave[6]; 
 
-	int PocketEnter; 
-	int PocketEnter2; 
+
 	
-
-	int MoveStoneFlg; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg2;
-	int MoveStoneFlg3; 
-	int MoveStoneFlg4; 
-	int MoveStoneFlg5; 
-	int MoveStoneFlg6; 
-
-	int MoveStoneFlg7; // 動いたかどうか確認するフラグ
-	int MoveStoneFlg8;
-	int MoveStoneFlg9;
-	int MoveStoneFlg10;
-	int MoveStoneFlg11;
-	int MoveStoneFlg12;
 public:
 	Mankara();
 	AbstractScene* Update();

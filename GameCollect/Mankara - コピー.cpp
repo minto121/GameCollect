@@ -8,13 +8,11 @@ Mankara::Mankara()
 	Board = LoadGraph("images/mancala/MancalaBoard.png");
 	Background = LoadGraph("images/Mancala/BackGround02.png");
 
-	// 0：未選択　１：選択した　２：相手のターン
-	PocketEnter = 0; 
 
-	MyTurn = TRUE;
+	P1Turn = 1;
+	P2Turn = 0;
+
 	InputFlg = 0;
-	// このフラグがTRUEなら、リザルト表示
-	ResultFlg = FALSE;
 
 	P1BigPocket = 0;
 	P2BigPocket = 0;
@@ -26,7 +24,6 @@ Mankara::Mankara()
 	InitialStone = 4;
 
 	Stone_cnt = 1;
-
 
 	/*PocketEnter = 0;
 	PocketEnter2 = 0;*/
@@ -92,54 +89,61 @@ Mankara::Mankara()
 
 AbstractScene* Mankara::Update()
 {
+	// 相手のターンはプレイヤーは動かない
+	if (P2Turn == 1) {
+		P1Turn = 0;
+	}
 
-	if (ResultFlg == FALSE) {
-		// 自分のターンの操作
-		if (MyTurn == TRUE) {
-			// ポケットを選択したとき、ポケットの中の石が移動する
-			if (PocketEnter == 0) {
-				// ポケットの選択
-				// 右に移動
-				if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-					Pocket_cnt++;
-					if (Pocket_cnt > 5) {
-						Pocket_cnt = 5;
+	
 
-					}
-				} // 左に移動
-				else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-					Pocket_cnt--;
-					if (Pocket_cnt < 0) {
-						Pocket_cnt = 0;
-					}
-				}
+	// プレイヤーのターンは相手は動かない
+	if (P1Turn == 1) {
+		P2Turn = 0;
+	}
+
+	
+
+
+
+	if (P1Turn == 1) {
+		// ポケットの選択
+		// 右に移動
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			Pocket_cnt++;
+			if (Pocket_cnt > 5) {
+				Pocket_cnt = 5;
+
 			}
-		}
-		if (MyTurn == FALSE) {
-			// ポケットを選択したとき、ポケットの中の石が移動する
-			if (PocketEnter == 0) {
-				// ポケットの選択
-				// 右に移動
-				if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-					Pocket_cnt--;
-					if (Pocket_cnt < 0) {
-						Pocket_cnt = 5;
-
-					}
-				} // 左に移動
-				else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-					Pocket_cnt++;
-					if (Pocket_cnt > 5) {
-						Pocket_cnt = 0;
-					}
-				}
+		} // 左に移動
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+			Pocket_cnt--;
+			if (Pocket_cnt < 0) {
+				Pocket_cnt = 0;
 			}
 		}
 	}
+
+	if (P2Turn == 1) {
+		// ポケットの選択
+		// 右に移動
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			Pocket_cnt--;
+			if (Pocket_cnt < 0) {
+				Pocket_cnt = 0;
+			}
+		} // 左に移動
+		else if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+			Pocket_cnt++;
+			if (Pocket_cnt > 5) {
+				Pocket_cnt = 5;
+			}
+		}
+	}
+
 	
 
 	//1P用石の移動処理
-	if (MyTurn == TRUE) {
+	if (P1Turn == 1) {
 		if (Pocket_cnt == 0) {
 			
 				// Aボタンで決定した時に選択したポケット以外をFALSEにする処理
@@ -205,7 +209,7 @@ AbstractScene* Mankara::Update()
 	}
 
 
-	if (MyTurn == FALSE) {
+	if (P2Turn == 1) {
 		if (Pocket_cnt == 0) {
 				// Aボタンで決定した時に選択したポケット以外をFALSEにする処理
 				PartnerPocket = Pocket_cnt;
@@ -265,10 +269,13 @@ AbstractScene* Mankara::Update()
 	}
 
 	if (P1StoneSave[0] == 0&&P1StoneSave[1] == 0&&P1StoneSave[2] == 0&&P1StoneSave[3] == 0&&P1StoneSave[4] == 0&&P1StoneSave[5] == 0) {
-		ResultFlg = TRUE;
+		P1Turn = 0;
+		P2Turn = 0;
+
 	}
 	if (P2StoneSave[0] == 0&&P2StoneSave[1] == 0&&P2StoneSave[2] == 0&&P2StoneSave[3] == 0&&P2StoneSave[4] == 0&&P2StoneSave[5] == 0) {
-		ResultFlg = TRUE;
+		P1Turn = 0;
+		P2Turn = 0;
 	}
 
 	MoveStone();
@@ -385,7 +392,7 @@ void Mankara::Draw()const
 
 
 	// 1Pターン時の ポケット移動
-	if (MyTurn == TRUE) {
+	if (P1Turn == 1) {
 		if (Pocket_cnt == 0) {
 			/*	DrawGraph(255, 385, P1PocketImg, FALSE);*/
 			DrawBox(255, 385, 360, 600, GetColor(0, 0, 255), FALSE);
@@ -426,7 +433,7 @@ void Mankara::Draw()const
 
 
 	// 2Pターン時のポケット移動
-	if (MyTurn == FALSE) {
+	if (P2Turn == 1) {
 		if (Pocket_cnt == 0) {
 			DrawBox(900, 85, 1000, 300, GetColor(255, 0, 0), FALSE);
 			DrawBox(901, 86, 1001, 301, GetColor(255, 0, 0), FALSE);
@@ -479,11 +486,11 @@ void Mankara::Draw()const
 	
 
 	// ターン切り替え
-	if (MyTurn == FALSE) {
+	if (P2Turn == 1) {
 		DrawFormatString(100, 30, GetColor(255, 0, 0), "2P TURN");
 	}
 
-	if (MyTurn == TRUE) {
+	if (P1Turn == 1) {
 		DrawFormatString(100, 30, GetColor(0, 0, 255), "1P TURN");
 	}
 	
@@ -502,13 +509,11 @@ void Mankara::Draw()const
 	DrawFormatString(300 + 125 * 3, 85, GetColor(255, 255, 255), "%d", P2StoneSave[2]);
 	DrawFormatString(300 + 125 * 4, 85, GetColor(255, 255, 255), "%d", P2StoneSave[1]);
 	DrawFormatString(300 + 125 * 5, 85, GetColor(255, 255, 255), "%d", P2StoneSave[0]);
-	if (MyTurn == TRUE) {
-		DrawFormatString(300, 200, GetColor(255, 255, 255), "1PTurn");
-	}
-	else if(MyTurn ==FALSE) {
-		DrawFormatString(300, 200, GetColor(255, 255, 255), "2PTurn");
 
-	}
+	DrawFormatString(300,200, GetColor(255, 255, 255), "P1Turn:%d", P1Turn);
+	DrawFormatString(550, 200, GetColor(255, 255, 255), "P2Turn:%d", P2Turn);
+	DrawFormatString(300,300, GetColor(255, 255, 255), "PocketEnter:%d", PocketEnter);
+	DrawFormatString(550, 300, GetColor(255, 255, 255), "PocketEnter2:%d", PocketEnter2);
 
 
 	// 勝敗条件（マンカラカラハ）
@@ -532,23 +537,22 @@ void Mankara::MoveStone()
 	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_X)) {
 	//	P1Turn = 1;
 	//}
-	if (ResultFlg == FALSE) {
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-			InputFlg = TRUE;
-		}
-
-		if (MyTurn == TRUE && PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && InputFlg == TRUE) {
-			PocketEnter = 1;
-			InputFlg = FALSE;
-		}
-
-		if (MyTurn == FALSE && PAD_INPUT::OnRelease(XINPUT_BUTTON_A) && InputFlg == TRUE) {
-			PocketEnter = 1;
-			InputFlg = FALSE;
-		}
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		InputFlg = TRUE;
 	}
 
-	if (MyTurn == TRUE &&PocketEnter == 1&& P1Pocket[0] == TRUE) {
+	if (P1Turn == 1 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A)&&InputFlg == TRUE) {
+		PocketEnter = TRUE;
+		InputFlg = FALSE;
+	}
+	if (P2Turn == 1 && PAD_INPUT::OnRelease(XINPUT_BUTTON_A)&&InputFlg == TRUE) {
+		PocketEnter2 = TRUE;
+		InputFlg = FALSE;
+	}
+
+
+
+	if (P1Turn == 1 &&PocketEnter ==TRUE&& P1Pocket[0] == TRUE) {
 
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[0] >= 6) {
@@ -567,9 +571,9 @@ void Mankara::MoveStone()
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[0] = 0;
 		
-			PocketEnter = 2;
+			PocketEnter = FALSE;
 	}
-	if (MyTurn == TRUE && PocketEnter == 1&& P1Pocket[1] == 1) {
+	if (P1Turn == 1 && PocketEnter == TRUE&& P1Pocket[1] == 1) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[1] >= 5) {
 				P1BigPocket += 1;
@@ -588,9 +592,9 @@ void Mankara::MoveStone()
 			P1StoneSave[1] = 0;
 
 		
-			PocketEnter = 2;
+			PocketEnter = FALSE;
 	}
-	if (MyTurn == TRUE &&PocketEnter == 1&& P1Pocket[2] == 1) {
+	if (P1Turn == 1 &&PocketEnter == TRUE&& P1Pocket[2] == 1) {
 
 		
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
@@ -609,9 +613,9 @@ void Mankara::MoveStone()
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[2] = 0;
-			PocketEnter = 2;
+			PocketEnter = FALSE;
 	}
-	if (MyTurn == 1  && PocketEnter == 1&& P1Pocket[3] == 1) {
+	if (P1Turn == 1  && PocketEnter == TRUE&& P1Pocket[3] == 1) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[3] >= 3) {
 				P1BigPocket += 1;
@@ -628,9 +632,9 @@ void Mankara::MoveStone()
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[3] = 0;
-			PocketEnter = 2;
+			PocketEnter = FALSE;
 	}
-	if (MyTurn == TRUE  && PocketEnter == 1 && P1Pocket[4] == 1) {
+	if (P1Turn == 1  && PocketEnter == TRUE&& P1Pocket[4] == 1) {
 		
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 			if (P1StoneSave[4] >= 2) {
@@ -649,11 +653,11 @@ void Mankara::MoveStone()
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[4] = 0;
 
-			PocketEnter = 2;
+			PocketEnter = FALSE;
 	}
-	if (MyTurn == TRUE && PocketEnter == 1&& P1Pocket[5] == 1) {
+	if (P1Turn == 1 && PocketEnter == TRUE&& P1Pocket[5] == 1) {
 			// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
-			if (P1StoneSave[5] >= 1) {
+			if (P1StoneSave[5] >= 6) {
 				P1BigPocket += 1;
 			}
 			if (P1StoneSave[5] >= 1) {
@@ -668,13 +672,13 @@ void Mankara::MoveStone()
 			}
 			// 移動が終わったので、石の数を０にする。
 			P1StoneSave[5] = 0;
-			PocketEnter = 2;
+			PocketEnter = FALSE;
 		
 	}
 
 
-	// 相手のターン中の処理
-	if (MyTurn == FALSE && PocketEnter == 1&& P2Pocket[0] == TRUE) {
+
+	if (P2Turn == 1 && PocketEnter2 == TRUE && P2Pocket[0] == TRUE) {
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (P2StoneSave[0] >= 6) {
@@ -693,11 +697,11 @@ void Mankara::MoveStone()
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[0] = 0;
 
-		PocketEnter = 2;
+		PocketEnter2 = FALSE;
 
 
 	}
-	if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[1] == TRUE) {
+	if (P2Turn == 1 && PocketEnter2 == TRUE && P2Pocket[1] == TRUE) {
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (P2StoneSave[1] >= 5) {
@@ -715,9 +719,9 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[1] = 0;
-		PocketEnter = 2;
+		PocketEnter2 = FALSE;
 	}
-	 if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[2] == TRUE) {
+	 if (P2Turn == 1 && PocketEnter2 == TRUE && P2Pocket[2] == TRUE) {
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (P2StoneSave[2] >= 4) {
@@ -735,10 +739,10 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[2] = 0;
-		PocketEnter = 2;
+		PocketEnter2 = FALSE;
 
 	}
-	 if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[3] == TRUE) {
+	 if (P2Turn == 1 && PocketEnter2 == TRUE && P2Pocket[3] == TRUE) {
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (P2StoneSave[3] >= 3) {
@@ -756,10 +760,10 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[3] = 0;
-		PocketEnter = 2;
+		PocketEnter2 = FALSE;
 
 	}
-	 if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[4] == TRUE) {
+	 if (P2Turn == 1 && PocketEnter2 == TRUE && P2Pocket[4] == TRUE) {
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (P2StoneSave[4] >= 2) {
@@ -777,10 +781,10 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[4] = 0;
-		PocketEnter = 2;
+		PocketEnter2 = FALSE;
 
 	}
-	 if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[5] == TRUE) {
+	 if (P2Turn == 1 && PocketEnter2 == TRUE && P2Pocket[5] == TRUE) {
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (P2StoneSave[5] >= 1) {
@@ -798,26 +802,19 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[5] = 0;
-		PocketEnter = 2;
+		PocketEnter2 = FALSE;
 	}
 	
-
-	// PocketEnterが２になら、ターンを切り替える
-	if ( PocketEnter == 2) {
-		// 自分のターンなら、MyTurnをFALSEにする
-		if (MyTurn == TRUE) {
-			MyTurn = FALSE;
-			PocketEnter = 0;
-		}
-		// 相手のターンなら、MyturnをTRUEにする
-		else if(MyTurn == FALSE) {
-			MyTurn = TRUE;
-			PocketEnter = 0;
-		}
-		
+	
+	if ( PocketEnter == FALSE) {
+		P1Turn = 0;
+		P2Turn = 1;
 	}
 
-    
+    if (PocketEnter2 == FALSE) {
+		P1Turn = 1;
+		P2Turn = 0;
+	}
 
 }
 
