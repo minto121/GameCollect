@@ -2,8 +2,14 @@
 #include "DxLib.h"
 #include "PadInput.h"
 
+//#define SCREEN_HEIGHT 720	//画面サイズ (縦)
+//#define SCREEN_WIDTH 1280	//画面サイズ (横)
+
 LastCard::LastCard()
 {
+    input_margin;
+    now_Select;
+
     Card;
 
     CardImg;
@@ -11,20 +17,29 @@ LastCard::LastCard()
     LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
 
     // デッキに一意なIDを持つカードを追加する
-    for (int color = 0; color < NUM_COLORS; ++color) {
-        for (int value = 0; value < CARDS_PER_COLOR; ++value) {
-            int cardID = color * CARDS_PER_COLOR + value; // カードの一意なID
-            deck.push_back(cardID);
+    for (int i = 0; i < 2; ++i) {
+        for (int color = 0; color < NUM_COLORS; ++color) {
+            for (int value = 0; value < CARDS_PER_COLOR; ++value) {
+                int cardID = color * CARDS_PER_COLOR + value; // カードの一意なID
+                deck.push_back(cardID);
+            }
         }
+    }
+    for (int i = 0; i < 4; ++i) {
+        deck.push_back(52);
     }
 
     InitPlayerHands();
+
+    field.push_back(deck.back());
 
     startX;
     startY;
     cardHeight;
     cardWidth;
     cardGap;
+
+    a;
 }
 
 LastCard::~LastCard()
@@ -33,6 +48,37 @@ LastCard::~LastCard()
 
 AbstractScene* LastCard::Update()
 {
+
+    if (input_margin < max_input_margin) {
+        input_margin++;
+    }
+    else {
+        // スティックのX座標を取得
+        int stick_x = PAD_INPUT::GetLStick().ThumbX;
+
+        if (std::abs(stick_x) > stick_sensitivity) {
+            //playsoundmem
+            // スティックが右に移動した場合
+            if (stick_x > 0) {
+                // メニュー選択肢を一つ右に移動
+                now_Select = (now_Select + 1);
+                if (now_Select > playerHands[0].size()) {
+                    now_Select = now_Select - playerHands[0].size() - 1;
+                }
+            }
+            // スティックが左に移動した場合
+            else if (stick_x < 0) {
+                // メニュー選択肢を一つ左に移動
+                now_Select = (now_Select - 1);
+            }
+            input_margin = 0;
+        }
+    }
+    if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
+        field.push_back(playerHands[1].back());
+        playerHands[0].pop_back();
+    }
+
 	if (CheckHitKey(KEY_INPUT_O))
 	{
 		return nullptr;
@@ -45,9 +91,27 @@ void LastCard::Draw() const
 	//DrawGraph(35, 49, CardImg[2], FALSE);
 
 
+
     for (size_t i = 0; i < playerHands.size(); ++i) {
-        int posX = startX + i * 250; // プレイヤーごとのX座標
-        int posY = startY;
+        int posX = 0;
+        int posY = 0;
+        
+        // プレイヤーごとのY座標
+        if (i == 0) {
+            posY = 500;
+            posX = 400;
+        }
+        else {
+            if (i == 2) {
+                posY = 20;
+            }
+            else {
+                posY = 50;
+            }
+            posX = (i - 1) * 400;
+        }
+        //int posX = startX ; // プレイヤーごとのX座標
+        //int posY = startY + i * 250;
 
         for (size_t j = 0; j < playerHands[i].size(); ++j) {
             int cardID = playerHands[i][j]; // カードのID
@@ -61,11 +125,17 @@ void LastCard::Draw() const
                 // カードを描画する
                 DrawGraph(posX, posY, cardImg, TRUE);
 
+                if (i == 0 && j == now_Select) {
+                    DrawBox(posX, posY, posX + cardWidth, posY + cardHeight, 0xff0000, false);
+                }
+
                 // 次のカードの描画位置を調整する
-                posY += cardHeight + cardGap;
+                posX += cardWidth + cardGap;
             }
         }
     }
+
+    DrawGraph(200, 200, CardImg[field.back()], TRUE);
 
 }
 

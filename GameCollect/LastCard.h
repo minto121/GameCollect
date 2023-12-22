@@ -5,10 +5,20 @@
 #include <algorithm>  // for std::shuffle
 #include <random>     // for std::default_random_engine
 
+//#define SCREEN_HEIGHT 720	//画面サイズ (縦)
+//#define SCREEN_WIDTH 1280	//画面サイズ (横)
 
 class LastCard : public AbstractScene
 {
 private:
+    // 操作間隔時間
+    const int max_input_margin = 15;
+    // スティックの感度
+    const int stick_sensitivity = 20000;
+
+    int input_margin = 0;  //操作時間間隔
+    int now_Select = 0; //現在選択してるメニュー
+
     int Card[5][13] = {
         // 赤のカード
         { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 },  // 赤
@@ -27,6 +37,7 @@ private:
 
     std::vector<std::vector<int>> playerHands;
     std::vector<int> deck;
+    std::vector<int> field;
 
     const int startX = 50; // 開始X座標
     const int startY = 50; // 開始Y座標
@@ -36,6 +47,8 @@ private:
 
     const int NUM_COLORS = 4;
     const int CARDS_PER_COLOR = 13;
+
+    int a;
 
 public:
     //コンストラクタ
