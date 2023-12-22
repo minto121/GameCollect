@@ -10,6 +10,14 @@ LastCard::LastCard()
 
     LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
 
+    // デッキに一意なIDを持つカードを追加する
+    for (int color = 0; color < NUM_COLORS; ++color) {
+        for (int value = 0; value < CARDS_PER_COLOR; ++value) {
+            int cardID = color * CARDS_PER_COLOR + value; // カードの一意なID
+            deck.push_back(cardID);
+        }
+    }
+
     InitPlayerHands();
 
     startX;
@@ -66,20 +74,12 @@ void LastCard::InitPlayerHands()
     // 既存の手札をクリア
     playerHands.clear();
 
-    
-    const int NUM_COLORS = 4;
-    const int CARDS_PER_COLOR = 13;
-
-    // デッキに一意なIDを持つカードを追加する
-    for (int color = 0; color < NUM_COLORS; ++color) {
-        for (int value = 0; value < CARDS_PER_COLOR; ++value) {
-            int cardID = color * CARDS_PER_COLOR + value; // カードの一意なID
-            deck.push_back(cardID);
-        }
-    }
 
     // デッキをシャッフルする
+
+
     std::shuffle(deck.begin(), deck.end(), std::default_random_engine(std::random_device()()));
+
 
     // 4人のプレイヤーを想定
     const int numPlayers = 4;

@@ -34,7 +34,8 @@ private:
     const int cardHeight = 80; // カードの高さ
     const int cardGap = 10; // カード間の間隔
 
-
+    const int NUM_COLORS = 4;
+    const int CARDS_PER_COLOR = 13;
 
 public:
     //コンストラクタ
