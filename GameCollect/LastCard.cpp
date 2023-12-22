@@ -62,21 +62,33 @@ AbstractScene* LastCard::Update()
             if (stick_x > 0) {
                 // メニュー選択肢を一つ右に移動
                 now_Select = (now_Select + 1);
-                if (now_Select > playerHands[0].size()) {
-                    now_Select = now_Select - playerHands[0].size() - 1;
+                if (now_Select >= playerHands[0].size()) {
+                    now_Select = now_Select - (playerHands[0].size());
                 }
             }
             // スティックが左に移動した場合
             else if (stick_x < 0) {
                 // メニュー選択肢を一つ左に移動
                 now_Select = (now_Select - 1);
+                if (now_Select < 0) {
+                    now_Select = now_Select + (playerHands[0].size());
+                }
             }
             input_margin = 0;
         }
     }
     if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
-        field.push_back(playerHands[1].back());
-        playerHands[0].pop_back();
+
+        if (CardCheck(playerHands[0][now_Select]) == TRUE) {
+            field.push_back(playerHands[0][now_Select]);
+
+            playerHands[0].erase(playerHands[0].begin() + now_Select);
+        }
+
+       /* field.push_back(playerHands[0][now_Select]);
+        
+        playerHands[0].erase(playerHands[0].begin() + now_Select);*/
+
     }
 
 	if (CheckHitKey(KEY_INPUT_O))
@@ -180,5 +192,28 @@ void LastCard::InitPlayerHands()
         }
         printf("\n");
     }
+}
+
+bool LastCard::CardCheck(int select_card)
+{
+    int Select_CardColor = select_card / (CARDS_PER_COLOR);
+    int Select_CardNumber = select_card % CARDS_PER_COLOR;
+
+    int Field_CardColor = field.back() / (CARDS_PER_COLOR);
+    int Field_CardNumber = field.back() % CARDS_PER_COLOR;
+    
+    //色の判断
+    if (Select_CardColor == Field_CardColor) {
+        return TRUE;
+    }
+    //数字の判断
+    if (Select_CardNumber == Field_CardNumber) {
+        return TRUE;
+    }
+    
+
+
+
+    return false;
 }
 

@@ -65,4 +65,7 @@ public:
 
     // プレイヤーの手札を初期化する関数
     void InitPlayerHands();
+
+    //出せるカードのチェック
+    bool CardCheck(int select_card);
 };
