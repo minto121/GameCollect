@@ -48,6 +48,17 @@ private:
     const int NUM_COLORS = 4;
     const int CARDS_PER_COLOR = 13;
 
+    int WildCardFlg = 0;    //ワイルドカードフラグ
+
+    int Draw2Flg = 0;   //ドロー2フラグ
+    int Draw3Flg = 0;   //ドロー3フラグ
+
+    int SkipFlg = 0;    //スキップフラグ
+
+    int ReverseFlg = 0; //リバースフラグ
+
+
+
     int a;
 
 public:

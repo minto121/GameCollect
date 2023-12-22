@@ -26,7 +26,7 @@ LastCard::LastCard()
         }
     }
     for (int i = 0; i < 4; ++i) {
-        deck.push_back(52);
+        deck.push_back(52);     //ワイルドカード
     }
 
     InitPlayerHands();
@@ -158,8 +158,6 @@ void LastCard::InitPlayerHands()
 
 
     // デッキをシャッフルする
-
-
     std::shuffle(deck.begin(), deck.end(), std::default_random_engine(std::random_device()()));
 
 
@@ -208,6 +206,10 @@ bool LastCard::CardCheck(int select_card)
     }
     //数字の判断
     if (Select_CardNumber == Field_CardNumber) {
+        return TRUE;
+    }
+    //ワイルドカードの判断
+    if (Select_CardColor == 4) {
         return TRUE;
     }
     
