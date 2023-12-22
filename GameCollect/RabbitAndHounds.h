@@ -13,8 +13,6 @@ private:
 	int HoundImg;    //猟犬画像
 	int RabbitImg;   //ウサギ画像
 
-	
-
 	int hound_X;   //猟犬X座標
 	int hound_Y;   //猟犬Y座標
 	int houndSpeed;
