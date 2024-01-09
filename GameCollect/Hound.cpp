@@ -148,6 +148,7 @@ AbstractScene* Hound::Update()
 		cursorFlg += 1;
 	}
 
+	//Aƒ{ƒ^ƒ“‰Ÿ‚µ‚È‚ª‚ç‹î‚ð“®‚©‚·
 	if (HoundFlg1 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
 		HoundMoveflg1 = TRUE;
 
