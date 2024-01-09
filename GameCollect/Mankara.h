@@ -7,9 +7,6 @@ private:
 	int Board; // ゲームボードの画像
 	int Background; // 背景画像
 
-	//int P1PocketImg;
-	//int P2PocketImg;
-
 	int PocketEnter;// 0：未選択　１：選択した　２：相手のターン
 	int MyTurn; // 自分のターンかどうか
 	struct STONE
@@ -33,11 +30,10 @@ private:
 	// 石の色と個数
 	struct GOAL gGoal[30][2];
 
-
+	// 勝敗用フラグ
 	int ResultFlg;
-
+	// ターン切り替え用フラグ
 	int InputFlg;
-
 
 	// 1Pが選択しているポケット
 	int PlayerPocket;
@@ -55,17 +51,16 @@ private:
 	//2Pのゴール
 	int P2BigPocket;
 
-	/*int BigPocket[6][40];
-	int BigPocket2[6][40];*/
+	//ゲーム中の動く石の総数
+	int FullStone;
 
 	// 石の画像
 	int StoneImg[6]; 
 
 	int Pocket_cnt;
 
+	// 初期石
 	int InitialStone;
-	int Stone_cnt;
-	int movePocket;
 	int Stone_count;
 	int StonePocket[12]; // 石入れてるポケット
 	
@@ -74,8 +69,6 @@ private:
 	// ポケットの数と入っている石の数
 	int P2StoneSave[6]; 
 
-
-	
 public:
 	Mankara();
 	AbstractScene* Update();
