@@ -137,6 +137,9 @@ AbstractScene* Hound::Update()
 	//ÉJÅ[É\Éã
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		cursorFlg -= 5;
+		if (cursorFlg <= 0) {
+			cursorFlg == 0;
+		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 		cursorFlg += 5;
