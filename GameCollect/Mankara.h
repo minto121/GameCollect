@@ -31,7 +31,11 @@ private:
 	struct GOAL gGoal[30][2];
 
 	// 勝敗用フラグ
-	int ResultFlg;
+	int ResultFlg1;
+	int ResultFlg2;
+	// 勝敗を出す
+	int ResultDraw1;
+	int ResultDraw2;
 	// ターン切り替え用フラグ
 	int InputFlg;
 
