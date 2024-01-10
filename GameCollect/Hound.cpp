@@ -22,9 +22,9 @@ Hound::Hound()
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
 
-	HoundMoveflg1 = FALSE;
-	HoundMoveflg2 = FALSE;
-	HoundMoveflg3 = FALSE;
+	HoundMoveflg1 = TRUE;
+	HoundMoveflg2 = TRUE;
+	HoundMoveflg3 = TRUE;
 
 	cursorFlg = 5;
 
@@ -152,8 +152,8 @@ AbstractScene* Hound::Update()
 	}
 
 	//Aƒ{ƒ^ƒ“‰Ÿ‚µ‚È‚ª‚ç‹î‚ð“®‚©‚·
-	if (HoundFlg1 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		HoundMoveflg1 = TRUE;
+	if (HoundFlg1 == cursorFlg && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
+		//HoundMoveflg1 = TRUE;
 
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg1 -= 5;
@@ -167,7 +167,7 @@ AbstractScene* Hound::Update()
 	}
 
 	if (HoundFlg2 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		HoundMoveflg2 = TRUE;
+		//HoundMoveflg2 = TRUE;
 
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg2 -= 5;
@@ -181,7 +181,7 @@ AbstractScene* Hound::Update()
 	}
 	
 	if (HoundFlg3 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		HoundMoveflg3 = TRUE;
+		//HoundMoveflg3 = TRUE;
 
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg3 -= 5;
