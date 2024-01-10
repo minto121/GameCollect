@@ -25,7 +25,11 @@ private:
 	int HoundFlg2;
 	int HoundFlg3;
 
-	int HoundMoveflg1;   //猟犬描画フラグ
+	int HoundDrawflg1;   //猟犬描画フラグ
+	int HoundDrawflg2;
+	int HoundDrawflg3;
+	
+	int HoundMoveflg1;   //
 	int HoundMoveflg2;
 	int HoundMoveflg3;
 

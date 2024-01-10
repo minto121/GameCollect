@@ -15,16 +15,17 @@ Hound::Hound()
 	// テクスチャの読み込み
 	R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
 
-	hound_X = 0;
-	hound_Y = 0;
-
 	HoundFlg1 = 5;
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
 
-	HoundMoveflg1 = TRUE;
-	HoundMoveflg2 = TRUE;
-	HoundMoveflg3 = TRUE;
+	HoundDrawflg1 = TRUE;
+	HoundDrawflg2 = TRUE;
+	HoundDrawflg3 = TRUE;
+	
+	HoundMoveflg1 = 0;
+	HoundMoveflg2 = FALSE;
+	HoundMoveflg3 = FALSE;
 
 	cursorFlg = 5;
 
@@ -152,17 +153,22 @@ AbstractScene* Hound::Update()
 	}
 
 	//Aボタン押しながら駒を動かす
-	if (HoundFlg1 == cursorFlg && PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-		//HoundMoveflg1 = TRUE;
+	if (HoundFlg1 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
+		HoundMoveflg1 = 1;
 
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-			HoundFlg1 -= 5;
-		}
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-			HoundFlg1 += 5;
-		}
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-			HoundFlg1 += 1;
+		if (HoundMoveflg1 = 1)
+		{
+			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+				HoundFlg1 -= 5;
+			}
+			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+				HoundFlg1 += 5;
+			}
+			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+				HoundFlg1 += 1;
+			}
+
+			HoundMoveflg1 = 0;
 		}
 	}
 
@@ -264,7 +270,7 @@ void Hound::Draw() const
 			}
 
 			//猟犬1の描画
-			if (HoundMoveflg1 == TRUE) {
+			if (HoundDrawflg1 == TRUE) {
 				if (HoundFlg1 == 1 && bord[i][j].flg == 1) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
@@ -304,7 +310,7 @@ void Hound::Draw() const
 			}
 			
 			//猟犬2の描画
-			if (HoundMoveflg2 == TRUE) {
+			if (HoundDrawflg2 == TRUE) {
 				if (HoundFlg2 == 1 && bord[i][j].flg == 1) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
@@ -338,13 +344,13 @@ void Hound::Draw() const
 				else if (HoundFlg2 == 13 && bord[i][j].flg == 13) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 0 && HoundFlg2 == 5 && HoundFlg2 == 10 && HoundFlg2 == 15) {   //いけないマス表示
-					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
-				}
+				//else if (HoundFlg2 == 0 && HoundFlg2 == 5 && HoundFlg2 == 10 && HoundFlg2 == 15) {   //いけないマス表示
+				//	DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				//}
 			}
 			
 			//猟犬3の描画
-			if (HoundMoveflg3 == TRUE) {
+			if (HoundDrawflg3 == TRUE) {
 				if (HoundFlg3 == 1 && bord[i][j].flg == 1) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
@@ -378,9 +384,9 @@ void Hound::Draw() const
 				else if (HoundFlg3 == 13 && bord[i][j].flg == 13) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg3 == 0 && HoundFlg3 == 5 && HoundFlg3 == 10 && HoundFlg3 == 15) {   //いけないマス表示
-					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
-				}
+				//else if (HoundFlg3 == 0 && HoundFlg3 == 5 && HoundFlg3 == 10 && HoundFlg3 == 15) {   //いけないマス表示
+				//	DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				//}
 			}
 		}
 	}
@@ -435,5 +441,7 @@ void Hound::Draw() const
 	DrawFormatString(400, 10, 0x000000, "HoundFlg1:%d", HoundFlg1);
 	DrawFormatString(600, 10, 0x000000, "HoundFlg2:%d", HoundFlg2);
 	DrawFormatString(800, 10, 0x000000, "HoundFlg3:%d", HoundFlg3);
+
+	DrawFormatString(1000, 10, 0x000000, "HoundMoveflg1:%d", HoundMoveflg1);
 
 }
