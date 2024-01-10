@@ -16,8 +16,7 @@ Takoyaki::Takoyaki()
 	}
 
 	// カード画像の初期化
-	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png", 56, 14, 4, 128, 256, Cards_img);  // カード画像読み込み
-	CursolImg = LoadGraph("../images/Takoyaki/cursor.png");										//カーソル画像読み込み
+	cardimg = LoadDivGraph("../images/Takoyaki/PlayingCards.png", 56, 14, 4, 128, 256, Cards_img);  // カード画像読み込
 	select_X = 100;
 	select_Y = 120;
 	BackCard_Img = Cards_img[0];
@@ -41,37 +40,38 @@ Takoyaki::~Takoyaki() {
 
 }
 
+bool isPlayer1Trun = true;
 AbstractScene* Takoyaki::Update()
 {
-
-	//カーソル　左
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT))
-	{
-		Select--;
-		select_X -= 120;
-	}
-	//カーソル右
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT))
-	{
-		Select++;
-		select_X += 120;
-	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-			AButtonPressed = true; // Aボタンが押されたことを記録
-			if (select_X >= 70 && select_X < 1180) { // カードが描画されている範囲内か確認
-				if (Select >= 0 && Select < 10) {
-					if (!cardFlipped[0][Select]) {
-						handCard[0][Select] = GetRand(8) + 1; // 1〜9のランダムな値をセット
-						cardFlipped[0][Select] = true; // カードを裏返す
-					}
+		if (isPlayer1Turn) {
+			int drawnCard = GetRand(13); // 0〜9のランダムな値を取得
+			if (!cardFlipped[0][drawnCard]) { // カードがまだ捲られていない場合のみ処理を行う
+				cardFlipped[0][drawnCard] = true; // カードを裏返す
+				handCard[0][drawnCard] = GetRand(13) + 1;
+
+				// 絵札（10～13）が出た場合、相手のターンに切り替える
+				if (handCard[0][drawnCard] >= 10 && handCard[0][drawnCard] <= 13) {
+					isPlayer1Turn = false; // プレイヤー1のターンを終了
 				}
 			}
-	}
-	else {
-		AButtonPressed = false; // Aボタンが押されていないことを記録
+		}
+		else {
+			int drawnCard = GetRand(13); // 0〜9のランダムな値を取得
+			if (!cardFlipped[1][drawnCard]) { // カードがまだ捲られていない場合のみ処理を行う
+				cardFlipped[1][drawnCard] = true; // カードを裏返す
+				handCard[1][drawnCard] = GetRand(13) + 1;
+
+				// 絵札（10～13）が出た場合、プレイヤー1のターンに切り替える
+				if (handCard[1][drawnCard] >= 10 && handCard[1][drawnCard] <= 13) {
+					isPlayer1Turn = true; // プレイヤー1のターンに切り替える
+				}
+			}
+		}
 	}
 
-	//手札の描画
+
+	// 手札の描画
 	Draw();
 	ScreenFlip();
 	return this;
@@ -103,9 +103,7 @@ void Takoyaki::Draw()const
 				DrawGraph(70 + i * 120, 300, BackCard_Img, TRUE); // カードが無効な場合、バックカードを描画
 			}
 		}
-	//カーソルの描画
-	DrawGraph(select_X, 250, CursolImg, TRUE);
+	
 	ScreenFlip();
 
-	//DrawGraph(650, select_y, CursorImg, TRUE);
 }

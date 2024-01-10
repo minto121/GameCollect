@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "AbstractScene.h"
-
+#include<vector>
 class Takoyaki :
     public AbstractScene
 {
@@ -15,7 +15,9 @@ private:
     int BackCard_Img;
     bool cardFlipped[2][10];       //カードの裏返し
     bool AButtonPressed;
-   
+    int isPlayer1Turn;
+    int drawnCard;
+    std::vector<int> deck;
     //手札の情報を保持する配列
     int handCard[2][10];
 public:
