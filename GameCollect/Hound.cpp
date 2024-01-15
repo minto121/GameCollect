@@ -121,35 +121,30 @@ Hound::~Hound()
 
 AbstractScene* Hound::Update()
 {
-	// 猟犬を移動
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-	//	HoundFlg -= 5;
-	//}
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-	//	HoundFlg += 5;
-	//}
-	///*if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-	//	HoundFlg -= 1;
-	//}*/
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-	//	HoundFlg += 1;
-	//}
-
-	//カーソル
+	//カーソル移動処理
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		cursorFlg -= 5;
-		if (cursorFlg <= 0) {
-			cursorFlg == 0;
+		if (cursorFlg < 1 || cursorFlg == 0 || cursorFlg == 4) {
+			cursorFlg += 5;
 		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 		cursorFlg += 5;
+		if (cursorFlg > 14 || cursorFlg == 14 || cursorFlg == 10) {
+			cursorFlg -= 5;
+		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 		cursorFlg -= 1;
+		if (cursorFlg < 1 || cursorFlg == 4 || cursorFlg == 10) {
+			cursorFlg += 1;
+		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 		cursorFlg += 1;
+		if (cursorFlg < 1 || cursorFlg == 4 || cursorFlg == 10 || cursorFlg == 14) {
+			cursorFlg -= 1;
+		}
 	}
 
 	//Aボタン押しながら駒を動かす
@@ -160,12 +155,21 @@ AbstractScene* Hound::Update()
 		{
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 				HoundFlg1 -= 5;
+				if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
+					HoundFlg1 += 5;
+				}
 			}
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 				HoundFlg1 += 5;
+				if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
+					HoundFlg1 -= 5;
+				}
 			}
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 				HoundFlg1 += 1;
+				if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
+					HoundFlg1 -= 1;
+				}
 			}
 
 			HoundMoveflg1 = 0;
@@ -177,12 +181,21 @@ AbstractScene* Hound::Update()
 
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg2 -= 5;
+			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 < 1 || HoundFlg2 == 0 || HoundFlg2 == 4) {
+				HoundFlg2 += 5;
+			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 			HoundFlg2 += 5;
+			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 > 14 || HoundFlg2 == 14 || HoundFlg2 == 10) {
+				HoundFlg2 -= 5;
+			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 			HoundFlg2 += 1;
+			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 >= 14 || HoundFlg2 == 4 || HoundFlg2 == 10) {
+				HoundFlg2 -= 1;
+			}
 		}
 	}
 	
@@ -191,12 +204,21 @@ AbstractScene* Hound::Update()
 
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg3 -= 5;
+			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 < 1 || HoundFlg3 == 0 || HoundFlg3 == 4) {
+				HoundFlg3 += 5;
+			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 			HoundFlg3 += 5;
+			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 > 14 || HoundFlg3 == 14 || HoundFlg3 == 10) {
+				HoundFlg3 -= 5;
+			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 			HoundFlg3 += 1;
+			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 >= 14 || HoundFlg3 == 4 || HoundFlg3 == 10) {
+				HoundFlg3 -= 1;
+			}
 		}
 	}
 
@@ -218,12 +240,12 @@ void Hound::Draw() const
 	//MV1SetScale(RabbitImg, VGet(1, 1, 1)); // モデルのスケールを設定
 	//MV1SetRotationXYZ(RabbitImg, VGet(0, 0, 0)); // モデルの回転を設定
 
-	//// テクスチャの設定
+	// テクスチャの設定
 	//SetUseTextureToShader(0, R_texture);
 
-	////MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
+	//MV1SetPosition(HoundImg, VGet(320.0f, -300.0f, 600.0f));
 
-	////3Dモデルの描画
+	//3Dモデルの描画
 	//MV1DrawModel(RabbitImg);
 	//MV1DrawModel(HoundImg);
 
@@ -390,51 +412,6 @@ void Hound::Draw() const
 			}
 		}
 	}
-	//カーソル
-	/*for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 3; j++) {
-			
-		}
-	}*/
-
-	//カーソル
-	//for (int i = 0; i < 5; i++) {
-	//	for (int j = 0; j < 3; j++) {
-	//		if (HoundFlg == 1 && bord[i][j].flg == 1) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 2 && bord[i][j].flg == 2) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 3 && bord[i][j].flg == 3) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 5 && bord[i][j].flg == 5) {   //初期位置
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 6 && bord[i][j].flg == 6) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 7 && bord[i][j].flg == 7) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 8 && bord[i][j].flg == 8) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 9 && bord[i][j].flg == 9) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 11 && bord[i][j].flg == 11) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 12 && bord[i][j].flg == 12) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//		else if (HoundFlg == 13 && bord[i][j].flg == 13) {
-	//			DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
-	//		}
-	//	}
-	//}
 	
 	SetFontSize(20);
 	DrawFormatString(200, 10, 0x000000, "cursorFlg:%d", cursorFlg);
