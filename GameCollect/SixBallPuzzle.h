@@ -29,7 +29,6 @@ private:
 	int gNowKey;			// 今回の入力キー
 	int gKeyFlg;			// 入力キー情報
 
-
 	int Random = 0;						//乱数の取得
 	int gStage[HEIGHT][WIDTH];						//ステージ配列
 	int gBlockImg[10];								//ブロック画像
