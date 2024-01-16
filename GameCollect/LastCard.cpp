@@ -16,7 +16,7 @@ LastCard::LastCard()
 
     LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
 
-    // デッキに一意なIDを持つカードを追加する
+    // デッキにカードを追加する
     for (int i = 0; i < 2; ++i) {
         for (int color = 0; color < NUM_COLORS; ++color) {
             for (int value = 0; value < CARDS_PER_COLOR; ++value) {
@@ -48,6 +48,9 @@ LastCard::~LastCard()
 
 AbstractScene* LastCard::Update()
 {
+
+    //
+
 
     if (input_margin < max_input_margin) {
         input_margin++;

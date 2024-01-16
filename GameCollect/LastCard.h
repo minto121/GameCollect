@@ -57,7 +57,8 @@ private:
 
     int ReverseFlg = 0; //リバースフラグ
 
-
+    int Draw2Count = 0; //ドロー2カウント
+    int Draw3Count = 0; //ドロー3カウント
 
     int a;
 
@@ -79,4 +80,6 @@ public:
 
     //出せるカードのチェック
     bool CardCheck(int select_card);
+
+    //ドロー
 };
