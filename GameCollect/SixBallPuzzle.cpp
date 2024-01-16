@@ -112,26 +112,24 @@ void SixBallPuzzle::CreateBlock(void)
 void SixBallPuzzle::ControlBoll(void)
 {
 	//十字キーを押したらブロックの交換を行う
-	// →を押したらボール君を右に移動させる
-	if (gKeyFlg & PAD_INPUT_LEFT) {
-		if (CheckOverlap(gPosX - 100, gPosY) == 0) {
-			gPosX--;
-		}
+	// ←を押したらボール君を左に移動させる
+	if (gKeyFlg & KEY_INPUT_LEFT) {
+		ballX - 100;
+			//gPosX--;
 	}
 }
 
 int SixBallPuzzle::CheckOverlap(int x2, int y2)
 {
-	//接触の確認
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (gNewBlock[i][j] != 0) {
-				if (gStage[y2 + i][x2 + j] != 0) {
-					return 1;
-				}
-			}
-		}
-	}
+	////接触の確認
+	//for (int i = 0; i < 4; i++) {
+	//	for (int j = 0; j < 4; j++) {
+	//		if (ballX[i] != 0) {
+
+	//				return 1;
+	//		}
+	//	}
+	//}
 
 	return 0;
 }
