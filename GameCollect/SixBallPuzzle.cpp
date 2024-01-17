@@ -24,15 +24,9 @@ SixBallPuzzle::SixBallPuzzle()
 	oldTime = nowTime;
 	nowTime = GetNowHiPerformanceCount();
 
-	//ボール生成とNEXTボールの移動
-	CreateBlock();
-
 	// Newボールの座標初期化
 	gPosX = NEWBLOCK_X;
 	gPosY = NEWBLOCK_Y;
-
-	// ブロックの移動処理
-	ControlBoll();
 
 	//自動落下
 	nowTime = GetNowCount();
@@ -44,12 +38,6 @@ SixBallPuzzle::SixBallPuzzle()
 		else {
 			//　ブロックの固定
 			LockBlock(gPosX, gPosY);
-
-			//　ブロック消去とブロックを下ろす処理
-			CheckLines();
-
-			//　新しいブロックの作成
-			CreateBlock();
 		}
 
 		//ステージの初期化（壁設定とクリア）
@@ -76,9 +64,6 @@ SixBallPuzzle::SixBallPuzzle()
 	}
 
 	SRand(GetNowCount());
-
-	//乱数生成器を初期化
-	//srand(static_cast<unsigned int>(time(0)));
 }
 
 SixBallPuzzle::~SixBallPuzzle()
@@ -113,23 +98,13 @@ void SixBallPuzzle::ControlBoll(void)
 {
 	//十字キーを押したらブロックの交換を行う
 	// ←を押したらボール君を左に移動させる
-	if (gKeyFlg & KEY_INPUT_LEFT) {
-		ballX - 100;
-			//gPosX--;
-	}
+	
+	if (CheckHitKey(KEY_INPUT_LEFT) == 1) ballX - 96;
+
 }
 
 int SixBallPuzzle::CheckOverlap(int x2, int y2)
 {
-	////接触の確認
-	//for (int i = 0; i < 4; i++) {
-	//	for (int j = 0; j < 4; j++) {
-	//		if (ballX[i] != 0) {
-
-	//				return 1;
-	//		}
-	//	}
-	//}
 
 	return 0;
 }
@@ -163,14 +138,14 @@ void SixBallPuzzle::TurnBlock(void)
 
 void SixBallPuzzle::LockBlock(int x2, int y2)
 {
-	 //ブロックを固定する
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			if (gNewBlock[i][j] != 0) {
-				gStage[y2 + i][x2 + j] = gNewBlock[i][j];
-			}
-		}
-	}
+	// //ブロックを固定する
+	//for (int i = 0; i < 4; i++) {
+	//	for (int j = 0; j < 4; j++) {
+	//		if (gNewBlock[i][j] != 0) {
+	//			gStage[y2 + i][x2 + j] = gNewBlock[i][j];
+	//		}
+	//	}
+	//}
 }
 
 void SixBallPuzzle::CheckLines(void)
@@ -235,12 +210,6 @@ void SixBallPuzzle::CheckLines(void)
 
 AbstractScene* SixBallPuzzle::Update()
 {
-	// ランダムなボールのインデックスを生成
-	//randomBallIndex = rand() % 5;  // 0から4の範囲でランダムにボールを選択
-
-	// y座標を自動的に更新して画像を描画
-	// 画像の座標を画面内に制限する（画面下端でリセットする）
-
 	// y座標を自動的に更新してボールを描画
 	for (int i = 0; i < MaxBalls; i++)
 	{
@@ -285,9 +254,6 @@ AbstractScene* SixBallPuzzle::Update()
 
 void SixBallPuzzle::Draw() const
 {
-	//選択したランダムなボールを描画
-	//DrawGraph(100, FallingY, Ball_img[randomBallIndex], TRUE);
-
 	//背景画像の描画
 	DrawGraph(10, 10, Back_Ground, FALSE);
 
@@ -300,9 +266,6 @@ void SixBallPuzzle::Draw() const
 		}
 	}
 
-	//　ローカル変数
-	//int posX, tempScore;
-
 	//ステージの値でブロックを表示
 	for (int i = 0; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
@@ -312,15 +275,6 @@ void SixBallPuzzle::Draw() const
 		}
 	}
 
-	//// Newブロックを描画
-	//for (int i = 0; i < 4; i++) {
-	//	for (int j = 0; j < 4; j++) {
-	//		if (gNewBlock[i][j] != 0) {
-	//			DrawGraph(BLOCKSIZE * (j + gPosX), BLOCKSIZE * (i + gPosY), gBlockImg[gNewBlock[i][j]], TRUE);
-	//		}
-	//	}
-	//}
-
 	// Nextブロックとストックブロックを描画
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -328,9 +282,6 @@ void SixBallPuzzle::Draw() const
 			DrawGraph(BLOCKSIZE * j + 360, BLOCKSIZE * i + 240, gBlockImg[gStokBlock[i][j]], TRUE);
 		}
 	}
-
-	//	レベル表示
-	//DrawGraph(400, 140, gNumberImg[gLevel], TRUE);
 }
 
 
