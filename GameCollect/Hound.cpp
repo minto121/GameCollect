@@ -24,8 +24,8 @@ Hound::Hound()
 	HoundDrawflg3 = TRUE;
 	
 	HoundMoveflg1 = 0;
-	HoundMoveflg2 = FALSE;
-	HoundMoveflg3 = FALSE;
+	HoundMoveflg2 = 0;
+	HoundMoveflg3 = 0;
 
 	cursorFlg = 5;
 
@@ -123,56 +123,158 @@ AbstractScene* Hound::Update()
 	//カーソル移動処理
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 		cursorFlg -= 5;
-		/*if (cursorFlg < 1 || cursorFlg == 0 || cursorFlg == 4) {
+		if (cursorFlg < 1 || cursorFlg == 0 || cursorFlg == 4) {
 			cursorFlg += 5;
-		}*/
+		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 		cursorFlg += 5;
-		/*if (cursorFlg > 14 || cursorFlg == 14 || cursorFlg == 10) {
+		if (cursorFlg > 14 || cursorFlg == 14 || cursorFlg == 10) {
 			cursorFlg -= 5;
-		}*/
+		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 		cursorFlg -= 1;
-		/*if (cursorFlg < 1 || cursorFlg == 4 || cursorFlg == 10) {
+		if (cursorFlg < 1 || cursorFlg == 4 || cursorFlg == 10) {
 			cursorFlg += 1;
-		}*/
+		}
 	}
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 		cursorFlg += 1;
-		/*if (cursorFlg < 1 || cursorFlg == 4 || cursorFlg == 10 || cursorFlg == 14) {
+		if (cursorFlg < 1 || cursorFlg == 4 || cursorFlg == 10 || cursorFlg == 14) {
 			cursorFlg -= 1;
-		}*/
+		}
 	}
 
-	//Aボタン押しながら駒を動かす
-	if (HoundFlg1 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
-		HoundMoveflg1 = 1;
-
-		if (HoundMoveflg1 == 1)
+	//Aボタンで猟犬を選択する
+	if (HoundMoveflg1 == 0)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
-			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-				HoundFlg1 -= 5;
-				if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
-					HoundFlg1 += 5;
-				}
+			if (HoundFlg1 == cursorFlg)
+			{
+				HoundMoveflg1 = 1;
 			}
-			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+			else {
+				HoundMoveflg1 = 0;
+			}
+
+		}
+	}
+	//選択した猟犬を動かす
+	else if (HoundMoveflg1 == 1)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+			HoundFlg1 = cursorFlg;
+			if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
 				HoundFlg1 += 5;
-				if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
-					HoundFlg1 -= 5;
-				}
-			}
-			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-				HoundFlg1 += 1;
-				if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
-					HoundFlg1 -= 1;
-				}
 			}
 		}
-		HoundMoveflg1 = 0;
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+			HoundFlg1 = cursorFlg;
+			if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
+				HoundFlg1 -= 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			HoundFlg1 = cursorFlg;
+			if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
+				HoundFlg1 -= 1;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			HoundMoveflg1 = 0;
+		}
 	}
+	
+	//Aボタンで猟犬を選択する2
+	if (HoundMoveflg2 == 0)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (HoundFlg2 == cursorFlg)
+			{
+				HoundMoveflg2 = 1;
+			}
+			else {
+				HoundMoveflg2 = 0;
+			}
+
+		}
+	}
+	//選択した猟犬を動かす
+	else if (HoundMoveflg2 == 1)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+			HoundFlg2 = cursorFlg;
+			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 < 1 || HoundFlg2 == 0 || HoundFlg2 == 4) {
+				HoundFlg2 += 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+			HoundFlg2 = cursorFlg;
+			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 > 14 || HoundFlg2 == 14 || HoundFlg2 == 10) {
+				HoundFlg2 -= 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			HoundFlg2 = cursorFlg;
+			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 >= 14 || HoundFlg2 == 4 || HoundFlg2 == 10) {
+				HoundFlg2 -= 1;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			HoundMoveflg2 = 0;
+		}
+	}
+	
+	//Aボタンで猟犬を選択する3
+	if (HoundMoveflg3 == 0)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (HoundFlg3 == cursorFlg)
+			{
+				HoundMoveflg3 = 1;
+			}
+			else {
+				HoundMoveflg3 = 0;
+			}
+
+		}
+	}
+	//選択した猟犬を動かす
+	else if (HoundMoveflg3 == 1)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+			HoundFlg3 = cursorFlg;
+			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 < 1 || HoundFlg3 == 0 || HoundFlg3 == 4) {
+				HoundFlg2 += 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+			HoundFlg3 = cursorFlg;
+			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 > 14 || HoundFlg3 == 14 || HoundFlg3 == 10) {
+				HoundFlg3 -= 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			HoundFlg3 = cursorFlg;
+			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 >= 14 || HoundFlg3 == 4 || HoundFlg3 == 10) {
+				HoundFlg3 -= 1;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			HoundMoveflg3 = 0;
+		}
+	}
+
+
+
+
 
 	if (HoundFlg2 == cursorFlg && PAD_INPUT::OnPressed(XINPUT_BUTTON_A)) {
 		//HoundMoveflg2 = TRUE;
@@ -418,5 +520,7 @@ void Hound::Draw() const
 	DrawFormatString(800, 10, 0x000000, "HoundFlg3:%d", HoundFlg3);
 
 	DrawFormatString(1000, 10, 0x000000, "HoundMoveflg1:%d", HoundMoveflg1);
+	DrawFormatString(1000, 50, 0x000000, "HoundMoveflg2:%d", HoundMoveflg2);
+	DrawFormatString(1000, 100, 0x000000, "HoundMoveflg3:%d", HoundMoveflg3);
 
 }
