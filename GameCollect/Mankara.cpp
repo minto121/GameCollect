@@ -337,6 +337,8 @@ void Mankara::Draw()const
 		DrawFormatString(100, 30, GetColor(0, 0, 255), "1P TURN");
 	}
 	
+	SetFontSize(50);
+
 	DrawFormatString(260, 585, GetColor(255, 255, 255), "%d", P1StoneSave[0]);
 	DrawFormatString(260 + 125 * 1, 585, GetColor(255, 255, 255), "%d", P1StoneSave[1]);
 	DrawFormatString(260 + 125 * 2, 585, GetColor(255, 255, 255), "%d", P1StoneSave[2]);
@@ -352,14 +354,9 @@ void Mankara::Draw()const
 	DrawFormatString(300 + 125 * 4, 85, GetColor(255, 255, 255), "%d", P2StoneSave[1]);
 	DrawFormatString(300 + 125 * 5, 85, GetColor(255, 255, 255), "%d", P2StoneSave[0]);
 
-	if (MyTurn == TRUE) {
-		DrawFormatString(300, 200, GetColor(255, 255, 255), "1PTurn");
-	}
-	else if(MyTurn ==FALSE) {
-		DrawFormatString(300, 200, GetColor(255, 255, 255), "2PTurn");
-	}
+	
 
-
+	SetFontSize(24);
 	if (ResultDraw1 == TRUE) {
 		if (P1BigPocket < P2BigPocket) {
 			DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
@@ -372,7 +369,8 @@ void Mankara::Draw()const
 			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
 		}
 	}
-	else if (ResultDraw2 == TRUE) {
+
+    if (ResultDraw2 == TRUE) {
 		if (P1BigPocket < P2BigPocket) {
 			DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
 			DrawFormatString(500, 300, GetColor(255, 0, 0), "2P  WIN");
@@ -411,124 +409,115 @@ void Mankara::MoveStone()
 	if (MyTurn == TRUE && PocketEnter == 1&& P1Pocket[0] == TRUE) {
 		tmp = P1StoneSave[0];
 		// 1番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp; i++) {
+		for (int i = 0; i < tmp;) {
+			i++;
 
 			P1StoneSave[i] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp >= 6) {
 			P1BigPocket += 1;
-			for (int i = 0; i < tmp - 6; i++) {
-				P2StoneSave[i] += 1;
+			for (int i = 0; i < tmp; i++) {
+				P2StoneSave[i - 6] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P1StoneSave[0] = 0;
-		tmp = 0;
 		PocketEnter = 2;
 	}
-
-	if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[1] == TRUE) {
+	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[1] == TRUE) {
 		tmp = P1StoneSave[1];
 		// 2番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp; i++) {
-
+		for (int i = 0; i < tmp; ) {
+			i++;
 			P1StoneSave[i+1] += 1;
 		}
 
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp >= 5) {
 			P1BigPocket += 1;
-			for (int i = 0; i < tmp - 5; i++) {
-				P2StoneSave[i] += 1;
+			for (int i = 0; i < tmp; i++) {
+				P2StoneSave[i - 5] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P1StoneSave[1] = 0;
-		tmp = 0;
 		PocketEnter = 2;
 	}
-
-	if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[2] == TRUE) {
+	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[2] == TRUE) {
 		tmp = P1StoneSave[2];
 		// 3番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp; i++) {
-
+		for (int i = 0; i < tmp;) {
+			i++;
 			P1StoneSave[i+2] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp >= 4) {
 			P1BigPocket += 1;
-			for (int i = 0; i < tmp - 4; i++) {
-				P2StoneSave[i] += 1;
+			for (int i = 0; i < tmp; i++) {
+				P2StoneSave[i - 4] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P1StoneSave[2] = 0;
-		tmp = 0;
 		PocketEnter = 2;
 
 	}
-
-	if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[3] == TRUE) {
+	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[3] == TRUE) {
 		tmp = P1StoneSave[3];
 		// 4番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp; i++) {
-
-			P1StoneSave[i+3] += 1;
+		for (int i = 0; i < tmp; ) {
+			i++;
+			P1StoneSave[i + 3] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp >= 3) {
 			P1BigPocket += 1;
-			for (int i = 0; i <tmp - 3; i++) {
-				P2StoneSave[i] += 1;
+			for (int i = 0; i <tmp; i++) {
+				P2StoneSave[i - 3] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P1StoneSave[3] = 0;
-		tmp = 0;
 		PocketEnter = 2;
 
 	}
-
-	if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[4] == TRUE) {
+	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[4] == TRUE) {
 		int tmp = P1StoneSave[4];
 		// 5番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp; i++) {
-
+		for (int i = 0; i < tmp; ) {
+			i++;
 			P1StoneSave[i+4] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp >= 2) {
 			P1BigPocket += 1;
-			for (int i = 0; i < tmp - 2; i++) {
-				P2StoneSave[i] += 1;
+			for (int i = 0; i < tmp; i++) {
+				P2StoneSave[i - 2] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P1StoneSave[4] = 0;
-		tmp = 0;
 		PocketEnter = 2;
 
 	}
-
-    if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[5] == TRUE) {
+	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[5] == TRUE) {
 		tmp = P1StoneSave[5];
 		// 6番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp; i++) {
+		for (int i = 0; i < tmp; ) {
+			i++;
 			P1StoneSave[i+5] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp >= 1) {
 			P1BigPocket += 1;
 
-			for (int i = 0; i < tmp - 1; i++) {
-				P2StoneSave[i] += 1;
+			for (int i = 0; i < tmp; i++) {
+				P2StoneSave[i - 1] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P1StoneSave[5] = 0;
-		tmp = 0;
 		PocketEnter = 2;
 	}
 
@@ -538,8 +527,8 @@ void Mankara::MoveStone()
 	if (MyTurn == FALSE && PocketEnter == 1&& P2Pocket[0] == TRUE) {
 		tmp2 = P2StoneSave[0];
 		// 1番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp2; i++) {
-
+		for (int i = 0; i < tmp2; ) {
+			i++;
 			P2StoneSave[i] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
@@ -551,17 +540,14 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[0] = 0;
-		tmp2 = 0;
 		PocketEnter = 2;
 	}
-
-
-	if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[1] == TRUE) {
+	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[1] == TRUE) {
 		tmp2 = P2StoneSave[1];
 		// 2番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp2; i++) {
-
-			P2StoneSave[i+1] += 1;
+		for (int i = 0; i < tmp2; ) {
+			i++;
+			P2StoneSave[i + 1] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp2 >= 5) {
@@ -573,16 +559,14 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[1] = 0;
-		tmp2 = 0;
 		PocketEnter = 2;
 	}
-
-	if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[2] == TRUE) {
+	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[2] == TRUE) {
 		tmp2 = P2StoneSave[2];
 		// 3番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp2; i++) {
-
-			P2StoneSave[i+2] += 1;
+		for (int i = 0; i < tmp2; ) {
+			i++;
+			P2StoneSave[i + 2] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp2 >= 4) {
@@ -593,70 +577,64 @@ void Mankara::MoveStone()
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[2] = 0;
-		tmp2 = 0;
 		PocketEnter = 2;
 
 	}
-
-	if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[3] == TRUE) {
+	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[3] == TRUE) {
 		int tmp2 = P2StoneSave[3];
 		// 4番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp2; i++) {
-
-			P2StoneSave[i+3] += 1;
+		for (int i = 0; i < tmp2; ) {
+			i++;
+			P2StoneSave[i + 3] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp2 >= 3) {
 			P2BigPocket += 1;
 			for (int i = 3; i < tmp2 ; i++) {
-				P1StoneSave[i-3] += 1;
+				P1StoneSave[i - 3] += 1;
 			}
 
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[3] = 0;
-		tmp2 = 0;
 		PocketEnter = 2;
 
 	}
-
-	if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[4] == TRUE) {
+	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[4] == TRUE) {
 		tmp2 = P2StoneSave[4];
 		// 5番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp2; i++) {
-
-			P2StoneSave[i+4] += 1;
+		for (int i = 0; i < tmp2; ) {
+			i++;
+			P2StoneSave[i + 4] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp2 >= 2) {
 			P2BigPocket += 1;
 			for (int i = 2; i < tmp2; i++) {
-				P1StoneSave[i-2] += 1;
+				P1StoneSave[i - 2] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[4] = 0;
-		tmp2 = 0;
 		PocketEnter = 2;
 
 	}
-
-    if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[5] == TRUE) {
+	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[5] == TRUE) {
 		tmp2 = P2StoneSave[5];
 		// 6番目のポケットの中の数になるまで、iを足し続ける
-		for (int i = 0; i < tmp2; i++) {
-			P2StoneSave[i+5] += 1;
+		for (int i = 0; i < tmp2; ) {
+			i++;
+			P2StoneSave[i + 5] += 1;
 		}
 		// 石の数がポケットの数より多い時は、bigpocketに１プラスする。
 		if (tmp2 >= 1) {
 			P2BigPocket += 1;
 			for (int i = 1; i < tmp2; i++) {
-				P1StoneSave[i-1] += 1;
+				P1StoneSave[i - 1] += 1;
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
 		P2StoneSave[5] = 0;
-		tmp2 = 0;
 		PocketEnter = 2;
 	}
 
