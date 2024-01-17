@@ -21,7 +21,7 @@ private:
 	int hound_X;   //猟犬X座標
 	int hound_Y;   //猟犬Y座標
 
-	int HoundFlg1;
+	int HoundFlg1;  //猟犬フラグ
 	int HoundFlg2;
 	int HoundFlg3;
 
@@ -32,8 +32,6 @@ private:
 	int HoundMoveflg1;   //
 	int HoundMoveflg2;
 	int HoundMoveflg3;
-
-
 
 	struct Bord {
 		int x, y;
