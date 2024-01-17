@@ -48,6 +48,8 @@ private:
     const int NUM_COLORS = 4;
     const int CARDS_PER_COLOR = 13;
 
+    int Turn = 1; //ターン制御
+
     int WildCardFlg = 0;    //ワイルドカードフラグ
 
     int Draw2Flg = 0;   //ドロー2フラグ

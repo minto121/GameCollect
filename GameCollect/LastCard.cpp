@@ -33,6 +33,8 @@ LastCard::LastCard()
 
     field.push_back(deck.back());
 
+    Turn;
+
     startX;
     startY;
     cardHeight;
@@ -49,49 +51,61 @@ LastCard::~LastCard()
 AbstractScene* LastCard::Update()
 {
 
-    //
-
-
-    if (input_margin < max_input_margin) {
-        input_margin++;
-    }
-    else {
-        // スティックのX座標を取得
-        int stick_x = PAD_INPUT::GetLStick().ThumbX;
-
-        if (std::abs(stick_x) > stick_sensitivity) {
-            //playsoundmem
-            // スティックが右に移動した場合
-            if (stick_x > 0) {
-                // メニュー選択肢を一つ右に移動
-                now_Select = (now_Select + 1);
-                if (now_Select >= playerHands[0].size()) {
-                    now_Select = now_Select - (playerHands[0].size());
-                }
-            }
-            // スティックが左に移動した場合
-            else if (stick_x < 0) {
-                // メニュー選択肢を一つ左に移動
-                now_Select = (now_Select - 1);
-                if (now_Select < 0) {
-                    now_Select = now_Select + (playerHands[0].size());
-                }
-            }
-            input_margin = 0;
+    //ターン制御
+    switch (Turn)
+    {
+    case 1: 
+        if (input_margin < max_input_margin) {
+            input_margin++;
         }
-    }
-    if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
+        else {
+            // スティックのX座標を取得
+            int stick_x = PAD_INPUT::GetLStick().ThumbX;
 
-        if (CardCheck(playerHands[0][now_Select]) == TRUE) {
-            field.push_back(playerHands[0][now_Select]);
-
-            playerHands[0].erase(playerHands[0].begin() + now_Select);
+            if (std::abs(stick_x) > stick_sensitivity) {
+                //playsoundmem
+                // スティックが右に移動した場合
+                if (stick_x > 0) {
+                    // メニュー選択肢を一つ右に移動
+                    now_Select = (now_Select + 1);
+                    if (now_Select >= playerHands[0].size()) {
+                        now_Select = now_Select - (playerHands[0].size());
+                    }
+                }
+                // スティックが左に移動した場合
+                else if (stick_x < 0) {
+                    // メニュー選択肢を一つ左に移動
+                    now_Select = (now_Select - 1);
+                    if (now_Select < 0) {
+                        now_Select = now_Select + (playerHands[0].size());
+                    }
+                }
+                input_margin = 0;
+            }
         }
+        if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
 
-       /* field.push_back(playerHands[0][now_Select]);
-        
-        playerHands[0].erase(playerHands[0].begin() + now_Select);*/
+            if (CardCheck(playerHands[0][now_Select]) == TRUE) {
+                field.push_back(playerHands[0][now_Select]);
 
+                playerHands[0].erase(playerHands[0].begin() + now_Select);
+            }
+
+            /* field.push_back(playerHands[0][now_Select]);
+
+             playerHands[0].erase(playerHands[0].begin() + now_Select);*/
+
+            Turn++;
+        }
+        break;
+    case 2:
+    case 3:
+    case 4:
+        Turn++;
+        break;
+    default:
+        Turn++;
+        break;
     }
 
 	if (CheckHitKey(KEY_INPUT_O))
