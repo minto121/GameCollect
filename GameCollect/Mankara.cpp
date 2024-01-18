@@ -365,9 +365,14 @@ void Mankara::Draw()const
 			DrawFormatString(500, 300, GetColor(255, 0, 0), "2P  WIN");
 			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
 		}
-		else if (P1BigPocket > P1BigPocket) {
+		else if (P1BigPocket > P2BigPocket) {
 			DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
 			DrawFormatString(500, 300, GetColor(0, 0, 255), "1P  WIN");
+			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
+		}
+		else if (P1BigPocket == P2BigPocket) {
+			DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
+			DrawFormatString(500, 300, GetColor(0, 0, 255), "DRAW");
 			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
 		}
 	}
@@ -378,9 +383,14 @@ void Mankara::Draw()const
 			DrawFormatString(500, 300, GetColor(255, 0, 0), "2P  WIN");
 			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
 		}
-		else if (P1BigPocket > P1BigPocket) {
+		else if (P1BigPocket > P2BigPocket) {
 			DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
 			DrawFormatString(500, 300, GetColor(0, 0, 255), "1P  WIN");
+			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
+		}
+		else if (P1BigPocket == P2BigPocket) {
+			DrawBox(480, 250, 700, 400, GetColor(255, 255, 255), TRUE);
+			DrawFormatString(500, 300, GetColor(0, 0, 255), "DRAW");
 			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
 		}
 	}
@@ -637,13 +647,13 @@ void Mankara::MoveStone()
 			i++;
 
 			if (i < 1) { // 石の数が1未満なら
-				P1StoneSave[i + 5] += 1;  // 自分のポケットに石を入れる処理
+				P2StoneSave[i + 5] += 1;  // 自分のポケットに石を入れる処理
 			}
 			else if (i == 1) { // 石の数がポケットが1になったら、
-				P1BigPocket += 1;	// ゴールにプラス1
+				P2BigPocket += 1;	// ゴールにプラス1
 			}
 			else if (i > 1) { // 石の数が1より上だったら、
-				P2StoneSave[i - 2] += 1; // 相手のポケットに入れる
+				P1StoneSave[i - 2] += 1; // 相手のポケットに入れる
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
