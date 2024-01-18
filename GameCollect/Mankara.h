@@ -73,6 +73,10 @@ private:
 	// ポケットの数と入っている石の数
 	int P2StoneSave[6]; 
 
+
+	int tmp;
+	int tmp2;
+
 public:
 	Mankara();
 	AbstractScene* Update();

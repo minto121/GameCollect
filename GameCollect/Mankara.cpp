@@ -30,6 +30,8 @@ Mankara::Mankara()
 	InitialStone = 4;
 	FullStone = 48;
 
+	int tmp = 0;
+	int tmp2 = 0;
 
 	for (int y = 0; y < 6; y++) {
 		P1Pocket[y] = 0;
@@ -402,8 +404,7 @@ void Mankara::MoveStone()
 		}
 	}
 
-	int tmp;
-	int tmp2;
+	
 
       /* Ž©•ª‚Ìƒ^[ƒ“’†‚Ìˆ— */
 	if (MyTurn == TRUE && PocketEnter == 1&& P1Pocket[0] == TRUE) {
