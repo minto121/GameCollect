@@ -2,6 +2,7 @@
 
 Connect4::Connect4()
 {
+
 }
 
 Connect4::~Connect4()
@@ -15,5 +16,6 @@ AbstractScene* Connect4::Update()
 
 void Connect4::Draw() const
 {
+	DrawCircle(320, 240, 150, Cr, FALSE);
 
 }
