@@ -8,8 +8,12 @@
 class Connect4 :public AbstractScene{
 
 private:
-	int Board[5][6] = {};
+	int Board[6][7] = {};
 	unsigned int Cr;
+
+
+
+
 
 public:
 	Connect4();
