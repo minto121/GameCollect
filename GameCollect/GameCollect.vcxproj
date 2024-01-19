@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Checkermain.cpp" />
+    <ClCompile Include="Connect4.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
@@ -175,6 +176,7 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="Checkermain.h" />
+    <ClInclude Include="Connect4.h" />
     <ClInclude Include="FpsController.h" />
     <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomokuScene.h" />

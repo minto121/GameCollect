@@ -105,7 +105,6 @@ void SixBallPuzzle::ControlBoll(void)
 
 int SixBallPuzzle::CheckOverlap(int x2, int y2)
 {
-
 	return 0;
 }
 
