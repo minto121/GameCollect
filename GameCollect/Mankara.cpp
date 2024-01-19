@@ -438,7 +438,9 @@ void Mankara::MoveStone()
 		}
 	
 		// 移動が終わったので、石の数を０にする。
-		P1StoneSave[0] = 0;
+		if (P1StoneSave[0] < 13) {
+			P1StoneSave[0] = 0;
+		}
 		PocketEnter = 2;
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[1] == TRUE) {
@@ -460,7 +462,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P1StoneSave[1] = 0;
+		if (P1StoneSave[1] < 13) {
+			P1StoneSave[1] = 0;
+		}
 		PocketEnter = 2;
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[2] == TRUE) {
@@ -482,7 +486,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P1StoneSave[2] = 0;
+		if (P1StoneSave[2] < 13) {
+			P1StoneSave[2] = 0;
+		}
 		PocketEnter = 2;
 
 	}
@@ -506,7 +512,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P1StoneSave[3] = 0;
+		if (P1StoneSave[3] < 13) {
+			P1StoneSave[3] = 0;
+		}
 		PocketEnter = 2;
 
 	}
@@ -530,7 +538,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P1StoneSave[4] = 0;
+		if (P1StoneSave[4] < 13) {
+			P1StoneSave[4] = 0;
+		}
 		PocketEnter = 2;
 
 	}
@@ -553,7 +563,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P1StoneSave[5] = 0;
+		if (P1StoneSave[5] < 13) {
+			P1StoneSave[5] = 0;
+		}
 		PocketEnter = 2;
 	}
 
@@ -579,7 +591,10 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P2StoneSave[0] = 0;
+		
+		if (P2StoneSave[0] < 13) {
+			P2StoneSave[0] = 0;
+		}
 		PocketEnter = 2;
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[1] == TRUE) {
@@ -602,7 +617,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P2StoneSave[1] = 0;
+		if (P2StoneSave[1] < 13) {
+			P2StoneSave[1] = 0;
+		}
 		PocketEnter = 2;
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[2] == TRUE) {
@@ -624,7 +641,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P2StoneSave[2] = 0;
+		if (P2StoneSave[2] < 13) {
+			P2StoneSave[2] = 0;
+		}
 		PocketEnter = 2;
 
 	}
@@ -647,7 +666,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P2StoneSave[3] = 0;
+		if (P2StoneSave[3] <13) {
+			P2StoneSave[3] = 0;
+		}
 		PocketEnter = 2;
 
 	}
@@ -670,7 +691,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P2StoneSave[4] = 0;
+		if (P2StoneSave[4] < 13) {
+			P2StoneSave[4] = 0;
+		}
 		PocketEnter = 2;
 
 	}
@@ -692,7 +715,9 @@ void Mankara::MoveStone()
 			}
 		}
 		// 移動が終わったので、石の数を０にする。
-		P2StoneSave[5] = 0;
+		if (P2StoneSave[5] < 13) {
+			P2StoneSave[5] = 0;
+		}
 		PocketEnter = 2;
 	}
 
