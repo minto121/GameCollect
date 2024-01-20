@@ -38,6 +38,8 @@ LastCard::LastCard()
 
     Turn;
 
+    player_checkdraw;
+
     startX;
     startY;
     cardHeight;
@@ -86,23 +88,44 @@ AbstractScene* LastCard::Update()
     //ターン制御
     switch (Turn)
     {
+    //プレイヤー行動
     case 1: 
+
+        //ドローが必要か調べる
         
-        if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
-
-            if (CardCheck(playerHands[0][now_Select]) == TRUE) {
-                field.push_back(playerHands[0][now_Select]);
-
-                playerHands[0].erase(playerHands[0].begin() + now_Select);
+        if (player_checkdraw == 0) {
+            for (int i = 0; i < playerHands[0].size(); i++) {
+                if (CardCheck(playerHands[0][i]) == TRUE) {
+                    player_checkdraw = 1;
+                }
             }
-
-            /* field.push_back(playerHands[0][now_Select]);
-
-             playerHands[0].erase(playerHands[0].begin() + now_Select);*/
-
-            Turn++;
+            if (player_checkdraw == 0) {
+                player_checkdraw = 2;
+            }
         }
+        
+        //カードを場に出す
+        if (player_checkdraw == 1) {
+            if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
+                if (CardCheck(playerHands[0][now_Select]) == TRUE) {
+                    field.push_back(playerHands[0][now_Select]);
+
+                    playerHands[0].erase(playerHands[0].begin() + now_Select);
+                }
+                Turn++;
+                player_checkdraw = 0;
+            }
+        }
+
+        //カードをドロー
+        if (player_checkdraw == 2) {
+            CardDraw(0);
+            Turn++;
+            player_checkdraw = 0;
+        }
+
         break;
+    //敵行動
     case 2:
     case 3:
     case 4:
@@ -115,6 +138,7 @@ AbstractScene* LastCard::Update()
             turn_margin = 0;
         }
         break;
+
     default:
         Turn = 1;
         break;

@@ -54,6 +54,8 @@ private:
     int turn_margin = 0;    
     int max_turn_margin = 200;  
 
+    int player_checkdraw = 0;  //1:必要ない　2:必要
+
 
     int WildCardFlg = 0;    //ワイルドカードフラグ
 
