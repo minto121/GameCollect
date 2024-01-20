@@ -58,6 +58,7 @@ private:
 
 
     int WildCardFlg = 0;    //ワイルドカードフラグ
+    int WildCardColor = -1; //0:赤　1:オレンジ　2:紫　3：水色
 
     int Draw2Flg = 0;   //ドロー2フラグ
     int Draw3Flg = 0;   //ドロー3フラグ
@@ -96,4 +97,10 @@ public:
     //カードドロー
     void CardDraw(int num);
 
+    //特殊カードのフラグ起動
+
+
+
+    //ワイルドカードの処理
+    void Wildcard();
 };

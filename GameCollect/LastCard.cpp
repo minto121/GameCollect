@@ -46,6 +46,11 @@ LastCard::LastCard()
     cardWidth;
     cardGap;
 
+
+    WildCardFlg;
+    WildCardColor;
+
+
     a;
 }
 
@@ -112,6 +117,9 @@ AbstractScene* LastCard::Update()
 
                     playerHands[0].erase(playerHands[0].begin() + now_Select);
                 }
+                /*if (WildCardFlg == 1) {
+                    Wildcard();
+                }*/
                 Turn++;
                 player_checkdraw = 0;
             }
@@ -124,6 +132,8 @@ AbstractScene* LastCard::Update()
             player_checkdraw = 0;
         }
 
+
+
         break;
     //敵行動
     case 2:
@@ -134,6 +144,9 @@ AbstractScene* LastCard::Update()
         }
         else {
             EnemyAction();
+            /*if (WildCardFlg == 1) {
+                Wildcard();
+            }*/
             Turn++;
             turn_margin = 0;
         }
@@ -143,6 +156,9 @@ AbstractScene* LastCard::Update()
         Turn = 1;
         break;
     }
+
+
+
 
 	if (CheckHitKey(KEY_INPUT_O))
 	{
@@ -263,9 +279,14 @@ bool LastCard::CardCheck(int select_card)
     }
     //ワイルドカードの判断
     if (Select_CardColor == 4) {
+        //WildCardFlg = 1;
         return TRUE;
     }
-    
+    //ワイルドカードで選んだ色の判断
+    if (Select_CardColor == WildCardColor) {
+        //WildCardColor = -1;
+        return TRUE;
+    }
 
 
 
@@ -300,5 +321,36 @@ void LastCard::CardDraw(int num)
     deck.pop_back(); // デッキからカードを削除
     
     playerHands[num].push_back(card);//手札にカードを追加
+}
+
+void LastCard::Wildcard()
+{
+    if (Turn == 1) {
+        //赤
+        if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_Y) && (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) == true)) {
+            WildCardColor = 0;
+            WildCardFlg = 0;
+        }
+        //オレンジ
+        if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_B) && (PAD_INPUT::OnButton(XINPUT_BUTTON_B) == true)) {
+            WildCardColor = 1;
+            WildCardFlg = 0;
+        }
+        //紫
+        if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
+            WildCardColor = 2;
+            WildCardFlg = 0;
+        }
+        //水色
+        if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_X) && (PAD_INPUT::OnButton(XINPUT_BUTTON_X) == true)) {
+            WildCardColor = 3;
+            WildCardFlg = 0;
+        }
+    }
+    else {
+        WildCardColor = rand()%4;
+        WildCardFlg = 0;
+    }
+
 }
 
