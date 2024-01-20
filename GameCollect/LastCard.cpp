@@ -53,39 +53,41 @@ LastCard::~LastCard()
 
 AbstractScene* LastCard::Update()
 {
+    //スティック操作
+    if (input_margin < max_input_margin) {
+        input_margin++;
+    }
+    else {
+        // スティックのX座標を取得
+        int stick_x = PAD_INPUT::GetLStick().ThumbX;
+
+        if (std::abs(stick_x) > stick_sensitivity) {
+            //playsoundmem
+            // スティックが右に移動した場合
+            if (stick_x > 0) {
+                // メニュー選択肢を一つ右に移動
+                now_Select = (now_Select + 1);
+                if (now_Select >= playerHands[0].size()) {
+                    now_Select = now_Select - (playerHands[0].size());
+                }
+            }
+            // スティックが左に移動した場合
+            else if (stick_x < 0) {
+                // メニュー選択肢を一つ左に移動
+                now_Select = (now_Select - 1);
+                if (now_Select < 0) {
+                    now_Select = now_Select + (playerHands[0].size());
+                }
+            }
+            input_margin = 0;
+        }
+    }
 
     //ターン制御
     switch (Turn)
     {
     case 1: 
-        if (input_margin < max_input_margin) {
-            input_margin++;
-        }
-        else {
-            // スティックのX座標を取得
-            int stick_x = PAD_INPUT::GetLStick().ThumbX;
-
-            if (std::abs(stick_x) > stick_sensitivity) {
-                //playsoundmem
-                // スティックが右に移動した場合
-                if (stick_x > 0) {
-                    // メニュー選択肢を一つ右に移動
-                    now_Select = (now_Select + 1);
-                    if (now_Select >= playerHands[0].size()) {
-                        now_Select = now_Select - (playerHands[0].size());
-                    }
-                }
-                // スティックが左に移動した場合
-                else if (stick_x < 0) {
-                    // メニュー選択肢を一つ左に移動
-                    now_Select = (now_Select - 1);
-                    if (now_Select < 0) {
-                        now_Select = now_Select + (playerHands[0].size());
-                    }
-                }
-                input_margin = 0;
-            }
-        }
+        
         if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
 
             if (CardCheck(playerHands[0][now_Select]) == TRUE) {
@@ -263,5 +265,16 @@ void LastCard::EnemyAction()
         field.push_back(enemycard);
         playerHands[Turn - 1].erase(playerHands[Turn - 1].begin() + num);
     }
+    else {
+        CardDraw(Turn - 1);
+    }
+}
+
+void LastCard::CardDraw(int num)
+{
+    int card = deck.back(); // デッキからカードを取得
+    deck.pop_back(); // デッキからカードを削除
+    
+    playerHands[num].push_back(card);//手札にカードを追加
 }
 

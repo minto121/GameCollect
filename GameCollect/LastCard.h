@@ -92,6 +92,6 @@ public:
     void EnemyAction();
 
     //カードドロー
-
+    void CardDraw(int num);
 
 };
