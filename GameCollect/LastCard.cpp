@@ -10,7 +10,10 @@ LastCard::LastCard()
     input_margin;
     now_Select;
 
-    Card;
+    turn_margin;
+    max_turn_margin;
+
+    //Card;
 
     CardImg;
 
@@ -101,10 +104,17 @@ AbstractScene* LastCard::Update()
     case 2:
     case 3:
     case 4:
-        Turn++;
+        if (turn_margin < max_turn_margin) {
+            turn_margin++;
+        }
+        else {
+            EnemyAction();
+            Turn++;
+            turn_margin = 0;
+        }
         break;
     default:
-        Turn++;
+        Turn = 1;
         break;
     }
 
@@ -164,7 +174,7 @@ void LastCard::Draw() const
         }
     }
 
-    DrawGraph(200, 200, CardImg[field.back()], TRUE);
+    DrawGraph(500, 200, CardImg[field.back()], TRUE);
 
 }
 
@@ -234,5 +244,24 @@ bool LastCard::CardCheck(int select_card)
 
 
     return false;
+}
+
+void LastCard::EnemyAction()
+{
+    int enemycard = -1;
+    int i;
+    int num;
+
+    for ( i = 0; i < playerHands[Turn-1].size(); i++) {
+        if (CardCheck(playerHands[Turn - 1][i]) == TRUE) {
+            enemycard = playerHands[Turn - 1][i];
+            num = i;
+        }
+    }
+
+    if (enemycard != -1) {
+        field.push_back(enemycard);
+        playerHands[Turn - 1].erase(playerHands[Turn - 1].begin() + num);
+    }
 }
 
