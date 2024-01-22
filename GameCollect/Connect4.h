@@ -11,10 +11,6 @@ private:
 	int Board[6][7] = {};
 	unsigned int Cr;
 
-
-
-
-
 public:
 	Connect4();
 
