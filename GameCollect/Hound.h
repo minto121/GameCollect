@@ -14,12 +14,7 @@ private:
 	int RabbitImg;   //ウサギ画像
 	int R_texture;
 
-	int rabbit_X;  //ウサギX座標
-	int rabbit_Y;  //ウサギY座標
 	int rabbitFlg;
-
-	int hound_X;   //猟犬X座標
-	int hound_Y;   //猟犬Y座標
 
 	int HoundFlg1;  //猟犬フラグ
 	int HoundFlg2;
@@ -29,7 +24,7 @@ private:
 	int HoundDrawflg2;
 	int HoundDrawflg3;
 	
-	int HoundMoveflg1;   //
+	int HoundMoveflg1;   //猟犬移動フラグ
 	int HoundMoveflg2;
 	int HoundMoveflg3;
 

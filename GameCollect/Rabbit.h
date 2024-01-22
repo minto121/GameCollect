@@ -6,10 +6,17 @@ class Rabbit : public AbstractScene
 {
 private:
 	int BackGroundImg;
-	int cursorImg;
-	int HoundImg;    //猟犬画像
 
+	int cursorImg;
+	int cursorFlg;
+
+	int HoundImg;    //猟犬画像
+	int RabbitImg;    //ウサギ画像
 	int rabbitimg;
+
+	int RabbitFlg;		//ウサギフラグ
+	int RabbitDrawflg;   //ウサギ描画フラグ
+	int RabbitMoveflg;   //ウサギ移動フラグ
 	
 	struct Bord{
 		
@@ -24,18 +31,8 @@ private:
 	  {10, 11, 12, 13, 14}
 	};
 	
-	int PlayerFlg;
-
-	int RabbitImg[1];   //ウサギ画像
+	//int RabbitImg[1];   //ウサギ画像
 	int R_texture;
-
-	int rabbit_X;  //ウサギX座標
-	int rabbit_Y;  //ウサギY座標
-	int RabbitFlg;
-
-	int hound_X;   //猟犬X座標
-	int hound_Y;   //猟犬Y座標
-	int houndSpeed;
 
 public:
 	Rabbit();

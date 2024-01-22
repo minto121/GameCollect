@@ -15,19 +15,19 @@ Hound::Hound()
 	// テクスチャの読み込み
 	R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
 
-	HoundFlg1 = 5;
+	HoundFlg1 = 5;		//猟犬フラグ初期化
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
 
-	HoundDrawflg1 = TRUE;
+	HoundDrawflg1 = TRUE;	//猟犬描画フラグ初期化
 	HoundDrawflg2 = TRUE;
 	HoundDrawflg3 = TRUE;
 	
-	HoundMoveflg1 = 0;
+	HoundMoveflg1 = 0;		//猟犬移動フラグ初期化
 	HoundMoveflg2 = 0;
 	HoundMoveflg3 = 0;
 
-	cursorFlg = 5;
+	cursorFlg = 5;			//カーソルフラグ初期化
 
 	//ステージ初期化
 	for (int i = 0; i < 5; i++) {
@@ -304,7 +304,7 @@ void Hound::Draw() const
 	//DrawBox(150, 335, 200, 385, 0x0000ff, TRUE);   //真ん中
 	//DrawBox(390, 575, 440, 625, 0x0000ff, TRUE);     //下
 
-	//プレイヤー表示
+	//カーソル表示
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (cursorFlg == 1 && bord[i][j].flg == 1) {
@@ -397,7 +397,7 @@ void Hound::Draw() const
 				}
 				else if (HoundFlg2 == 7 && bord[i][j].flg == 7) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
-				}
+					}
 				else if (HoundFlg2 == 8 && bord[i][j].flg == 8) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
