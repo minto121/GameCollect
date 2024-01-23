@@ -16,6 +16,10 @@ private:
 
 	int rabbitFlg;
 
+	int RabbitFlg;		//ウサギフラグ
+	int RabbitDrawflg;   //ウサギ描画フラグ
+	int RabbitMoveflg;   //ウサギ移動フラグ
+
 	int HoundFlg1;  //猟犬フラグ
 	int HoundFlg2;
 	int HoundFlg3;
@@ -43,6 +47,8 @@ private:
 public:
 	Hound();
 	~Hound();
+
+	void GameJudge();
 
 	//描画以外の更新を実行
 	AbstractScene* Update() override;

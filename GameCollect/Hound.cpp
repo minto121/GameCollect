@@ -15,6 +15,10 @@ Hound::Hound()
 	// テクスチャの読み込み
 	R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
 
+	RabbitFlg = 9;				//ウサギフラグ初期化
+	RabbitDrawflg = TRUE;		//ウサギ描画フラグ初期化
+	RabbitMoveflg = 0;			//ウサギ移動フラグ初期化
+
 	HoundFlg1 = 5;		//猟犬フラグ初期化
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
@@ -146,6 +150,55 @@ AbstractScene* Hound::Update()
 		}
 	}
 
+	//Aボタンでウサギを選択する
+	if (RabbitMoveflg == 0)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (RabbitFlg == cursorFlg)
+			{
+				RabbitMoveflg = 1;
+			}
+			else {
+				RabbitMoveflg = 0;
+			}
+
+		}
+	}
+
+	//選択したウサギを動かす
+	else if (RabbitMoveflg == 1)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+			RabbitFlg = cursorFlg;
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg < 1 || RabbitFlg == 0 || RabbitFlg == 4) {
+				RabbitFlg += 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+			RabbitFlg = cursorFlg;
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg > 14 || RabbitFlg == 14 || RabbitFlg == 10) {
+				RabbitFlg -= 5;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			RabbitFlg = cursorFlg;
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg >= 14 || RabbitFlg == 4 || RabbitFlg == 10) {
+				RabbitFlg -= 1;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+			RabbitFlg = cursorFlg;
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg == 0 || RabbitFlg == 10) {
+				RabbitFlg += 1;
+			}
+		}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			RabbitMoveflg = 0;
+		}
+	}
+
 	//Aボタンで猟犬を選択する
 	if (HoundMoveflg1 == 0)
 	{
@@ -166,19 +219,19 @@ AbstractScene* Hound::Update()
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg1 = cursorFlg;
-			if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
+			if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
 				HoundFlg1 += 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 			HoundFlg1 = cursorFlg;
-			if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
+			if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
 				HoundFlg1 -= 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 			HoundFlg1 = cursorFlg;
-			if (HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
+			if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
 				HoundFlg1 -= 1;
 			}
 		}
@@ -274,6 +327,10 @@ AbstractScene* Hound::Update()
 
 	return this;
 }
+void Hound::GameJudge()
+{
+
+}
 
 void Hound::Draw() const
 {
@@ -304,9 +361,11 @@ void Hound::Draw() const
 	//DrawBox(150, 335, 200, 385, 0x0000ff, TRUE);   //真ん中
 	//DrawBox(390, 575, 440, 625, 0x0000ff, TRUE);     //下
 
-	//カーソル表示
+	//カーソル・ウサギ・猟犬の動き
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 3; j++) {
+
+			//カーソル表示
 			if (cursorFlg == 1 && bord[i][j].flg == 1) {
 				DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
 			}
@@ -339,6 +398,43 @@ void Hound::Draw() const
 			}
 			else if (cursorFlg == 13 && bord[i][j].flg == 13) {
 				DrawGraph(bord[i][j].x - 10, bord[i][j].y - 10, cursorImg, TRUE);
+			}
+
+			//ウサギの描画
+			if (RabbitDrawflg == TRUE) {
+				if (RabbitFlg == 1 && bord[i][j].flg == 1) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 2 && bord[i][j].flg == 2) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 3 && bord[i][j].flg == 3) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 5 && bord[i][j].flg == 5) {	
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 6 && bord[i][j].flg == 6) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 7 && bord[i][j].flg == 7) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 8 && bord[i][j].flg == 8) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 9 && bord[i][j].flg == 9) {		//初期位置
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 11 && bord[i][j].flg == 11) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 12 && bord[i][j].flg == 12) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
+				if (RabbitFlg == 13 && bord[i][j].flg == 13) {
+					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0xff0000, TRUE);
+				}
 			}
 
 			//猟犬1の描画
@@ -462,6 +558,8 @@ void Hound::Draw() const
 
 	DrawFormatString(1000, 10, 0x000000, "HoundMoveflg1:%d", HoundMoveflg1);
 	DrawFormatString(1000, 50, 0x000000, "HoundMoveflg2:%d", HoundMoveflg2);
-	DrawFormatString(1000, 100, 0x000000, "HoundMoveflg3:%d", HoundMoveflg3);
+	DrawFormatString(1000, 90, 0x000000, "HoundMoveflg3:%d", HoundMoveflg3);
+
+	DrawFormatString(1000, 130, 0x000000, "RabbitMoveflg:%d", RabbitMoveflg); 
 
 }
