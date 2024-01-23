@@ -17,21 +17,17 @@ const int MARGIN = 0;
 class Connect4 :public AbstractScene{
 
 private:
-	int Board[6][7];
+	int Stage[6][7];
 	unsigned int Cr;
 
-	int Cursor = 0;		//カーソル
-	int CursorX = 0;			//カーソルの初期位置
+	int Cursor = 0;	//カーソルのX値
+	int Num = 1;	//カーソルの位置
+	
+	int gBallImg[4];	//ボールの分割画像
+	int gStageImg;		//ステージ画像
+	int gCursorImg;		//カーソル画像
 
-	int Num = 0;	//カーソルの位置
-	int gKeyFlg;	//現在のキー
-	int gOldKey;
-	int gNowKey;
-	int Key_Count;
-	int cX;
-
-	int gStageImg;	//ステージ画像
-	int gCursorImg;	//カーソル画像
+	int Button;
 
 public:
 

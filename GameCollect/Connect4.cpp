@@ -3,17 +3,17 @@
 
 Connect4::Connect4()
 {
-	if ((gStageImg = LoadGraph("images/SixBallPazzle/Board2.png")) == -1);
-	if ((gCursorImg = LoadGraph("images/SixBallPazzle/Arrow.png")) == -1);
+	if ((gStageImg = LoadGraph("images/SixBallPazzle/Board2.png")) == -1);	//ステージ画像読込
+	if ((gCursorImg = LoadGraph("images/SixBallPazzle/Arrow.png")) == -1);	//矢印画像読込
+	//if ((gBallImg = LoadGraph("images/SixBallPazzle/ball.png")) == -1);		//ボールの分割画像読込
 
 	//配列の初期化
 	/*for (int x; x < 6; x++) {
 		for (int y; y < 7; y++) {
-			 Board[x][y] = 0;
+			Stage[x][y] = 0;
 		}
 	}*/
 
-	
 }
 
 Connect4::~Connect4()
@@ -22,40 +22,34 @@ Connect4::~Connect4()
 
 AbstractScene* Connect4::Update()
 {
-	gOldKey = gNowKey;
-	gNowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	gKeyFlg = gNowKey & ~gOldKey;
-
-	// カーソルを動かす処理
-	if (gKeyFlg & PAD_INPUT_RIGHT && cX < 6) {
-		if (Key_Count >= 1) {
-			//cX += 1;
-		}
-		if (gKeyFlg & PAD_INPUT_RIGHT && cX == 6) {
-			//cX = 0;
-		}
+	/****** カーソルの移動処理 *******/
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+		if (++Num > 7) Num = 1;	//右へ
 	}
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 
-	//	if (++Num > 6) Num = 0;	//右へ
-	//}
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+		if (--Num < 1) Num = 7;	//左へ
+	}
 
-	//if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+	Cursor = Num * 130;	//カーソルのX座標を増やす
+	
+	/******** Aボタンで赤色か黄色に切り替わる *******/
 
-	//	if (--Num < 0) Num = 2;	//左へ
-	//}
-
-	CursorX = cX * 130;
-	//Cursor = CursorX + Cursor;	//移動する距離
 
 	return this;
 }
 
 void Connect4::Draw() const
 {
-	DrawGraph(0, 0, gStageImg, TRUE);	//ステージ画像
-	//DrawGraph(100, 210 + Cursor, 170, 230 + Cursor, 140, 250 + Cursor, 0xff0000, TRUE);	//カーソル画像
-	DrawGraph(CursorX, 0, gCursorImg, TRUE);	//カーソル画像
-	DrawFormatString(0, 100, 0xf0f0f0, "%d", cX);
+	DrawGraph(0, 0, gStageImg, TRUE);		//ステージ画像
+	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//カーソル画像
+
+	printf("10", 0, 200);
+
+	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);
+	/*DrawFormatString(0, 200, 0xf0f0f0, "%d", Cursor);
+	DrawFormatString(0, 300, 0xf0f0f0, "%d", Cursor);
+	DrawFormatString(0, 400, 0xf0f0f0, "%d", Cursor);*/
 
 }
+	
