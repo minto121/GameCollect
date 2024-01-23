@@ -20,9 +20,15 @@ private:
 	int Board[6][7];
 	unsigned int Cr;
 
-	int Cursor;		//カーソル
+	int Cursor = 0;		//カーソル
+	int CursorX = 0;			//カーソルの初期位置
+
 	int Num = 0;	//カーソルの位置
-	int gKeyFlg;	//今のキー
+	int gKeyFlg;	//現在のキー
+	int gOldKey;
+	int gNowKey;
+	int Key_Count;
+	int cX;
 
 	int gStageImg;	//ステージ画像
 	int gCursorImg;	//カーソル画像
