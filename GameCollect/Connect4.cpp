@@ -34,7 +34,9 @@ AbstractScene* Connect4::Update()
 	Cursor = Num * 130;	//カーソルのX座標を増やす
 	
 	/******** Aボタンで赤色か黄色に切り替わる *******/
-
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+		
+	}
 
 	return this;
 }
@@ -43,8 +45,6 @@ void Connect4::Draw() const
 {
 	DrawGraph(0, 0, gStageImg, TRUE);		//ステージ画像
 	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//カーソル画像
-
-	printf("10", 0, 200);
 
 	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);
 	/*DrawFormatString(0, 200, 0xf0f0f0, "%d", Cursor);
