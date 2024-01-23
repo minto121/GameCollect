@@ -19,9 +19,13 @@ Hound::Hound()
 	RabbitDrawflg = TRUE;		//ウサギ描画フラグ初期化
 	RabbitMoveflg = 0;			//ウサギ移動フラグ初期化
 
-	HoundFlg1 = 5;		//猟犬フラグ初期化
-	HoundFlg2 = 1;
-	HoundFlg3 = 11;
+	//HoundFlg1 = 5;		//猟犬フラグ初期化
+	//HoundFlg2 = 1;
+	//HoundFlg3 = 11;
+
+	HoundFlg[0] = 5;
+	HoundFlg[1] = 1;
+	HoundFlg[2] = 11;
 
 	HoundDrawflg1 = TRUE;	//猟犬描画フラグ初期化
 	HoundDrawflg2 = TRUE;
@@ -37,22 +41,22 @@ Hound::Hound()
 	for (int i = 0; i < 5; i++) {
 		for (int j = 0; j < 3; j++) {
 			if (i == 0 && j == 0) {
-				bord[i][j].flg = 16; //入れないフラグ
+				bord[i][j].flg = 0; //入れないフラグ
 				bord[i][j].x = 150;  //左上
 				bord[i][j].y = 100;
 			}
 			else if (i == 4 && j == 0) {
-				bord[i][j].flg = 16; //入れないフラグ
+				bord[i][j].flg = 4; //入れないフラグ
 				bord[i][j].x = 1080;  //右上
 				bord[i][j].y = 100;
 			}
 			else if (i == 0 && j == 2) {
-				bord[i][j].flg = 16; //入れないフラグ
+				bord[i][j].flg = 10; //入れないフラグ
 				bord[i][j].x = 150;  //左下
 				bord[i][j].y = 575;
 			}
 			else if (i == 4 && j == 2) {
-				bord[i][j].flg = 16;  //入れないフラグ
+				bord[i][j].flg = 14;  //入れないフラグ
 				bord[i][j].x = 1080;  //右下
 				bord[i][j].y = 575;
 			}
@@ -165,42 +169,40 @@ AbstractScene* Hound::Update()
 
 		}
 	}
-
-	//選択したウサギを動かす
-	else if (RabbitMoveflg == 1)
+	else if(RabbitMoveflg == 1)	//選択したウサギを動かす
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			RabbitFlg = cursorFlg;
-			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg < 1 || RabbitFlg == 0 || RabbitFlg == 4) {
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg[1] || RabbitFlg == HoundFlg3 || RabbitFlg < 1 || RabbitFlg == 0 || RabbitFlg == 4) {
 				RabbitFlg += 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 			RabbitFlg = cursorFlg;
-			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg > 14 || RabbitFlg == 14 || RabbitFlg == 10) {
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg[1] || RabbitFlg == HoundFlg3 || RabbitFlg > 14 || RabbitFlg == 14 || RabbitFlg == 10) {
 				RabbitFlg -= 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 			RabbitFlg = cursorFlg;
-			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg >= 14 || RabbitFlg == 4 || RabbitFlg == 10) {
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg[1] || RabbitFlg == HoundFlg3 || RabbitFlg >= 14 || RabbitFlg == 4 || RabbitFlg == 10) {
 				RabbitFlg -= 1;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
 			RabbitFlg = cursorFlg;
-			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg2 || RabbitFlg == HoundFlg3 || RabbitFlg == 0 || RabbitFlg == 10) {
+			if (RabbitFlg == HoundFlg1 || RabbitFlg == HoundFlg[1] || RabbitFlg == HoundFlg3 || RabbitFlg == 0 || RabbitFlg == 10) {
 				RabbitFlg += 1;
 			}
 		}
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		else if(PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			RabbitMoveflg = 0;
 		}
 	}
 
 	//Aボタンで猟犬を選択する
-	if (HoundMoveflg1 == 0)
+	/*if (HoundMoveflg1 == 0)
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
@@ -213,26 +215,64 @@ AbstractScene* Hound::Update()
 			}
 
 		}
+	}*/
+	if (HoundMoveflg1 == 0)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (HoundFlg[0] == cursorFlg)
+			{
+				HoundMoveflg1 = 1;
+			}
+			else {
+				HoundMoveflg1 = 0;
+			}
+
+		}
 	}
-	//選択した猟犬を動かす
-	else if (HoundMoveflg1 == 1)
+	//else if(HoundMoveflg1 == 1)	//選択した猟犬を動かす
+	//{
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+	//		HoundFlg1 = cursorFlg;
+	//		if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
+	//			HoundFlg1 += 5;
+	//		}
+	//	}
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+	//		HoundFlg1 = cursorFlg;
+	//		if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
+	//			HoundFlg1 -= 5;
+	//		}
+	//	}
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+	//		HoundFlg1 = cursorFlg;
+	//		if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
+	//			HoundFlg1 -= 1;
+	//		}
+	//	}
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	//	{
+	//		HoundMoveflg1 = 0;
+	//	}
+	//}
+	else if(HoundMoveflg1 == 1)	//選択した猟犬を動かす
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-			HoundFlg1 = cursorFlg;
-			if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 < 1 || HoundFlg1 == 0 || HoundFlg1 == 4) {
-				HoundFlg1 += 5;
+			HoundFlg[0] = cursorFlg;
+			if (HoundFlg[0] == RabbitFlg || HoundFlg[0] == HoundFlg2 || HoundFlg[0] == HoundFlg3 || HoundFlg[0] < 1 || HoundFlg[0] == 0 || HoundFlg[0] == 4) {
+				HoundFlg[0] += 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-			HoundFlg1 = cursorFlg;
-			if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 > 14 || HoundFlg1 == 14 || HoundFlg1 == 10) {
-				HoundFlg1 -= 5;
+			HoundFlg[0] = cursorFlg;
+			if (HoundFlg[0] == RabbitFlg || HoundFlg[0] == HoundFlg2 || HoundFlg[0] == HoundFlg3 || HoundFlg[0] > 14 || HoundFlg[0] == 14 || HoundFlg[0] == 10) {
+				HoundFlg[0] -= 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-			HoundFlg1 = cursorFlg;
-			if (HoundFlg1 == RabbitFlg || HoundFlg1 == HoundFlg2 || HoundFlg1 == HoundFlg3 || HoundFlg1 >= 14 || HoundFlg1 == 4 || HoundFlg1 == 10) {
-				HoundFlg1 -= 1;
+			HoundFlg[0] = cursorFlg;
+			if (HoundFlg[0] == RabbitFlg || HoundFlg[0] == HoundFlg2 || HoundFlg[0] == HoundFlg3 || HoundFlg[0] >= 14 || HoundFlg[0] == 4 || HoundFlg[0] == 10) {
+				HoundFlg[0] -= 1;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
@@ -242,7 +282,7 @@ AbstractScene* Hound::Update()
 	}
 	
 	//Aボタンで猟犬を選択する2
-	if (HoundMoveflg2 == 0)
+	/*if (HoundMoveflg2 == 0)
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
@@ -255,26 +295,64 @@ AbstractScene* Hound::Update()
 			}
 
 		}
+	}*/
+	if (HoundMoveflg2 == 0)
+	{
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		{
+			if (HoundFlg[1] == cursorFlg)
+			{
+				HoundMoveflg2 = 1;
+			}
+			else {
+				HoundMoveflg2 = 0;
+			}
+
+		}
 	}
-	//選択した猟犬を動かす
-	else if (HoundMoveflg2 == 1)
+	//else if(HoundMoveflg2 == 1)	//選択した猟犬を動かす
+	//{
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
+	//		HoundFlg2 = cursorFlg;
+	//		if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 < 1 || HoundFlg2 == 0 || HoundFlg2 == 4) {
+	//			HoundFlg2 += 5;
+	//		}
+	//	}
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
+	//		HoundFlg2 = cursorFlg;
+	//		if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 > 14 || HoundFlg2 == 14 || HoundFlg2 == 10) {
+	//			HoundFlg2 -= 5;
+	//		}
+	//	}
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+	//		HoundFlg2 = cursorFlg;
+	//		if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 >= 14 || HoundFlg2 == 4 || HoundFlg2 == 10) {
+	//			HoundFlg2 -= 1;
+	//		}
+	//	}
+	//	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+	//	{
+	//		HoundMoveflg2 = 0;
+	//	}
+	//}
+	else if(HoundMoveflg2 == 1)	//選択した猟犬を動かす
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
-			HoundFlg2 = cursorFlg;
-			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 < 1 || HoundFlg2 == 0 || HoundFlg2 == 4) {
-				HoundFlg2 += 5;
+			HoundFlg[1] = cursorFlg;
+			if (HoundFlg[1] == HoundFlg[0] || HoundFlg[1] == HoundFlg3 || HoundFlg[1] < 1 || HoundFlg[1] == 0 || HoundFlg[1] == 4) {
+				HoundFlg[1] += 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
-			HoundFlg2 = cursorFlg;
-			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 > 14 || HoundFlg2 == 14 || HoundFlg2 == 10) {
-				HoundFlg2 -= 5;
+			HoundFlg[1] = cursorFlg;
+			if (HoundFlg[1] == HoundFlg[0] || HoundFlg[1] == HoundFlg3 || HoundFlg[1] > 14 || HoundFlg[1] == 14 || HoundFlg[1] == 10) {
+				HoundFlg[1] -= 5;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-			HoundFlg2 = cursorFlg;
-			if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 >= 14 || HoundFlg2 == 4 || HoundFlg2 == 10) {
-				HoundFlg2 -= 1;
+			HoundFlg[1] = cursorFlg;
+			if (HoundFlg[1] == HoundFlg[0] || HoundFlg[1] == HoundFlg[1] || HoundFlg[1] >= 14 || HoundFlg[1] == 4 || HoundFlg[1] == 10) {
+				HoundFlg[1] -= 1;
 			}
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
@@ -298,35 +376,40 @@ AbstractScene* Hound::Update()
 
 		}
 	}
-	//選択した猟犬を動かす
-	else if (HoundMoveflg3 == 1)
+	else if(HoundMoveflg3 == 1)	//選択した猟犬を動かす
 	{
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 			HoundFlg3 = cursorFlg;
 			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 < 1 || HoundFlg3 == 0 || HoundFlg3 == 4) {
-				HoundFlg2 += 5;
+				HoundFlg3 += 5;
 			}
 		}
+
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 			HoundFlg3 = cursorFlg;
 			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 > 14 || HoundFlg3 == 14 || HoundFlg3 == 10) {
 				HoundFlg3 -= 5;
 			}
 		}
+
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 			HoundFlg3 = cursorFlg;
 			if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 >= 14 || HoundFlg3 == 4 || HoundFlg3 == 10) {
 				HoundFlg3 -= 1;
 			}
 		}
+
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			HoundMoveflg3 = 0;
 		}
 	}
 
+	GameJudge();
+
 	return this;
 }
+
 void Hound::GameJudge()
 {
 
@@ -336,7 +419,6 @@ void Hound::Draw() const
 {
 	//背景画像
 	DrawGraph(0, 0, BackGroundImg, TRUE);
-
 	//タイトル
 	DrawString(10, 20, "プレイヤー操作は猟犬", 0x000000);
 
@@ -438,75 +520,145 @@ void Hound::Draw() const
 			}
 
 			//猟犬1の描画
+			//if (HoundDrawflg1 == TRUE) {
+			//	if (HoundFlg1 == 1 && bord[i][j].flg == 1) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 2 && bord[i][j].flg == 2) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 3 && bord[i][j].flg == 3) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 5 && bord[i][j].flg == 5) {	//初期位置
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 6 && bord[i][j].flg == 6) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 7 && bord[i][j].flg == 7) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 8 && bord[i][j].flg == 8) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 9 && bord[i][j].flg == 9) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 11 && bord[i][j].flg == 11) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 12 && bord[i][j].flg == 12) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	if (HoundFlg1 == 13 && bord[i][j].flg == 13) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//}
 			if (HoundDrawflg1 == TRUE) {
-				if (HoundFlg1 == 1 && bord[i][j].flg == 1) {
+				if (HoundFlg[0] == 1 && bord[i][j].flg == 1) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 2 && bord[i][j].flg == 2) {
+				if (HoundFlg[0] == 2 && bord[i][j].flg == 2) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 3 && bord[i][j].flg == 3) {
+				if (HoundFlg[0] == 3 && bord[i][j].flg == 3) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 5 && bord[i][j].flg == 5) {	//初期位置
+				if (HoundFlg[0] == 5 && bord[i][j].flg == 5) {	//初期位置
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 6 && bord[i][j].flg == 6) {
+				if (HoundFlg[0] == 6 && bord[i][j].flg == 6) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 7 && bord[i][j].flg == 7) {
+				if (HoundFlg[0] == 7 && bord[i][j].flg == 7) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 8 && bord[i][j].flg == 8) {
+				if (HoundFlg[0] == 8 && bord[i][j].flg == 8) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 9 && bord[i][j].flg == 9) {
+				if (HoundFlg[0] == 9 && bord[i][j].flg == 9) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 11 && bord[i][j].flg == 11) {
+				if (HoundFlg[0] == 11 && bord[i][j].flg == 11) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 12 && bord[i][j].flg == 12) {
+				if (HoundFlg[0] == 12 && bord[i][j].flg == 12) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				if (HoundFlg1 == 13 && bord[i][j].flg == 13) {
+				if (HoundFlg[0] == 13 && bord[i][j].flg == 13) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
 			}
 			
 			//猟犬2の描画
+			//if (HoundDrawflg2 == TRUE) {
+			//	if (HoundFlg2 == 1 && bord[i][j].flg == 1) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 2 && bord[i][j].flg == 2) {	//初期位置
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 3 && bord[i][j].flg == 3) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 5 && bord[i][j].flg == 5) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 6 && bord[i][j].flg == 6) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 7 && bord[i][j].flg == 7) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//		}
+			//	else if (HoundFlg2 == 8 && bord[i][j].flg == 8) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 9 && bord[i][j].flg == 9) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 11 && bord[i][j].flg == 11) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 12 && bord[i][j].flg == 12) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//	else if (HoundFlg2 == 13 && bord[i][j].flg == 13) {
+			//		DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
+			//	}
+			//}
 			if (HoundDrawflg2 == TRUE) {
-				if (HoundFlg2 == 1 && bord[i][j].flg == 1) {
+				if (HoundFlg[1] == 1 && bord[i][j].flg == 1) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 2 && bord[i][j].flg == 2) {	//初期位置
+				else if (HoundFlg[1] == 2 && bord[i][j].flg == 2) {	//初期位置
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 3 && bord[i][j].flg == 3) {
+				else if (HoundFlg[1] == 3 && bord[i][j].flg == 3) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 5 && bord[i][j].flg == 5) {
+				else if (HoundFlg[1] == 5 && bord[i][j].flg == 5) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 6 && bord[i][j].flg == 6) {
+				else if (HoundFlg[1] == 6 && bord[i][j].flg == 6) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 7 && bord[i][j].flg == 7) {
+				else if (HoundFlg[1] == 7 && bord[i][j].flg == 7) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 					}
-				else if (HoundFlg2 == 8 && bord[i][j].flg == 8) {
+				else if (HoundFlg[1] == 8 && bord[i][j].flg == 8) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 9 && bord[i][j].flg == 9) {
+				else if (HoundFlg[1] == 9 && bord[i][j].flg == 9) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 11 && bord[i][j].flg == 11) {
+				else if (HoundFlg[1] == 11 && bord[i][j].flg == 11) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 12 && bord[i][j].flg == 12) {
+				else if (HoundFlg[1] == 12 && bord[i][j].flg == 12) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
-				else if (HoundFlg2 == 13 && bord[i][j].flg == 13) {
+				else if (HoundFlg[1] == 13 && bord[i][j].flg == 13) {
 					DrawBox(bord[i][j].x, bord[i][j].y, bord[i][j].x + 50, bord[i][j].y + 50, 0x0000ff, TRUE);
 				}
 			}
@@ -549,8 +701,8 @@ void Hound::Draw() const
 			}
 		}
 	}
-	
-	SetFontSize(20);
+
+	/*SetFontSize(20);
 	DrawFormatString(200, 10, 0x000000, "cursorFlg:%d", cursorFlg);
 	DrawFormatString(400, 10, 0x000000, "HoundFlg1:%d", HoundFlg1);
 	DrawFormatString(600, 10, 0x000000, "HoundFlg2:%d", HoundFlg2);
@@ -560,6 +712,5 @@ void Hound::Draw() const
 	DrawFormatString(1000, 50, 0x000000, "HoundMoveflg2:%d", HoundMoveflg2);
 	DrawFormatString(1000, 90, 0x000000, "HoundMoveflg3:%d", HoundMoveflg3);
 
-	DrawFormatString(1000, 130, 0x000000, "RabbitMoveflg:%d", RabbitMoveflg); 
-
+	DrawFormatString(1000, 130, 0x000000, "RabbitMoveflg:%d", RabbitMoveflg);*/
 }
