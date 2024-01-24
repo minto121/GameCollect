@@ -438,10 +438,13 @@ void Mankara::MoveStone()
 		}
 	
 		// ˆÚ“®‚ªI‚í‚Á‚½‚Ì‚ÅAÎ‚Ì”‚ð‚O‚É‚·‚éB
-		P1StoneSave[0] = 0;
-		if (P1StoneSave[0] > 13) {
+		if (P1StoneSave[0] >= 13) {
 			P1StoneSave[0] = 1;
 		}
+		else {
+			P1StoneSave[0] = 0;
+		}
+
 		PocketEnter = 2;
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[1] == TRUE) {
