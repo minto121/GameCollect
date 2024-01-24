@@ -77,6 +77,8 @@ private:
 	int tmp;
 	int tmp2;
 
+	int tmpflg;
+
 public:
 	Mankara();
 	AbstractScene* Update();

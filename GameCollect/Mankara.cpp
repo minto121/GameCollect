@@ -394,6 +394,12 @@ void Mankara::Draw()const
 			DrawFormatString(500, 350, GetColor(0, 0, 0), "ESC：ゲーム終了");
 		}
 	}
+
+
+	if (tmpflg == TRUE) {
+		DrawFormatString(500, 300, GetColor(0, 0, 255), "エラー");
+
+	}
 }
 
 void Mankara::MoveStone()
@@ -432,7 +438,7 @@ void Mankara::MoveStone()
 			if (i > 6 && i < 13) {// 石の数が6より上だったら、
 				P2StoneSave[i - 7] += 1; // 相手のポケットに入れる
 			}
-			if (i > 13) { //石の数が13より上だったら、
+			if (i >= 13) { //石の数が13より上だったら、
 				P1StoneSave[i - 13] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -458,10 +464,10 @@ void Mankara::MoveStone()
 			if (i == 5) { // 石の数がポケットが5になったら、
 				P1BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 5 && i < 13) { // 石の数が5より上だったら、
+			if (i > 5 && i < 12) { // 石の数が5より上だったら、
 				P2StoneSave[i - 6] += 1; // 相手のポケットに入れる
 			}
-			if (i > 12) { //石の数が12より上だったら、
+			if (i >= 12) { //石の数が12より上だったら、
 				P1StoneSave[i - 12] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -485,10 +491,10 @@ void Mankara::MoveStone()
 			if (i == 4) { // 石の数がポケットが4になったら、
 				P1BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 4 && i < 13) { // 石の数が4より上だったら、
+			if (i > 4 && i < 11) { // 石の数が4より上だったら、
 				P2StoneSave[i - 5] += 1; // 相手のポケットに入れる
 			}
-			if (i > 11) { //石の数が11より上だったら、
+			if (i >= 11) { //石の数が11より上だったら、
 				P1StoneSave[i - 11] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -514,10 +520,10 @@ void Mankara::MoveStone()
 			if (i == 3) { // 石の数がポケットが3になったら、
 				P1BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 3 && i < 13) { // 石の数が3より上だったら、
+			if (i > 3 && i < 10) { // 石の数が3より上だったら、
 				P2StoneSave[i - 4] += 1; // 相手のポケットに入れる
 			}
-			if (i > 10) { //石の数が10より上だったら、
+			if (i >= 10) { //石の数が10より上だったら、
 				P1StoneSave[i - 10] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -543,10 +549,10 @@ void Mankara::MoveStone()
 			if (i == 2) { // 石の数がポケットが2になったら、
 				P1BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 2 && i < 13) { // 石の数が2より上だったら、
+			if (i > 2 && i < 9) { // 石の数が2より上だったら、
 				P2StoneSave[i - 3] += 1; // 相手のポケットに入れる
 			}
-			if (i > 9) { //石の数が9より上だったら、
+			if (i >= 9) { //石の数が9より上だったら、
 				P1StoneSave[i - 9] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -571,10 +577,10 @@ void Mankara::MoveStone()
 			if (i == 1) { // 石の数がポケットが1になったら、
 				P1BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 1 && i < 13) { // 石の数が1より上だったら、
+			if (i > 1 && i < 8) { // 石の数が1より上だったら、
 				P2StoneSave[i - 2] += 1; // 相手のポケットに入れる
 			}
-			if (i > 8) { //石の数が8より上だったら、
+			if (i >= 8) { //石の数が8より上だったら、
 				P1StoneSave[i - 8] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -605,7 +611,7 @@ void Mankara::MoveStone()
 			if (i > 6 && i < 13) { // 石の数が6より上だったら、
 				P1StoneSave[i - 7] += 1; // 相手のポケットに入れる
 			}
-			if (i > 13) { //石の数が13より上だったら、
+			if (i >= 13) { //石の数が13より上だったら、
 				P2StoneSave[i - 13] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -630,10 +636,10 @@ void Mankara::MoveStone()
 			if (i == 5) { // 石の数がポケットが5になったら、
 				P2BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 5 && i < 13) { // 石の数がより上だったら、
+			if (i > 5 && i < 12) { // 石の数がより上だったら、
 				P1StoneSave[i - 6] += 1; // 相手のポケットに入れる
 			}
-			if (i > 12) { //石の数が12より上だったら、
+			if (i >= 12) { //石の数が12より上だったら、
 				P1StoneSave[i - 12] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -657,10 +663,10 @@ void Mankara::MoveStone()
 			if (i == 4) { // 石の数がポケットが4になったら、
 				P2BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 4 && i < 13) { // 石の数が4より上だったら、
+			if (i > 4 && i < 11) { // 石の数が4より上だったら、
 				P1StoneSave[i - 5] += 1; // 相手のポケットに入れる
 			}
-			if (i > 11) { //石の数が11より上だったら、
+			if (i >= 11) { //石の数が11より上だったら、
 				P1StoneSave[i - 11] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -686,10 +692,10 @@ void Mankara::MoveStone()
 			if (i == 3) { // 石の数がポケットが3になったら、
 				P2BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 3 && i < 13) { // 石の数が3より上だったら、
+			if (i > 3 && i < 10) { // 石の数が3より上だったら、
 				P1StoneSave[i - 4] += 1; // 相手のポケットに入れる
 			}
-			if (i > 10) { //石の数が10より上だったら、
+			if (i >= 10) { //石の数が10より上だったら、
 				P1StoneSave[i - 10] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -714,10 +720,10 @@ void Mankara::MoveStone()
 			if (i == 2) { // 石の数がポケットが２になったら、
 				P2BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 2 && i < 13) { // 石の数が２より上だったら、
+			if (i > 2 && i < 9) { // 石の数が２より上だったら、
 				P1StoneSave[i - 3] += 1; // 相手のポケットに入れる
 			}
-			if (i > 9) { //石の数が9より上だったら、
+			if (i >= 9) { //石の数が9より上だったら、
 				P1StoneSave[i - 9] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -742,9 +748,9 @@ void Mankara::MoveStone()
 			if (i == 1) { // 石の数がポケットが1になったら、
 				P2BigPocket += 1;	// ゴールにプラス1
 			}
-			if (i > 1 && i < 13) { // 石の数が1より上だったら、
+			if (i > 1 && i < 8) { // 石の数が1より上だったら、
 				P1StoneSave[i - 2] += 1; // 相手のポケットに入れる
-			}if (i > 8) { //石の数が8より上だったら、
+			}if (i >= 8) { //石の数が8より上だったら、
 				P1StoneSave[i - 8] += 1;  // 自分のポケットに石を入れる処理
 			}
 		}
@@ -761,6 +767,16 @@ void Mankara::MoveStone()
 
 	// PocketEnterが２になら、ターンを切り替える
 	if ( PocketEnter == 2) {
+
+		tmp = P1StoneSave[0] + P1StoneSave[1] + P1StoneSave[2] + P1StoneSave[3] + P1StoneSave[4] + P1StoneSave[5]
+			+ P2StoneSave[0] + P2StoneSave[1] + P2StoneSave[2] + P2StoneSave[3] + P2StoneSave[4] + P2StoneSave[5]
+			+ P1BigPocket + P2BigPocket;
+		if (tmp != 48) {
+			tmpflg = TRUE;
+		}
+		else {
+			tmpflg = FALSE;
+		}
 		// 自分のターンなら、MyTurnをFALSEにする
 		if (MyTurn == TRUE) {
 			MyTurn = FALSE;
@@ -789,5 +805,10 @@ void Mankara::MoveStone()
 		}
 		ResultDraw2 = TRUE;
 	}
+	
+	
+	
+	
+
 }
 
