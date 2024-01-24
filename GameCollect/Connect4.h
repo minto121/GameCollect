@@ -29,7 +29,7 @@ private:
 
 	int Button;
 
-	char Notation;
+	int Notation='ê‘';
 
 public:
 
