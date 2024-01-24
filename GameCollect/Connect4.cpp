@@ -47,9 +47,9 @@ void Connect4::Draw() const
 	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//ÉJÅ[É\ÉãâÊëú
 
 	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);
-	/*DrawFormatString(0, 200, 0xf0f0f0, "%d", Cursor);
-	DrawFormatString(0, 300, 0xf0f0f0, "%d", Cursor);
-	DrawFormatString(0, 400, 0xf0f0f0, "%d", Cursor);*/
+	DrawFormatString(0, 200, 0xf0f0f0, "%c", Notation);
+	//DrawFormatString(0, 300, 0xf0f0f0, "%d", Cursor);
+	//DrawFormatString(0, 400, 0xf0f0f0, "%d", Cursor);
 
 }
 	

@@ -29,6 +29,8 @@ private:
 
 	int Button;
 
+	char Notation;
+
 public:
 
 	int flg;		//フラグ（０：表示しない　１：表示する）
