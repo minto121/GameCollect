@@ -307,7 +307,6 @@ AbstractScene* Hound::Update()
 			else {
 				HoundMoveflg2 = 0;
 			}
-
 		}
 	}
 	//else if(HoundMoveflg2 == 1)	//‘I‘ð‚µ‚½—ÂŒ¢‚ð“®‚©‚·
@@ -351,7 +350,7 @@ AbstractScene* Hound::Update()
 		}
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 			HoundFlg[1] = cursorFlg;
-			if (HoundFlg[1] == HoundFlg[0] || HoundFlg[1] == HoundFlg[1] || HoundFlg[1] >= 14 || HoundFlg[1] == 4 || HoundFlg[1] == 10) {
+			if (HoundFlg[1] == HoundFlg[0] || HoundFlg[1] == HoundFlg3 || HoundFlg[1] >= 14 || HoundFlg[1] == 4 || HoundFlg[1] == 10) {
 				HoundFlg[1] -= 1;
 			}
 		}
