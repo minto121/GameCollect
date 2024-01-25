@@ -650,7 +650,7 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[0] = 0;
 		}
-		if (tmp == 6) {
+		if (tmp2 == 6) {
 			PocketEnter = 0;
 		}
 		else {
