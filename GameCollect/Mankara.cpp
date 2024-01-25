@@ -395,10 +395,10 @@ void Mankara::Draw()const
 		}
 	}
 
-
+	// 計算後、石の総数が48じゃなければエラー表示
+	// これが出なければ正常
 	if (tmpflg == TRUE) {
 		DrawFormatString(500, 300, GetColor(0, 0, 255), "エラー");
-
 	}
 }
 
@@ -767,16 +767,18 @@ void Mankara::MoveStone()
 
 	// PocketEnterが２になら、ターンを切り替える
 	if ( PocketEnter == 2) {
-
+		// ターン終了時、石の総数を計算する
 		tmp = P1StoneSave[0] + P1StoneSave[1] + P1StoneSave[2] + P1StoneSave[3] + P1StoneSave[4] + P1StoneSave[5]
 			+ P2StoneSave[0] + P2StoneSave[1] + P2StoneSave[2] + P2StoneSave[3] + P2StoneSave[4] + P2StoneSave[5]
 			+ P1BigPocket + P2BigPocket;
+		// 計算後、石の総数が48じゃなければエラー表示
 		if (tmp != 48) {
 			tmpflg = TRUE;
 		}
 		else {
 			tmpflg = FALSE;
 		}
+
 		// 自分のターンなら、MyTurnをFALSEにする
 		if (MyTurn == TRUE) {
 			MyTurn = FALSE;
