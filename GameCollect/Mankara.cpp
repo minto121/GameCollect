@@ -450,8 +450,12 @@ void Mankara::MoveStone()
 		else {
 			P1StoneSave[0] = 0;
 		}
-
-		PocketEnter = 2;
+		if (tmp == 6) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[1] == TRUE) {
 		tmp = P1StoneSave[1];
@@ -478,7 +482,12 @@ void Mankara::MoveStone()
 		else {
 			P1StoneSave[1] = 0;
 		}
-		PocketEnter = 2;
+		if (tmp == 5) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[2] == TRUE) {
 		tmp = P1StoneSave[2];
@@ -505,7 +514,12 @@ void Mankara::MoveStone()
 		else {
 			P1StoneSave[2] = 0;
 		}
-		PocketEnter = 2;
+		if (tmp == 4) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[3] == TRUE) {
@@ -534,8 +548,13 @@ void Mankara::MoveStone()
 		else {
 			P1StoneSave[3] = 0;
 		}
-		PocketEnter = 2;
 
+		if (tmp == 3) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[4] == TRUE) {
 		int tmp = P1StoneSave[4];
@@ -563,8 +582,12 @@ void Mankara::MoveStone()
 		else {
 			P1StoneSave[4] = 0;
 		}
-		PocketEnter = 2;
-
+		if (tmp == 2) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == TRUE && PocketEnter == 1 && P1Pocket[5] == TRUE) {
 		tmp = P1StoneSave[5];
@@ -591,7 +614,12 @@ void Mankara::MoveStone()
 		else {
 			P1StoneSave[5] = 0;
 		}
-		PocketEnter = 2;
+		if (tmp == 1) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 
 
@@ -622,7 +650,12 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[0] = 0;
 		}
-		PocketEnter = 2;
+		if (tmp == 6) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[1] == TRUE) {
 		tmp2 = P2StoneSave[1];
@@ -650,7 +683,12 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[1] = 0;
 		}
-		PocketEnter = 2;
+		if (tmp2 == 5) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[2] == TRUE) {
 		tmp2 = P2StoneSave[2];
@@ -678,8 +716,12 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[2] = 0;
 		}
-		PocketEnter = 2;
-
+		if (tmp2 == 4) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[3] == TRUE) {
 		int tmp2 = P2StoneSave[3];
@@ -706,8 +748,12 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[3] = 0;
 		}
-		PocketEnter = 2;
-
+		if (tmp2 == 3) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[4] == TRUE) {
 		tmp2 = P2StoneSave[4];
@@ -734,8 +780,12 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[4] = 0;
 		}
-		PocketEnter = 2;
-
+		if (tmp2 == 2) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 	else if (MyTurn == FALSE && PocketEnter == 1 && P2Pocket[5] == TRUE) {
 		tmp2 = P2StoneSave[5];
@@ -761,7 +811,12 @@ void Mankara::MoveStone()
 		else {
 			P2StoneSave[5] = 0;
 		}
-		PocketEnter = 2;
+		if (tmp2 == 1) {
+			PocketEnter = 0;
+		}
+		else {
+			PocketEnter = 2;
+		}
 	}
 
 
