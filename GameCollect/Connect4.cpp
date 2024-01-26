@@ -1,24 +1,20 @@
 #include "Connect4.h"
 #include"PadInput.h"
 
+#define POINTX 132.5
+int Turn = 1;		//手番
+
 Connect4::Connect4()
 {
 	if ((gStageImg = LoadGraph("images/SixBallPazzle/Board2.png")) == -1);				//ステージ画像読込
 	if ((gCursorImg = LoadGraph("images/SixBallPazzle/Arrow.png")) == -1);				//矢印画像読込
-	if ((gRedCoinImg = LoadGraph("images/SixBallPazzle/RadCoin.png")) == -1);			//ボールの分割画像読込
+	if ((gRedCoinImg = LoadGraph("images/SixBallPazzle/RedCoin.png")) == -1);			//ボールの分割画像読込
 	if ((gYellowCoinImg = LoadGraph("images/SixBallPazzle/YellowCoin.png")) == -1);		//ボールの分割画像読込
-
-	//配列の初期化
-	for (int x; x < 7; x++) {
-		for (int y; y < 6; y++) {
-			Stage[x][y] = 0;
-		}
-	}
-
 }
 
 Connect4::~Connect4()
 {
+
 }
 
 AbstractScene* Connect4::Update()
@@ -32,29 +28,41 @@ AbstractScene* Connect4::Update()
 		if (--Num < 1) Num = 7;	//左へ
 	}
 
-	Cursor = Num * 130;	//カーソルのX座標を増やす
-	
-	/******** ボタンで赤色か黄色に切り替わる *******/
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
-		
-		printfDx("赤");
+	Cursor = Num  * POINTX + 20;	//カーソルのX座標を増やす
 
-		for (int i; i < 7; i++) {
-			for (int j; j < 6; j++) {
-				if (i == 0) {
-					
+	/******** ボタンで赤色か黄色に切り替える *******/
+	
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+
+		
+		switch (Turn)
+		{
+		case 1:
+			printfDx("黄色だよ \n");
+			for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
+				if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる
+					Stage[Num - 1][y] = 1;
+					printfDx("%d", y);
+					Check(y);
+					break;
 				}
 			}
+			Turn = 2;
+			break;
+		case 2:
+			printfDx("赤色だよ \n");
+				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
+					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる
+						printfDx("%d \n");
+						Stage[Num - 1][y] = 2;
+						Check(y);
+						break;
+					}
+				}
+				Turn = 1;
+				break;
 		}
 	}
-
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-
-		printfDx("黄");
-	}
-
-	
-
 	return this;
 }
 
@@ -62,15 +70,46 @@ void Connect4::Draw() const
 {
 	DrawGraph(0, 0, gStageImg, TRUE);		//ステージ画像
 	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//カーソル画像
+	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);	//カーソルの値
+	
+	//ボールの描画
+	for (int x = 6; x >= 0; x--) {
+		for (int y = 5; y >= 0; y--) {
+			if (Stage[x][y] == 1) {
+				DrawGraph((x * POINTX) + POINTX, y * 100 + 65, gYellowCoinImg, TRUE);
+			}
+			if (Stage[x][y] == 2) {
+				DrawGraph((x * POINTX) + POINTX, y * 100 + 65, gRedCoinImg, TRUE);
+			}
+		}
+	}
+}
 
-	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);
-	DrawFormatString(0, 200, 0xff0000, "%c", Notation);
+void Connect4::Check(int y)
+{
+	int Height = y;	//yの添え字を引っ張って来る
+	int c;
+	int col;
+	int cnt = 0 ;
 
-	DrawGraph(0, 0, gRedCoinImg, TRUE);		
+	//縦のチェック
+	//if (Height >= 3) {
+	//	Stage[Num][Height];
 
+	//	col = Stage[Num][Height];
+	//	int c = Stage[Num][Height];
+	//	Stage[Num][Height];
+	//	(cnt)++;
 
-	//DrawFormatString(0, 300, 0xf0f0f0, "%d", Cursor);
-	//DrawFormatString(0, 400, 0xf0f0f0, "%d", Cursor);
-
+	//	if (Stage[Height + 1][Num] == c)Check(Height + 1);
+	//}
+	
+	//縦のチェック
+	if ((Stage[Num - 1][Height] == Stage[Num - 1][Height + 1]) &&
+		(Stage[Num - 1][Height] == Stage[Num - 1][Height + 2]) &&
+		(Stage[Num - 1][Height] == Stage[Num - 1][Height + 3]))
+	{
+		printfDx("クリア!! \n");
+	}
 }
 	

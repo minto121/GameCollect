@@ -17,7 +17,7 @@ const int MARGIN = 0;
 class Connect4 :public AbstractScene{
 
 private:
-	int Stage[7][6];	//ステージの配列化
+	int Stage[7][6] = {};	//ステージの配列化
 	unsigned int Cr;
 
 	int Cursor = 0;	//カーソルのX値
@@ -27,11 +27,8 @@ private:
 	int gCursorImg;		//カーソル画像
 	int gRedCoinImg;	//赤のコイン
 	int gYellowCoinImg;	//黄色のコイン
-	int Button;
 
-	int Notation='赤';
-
-
+	int CheckAnswer;
 public:
 	struct Boll{
 	int flg;		//フラグ（０：表示しない　１：表示する）
@@ -39,7 +36,7 @@ public:
 	int w, h;		//幅、高さ
 	int img;		//画像番号
 	};
-
+	
 	//struct Block gStage[HEIGHT][WIDTH];
 
 	Connect4();
@@ -51,5 +48,7 @@ public:
 
 	//描画に関することを実装
 	void Draw() const override;
+
+	void Check(int y);
 };
 
