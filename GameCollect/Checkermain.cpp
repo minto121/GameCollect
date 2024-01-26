@@ -4,12 +4,12 @@
 
 Checkermain::Checkermain() {
 	// 画像を読み込み、初期化
-	Boardimg = LoadGraph("../images/Checkers/banmen.png");   // ボード
-	PieceB = LoadGraph("../images/Checkers/WK.png");         // 駒黒
-	PieceR = LoadGraph("../images/Checkers/RD.png");         // 駒赤
-	PieceBK = LoadGraph("../images/Checkers/KB.png");        //kingkuro
-	PieceRK = LoadGraph("../images/Checkers/KR.png");          //kingaka
-	Checkerback = LoadGraph("../images/Checkers/back.png");  // 背景
+	Boardimg = LoadGraph("images/Checkers/banmen.png");   // ボード
+	PieceB = LoadGraph("images/Checkers/WK.png");         // 駒黒
+	PieceR = LoadGraph("images/Checkers/RD.png");         // 駒赤
+	PieceBK = LoadGraph("images/Checkers/KB.png");        //kingkuro
+	PieceRK = LoadGraph("images/Checkers/KR.png");          //kingaka
+	Checkerback = LoadGraph("images/Checkers/back.png");  // 背景
 	selectX = 0;                                             // カーソル移動X座標
 	selectY = 0;                                             // カーソル移動Y座標
 	phase = 0;                                               // 先攻後攻のフラグ

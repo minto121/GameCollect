@@ -7,7 +7,7 @@
 Porker::Porker()
 {
   /*  if ((Back = LoadGraph("../GameCollect/images/TexasHoldem/BG_Dummy.png"))) {}*/
-    if (LoadDivGraph("../GameCollect/images/TexasHoldem/PlayingCards.png", 56, 14, 4, 128, 256, Tranpu_Img,FALSE)) {}
+    if (LoadDivGraph("images/TexasHoldem/PlayingCards.png", 56, 14, 4, 128, 256, Tranpu_Img,FALSE)) {}
     a = 0;
     wt = 0;
     ps1 = 1000;

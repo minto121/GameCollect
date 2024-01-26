@@ -3,7 +3,7 @@
 
 gomokuTitle::gomokuTitle()
 {
-	gomokuTitle_Back = LoadGraph("../images/gomoku/BackGround02.png");
+	gomokuTitle_Back = LoadGraph("images/gomoku/BackGround02.png");
     gomoku_TitleSE1 = LoadSoundMem("sound/SE/gomoku_SelectSE.wav");
     gomoku_TitleSE2 = LoadSoundMem("sound/SE/gomoku_EnterSE.wav");
     gomokuTitle_MenuNumber = 0;
