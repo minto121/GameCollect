@@ -849,17 +849,17 @@ void Mankara::MoveStone()
 
 	// Ÿ”sŒ‹‰Ê‚Ì•\¦
 	if (ResultFlg1== TRUE) {
-		for (int i = 0; i < P2StoneSave[i]; i++) {
+		/*for (int i = 0; i < P2StoneSave[i]; i++) {
 			P2BigPocket += P2StoneSave[i];
 			P2StoneSave[i] = 0;
-		}
+		}*/
 		ResultDraw1 = TRUE;
 	}
 	else if (ResultFlg2 == TRUE) {
-		for (int i = 0; i < P1StoneSave[i]; i++) {
+		/*for (int i = 0; i < P1StoneSave[i]; i++) {
 			P1BigPocket += P1StoneSave[i];
 			P1StoneSave[i] = 0;
-		}
+		}*/
 		ResultDraw2 = TRUE;
 	}
 	
