@@ -17,27 +17,28 @@ const int MARGIN = 0;
 class Connect4 :public AbstractScene{
 
 private:
-	int Stage[6][7];
+	int Stage[7][6];	//ステージの配列化
 	unsigned int Cr;
 
 	int Cursor = 0;	//カーソルのX値
 	int Num = 1;	//カーソルの位置
 	
-	int gBallImg[4];	//ボールの分割画像
 	int gStageImg;		//ステージ画像
 	int gCursorImg;		//カーソル画像
-
+	int gRedCoinImg;	//赤のコイン
+	int gYellowCoinImg;	//黄色のコイン
 	int Button;
 
 	int Notation='赤';
 
-public:
 
+public:
+	struct Boll{
 	int flg;		//フラグ（０：表示しない　１：表示する）
 	int x, y;		//座標
 	int w, h;		//幅、高さ
 	int img;		//画像番号
-	int backup;		//画像バックアップ
+	};
 
 	//struct Block gStage[HEIGHT][WIDTH];
 

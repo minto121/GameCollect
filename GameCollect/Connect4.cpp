@@ -3,16 +3,17 @@
 
 Connect4::Connect4()
 {
-	if ((gStageImg = LoadGraph("images/SixBallPazzle/Board2.png")) == -1);	//ステージ画像読込
-	if ((gCursorImg = LoadGraph("images/SixBallPazzle/Arrow.png")) == -1);	//矢印画像読込
-	//if ((gBallImg = LoadGraph("images/SixBallPazzle/ball.png")) == -1);		//ボールの分割画像読込
+	if ((gStageImg = LoadGraph("images/SixBallPazzle/Board2.png")) == -1);				//ステージ画像読込
+	if ((gCursorImg = LoadGraph("images/SixBallPazzle/Arrow.png")) == -1);				//矢印画像読込
+	if ((gRedCoinImg = LoadGraph("images/SixBallPazzle/RadCoin.png")) == -1);			//ボールの分割画像読込
+	if ((gYellowCoinImg = LoadGraph("images/SixBallPazzle/YellowCoin.png")) == -1);		//ボールの分割画像読込
 
 	//配列の初期化
-	/*for (int x; x < 6; x++) {
-		for (int y; y < 7; y++) {
+	for (int x; x < 7; x++) {
+		for (int y; y < 6; y++) {
 			Stage[x][y] = 0;
 		}
-	}*/
+	}
 
 }
 
@@ -37,12 +38,22 @@ AbstractScene* Connect4::Update()
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
 		
 		printfDx("赤");
+
+		for (int i; i < 7; i++) {
+			for (int j; j < 6; j++) {
+				if (i == 0) {
+					
+				}
+			}
+		}
 	}
 
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
 
 		printfDx("黄");
 	}
+
+	
 
 	return this;
 }
@@ -54,6 +65,10 @@ void Connect4::Draw() const
 
 	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);
 	DrawFormatString(0, 200, 0xff0000, "%c", Notation);
+
+	DrawGraph(0, 0, gRedCoinImg, TRUE);		
+
+
 	//DrawFormatString(0, 300, 0xf0f0f0, "%d", Cursor);
 	//DrawFormatString(0, 400, 0xf0f0f0, "%d", Cursor);
 
