@@ -20,10 +20,9 @@ private:
 	int RabbitDrawflg;   //ウサギ描画フラグ
 	int RabbitMoveflg;   //ウサギ移動フラグ
 
-	int HoundFlg1;  //猟犬フラグ
+	int HoundFlg1;		//猟犬フラグ
 	int HoundFlg2;
 	int HoundFlg3;
-	int HoundFlg[2];
 
 	int HoundDrawflg1;   //猟犬描画フラグ
 	int HoundDrawflg2;

@@ -23,9 +23,9 @@ Hound::Hound()
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
 
-	HoundFlg[1] = 5;
+	/*HoundFlg[1] = 5;
 	HoundFlg[2] = 1;
-	HoundFlg[3] = 11;
+	HoundFlg[3] = 11;*/
 
 	HoundDrawflg1 = TRUE;	//—ÂŒ¢•`‰æƒtƒ‰ƒO‰Šú‰»
 	HoundDrawflg2 = TRUE;
@@ -337,7 +337,7 @@ AbstractScene* Hound::Update()
 
 void Hound::GameJudge()
 {
-	
+	if(HoundFlg1 = 8 || HoundFlg2 = 3)
 }
 
 void Hound::Draw() const
