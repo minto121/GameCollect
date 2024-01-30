@@ -34,7 +34,6 @@ AbstractScene* Connect4::Update()
 	
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
 
-		
 		switch (Turn)
 		{
 		case 1:
@@ -42,8 +41,9 @@ AbstractScene* Connect4::Update()
 			for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 				if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる
 					Stage[Num - 1][y] = 1;
-					printfDx("%d", y);
+					//printfDx("%d", y);
 					Check(y);
+					CheckWidth(y,x,cnt,col);
 					break;
 				}
 			}
@@ -53,9 +53,10 @@ AbstractScene* Connect4::Update()
 			printfDx("赤色だよ \n");
 				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる
-						printfDx("%d \n");
+						//printfDx("%d \n");
 						Stage[Num - 1][y] = 2;
 						Check(y);
+						CheckWidth(y,x,cnt,col);
 						break;
 					}
 				}
@@ -88,21 +89,6 @@ void Connect4::Draw() const
 void Connect4::Check(int y)
 {
 	int Height = y;	//yの添え字を引っ張って来る
-	int c;
-	int col;
-	int cnt = 0 ;
-
-	//縦のチェック
-	//if (Height >= 3) {
-	//	Stage[Num][Height];
-
-	//	col = Stage[Num][Height];
-	//	int c = Stage[Num][Height];
-	//	Stage[Num][Height];
-	//	(cnt)++;
-
-	//	if (Stage[Height + 1][Num] == c)Check(Height + 1);
-	//}
 	
 	//縦のチェック
 	if ((Stage[Num - 1][Height] == Stage[Num - 1][Height + 1]) &&
@@ -111,5 +97,32 @@ void Connect4::Check(int y)
 	{
 		printfDx("クリア!! \n");
 	}
+
 }
+
+void Connect4::CheckWidth(int y,int x,int cnt,int col)
+{
+	int Width = Num - 1;
+	int c;
+	/*int col;
+	int cnt = 0;*/
+
+	//横のチェック
+	//if (Stage[7][6] == 0)return 0;
+
+	if (cnt >= 4) {
+
+		Stage[Num][Width];
+		col = Stage[Num][Width];
+		c = Stage[Num][Width];
+		(cnt)++;
+
+		if (Stage[Num][Width + 1] == c)Check( Width - 1);
+
+		printf("000");
+
+	}
+}
+
+
 	

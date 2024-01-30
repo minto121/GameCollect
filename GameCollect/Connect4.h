@@ -28,6 +28,12 @@ private:
 	int gRedCoinImg;	//赤のコイン
 	int gYellowCoinImg;	//黄色のコイン
 
+	int Width = Num - 1;
+	int x;
+	int c;
+	int col;
+	int cnt = 0;
+
 	int CheckAnswer;
 public:
 	struct Boll{
@@ -49,6 +55,9 @@ public:
 	//描画に関することを実装
 	void Draw() const override;
 
-	void Check(int y);
+	void Check(int y); //縦のチェック
+
+	void CheckWidth(int y,int x,int col,int cut); //縦のチェック
+
 };
 
