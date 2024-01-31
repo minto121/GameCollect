@@ -28,11 +28,11 @@ private:
 	int gRedCoinImg;	//赤のコイン
 	int gYellowCoinImg;	//黄色のコイン
 
-	int Width = Num - 1;
+	/*int Width = Num - 1;
 	int x;
 	int c;
 	int col;
-	int cnt = 0;
+	int cnt = 0;*/
 
 	int CheckAnswer;
 public:
