@@ -33,7 +33,8 @@ AbstractScene* Connect4::Update()
 	/******** ボタンで赤色か黄色に切り替える *******/
 	
 	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
-
+		clsDx();
+		SetLogFontSize(32);
 		switch (Turn)
 		{
 		case 1:
@@ -41,9 +42,13 @@ AbstractScene* Connect4::Update()
 			for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 				if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる
 					Stage[Num - 1][y] = 1;
-					//printfDx("%d", y);
-					Check(y);
-					CheckWidth(y,x,cnt,col);
+
+					for (int i = 0; i < 4; i++) {
+						if (bool connect = CheckConnect(Num - 1, y, i) == true) {
+							// クリア
+							printfDx("クリア！\n");
+						}
+					}
 					break;
 				}
 			}
@@ -52,11 +57,15 @@ AbstractScene* Connect4::Update()
 		case 2:
 			printfDx("赤色だよ \n");
 				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
-					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる
-						//printfDx("%d \n");
+					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見てる;
 						Stage[Num - 1][y] = 2;
-						Check(y);
-						CheckWidth(y,x,cnt,col);
+
+						for (int i = 0; i < 4; i++) {
+							if (bool connect = CheckConnect(Num - 1, y, i) == true) {
+								// クリア
+								printfDx("クリア！\n");
+							}
+						}
 						break;
 					}
 				}
@@ -86,43 +95,100 @@ void Connect4::Draw() const
 	}
 }
 
-void Connect4::Check(int y)
-{
-	int Height = y;	//yの添え字を引っ張って来る
-	
-	//縦のチェック
-	if ((Stage[Num - 1][Height] == Stage[Num - 1][Height + 1]) &&
-		(Stage[Num - 1][Height] == Stage[Num - 1][Height + 2]) &&
-		(Stage[Num - 1][Height] == Stage[Num - 1][Height + 3]))
-	{
-		printfDx("クリア!! \n");
+bool Connect4::CheckConnect(int x, int y, int type) {
+	int min = CheckConnectMin(x, y, type, 0);
+	switch (type) {
+
+		// 横
+	case 0:
+		// 4つ並んでるか確認
+		for (int i = 0; i < 4; i++) {
+			// 今の座標 - 一番左の座標 + i が今の座標と一緒じゃない場合false
+			if (Stage[(x - min) + i][y] != Stage[x][y]) {
+				return false;
+			}
+		}
+		break;
+
+		// 縦
+	case 1:
+		// 4つ並んでるか確認
+		for (int i = 0; i < 4; i++) {
+			if (Stage[x][(y - min) + i] != Stage[x][y]) {
+				return false;
+			}
+		}
+		break;
+
+		// 斜め右下・左上
+	case 2:
+		// 4つ並んでるか確認
+		for (int i = 0; i < 4; i++) {
+			if (Stage[(x - min) + i][(y - min) + i] != Stage[x][y]) {
+				return false;
+			}
+		}
+		break;
+
+		// 斜め右上・左下
+	case 3:
+		// 4つ並んでるか確認
+		for (int i = 0; i < 4; i++) {
+			if (Stage[(x - min) + i][(y + min) - i] != Stage[x][y]) {
+				return false;
+			}
+		}
+		break;
+
+	default:
+		break;
 	}
 
+	// 4回ループして最後まで行けた場合true
+	return true;
 }
 
-void Connect4::CheckWidth(int y,int x,int cnt,int col)
+
+// 一番左を取得
+int Connect4::CheckConnectMin(int x, int y, int type, int cnt)
 {
-	int Width = Num - 1;
-	int c;
-	/*int col;
-	int cnt = 0;*/
+	// 0から7の間なら見る
+	if (x - 1 >= 0 && x + 1 <= 7) {
+		if (y - 1 >= 0 && y + 1 <= 6) {
 
-	//横のチェック
-	//if (Stage[7][6] == 0)return 0;
-
-	if (cnt >= 4) {
-
-		Stage[Num][Width];
-		col = Stage[Num][Width];
-		c = Stage[Num][Width];
-		(cnt)++;
-
-		if (Stage[Num][Width + 1] == c)Check( Width - 1);
-
-		printf("000");
-
+			switch (type) {
+				//横を確認
+			case 0:
+				if (Stage[x - 1][y] == Stage[x][y]) {
+					cnt++;
+					cnt = CheckConnectMin(x - 1, y, type, cnt);
+				}
+				break;
+				//縦の確認
+			case 1:
+				if (Stage[x][y] == Stage[x][y - 1]) {
+					cnt++;
+					cnt = CheckConnectMin(x, y - 1, type, cnt);
+				}
+				break;
+				// 斜め右下・左上
+			case 2:
+				if (Stage[x - 1][y - 1] == Stage[x][y]) {
+					cnt++;
+					cnt = CheckConnectMin(x - 1, y - 1, type, cnt);
+				}
+				break;
+				// 斜め右上・左下
+			case 3:
+				if (Stage[x - 1][y + 1] == Stage[x][y]) {
+					cnt++;
+					cnt = CheckConnectMin(x - 1, y + 1, type, cnt);
+				}
+				break;
+			default:
+				break;
+			}
+		}
 	}
+	return cnt;
 }
-
-
-	

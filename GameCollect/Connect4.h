@@ -55,9 +55,8 @@ public:
 	//描画に関することを実装
 	void Draw() const override;
 
-	void Check(int y); //縦のチェック
+	bool CheckConnect(int x, int y, int type);
 
-	void CheckWidth(int y,int x,int col,int cut); //縦のチェック
-
+	int CheckConnectMin(int x, int y, int type, int cnt); // 繋がっているかのチェック
 };
 
