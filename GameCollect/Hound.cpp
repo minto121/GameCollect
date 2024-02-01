@@ -157,7 +157,7 @@ AbstractScene* Hound::Update()
 		}
 	}
 
-	if (HoundTurnflg == FALSE && RabbitTurnflg == TRUE)
+	if (RabbitTurnflg == TRUE)
 	{
 		//Aボタンでウサギを選択する
 		if (RabbitMoveflg == 0)
@@ -213,8 +213,8 @@ AbstractScene* Hound::Update()
 		}
 	}
 	
-	if (RabbitTurnflg == FALSE && HoundTurnflg == TRUE)
-	{
+	/*if (HoundTurnflg == TRUE)
+	{*/
 		//Aボタンで猟犬を選択する
 		if (HoundMoveflg1 == 0)
 		{
@@ -331,6 +331,7 @@ AbstractScene* Hound::Update()
 
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 				HoundFlg3 = cursorFlg;
+
 				if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 >= 14 || HoundFlg3 == 4 || HoundFlg3 == 10) {
 					HoundFlg3 -= 1;
 				}
@@ -342,12 +343,12 @@ AbstractScene* Hound::Update()
 			}
 		}
 
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
+		/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 		{
 			RabbitTurnflg = TRUE;
 			HoundTurnflg = FALSE;
 		}
-	}
+	}*/
 
 	GameJudge();
 
