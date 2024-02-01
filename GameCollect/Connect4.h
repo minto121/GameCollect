@@ -32,19 +32,11 @@ private:
 	int gYellowCoinImg;	//黄色のコイン
 	int gClearImg;		//クリア表示
 
-	//bool connect;
+	int Clear = 0;		//クリアチェック
+	int TimeCnt = 0;	//時間のカウント
 
 	int CheckAnswer;
 public:
-	struct Boll{
-	int flg;		//フラグ（０：表示しない　１：表示する）
-	int x, y;		//座標
-	int w, h;		//幅、高さ
-	int img;		//画像番号
-	};
-	
-	//struct Block gStage[HEIGHT][WIDTH];
-
 	Connect4();
 
 	~Connect4();

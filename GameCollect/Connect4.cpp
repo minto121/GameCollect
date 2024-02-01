@@ -1,8 +1,11 @@
 #include "Connect4.h"
 #include "PadInput.h"
+#include "GameSelect.h"
+
 
 #define POINTX 132.5
 int Turn = 1;		//手番
+
 
 Connect4::Connect4()
 {
@@ -21,44 +24,56 @@ Connect4::~Connect4()
 
 AbstractScene* Connect4::Update()
 {
-	/****** カーソルの移動処理 *******/
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
-		if (++Num > 7) Num = 1;	//右へ
+	//クリアした後の画面リセット
+	if (Clear != 0)
+	{
+		if (TimeCnt >= 180) {
+			return new Connect4();
+		}
+		else {
+			TimeCnt++;
+		}
+
 	}
+	if (Clear == 0)
+	{
+		/****** カーソルの移動処理 *******/
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
+			if (++Num > 7) Num = 1;	//右へ
+		}
 
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
-		if (--Num < 1) Num = 7;	//左へ
-	}
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_LEFT)) {
+			if (--Num < 1) Num = 7;	//左へ
+		}
+		Cursor = Num * POINTX + 20;	//カーソルのX座標を増やす
 
-	Cursor = Num  * POINTX + 20;	//カーソルのX座標を増やす
+		/******** ボタンで赤色か黄色に切り替える *******/
+		if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
 
-	/******** ボタンで赤色か黄色に切り替える *******/
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_B)) {
+			clsDx();	//printfDxを上部に固定
+			SetLogFontSize(32);	//printfDxの文字サイズを変える
 
-		clsDx();	//printfDxを上部に固定
-		SetLogFontSize(32);	//printfDxの文字サイズを変える
-		
-		switch (Turn)		//ターンの切り替え
-		{
-		case 1:		//黄色のターン
-			printfDx("赤色の番だよ \n");
-			for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
-				if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
-					Stage[Num - 1][y] = 1;		//何もないときに１を代入
+			switch (Turn)		//ターンの切り替え
+			{
+			case 1:		//黄色のターン
+				printfDx("赤色の番だよ \n");
+				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
+					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
+						Stage[Num - 1][y] = 1;		//何もないときに１を代入
 
-					for (int i = 0; i < 4; i++) {
-						if (bool connect = CheckConnect(Num - 1, y, i) == true) {
-							// クリア
-							printfDx("クリア！\n");
+						for (int i = 0; i < 4; i++) {
+							if (bool connect = CheckConnect(Num - 1, y, i) == true) {
+								// クリア
+								Clear = 1;
+							}
 						}
+						break;
 					}
-					break;
 				}
-			}
-			Turn = 2;	//コインを置いたらターンを２へ変更
-			break;
-		case 2:		//赤のターン
-			printfDx("黄色の番だよ \n");
+				Turn = 2;	//コインを置いたらターンを２へ変更
+				break;
+			case 2:		//赤のターン
+				printfDx("黄色の番だよ \n");
 				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
 						Stage[Num - 1][y] = 2;			//何もない時に２を代入
@@ -66,7 +81,8 @@ AbstractScene* Connect4::Update()
 						for (int i = 0; i < 4; i++) {
 							if (bool connect = CheckConnect(Num - 1, y, i) == true) {
 								// クリア
-								printfDx("クリア！\n");
+								Clear = 2;
+								printfDx("%d", TimeCnt);
 							}
 						}
 						break;
@@ -74,9 +90,12 @@ AbstractScene* Connect4::Update()
 				}
 				Turn = 1;	//コインを置いたらターンを１へ変更
 				break;
+			}
 		}
 	}
+
 	return this;
+
 }
 
 void Connect4::Draw() const
@@ -84,6 +103,7 @@ void Connect4::Draw() const
 	DrawGraph(0, 0, gStageImg, TRUE);		//ステージ画像を描画
 	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//カーソル画像を描画
 	DrawFormatString(950, 10, 0xff0000,"パッドの十字キーで\nカーソルを動かして\nBボタンを押して始めてね");	//説明
+	
 	SetFontSize(24);
 	DrawFormatString(0, 100, 0xffff00, "先行:黄色");
 	DrawFormatString(0, 200, 0xff0000, "後行:赤色");
@@ -100,11 +120,19 @@ void Connect4::Draw() const
 		}
 	}
 
-	//if (connect == true) {
-	//	printfDx("わわわわわ！\n");
-		//DrawGraph(0, 0, gClearImg, FALSE);		//クリア画像を描画
-	//}
-	
+	if (Clear == 1) {
+		SetFontSize(200);
+		DrawBox(200,200,1200,400,0xffffff,TRUE);
+		DrawFormatString(200, 200, 0xff00ff, "黄色の勝ち！", Clear);
+
+	}
+		
+	if (Clear == 2) {
+			SetFontSize(200);
+			DrawBox(200, 200, 1200, 400, 0xffffff, TRUE);
+			DrawFormatString(200, 200, 0xff00ff, "赤色の勝ち！", Clear);
+
+	}
 }
 
 /***** 同じ色のコインが4個以上並んでいるかをチェック *****/
@@ -169,7 +197,7 @@ bool Connect4::CheckConnect(int x, int y, int type) {
 // 並んでいるコインの一番左（斜めであれば、左下か左上）を取得
 int Connect4::CheckConnectMin(int x, int y, int type, int cnt)	
 {
-	if (x - 1 >= 0 && x + 1 <= 7) {		// Xが0から7の間なら見る
+	if (x - 1 >= 0 && x + 1 <= 9) {		// Xが0から7の間なら見る
 		if (y - 1 >= 0 && y + 1 <= 6) {		// Yが0から6の間なら見る
 
 			switch (type) {
