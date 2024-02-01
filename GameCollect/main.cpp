@@ -7,7 +7,7 @@
 #include "takoyaki.h"
 //#include"Hanafuda_GameMain.h"
 //#include "Checkermain.h"
-#include "SixBallPuzzle.h"
+#include "Connect4.h"
 #include "RabbitAndHounds.h"
 #include "GameSelect.h"
 #include"Reversi.h"
@@ -43,7 +43,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/Connect4());
+		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
 
 	}
 	catch (const char* err)

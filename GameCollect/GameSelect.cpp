@@ -7,7 +7,7 @@
 //#include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
-#include "SixBallPuzzle.h"
+#include "Connect4.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -80,7 +80,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		return new Hex();
 		break;
 	case SELECT::sixballpuzzle:
-		return new SixBallPuzzle();
+		return new Connect4();
 		break;
 	default:
 		printfDx("ñ¢é¿ëïÇ»ã@î\Ç≈Ç∑ÅB\n");

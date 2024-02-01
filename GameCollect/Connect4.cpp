@@ -1,5 +1,5 @@
 #include "Connect4.h"
-#include"PadInput.h"
+#include "PadInput.h"
 
 #define POINTX 132.5
 int Turn = 1;		//手番
@@ -10,6 +10,8 @@ Connect4::Connect4()
 	if ((gCursorImg = LoadGraph("images/SixBallPazzle/Arrow.png")) == -1);				//矢印画像読込
 	if ((gRedCoinImg = LoadGraph("images/SixBallPazzle/RedCoin.png")) == -1);			//ボールの分割画像読込
 	if ((gYellowCoinImg = LoadGraph("images/SixBallPazzle/YellowCoin.png")) == -1);		//ボールの分割画像読込
+	if ((gClearImg = LoadGraph("images/SixBallPazzle/Clear.png")) == -1);		//ボールの分割画像読込
+
 }
 
 Connect4::~Connect4()
@@ -35,10 +37,11 @@ AbstractScene* Connect4::Update()
 
 		clsDx();	//printfDxを上部に固定
 		SetLogFontSize(32);	//printfDxの文字サイズを変える
+		
 		switch (Turn)		//ターンの切り替え
 		{
 		case 1:
-			printfDx("黄色の番だよ \n");
+			printfDx("赤色の番だよ \n");
 			for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 				if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
 					Stage[Num - 1][y] = 1;		//何もないときに１を代入
@@ -55,7 +58,7 @@ AbstractScene* Connect4::Update()
 			Turn = 2;	//コインを置いたらターンを２へ変更
 			break;
 		case 2:
-			printfDx("赤色の番だよ \n");
+			printfDx("黄色の番だよ \n");
 				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
 						Stage[Num - 1][y] = 2;			//何もない時に２を代入
@@ -80,19 +83,23 @@ void Connect4::Draw() const
 {
 	DrawGraph(0, 0, gStageImg, TRUE);		//ステージ画像を描画
 	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//カーソル画像を描画
-	DrawFormatString(0, 100, 0xf0f0f0, "%d", Cursor);	//カーソルの値
+	DrawFormatString(950, 10, 0xff0000,"パッドの十字キーで\nカーソルを動かして\nBボタンを押して始めてね");	//説明
+	SetFontSize(24);
+	DrawFormatString(0, 100, 0xff0000, "先行:黄色");
 	
 	//コインの描画
 	for (int x = 6; x >= 0; x--) {		//縦の添え字を見る
 		for (int y = 5; y >= 0; y--) {		//横の添え字を見る
-			if (Stage[x][y] == 1) {		//1なら黄色のコインを描画
+			if (Stage[x][y] == 1) {		//1なら黄色のコインをカーソルの位置に描画
 				DrawGraph((x * POINTX) + POINTX, y * 100 + 65, gYellowCoinImg, TRUE);
 			}
-			if (Stage[x][y] == 2) {		//２なら赤色のコインを描画
+			if (Stage[x][y] == 2) {		//２なら赤色のコインをカーソルの位置に描画
 				DrawGraph((x * POINTX) + POINTX, y * 100 + 65, gRedCoinImg, TRUE);
 			}
 		}
 	}
+
+	
 }
 
 /***** 同じ色のコインが4個以上並んでいるかをチェック *****/
@@ -155,7 +162,7 @@ bool Connect4::CheckConnect(int x, int y, int type) {
 
 
 // 並んでいるコインの一番左（斜めであれば、左下か左上）を取得
-int Connect4::CheckConnectMin(int x, int y, int type, int cnt)
+int Connect4::CheckConnectMin(int x, int y, int type, int cnt)	
 {
 	if (x - 1 >= 0 && x + 1 <= 7) {		// Xが0から7の間なら見る
 		if (y - 1 >= 0 && y + 1 <= 6) {		// Yが0から6の間なら見る

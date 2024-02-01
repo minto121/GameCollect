@@ -1,5 +1,8 @@
 #pragma once
 
+/*クラス名・ヘッダーのファイル名がSixBallPuzzleになっているのは諸事情によるものです。
+	実際にはConnect4.hです*/
+
 #include "AbstractScene.h"
 #include "DxLib.h"
 #include <math.h>
@@ -27,12 +30,7 @@ private:
 	int gCursorImg;		//カーソル画像
 	int gRedCoinImg;	//赤のコイン
 	int gYellowCoinImg;	//黄色のコイン
-
-	/*int Width = Num - 1;
-	int x;
-	int c;
-	int col;
-	int cnt = 0;*/
+	int gClearImg;		//クリア表示
 
 	int CheckAnswer;
 public:
