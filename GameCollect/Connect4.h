@@ -32,6 +32,8 @@ private:
 	int gYellowCoinImg;	//黄色のコイン
 	int gClearImg;		//クリア表示
 
+	//bool connect;
+
 	int CheckAnswer;
 public:
 	struct Boll{

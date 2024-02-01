@@ -40,7 +40,7 @@ AbstractScene* Connect4::Update()
 		
 		switch (Turn)		//ターンの切り替え
 		{
-		case 1:
+		case 1:		//黄色のターン
 			printfDx("赤色の番だよ \n");
 			for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 				if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
@@ -57,7 +57,7 @@ AbstractScene* Connect4::Update()
 			}
 			Turn = 2;	//コインを置いたらターンを２へ変更
 			break;
-		case 2:
+		case 2:		//赤のターン
 			printfDx("黄色の番だよ \n");
 				for (int y = 5; y >= 0; y--) {	//矢印の縦の列に黄色を描画させる
 					if (Stage[Num - 1][y] == 0) {	//Numは横の行を見る
@@ -85,7 +85,8 @@ void Connect4::Draw() const
 	DrawGraph(Cursor, 0, gCursorImg, TRUE);	//カーソル画像を描画
 	DrawFormatString(950, 10, 0xff0000,"パッドの十字キーで\nカーソルを動かして\nBボタンを押して始めてね");	//説明
 	SetFontSize(24);
-	DrawFormatString(0, 100, 0xff0000, "先行:黄色");
+	DrawFormatString(0, 100, 0xffff00, "先行:黄色");
+	DrawFormatString(0, 200, 0xff0000, "後行:赤色");
 	
 	//コインの描画
 	for (int x = 6; x >= 0; x--) {		//縦の添え字を見る
@@ -99,6 +100,10 @@ void Connect4::Draw() const
 		}
 	}
 
+	//if (connect == true) {
+	//	printfDx("わわわわわ！\n");
+		//DrawGraph(0, 0, gClearImg, FALSE);		//クリア画像を描画
+	//}
 	
 }
 
