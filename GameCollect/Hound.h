@@ -14,7 +14,7 @@ private:
 	int RabbitImg;   //ウサギ画像
 	//int R_texture;
 
-	int rabbitFlg;
+	//int rabbitFlg;
 
 	int RabbitFlg;		 //ウサギフラグ
 	int RabbitDrawflg;   //ウサギ描画フラグ
@@ -24,7 +24,6 @@ private:
 	int HoundFlg1;		//猟犬フラグ
 	int HoundFlg2;
 	int HoundFlg3;
-	int HoundFlg[3];
 
 	int HoundDrawflg1;   //猟犬描画フラグ
 	int HoundDrawflg2;
@@ -35,6 +34,9 @@ private:
 	int HoundMoveflg3;
 
 	int HoundTurnflg;	//猟犬ターンフラグ
+
+	int RabbitWinflg;
+	int HoundWinflg;
 
 	struct Bord {
 		int x, y;

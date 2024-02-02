@@ -9,8 +9,8 @@ Hound::Hound()
 	cursorImg = LoadGraph("images/RabbitAndHounds/cursor.png");
 
 	//3Dモデルの読込
-	HoundImg = MV1LoadModel("Dog_Model.mv1");
-	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");
+	/*HoundImg = MV1LoadModel("Dog_Model.mv1");
+	RabbitImg = MV1LoadModel("Rabbit_Model.mv1");*/
 
 	// テクスチャの読み込み
 	//R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
@@ -23,10 +23,6 @@ Hound::Hound()
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
 
-	/*HoundFlg[1] = 5;
-	HoundFlg[2] = 1;
-	HoundFlg[3] = 11;*/
-
 	HoundDrawflg1 = TRUE;	//猟犬描画フラグ初期化
 	HoundDrawflg2 = TRUE;
 	HoundDrawflg3 = TRUE;
@@ -35,10 +31,13 @@ Hound::Hound()
 	HoundMoveflg2 = 0;
 	HoundMoveflg3 = 0;
 
-	RabbitTurnflg = FALSE;		//ウサギターンフラグ初期化
-	HoundTurnflg = TRUE;		//猟犬ターンフラグ初期化
+	RabbitTurnflg = 0;		//ウサギターンフラグ初期化
+	HoundTurnflg = 1;		//猟犬ターンフラグ初期化
 
 	cursorFlg = 5;			//カーソルフラグ初期化
+
+	RabbitWinflg = FALSE;
+	HoundWinflg = FALSE;
 
 	//ステージ初期化
 	for (int i = 0; i < 5; i++) {
@@ -157,7 +156,7 @@ AbstractScene* Hound::Update()
 		}
 	}
 
-	if (RabbitTurnflg == TRUE)
+	if (RabbitTurnflg == 1)
 	{
 		//Aボタンでウサギを選択する
 		if (RabbitMoveflg == 0)
@@ -203,18 +202,15 @@ AbstractScene* Hound::Update()
 			else if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 			{
 				RabbitMoveflg = 0;
+
+				RabbitTurnflg = 0;
+				HoundTurnflg = 1;
 			}
 		}
-
-		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-		{
-			RabbitTurnflg = FALSE;
-			HoundTurnflg = TRUE;
-		}
 	}
-	
-	/*if (HoundTurnflg == TRUE)
-	{*/
+
+	if (HoundTurnflg == 1)
+	{
 		//Aボタンで猟犬を選択する
 		if (HoundMoveflg1 == 0)
 		{
@@ -253,6 +249,9 @@ AbstractScene* Hound::Update()
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 			{
 				HoundMoveflg1 = 0;
+
+				RabbitTurnflg = 1;
+				HoundTurnflg = 0;
 			}
 		}
 
@@ -294,9 +293,11 @@ AbstractScene* Hound::Update()
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 			{
 				HoundMoveflg2 = 0;
+
+				RabbitTurnflg = 1;
+				HoundTurnflg = 0;
 			}
 		}
-
 
 		//Aボタンで猟犬を選択する3
 		if (HoundMoveflg3 == 0)
@@ -340,14 +341,16 @@ AbstractScene* Hound::Update()
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 			{
 				HoundMoveflg3 = 0;
+
+				RabbitTurnflg = 1;
+				HoundTurnflg = 0;
 			}
 		}
+	}
 
-		/*if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
-		{
-			RabbitTurnflg = TRUE;
-			HoundTurnflg = FALSE;
-		}
+	/*if (RabbitFlg == 9 && HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 && HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13 && HoundFlg3 == 3 || HoundFlg3 == 8 || HoundFlg3 == 13)
+	{
+		HoundWinflg = TRUE;
 	}*/
 
 	GameJudge();
@@ -357,7 +360,25 @@ AbstractScene* Hound::Update()
 
 void Hound::GameJudge()
 {
-	//if(HoundFlg1 = 8 || HoundFlg2 = 3)
+	if (HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 )
+	{
+		HoundWinflg += 1;
+	}
+
+	if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
+	{
+		HoundWinflg += 1;
+	}
+	
+	if (HoundFlg3 == 3 || HoundFlg3 == 8 || HoundFlg3 == 13)
+	{
+		HoundWinflg += 1;
+	}
+
+	if (RabbitFlg == 9 && HoundWinflg == 3)
+	{
+		HoundWinflg == TRUE;
+	}
 }
 
 void Hound::Draw() const
@@ -576,8 +597,30 @@ void Hound::Draw() const
 			}
 		}
 	}
+	
+	
 
-	SetFontSize(20);
+	if (HoundTurnflg == 1)
+	{
+		SetFontSize(40);
+		DrawString(500, 10, "猟犬のターン", 0x000000);
+	}
+	else if (RabbitTurnflg == 1)
+	{
+		SetFontSize(40);
+		DrawString(500, 10, "ウサギのターン", 0x000000);
+	}
+
+
+	if (HoundWinflg == TRUE)
+	{
+		SetFontSize(30);
+		DrawString(50, 50, "猟犬の勝ち", 0x000000);
+	}
+
+	DrawFormatString(10, 10, 0x000000, "HoundWinflg:%d", HoundWinflg);
+
+	/*SetFontSize(20);
 	DrawFormatString(200, 10, 0x000000, "cursorFlg:%d", cursorFlg);
 	DrawFormatString(400, 10, 0x000000, "HoundFlg1:%d", HoundFlg1);
 	DrawFormatString(600, 10, 0x000000, "HoundFlg2:%d", HoundFlg2);
@@ -589,6 +632,6 @@ void Hound::Draw() const
 
 	DrawFormatString(1000, 130, 0x000000, "RabbitMoveflg:%d", RabbitMoveflg);
 
-	/*DrawFormatString(200, 40, 0x000000, "RabbitTurnflg:%d", RabbitTurnflg);
+	DrawFormatString(200, 40, 0x000000, "RabbitTurnflg:%d", RabbitTurnflg);
 	DrawFormatString(400, 40, 0x000000, "HoundTurnflg:%d", HoundTurnflg);*/
 }
