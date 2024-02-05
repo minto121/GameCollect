@@ -2,7 +2,7 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
-//#include "sinkeisuijaku.h" ƒGƒ‰[o‚é‚Ì‚ÅAˆê’UƒRƒƒ“ƒgƒAƒEƒg’†
+#include "sinkeisuijaku.h" ï¿½Gï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½Ì‚ÅAï¿½ï¿½Uï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Aï¿½Eï¿½gï¿½ï¿½
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
@@ -12,7 +12,7 @@
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
 {
-	font_handle = CreateFontToHandle("HG–¾’©E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
+	font_handle = CreateFontToHandle("HGï¿½ï¿½ï¿½ï¿½E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
 	now_menu = static_cast<int>(SELECT::Mankara);
 	input_margin = 0;
 }
@@ -23,28 +23,28 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-// ‘€ìŠÔŠuŠÔ
+// ï¿½ï¿½ï¿½ï¿½ÔŠuï¿½ï¿½ï¿½ï¿½
 const int max_input_margin = 15;
-// ƒXƒeƒBƒbƒN‚ÌŠ´“x
+// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ÌŠï¿½ï¿½x
 const int stick_sensitivity = 20000;
 
 if (input_margin < max_input_margin) {
 	input_margin++;
 }
 else {
-	// ƒXƒeƒBƒbƒN‚ÌYÀ•W‚ğæ“¾
+	// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½Yï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½æ“¾
 	int stick_y = PAD_INPUT::GetLStick().ThumbY;
 
 	if (std::abs(stick_y) > stick_sensitivity) {
 		//playsoundmem
-		// ƒXƒeƒBƒbƒN‚ªã‚ÉˆÚ“®‚µ‚½ê‡
+		// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
 		if (stick_y > 0) {
-			// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚Â‘O‚ÉˆÚ“®
+			// ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‘Oï¿½ÉˆÚ“ï¿½
 			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
 		}
-		// ƒXƒeƒBƒbƒN‚ª‰º‚ÉˆÚ“®‚µ‚½ê‡
+		// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
 		else if (stick_y < 0) {
-			// ƒƒjƒ…[‘I‘ğˆ‚ğˆê‚ÂŸ‚ÉˆÚ“®
+			// ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âï¿½ï¿½ÉˆÚ“ï¿½
 			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
 		}
 		input_margin = 0;
@@ -56,9 +56,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	SELECT current_selection = static_cast<SELECT>(now_menu);
 	switch (current_selection)
 	{
-	/*case SELECT::sinnkeisuizyaku:
-			return new sinkeisuijaku(); // ƒGƒ‰[o‚é‚Ì‚ÅAˆê’UƒRƒƒ“ƒgƒAƒEƒg’†
-			break;*/ 
+	case SELECT::sinnkeisuizyaku:
+			return new sinkeisuijaku(); // ï¿½Gï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½Ì‚ÅAï¿½ï¿½Uï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Aï¿½Eï¿½gï¿½ï¿½
+			break;
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
@@ -83,7 +83,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		return new Connect4();
 		break;
 	default:
-		printfDx("–¢À‘•‚È‹@”\‚Å‚·B\n");
+		printfDx("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‹@ï¿½\ï¿½Å‚ï¿½ï¿½B\n");
 		break;
 	}
 }
@@ -96,18 +96,18 @@ void GameSelect::Draw() const
 {
 	for (int i = 0; i < static_cast<int>(SELECT::MENU_SIZE); i++)
 	{
-		// •¶š—ñ‚ÌÅ¬YÀ•W
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌÅï¿½Yï¿½ï¿½ï¿½W
 		const int base_y = 0;
 
-		// •¶š—ñ‚ÌYÀ•WŠÔŠu
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½Wï¿½ÔŠu
 		const int margin_y = 50;
 
-		// •¶šF
+		// ï¿½ï¿½ï¿½ï¿½ï¿½F
 		int color = 0xFFFFFF;
-		// •¶šŠO˜gF
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½gï¿½F
 		int border_color = 0x000000;
 
-		// ƒJ[ƒ\ƒ‹‚ª‡‚Á‚Ä‚¢‚éê‡A•¶šF‚Æ•¶šŠO˜gF‚ğ”½“]‚³‚¹‚é
+		// ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Æ•ï¿½ï¿½ï¿½ï¿½Oï¿½gï¿½Fï¿½ğ”½“]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		if (now_menu == i) {
 			color = ~color;
 			border_color = ~border_color;
