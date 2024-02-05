@@ -274,19 +274,19 @@ AbstractScene* Hound::Update()
 		{
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 				HoundFlg2 = cursorFlg;
-				if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 < 1 || HoundFlg2 == 0 || HoundFlg2 == 4) {
+				if (HoundFlg2 == RabbitFlg || HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 < 1 || HoundFlg2 == 0 || HoundFlg2 == 4) {
 					HoundFlg2 += 5;
 				}
 			}
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 				HoundFlg2 = cursorFlg;
-				if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 > 14 || HoundFlg2 == 14 || HoundFlg2 == 10) {
+				if (HoundFlg2 == RabbitFlg || HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 > 14 || HoundFlg2 == 14 || HoundFlg2 == 10) {
 					HoundFlg2 -= 5;
 				}
 			}
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 				HoundFlg2 = cursorFlg;
-				if (HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 >= 14 || HoundFlg2 == 4 || HoundFlg2 == 10) {
+				if (HoundFlg2 == RabbitFlg || HoundFlg2 == HoundFlg1 || HoundFlg2 == HoundFlg3 || HoundFlg2 >= 14 || HoundFlg2 == 4 || HoundFlg2 == 10) {
 					HoundFlg2 -= 1;
 				}
 			}
@@ -318,14 +318,14 @@ AbstractScene* Hound::Update()
 		{
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 				HoundFlg3 = cursorFlg;
-				if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 < 1 || HoundFlg3 == 0 || HoundFlg3 == 4) {
+				if (HoundFlg3 == RabbitFlg || HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 < 1 || HoundFlg3 == 0 || HoundFlg3 == 4) {
 					HoundFlg3 += 5;
 				}
 			}
 
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_DOWN)) {
 				HoundFlg3 = cursorFlg;
-				if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 > 14 || HoundFlg3 == 14 || HoundFlg3 == 10) {
+				if (HoundFlg3 == RabbitFlg || HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 > 14 || HoundFlg3 == 14 || HoundFlg3 == 10) {
 					HoundFlg3 -= 5;
 				}
 			}
@@ -333,7 +333,7 @@ AbstractScene* Hound::Update()
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_RIGHT)) {
 				HoundFlg3 = cursorFlg;
 
-				if (HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 >= 14 || HoundFlg3 == 4 || HoundFlg3 == 10) {
+				if (HoundFlg3 == RabbitFlg || HoundFlg3 == HoundFlg1 || HoundFlg3 == HoundFlg2 || HoundFlg3 >= 14 || HoundFlg3 == 4 || HoundFlg3 == 10) {
 					HoundFlg3 -= 1;
 				}
 			}
@@ -362,23 +362,34 @@ void Hound::GameJudge()
 {
 	if (HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 )
 	{
-		HoundWinflg += 1;
+		if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
+		{
+			if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
+			{
+				HoundWinflg == TRUE;
+			}
+		}
+	}
+
+	/*if (HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 )
+	{
+		HoundWinflg = 1;
 	}
 
 	if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
 	{
-		HoundWinflg += 1;
+		HoundWinflg = 2;
 	}
 	
 	if (HoundFlg3 == 3 || HoundFlg3 == 8 || HoundFlg3 == 13)
 	{
-		HoundWinflg += 1;
+		HoundWinflg = 3;
 	}
 
 	if (RabbitFlg == 9 && HoundWinflg == 3)
 	{
 		HoundWinflg == TRUE;
-	}
+	}*/
 }
 
 void Hound::Draw() const
@@ -403,11 +414,6 @@ void Hound::Draw() const
 	//3Dモデルの描画
 	//MV1DrawModel(RabbitImg);
 	//MV1DrawModel(HoundImg);
-
-	//猟犬の駒(仮)
-	//DrawBox(390, 95, 440, 145, 0x0000ff, TRUE);     //上
-	//DrawBox(150, 335, 200, 385, 0x0000ff, TRUE);   //真ん中
-	//DrawBox(390, 575, 440, 625, 0x0000ff, TRUE);     //下
 
 	//カーソル・ウサギ・猟犬の動き
 	for (int i = 0; i < 5; i++) {
@@ -612,16 +618,25 @@ void Hound::Draw() const
 	}
 
 
-	if (HoundWinflg == TRUE)
+	/*if (HoundWinflg == TRUE)
 	{
 		SetFontSize(30);
 		DrawString(50, 50, "猟犬の勝ち", 0x000000);
+	}*/
+
+	//DrawFormatString(10, 10, 0x000000, "HoundWinflg:%c", HoundWinflg);
+
+	if (HoundWinflg == TRUE)
+	{
+		DrawString(10, 10, "勝ち", 0x000000);
+	}
+	else
+	{
+		DrawString(10, 10, "勝ちじゃない", 0x000000);
 	}
 
-	DrawFormatString(10, 10, 0x000000, "HoundWinflg:%d", HoundWinflg);
-
-	/*SetFontSize(20);
-	DrawFormatString(200, 10, 0x000000, "cursorFlg:%d", cursorFlg);
+	SetFontSize(20);
+	/*DrawFormatString(200, 10, 0x000000, "cursorFlg:%d", cursorFlg);
 	DrawFormatString(400, 10, 0x000000, "HoundFlg1:%d", HoundFlg1);
 	DrawFormatString(600, 10, 0x000000, "HoundFlg2:%d", HoundFlg2);
 	DrawFormatString(800, 10, 0x000000, "HoundFlg3:%d", HoundFlg3);
@@ -630,8 +645,8 @@ void Hound::Draw() const
 	DrawFormatString(1000, 50, 0x000000, "HoundMoveflg2:%d", HoundMoveflg2);
 	DrawFormatString(1000, 90, 0x000000, "HoundMoveflg3:%d", HoundMoveflg3);
 
-	DrawFormatString(1000, 130, 0x000000, "RabbitMoveflg:%d", RabbitMoveflg);
+	DrawFormatString(1000, 130, 0x000000, "RabbitMoveflg:%d", RabbitMoveflg);*/
 
-	DrawFormatString(200, 40, 0x000000, "RabbitTurnflg:%d", RabbitTurnflg);
+	/*DrawFormatString(200, 40, 0x000000, "RabbitTurnflg:%d", RabbitTurnflg);
 	DrawFormatString(400, 40, 0x000000, "HoundTurnflg:%d", HoundTurnflg);*/
 }
