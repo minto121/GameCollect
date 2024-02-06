@@ -15,29 +15,29 @@ Hound::Hound()
 	// テクスチャの読み込み
 	//R_texture = LoadGraph("images/RabbitAndHounds/Textures/Coloe_Textures/T_PigHead_00.TGA");
 
+	cursorFlg = 5;				//カーソルフラグ初期化
+
 	RabbitFlg = 9;				//ウサギフラグ初期化
 	RabbitDrawflg = TRUE;		//ウサギ描画フラグ初期化
 	RabbitMoveflg = 0;			//ウサギ移動フラグ初期化
 
-	HoundFlg1 = 5;		//猟犬フラグ初期化
+	HoundFlg1 = 5;				//猟犬フラグ初期化
 	HoundFlg2 = 1;
 	HoundFlg3 = 11;
 
-	HoundDrawflg1 = TRUE;	//猟犬描画フラグ初期化
+	HoundDrawflg1 = TRUE;		//猟犬描画フラグ初期化
 	HoundDrawflg2 = TRUE;
 	HoundDrawflg3 = TRUE;
 	
-	HoundMoveflg1 = 0;		//猟犬移動フラグ初期化
+	HoundMoveflg1 = 0;			//猟犬移動フラグ初期化
 	HoundMoveflg2 = 0;
 	HoundMoveflg3 = 0;
 
-	RabbitTurnflg = 0;		//ウサギターンフラグ初期化
-	HoundTurnflg = 1;		//猟犬ターンフラグ初期化
+	RabbitTurnflg = 0;			//ウサギターンフラグ初期化
+	HoundTurnflg = 1;			//猟犬ターンフラグ初期化
 
-	cursorFlg = 5;			//カーソルフラグ初期化
-
-	RabbitWinflg = FALSE;
-	HoundWinflg = FALSE;
+	RabbitWinflg = FALSE;		//ウサギの勝利条件フラグ
+	HoundWinflg = FALSE;		//猟犬の勝利条件フラグ
 
 	//ステージ初期化
 	for (int i = 0; i < 5; i++) {
@@ -383,7 +383,7 @@ void Hound::GameJudge()
 	}
 
 	//ウサギの勝利条件
-
+	
 
 }
 
@@ -612,23 +612,16 @@ void Hound::Draw() const
 		DrawString(500, 10, "ウサギのターン", 0x000000);
 	}
 
-
-	/*if (HoundWinflg == TRUE)
+	SetFontSize(30);
+	if (HoundWinflg == TRUE)
 	{
-		SetFontSize(30);
-		DrawString(50, 50, "猟犬の勝ち", 0x000000);
-	}*/
-
-	//DrawFormatString(10, 10, 0x000000, "HoundWinflg:%c", HoundWinflg);
-
-	if (HoundWinflg == FALSE)
-	{
-		DrawString(10, 10, "勝ちじゃない", 0x000000);
+		DrawString(10, 50, "猟犬の勝ち", 0x000000);
 	}
-	else if (HoundWinflg == TRUE)
+	else if (RabbitWinflg == TRUE)
 	{
-		DrawString(10, 10, "勝ち", 0x000000);
+		DrawString(10, 50, "ウサギの勝ち", 0x000000);
 	}
+	
 
 	SetFontSize(20);
 	/*DrawFormatString(200, 10, 0x000000, "cursorFlg:%d", cursorFlg);
