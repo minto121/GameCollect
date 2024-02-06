@@ -12,9 +12,6 @@ private:
 	int HoundImg;    //猟犬画像
 
 	int RabbitImg;   //ウサギ画像
-	//int R_texture;
-
-	//int rabbitFlg;
 
 	int RabbitFlg;		 //ウサギフラグ
 	int RabbitDrawflg;   //ウサギ描画フラグ
@@ -47,7 +44,7 @@ private:
 	struct Bord bord[5][3] = {
 		{0, 1, 2, 3, 4 },
 		{5, 6, 7, 8, 9 },
-		{10, 11, 12, 13, 14}
+		{10,11,12,13,14}
 	};
 
 public:
