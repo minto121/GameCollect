@@ -155,7 +155,7 @@ AbstractScene* Hound::Update()
 			cursorFlg -= 1;
 		}
 	}
-
+	//ウサギのターン
 	if (RabbitTurnflg == 1)
 	{
 		//Aボタンでウサギを選択する
@@ -209,6 +209,7 @@ AbstractScene* Hound::Update()
 		}
 	}
 
+	//猟犬のターン
 	if (HoundTurnflg == 1)
 	{
 		//Aボタンで猟犬を選択する
@@ -226,7 +227,7 @@ AbstractScene* Hound::Update()
 				}
 			}
 		}
-		else if (HoundMoveflg1 == 1)	//選択した猟犬を動かす
+		else if (HoundMoveflg1 == 1)	//選択した猟犬1を動かす
 		{
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 				HoundFlg1 = cursorFlg;
@@ -270,7 +271,7 @@ AbstractScene* Hound::Update()
 				}
 			}
 		}
-		else if (HoundMoveflg2 == 1)	//選択した猟犬を動かす
+		else if (HoundMoveflg2 == 1)	//選択した猟犬2を動かす
 		{
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 				HoundFlg2 = cursorFlg;
@@ -314,7 +315,7 @@ AbstractScene* Hound::Update()
 				}
 			}
 		}
-		else if (HoundMoveflg3 == 1)	//選択した猟犬を動かす
+		else if (HoundMoveflg3 == 1)	//選択した猟犬3を動かす
 		{
 			if (PAD_INPUT::OnButton(XINPUT_BUTTON_DPAD_UP)) {
 				HoundFlg3 = cursorFlg;
@@ -348,11 +349,6 @@ AbstractScene* Hound::Update()
 		}
 	}
 
-	/*if (RabbitFlg == 9 && HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 && HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13 && HoundFlg3 == 3 || HoundFlg3 == 8 || HoundFlg3 == 13)
-	{
-		HoundWinflg = TRUE;
-	}*/
-
 	GameJudge();
 
 	return this;
@@ -360,36 +356,35 @@ AbstractScene* Hound::Update()
 
 void Hound::GameJudge()
 {
-	if (HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 )
+	//猟犬の勝利条件
+	if (RabbitFlg == 9)
 	{
-		if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
+		if (HoundFlg1 == 3 || HoundFlg2 == 3 || HoundFlg3 == 3)
 		{
-			if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
+			if (HoundFlg1 == 8 || HoundFlg2 == 8 || HoundFlg3 == 8)
 			{
-				HoundWinflg == TRUE;
+				if (HoundFlg1 == 13 || HoundFlg2 == 13 || HoundFlg3 == 13)
+				{
+					if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
+					{
+						HoundWinflg = TRUE;
+					}
+				}
 			}
 		}
+		else
+		{
+			HoundWinflg = FALSE;
+		}
+	}
+	else
+	{
+		HoundWinflg = FALSE;
 	}
 
-	/*if (HoundFlg1 == 3 || HoundFlg1 == 8 || HoundFlg1 == 13 )
-	{
-		HoundWinflg = 1;
-	}
+	//ウサギの勝利条件
 
-	if (HoundFlg2 == 3 || HoundFlg2 == 8 || HoundFlg2 == 13)
-	{
-		HoundWinflg = 2;
-	}
-	
-	if (HoundFlg3 == 3 || HoundFlg3 == 8 || HoundFlg3 == 13)
-	{
-		HoundWinflg = 3;
-	}
 
-	if (RabbitFlg == 9 && HoundWinflg == 3)
-	{
-		HoundWinflg == TRUE;
-	}*/
 }
 
 void Hound::Draw() const
@@ -626,13 +621,13 @@ void Hound::Draw() const
 
 	//DrawFormatString(10, 10, 0x000000, "HoundWinflg:%c", HoundWinflg);
 
-	if (HoundWinflg == TRUE)
-	{
-		DrawString(10, 10, "勝ち", 0x000000);
-	}
-	else
+	if (HoundWinflg == FALSE)
 	{
 		DrawString(10, 10, "勝ちじゃない", 0x000000);
+	}
+	else if (HoundWinflg == TRUE)
+	{
+		DrawString(10, 10, "勝ち", 0x000000);
 	}
 
 	SetFontSize(20);
