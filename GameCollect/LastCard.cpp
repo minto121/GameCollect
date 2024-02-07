@@ -115,11 +115,13 @@ AbstractScene* LastCard::Update()
                 if (CardCheck(playerHands[0][now_Select]) == TRUE) {
                     field.push_back(playerHands[0][now_Select]);
 
+                    CardFlgCheck(playerHands[0][now_Select]);
+
                     playerHands[0].erase(playerHands[0].begin() + now_Select);
                 }
-                /*if (WildCardFlg == 1) {
+                if (WildCardFlg == 1) {
                     Wildcard();
-                }*/
+                }
                 Turn++;
                 player_checkdraw = 0;
             }
@@ -144,9 +146,9 @@ AbstractScene* LastCard::Update()
         }
         else {
             EnemyAction();
-            /*if (WildCardFlg == 1) {
+            if (WildCardFlg == 1) {
                 Wildcard();
-            }*/
+            }
             Turn++;
             turn_margin = 0;
         }
@@ -309,6 +311,7 @@ void LastCard::EnemyAction()
     if (enemycard != -1) {
         field.push_back(enemycard);
         playerHands[Turn - 1].erase(playerHands[Turn - 1].begin() + num);
+        CardFlgCheck(enemycard);
     }
     else {
         CardDraw(Turn - 1);
@@ -321,6 +324,28 @@ void LastCard::CardDraw(int num)
     deck.pop_back(); // デッキからカードを削除
     
     playerHands[num].push_back(card);//手札にカードを追加
+}
+
+void LastCard::CardFlgCheck(int select_card)
+{
+    int Select_CardColor = select_card / (CARDS_PER_COLOR);
+    int Select_CardNumber = select_card % CARDS_PER_COLOR;
+
+    int Field_CardColor = field.back() / (CARDS_PER_COLOR);
+    int Field_CardNumber = field.back() % CARDS_PER_COLOR;
+
+    //ワイルドカードの判断
+    if (Select_CardColor == 4) {
+        WildCardFlg = 1;
+    }
+    ////ワイルドカードで選んだ色の判断
+    //if (Select_CardColor == WildCardColor) {
+    //    //WildCardColor = -1;
+    //    return TRUE;
+    //}
+
+
+
 }
 
 void LastCard::Wildcard()

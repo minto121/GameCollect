@@ -98,8 +98,7 @@ public:
     void CardDraw(int num);
 
     //特殊カードのフラグ起動
-
-
+    void CardFlgCheck(int select_card);
 
     //ワイルドカードの処理
     void Wildcard();
