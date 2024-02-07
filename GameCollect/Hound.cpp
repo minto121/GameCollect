@@ -365,7 +365,7 @@ void Hound::GameJudge()
 			{
 				if (HoundFlg1 == 13 || HoundFlg2 == 13 || HoundFlg3 == 13)
 				{
-					if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
+					if (PAD_INPUT::OnButton(XINPUT_BUTTON_A))
 					{
 						HoundWinflg = TRUE;
 					}
@@ -383,7 +383,60 @@ void Hound::GameJudge()
 	}
 
 	//ÉEÉTÉMÇÃèüóòèåè
+	/*if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
+	{
+		RabbitWinflg = TRUE;
+	}*/
+
+	/*if (RabbitFlg == 3 || RabbitFlg == 8 || RabbitFlg == 13)
+	{
+		if (HoundFlg1 != 2 || HoundFlg2 != 2 || HoundFlg3 != 2 && HoundFlg1 != 7 || HoundFlg2 != 7 || HoundFlg3 != 7 && HoundFlg1 != 12 || HoundFlg2 != 12 || HoundFlg3 != 12 &&
+			HoundFlg1 != 1 || HoundFlg2 != 1 || HoundFlg3 != 1 && HoundFlg1 != 6 || HoundFlg2 != 6 || HoundFlg3 != 6 && HoundFlg1 != 11 || HoundFlg2 != 11 || HoundFlg3 != 11 &&
+			HoundFlg1 != 5 || HoundFlg2 != 5 || HoundFlg3 != 5)
+		{
+			if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
+			{
+				RabbitWinflg = TRUE;
+			}
+		}
+	}
+	else
+	{
+		RabbitWinflg = FALSE;
+	}*/
 	
+	if (RabbitFlg == 3 || RabbitFlg == 8 || RabbitFlg == 13)
+	{
+		if (HoundFlg1 != 2 || HoundFlg2 != 2 || HoundFlg3 != 2)
+		{
+			if (HoundFlg1 != 7 || HoundFlg2 != 7 || HoundFlg3 != 7)
+			{
+				if (HoundFlg1 != 12 || HoundFlg2 != 12 || HoundFlg3 != 12)
+				{
+					if (HoundFlg1 != 1 || HoundFlg2 != 1 || HoundFlg3 != 1)
+					{
+						if (HoundFlg1 != 6 || HoundFlg2 != 6 || HoundFlg3 != 6)
+						{
+							if (HoundFlg1 != 11 || HoundFlg2 != 11 || HoundFlg3 != 11)
+							{
+								if (HoundFlg1 != 5 || HoundFlg2 != 5 || HoundFlg3 != 5)
+								{
+									if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
+									{
+										RabbitWinflg = TRUE;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		RabbitWinflg = FALSE;
+	}
 
 }
 
@@ -598,8 +651,6 @@ void Hound::Draw() const
 			}
 		}
 	}
-	
-	
 
 	if (HoundTurnflg == 1)
 	{

@@ -39,7 +39,8 @@ private:
 		int x, y;
 		int flg;
 	};
-	int i, j;
+	int i;
+	int j, k, l;
 
 	struct Bord bord[5][3] = {
 		{0, 1, 2, 3, 4 },
