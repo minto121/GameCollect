@@ -404,38 +404,27 @@ void Hound::GameJudge()
 	{
 		RabbitWinflg = FALSE;
 	}*/
-	
-	if (RabbitFlg == 3 || RabbitFlg == 8 || RabbitFlg == 13)
-	{
-		if (HoundFlg1 != 2 || HoundFlg2 != 2 || HoundFlg3 != 2)
-		{
-			if (HoundFlg1 != 7 || HoundFlg2 != 7 || HoundFlg3 != 7)
+
+
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (RabbitFlg == 3 || RabbitFlg == 8 || RabbitFlg == 13)
 			{
-				if (HoundFlg1 != 12 || HoundFlg2 != 12 || HoundFlg3 != 12)
+				bord[3][j] = a;
+				bord[i][j] = RabbitFlg;
+				if (bord[3][j] < HoundFlg1)
 				{
-					if (HoundFlg1 != 1 || HoundFlg2 != 1 || HoundFlg3 != 1)
+					if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
 					{
-						if (HoundFlg1 != 6 || HoundFlg2 != 6 || HoundFlg3 != 6)
-						{
-							if (HoundFlg1 != 11 || HoundFlg2 != 11 || HoundFlg3 != 11)
-							{
-								if (HoundFlg1 != 5 || HoundFlg2 != 5 || HoundFlg3 != 5)
-								{
-									if ((PAD_INPUT::OnButton(XINPUT_BUTTON_A)))
-									{
-										RabbitWinflg = TRUE;
-									}
-								}
-							}
-						}
+						RabbitWinflg = TRUE;
 					}
 				}
 			}
+			else
+			{
+				RabbitWinflg = FALSE;
+			}
 		}
-	}
-	else
-	{
-		RabbitWinflg = FALSE;
 	}
 
 }
