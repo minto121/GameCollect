@@ -5,9 +5,12 @@ class Porker : public AbstractScene
 private:
 	int Tranpu_Img[56];
 
-	int BackGround[3];
+	int BackGround[10];
 
 	int a[30];             //取り敢えず作った変数用の配列
+
+
+	int b[10];             //取り敢えず作った変数用の配列2
 
 
 	int Cursor[2];         //カーソル用変数
@@ -79,6 +82,8 @@ private:
 
 	int C_CARD_S[5];       //Randでとった数を14で割った商を入れとく箱(テーブルカード用)
 
+	int CARD_S[14];
+
 	int P_NOPEA_FLG;
 
 	int P_PEA_FLG[2];
@@ -146,6 +151,7 @@ private:
 	int EP[5];
 
 	int WL[2];
+	int HandPoint[6];
 public:
 
 	Porker();
@@ -172,6 +178,9 @@ public:
 	void WAIT_TIME();
 	void ROUND_UI();
 	void HAND();
+	void E_HAND();
+	void UI_HAND();
+
 	void GAMEOVER();
 	void WINANDLOSE();
 

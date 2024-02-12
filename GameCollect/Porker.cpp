@@ -13,7 +13,13 @@ Porker::Porker()
 
 	BackGround[0] = LoadGraph("../GameCollect/images/TexasHoldem/Poker_Back.png");
 	BackGround[1] = LoadGraph("../GameCollect/images/TexasHoldem/金背景2.png");
-	BackGround[2] = LoadGraph("../GameCollect/images/TexasHoldem/虹背景.png");
+	BackGround[2] = LoadGraph("../GameCollect/images/TexasHoldem/NIJI.png");
+	BackGround[3] = LoadGraph("../GameCollect/images/TexasHoldem/HANABI.png");
+	BackGround[4] = LoadGraph("../GameCollect/images/TexasHoldem/GOLD_BACK1.png");
+	BackGround[5] = LoadGraph("../GameCollect/images/TexasHoldem/GOLD_BACK2.png");
+	BackGround[6] = LoadGraph("../GameCollect/images/TexasHoldem/GOLD_BACK3.png");
+	BackGround[7] = LoadGraph("../GameCollect/images/TexasHoldem/HANABI_BACK1.png");
+	BackGround[8] = LoadGraph("../GameCollect/images/TexasHoldem/HANABI_BACK2.png");
 	Round_Count = 1;//ラウンド数
 	
 	ROUND_INIT();//ラウンド初期化
@@ -105,6 +111,7 @@ void Porker::ROUND_INIT()
 
    E_RSF_FLG = FALSE;
 
+  
 
   //ペアフラグ
   for (int x = 0; x <= 1; x++)
@@ -128,6 +135,13 @@ void Porker::ROUND_INIT()
   for (int x = 0; x <= 29; x++)
   {
 	  a[x] = 0;                    
+  }
+
+
+  // 適当な変数の箱用2
+  for (int x = 0; x <= 9; x++)
+  {
+	  b[x] = 0;
   }
 
 
@@ -197,6 +211,12 @@ void Porker::ROUND_INIT()
 	  E_SORT[x] = 0;
   }
 
+  //ソート用5
+  for (int x = 0; x <= 13; x++)
+  {
+	  CARD_S[x] = 0;
+  }
+
   //ハンドUI
   for (int x = 0; x <= 8; x++)
   {
@@ -229,6 +249,12 @@ void Porker::ROUND_INIT()
   for (int x = 0; x <= 1; x++)
   {
 	  WL[x] = 0;
+  }
+
+
+  for (int x = 0; x <= 5; x++)
+  {
+	  HandPoint[x] = 0;
   }
 
  
@@ -294,7 +320,7 @@ void Porker::CARD_SETTING()
 	
 	//最初に配られるカード敵味方それぞれ2枚ずつ
 	
-		P_Rand[0] =  GetRand(55);   //プレイヤーのホールカード1
+		P_Rand[0] = GetRand(55);   //プレイヤーのホールカード1
 
 		P_Rand[1] = GetRand(55);   //プレイヤーのホールカード2
 
@@ -304,7 +330,7 @@ void Porker::CARD_SETTING()
 
 	//2ターン目の三枚
 
-		C_Rand[0] = GetRand(55);   //テーブルカード1
+		C_Rand[0] =GetRand(55);   //テーブルカード1
 
 		C_Rand[1] = GetRand(55);   //テーブルカード2
 
@@ -317,6 +343,33 @@ void Porker::CARD_SETTING()
 	//4ターン目の三枚
 	
 		C_Rand[4] = GetRand(55);   //テーブルカード4
+
+
+	//	//最初に配られるカード敵味方それぞれ2枚ずつ
+
+	//	P_Rand[0] = 1/*GetRand(55)*/;   //プレイヤーのホールカード1
+
+	//	P_Rand[1] = 13/*GetRand(55)*/;   //プレイヤーのホールカード2
+
+	//	E_Rand[0] = GetRand(55);   //敵のホールカード1
+
+	//	E_Rand[1] = GetRand(55);   //敵のホールカード2
+
+	////2ターン目の三枚
+
+	//	C_Rand[0] = 12/*GetRand(55)*/;   //テーブルカード1
+
+	//	C_Rand[1] = 11/*GetRand(55)*/;   //テーブルカード2
+
+	//	C_Rand[2] = 10/*GetRand(55)*/;   //テーブルカード3
+
+	////3ターン目の三枚
+
+	//	C_Rand[3] = 3/*GetRand(55)*/;   //テーブルカード4
+
+	////4ターン目の三枚
+
+	//	C_Rand[4] = 22/*GetRand(55)*/;   //テーブルカード4
 
 
 }
@@ -380,35 +433,25 @@ void Porker::CARD_ANALAYSIS()
 
 		for (int i = 0; i < 2; i++) {
 			P_CARD_A[i] = P_Rand[i] % 14;
-			//もし余りが1だった場合エースになるので数字を14にして最強にする
-			if (P_CARD_A[i] == 1)
-			{
-				P_CARD_A[i] = 14;
-			}
+			
 			P_CARD_S[i] = P_Rand[i] / 14;
 		}
 
 		for (int j = 0; j < 2; j++) {
 			E_CARD_A[j] = E_Rand[j] % 14;
-			//もし余りが1だった場合エースになるので数字を14にして最強にする
-			if (E_CARD_A[j] == 1)
-			{
-				E_CARD_A[j] = 14;
-			}
+		
 			E_CARD_S[j] = E_Rand[j] / 14;
 		}
 
 		for (int c = 0; c < 5; c++) {
-			//もし余りが1だった場合エースになるので数字を14にして最強にする
+	
 			C_CARD_A[c] = C_Rand[c] % 14;
-			if (C_CARD_A[c] == 1)
-			{
-				C_CARD_A[c] = 14;
-			}
+			
 			C_CARD_S[c] = C_Rand[c] / 14;
 		}
 
 		//プレイヤーのカード2枚でのペア
+	
 		if (P_CARD_A[0] == P_CARD_A[1])
 		{
 			P_PEA_FLG[0] = TRUE;
@@ -422,7 +465,65 @@ void Porker::CARD_ANALAYSIS()
 //カードのソート用
 void Porker::CARD_SORT()
 {
-	
+	for (int x = 0; x <= 4; x++)
+	{
+		if (C_CARD_A[x] == 1)
+		{
+			C_CARD_A[x] = 14;
+		}
+		if (C_CARD_A[x] == 15)
+		{
+			C_CARD_A[x] = 28;
+		}
+		if (C_CARD_A[x] == 29)
+		{
+			C_CARD_A[x] = 42;
+		}
+		if (C_CARD_A[x] == 43)
+		{
+			C_CARD_A[x] = 56;
+		}
+	}
+
+	for (int x = 0; x <= 1; x++)
+	{
+		if (P_CARD_A[x] == 1)
+		{
+			P_CARD_A[x] = 14;
+		}
+		if (P_CARD_A[x] == 15)
+		{
+			P_CARD_A[x] = 28;
+		}
+		if (P_CARD_A[x] == 29)
+		{
+			P_CARD_A[x] = 42;
+		}
+		if (P_CARD_A[x] == 43)
+		{
+			P_CARD_A[x] = 56;
+		}
+	}
+
+	for (int x = 0; x <= 1; x++)
+	{
+		if (E_CARD_A[x] == 1)
+		{
+			E_CARD_A[x] = 14;
+		}
+		if (E_CARD_A[x] == 15)
+		{
+			E_CARD_A[x] = 28;
+		}
+		if (E_CARD_A[x] == 29)
+		{
+			E_CARD_A[x] = 42;
+		}
+		if (E_CARD_A[x] == 43)
+		{
+			E_CARD_A[x] = 56;
+		}
+	}
 
 		P_SORT[0] = C_CARD_A[0];
 		P_SORT[1] = C_CARD_A[1];
@@ -431,6 +532,8 @@ void Porker::CARD_SORT()
 		P_SORT[4] = C_CARD_A[4];
 		P_SORT[5] = P_CARD_A[0];
 		P_SORT[6] = P_CARD_A[1];
+
+
 		int sort;
 		for (int a = 0; a <= 5; a++) {
 			for (int b = a + 1; b <= 6; b++) {
@@ -441,6 +544,49 @@ void Porker::CARD_SORT()
 				}
 			}
 		}
+
+
+
+		
+
+		CARD_S[0] = C_CARD_S[0];
+		CARD_S[1] = C_CARD_S[1];
+		CARD_S[2] = C_CARD_S[2];
+		CARD_S[3] = C_CARD_S[3];
+		CARD_S[4] = C_CARD_S[4];
+		CARD_S[5] = P_CARD_S[0];
+		CARD_S[6] = P_CARD_S[1];
+		int sort7;
+		for (int a = 0; a <= 5; a++) {
+			for (int b = a + 1; b <= 6; b++) {
+				if (CARD_S[a] > CARD_S[b]) {
+					sort7 = CARD_S[a];
+					CARD_S[a] = CARD_S[b];
+					CARD_S[b] = sort7;
+				}
+			}
+		}
+
+
+
+		CARD_S[7] = C_CARD_S[0];
+		CARD_S[8] = C_CARD_S[1];
+		CARD_S[9] = C_CARD_S[2];
+		CARD_S[10] = C_CARD_S[3];
+		CARD_S[11] = C_CARD_S[4];
+		CARD_S[12] = E_CARD_S[0];
+		CARD_S[13] = E_CARD_S[1];
+		int sort8;
+		for (int a = 7; a <= 12; a++) {
+			for (int b = a + 1; b <= 13; b++) {
+				if (CARD_S[a] > CARD_S[b]) {
+					sort8 = CARD_S[a];
+					CARD_S[a] = CARD_S[b];
+					CARD_S[b] = sort8;
+				}
+			}
+		}
+
 
 
 		E_SORT[0] = C_CARD_A[0];
@@ -463,34 +609,19 @@ void Porker::CARD_SORT()
 
 
 
+		
 
-		P_SORT[7] = P_Rand[0];
-		P_SORT[8] = P_Rand[1];
-		P_SORT[9] = C_Rand[0];
-		P_SORT[10] = C_Rand[1];
-		P_SORT[11] = C_Rand[2];
-		P_SORT[12] = C_Rand[3];
-		P_SORT[13] = C_Rand[4];
 
-		for (int x = 7; x <= 13; x++) 
-		{
-			if (P_SORT[x] == 1)
-			{
-				P_SORT[x] = 14;
-			}
-			if (P_SORT[x] == 15)
-			{
-				P_SORT[x] = 28;
-			}
-			if (P_SORT[x] == 29)
-			{
-				P_SORT[x] = 42;
-			}
-			if (P_SORT[x] == 43)
-			{
-				P_SORT[x] = 56;
-			}
-		}
+		P_SORT[7] = P_CARD_A[0] + P_CARD_S[0];
+		P_SORT[8] = P_CARD_A[1] + P_CARD_S[1];
+		P_SORT[9] = C_CARD_A[0] + C_CARD_S[0];
+		P_SORT[10] = C_CARD_A[1] + C_CARD_S[1];
+		P_SORT[11] = C_CARD_A[2] + C_CARD_S[2];
+		P_SORT[12] = C_CARD_A[3] + C_CARD_S[3];
+		P_SORT[13] = C_CARD_A[4] + C_CARD_S[4];
+
+		
+	
 
 		int sort5;
 		for (int a = 7; a <= 12; a++) {
@@ -503,13 +634,16 @@ void Porker::CARD_SORT()
 			}
 		}
 
-		E_SORT[7] = E_Rand[0];
-		E_SORT[8] = E_Rand[1];
-		E_SORT[9] = C_Rand[0];
-		E_SORT[10] = C_Rand[1];
-		E_SORT[11] = C_Rand[2];
-		E_SORT[12] = C_Rand[3];
-		E_SORT[13] = C_Rand[4];
+
+
+
+		E_SORT[7] = E_CARD_A[0] + E_CARD_S[0];
+		E_SORT[8] = E_CARD_A[1] + E_CARD_S[1];
+		E_SORT[9] = C_CARD_A[0] + C_CARD_S[0];;
+		E_SORT[10] = C_CARD_A[1] + C_CARD_S[1];
+		E_SORT[11] = C_CARD_A[2] + C_CARD_S[2];
+		E_SORT[12] = C_CARD_A[3] + C_CARD_S[3];
+		E_SORT[13] = C_CARD_A[4] + C_CARD_S[4];
 		int sort6;
 		for (int a = 7; a <= 12; a++) {
 			for (int b = a + 1; b <= 13; b++) {
@@ -569,7 +703,7 @@ void Porker::CARD_SORT()
 void Porker::UI()
 {
 	//他のUIが出ておらずYボタンを押したときベット
-	if(PAD_INPUT::OnButton(XINPUT_BUTTON_Y) && CheckUI[1] == FALSE && CheckUI[2] == FALSE)
+	if(PAD_INPUT::OnButton(XINPUT_BUTTON_Y)&& CheckUI[1] == FALSE && CheckUI[2] == FALSE)
 	{
 		CheckUI[0] = TRUE;//ベットフラグ
 
@@ -622,7 +756,7 @@ void Porker::UI()
 
 		//Aボタンで決定(フォールド)
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) && CheckUI[2] == TRUE) {
-			Player_Choice[2] = TRUE;//フォーカードフラグ
+			Player_Choice[2] = TRUE;//フォールドフラグ
 			Cursor[0] = 0;
 			CheckUI[2] = FALSE;
 		}
@@ -957,596 +1091,653 @@ void Porker::ROUND_UI()
 //
 void Porker::HAND()
 {
-	if (a[7] >= 0 && a[7] <= 9) {
+	if (a[20] == 0) {
+		int COUNT = 0;
+		int A = 0;
+		int B = 0;
+		int C = 0;
+		int D = 0;
+		int E = 0;
 
-		int x = 0;
-		int y = 0;
-		int z = 0;
-		int v = 0;
-		if (a[7] == 0) {
-			//RSF
-			for (x = 7; x <= 10; x++)
-			{
-				z = 1;
-				P_Straight[0] = 0;
-				for (y = x + 1; y <= 13; y++)
-				{
-					if (P_SORT[x] + z == P_SORT[y])
+		//1pea
+		if (COUNT == 0) {
+			for (A = 0; A <= 5; A++) {
+				for (B = A + 1; B <= 6; B++) {
+					if (P_SORT[A] == P_SORT[B])
 					{
-						P_Straight[0] += 1;
-						z += 1;
-
+						HandPoint[0] = P_SORT[B];
+						P_PEA_FLG[1] = TRUE;
+						COUNT = 1;
 					}
 				}
 			}
-			if (P_Straight[0] >= 4 && P_Straight[1] == 14 || P_Straight[1] == 28 || P_Straight[1] == 42 || P_Straight[1] == 56)
-			{
-				P_RSF_FLG = TRUE;
-				
-			}
-			a[7] = 1;
+			COUNT = 1;
 		}
 
 
-
-		
-
-
-
-
-		//SF
-		if (a[7] == 1&&P_RSF_FLG == FALSE)
-		{
-
-
-			for (x = 7; x <= 10; x++)
-			{
-				z = 1;
-				P_Straight[2] = 0;
-				for (y = x + 1; y <= 13; y++)
-				{
-					if (P_SORT[x] + z == P_SORT[y])
+		//2pea
+		if (COUNT == 1) {
+			//1つ目のペア
+			for (A = 0; A <= 5; A++) {
+				for (B = A + 1; B <= 6; B++) {
+					if (P_SORT[A] == P_SORT[B] && B != 6)
 					{
-						PP[0] = P_SORT[y];
-						P_Straight[2] += 1;
-						z += 1;
-						if (P_Straight[2] >= 4)
-						{
-							P_SF_FLG = TRUE;
-							
-						}
-					}
-				}
-			}
-			a[7] = 2;
-		}
-		//4card
-		if (a[7] == 2 && P_SF_FLG == FALSE && P_RSF_FLG == FALSE) {
-
-			for (x = 0; x <= 3; x++)
-			{
-				for (y = x + 1; y <= 4; y++) {
-
-					if (P_SORT[x] == P_SORT[y])
-					{
-
-						for (z = y + 1; z <= 5; z++) {
-
-							if (P_SORT[y] == P_SORT[z])
-							{
-
-								for (v = z + 1; v <= 6; v++) {
-
-									if (P_SORT[z] == P_SORT[v])
-									{
-										PP[0] = P_SORT[v];
-										P_4CARD_FLG = TRUE;
-										
-									}
+						HandPoint[0] = P_SORT[B];
+						//2つ目のペア
+						for (C = B + 1; C <= 5; C++) {
+							for (D = C + 1; D <= 6; D++) {
+								if (P_SORT[C] == P_SORT[D])
+								{
+									HandPoint[0] = P_SORT[B] + P_SORT[D];
+									P_PEA_FLG[1] = FALSE;
+								
+									P_2PEA_FLG = TRUE;
+									COUNT = 2;
 								}
 							}
 						}
-					}
 
-				}
-			}
-			a[7] = 3;
-		}
-		//fullhouse
-		if (a[7] == 3 && P_4CARD_FLG == FALSE && P_SF_FLG == FALSE && P_RSF_FLG == FALSE)
-		{
-			for (x = 0; x <= 3; x++)
-			{
-				for (y = x + 1; y <= 4; y++) {
 
-					if (P_SORT[x] == P_SORT[y])
-					{
-
-						for (z = y + 1; z <= 5; z++) {
-
-							if (P_SORT[y] == P_SORT[z])
-							{
-								PP[0] = P_SORT[z];
-								a[9] += 1;						
-							}
-							else if (P_SORT[y] != P_SORT[z])
-							{
-								PP[1] = P_SORT[y];
-								a[8] += 1;
-							}
-						}
-					}
-
-				}
-			}
-			if (a[9] >= 1 && a[8] >= 1)
-			{
-				PP[0] = PP[0] + PP[1];
-				P_FULLHOUSE_FLG = TRUE;
-				
-			}
-			a[7] = 4;
-		}
-		//flash
-		if (a[7] == 4 && P_FULLHOUSE_FLG == FALSE && P_4CARD_FLG == FALSE && P_SF_FLG == FALSE && P_RSF_FLG == FALSE)
-		{
-			if (P_CARD_A[0] < P_CARD_A[1])
-			{
-				PP[0] = P_CARD_A[1];
-			}
-
-			else if (P_CARD_A[0] > P_CARD_A[1])
-			{
-				PP[0] = P_CARD_A[0];
-			}
-
-			else if (P_CARD_A[0] == P_CARD_A[1])
-			{
-				PP[0] = P_CARD_A[0];
-			}
-
-			if (P_CARD_S[0] == P_CARD_S[1])
-			{
-				a[10] += 1;
-				a[11] += 1;
-			}
-			for (x = 0; x <= 4; x++)
-			{
-				if (P_CARD_S[0] == C_CARD_S[x])
-				{
-					a[10] += 1;
-				}
-				if (P_CARD_S[1] == C_CARD_S[x])
-				{
-					a[11] += 1;
-				}
-			}
-			if (a[10] >= 4 || a[11] >= 4)
-			{
-				P_FLASH_FLG = TRUE;
-				
-			}
-			a[7] = 5;
-
-		}
-		//straight
-		if (a[7] == 5 && P_FLASH_FLG == FALSE && P_FULLHOUSE_FLG == FALSE && P_4CARD_FLG == FALSE && P_SF_FLG == FALSE && P_RSF_FLG == FALSE)
-		{
-
-			for (x = 0; x <= 3; x++)
-			{
-				z = 1;
-				P_Straight[3] = 0;
-				for (y = x + 1; y <= 6; y++)
-				{
-					if (P_SORT[x] + z == P_SORT[y])
-					{
-						PP[0] = P_SORT[y];
-						P_Straight[3] += 1;
-						z += 1;
-						if (P_Straight[3] >= 4)
-						{
-							P_STRAIGHT_FLG = TRUE;
-							
-						}
 					}
 				}
 			}
-
-			a[7] = 6;
-
+			COUNT = 2;
 		}
+
+
 		//3card
-		if (a[7] == 6 && P_STRAIGHT_FLG == FALSE && P_FLASH_FLG == FALSE && P_FULLHOUSE_FLG == FALSE && P_4CARD_FLG == FALSE && P_SF_FLG == FALSE && P_RSF_FLG == FALSE)
+		if (COUNT == 2)
 		{
+			for (A = 0; A <= 4; A++) {
 
-			for (x = 0; x <= 3; x++)
-			{
-				for (y = x + 1; y <= 4; y++) {
+				for (B = A + 1; B <= 5; B++) {
 
-					if (P_SORT[x] == P_SORT[y])
+					if (P_SORT[A] == P_SORT[B] && P_SORT[B] == P_SORT[B+1])
 					{
-
-						for (z = y + 1; z <= 5; z++) {
-
-							if (P_SORT[y] == P_SORT[z])
-							{
-								PP[0] = P_SORT[z];
-								P_3CARD_FLG = TRUE;
-								
-							}
-						}
+						HandPoint[0] = P_SORT[A];
+						P_PEA_FLG[1] = FALSE;
+						
+						P_2PEA_FLG = FALSE;
+						P_3CARD_FLG = TRUE;
+						COUNT = 3;
 					}
-
-				}
-			}
-			a[7] = 7;
-		}
-		//pea 2pea
-		if (a[7] == 7 && P_3CARD_FLG == FALSE && P_STRAIGHT_FLG == FALSE && P_FLASH_FLG == FALSE && P_FULLHOUSE_FLG == FALSE && P_4CARD_FLG == FALSE && P_SF_FLG == FALSE && P_RSF_FLG == FALSE) {
-
-			for (x = 0; x <= 5; x++)
-			{
-				for (y = x + 1; y <= 6; y++) {
-
-					if (P_SORT[x] == P_SORT[y])
-					{
-						PP[0] = P_SORT[y];
-						a[6] += 1;
-						break;
-					}
-
-				}
-			}
-
-			if (a[6] == 1)
-			{
-				P_PEA_FLG[1] = TRUE;
-
-			}
-			else if (a[6] >= 2)
-			{
-				P_2PEA_FLG = TRUE;
-				P_PEA_FLG[0] = FALSE;
-			}
-			a[7] = 8;
-		}
-
-		if (a[7] == 8 && P_PEA_FLG[0] == FALSE && P_PEA_FLG[1] == FALSE && P_2PEA_FLG == FALSE && P_3CARD_FLG == FALSE && P_STRAIGHT_FLG == FALSE && P_FLASH_FLG == FALSE && P_FULLHOUSE_FLG == FALSE && P_4CARD_FLG == FALSE && P_SF_FLG == FALSE && P_RSF_FLG == FALSE)
-		{
-			P_NOPEA_FLG = TRUE;
-			if (P_CARD_A[0] < P_CARD_A[1])
-			{
-				PP[0] = P_CARD_A[1];
-			}
-
-			else if (P_CARD_A[0] > P_CARD_A[1])
-			{
-				PP[0] = P_CARD_A[0];
-			}
-
-			else if (P_CARD_A[0] == P_CARD_A[1])
-			{
-				PP[0] = P_CARD_A[0];
-			}
-			a[7] = 9;
-		}
-
-		a[7] = 10;
-
-
-	}
-
-
-		//enemy
-		if (a[7] >= 10&& a[7] <=19 ) {
-
-			int x = 0;
-			int y = 0;
-			int z = 0;
-			int v = 0;
-
-			if (a[7] == 10) {
-				//RSF
-				for (x = 7; x <= 10; x++)
-				{
-					z = 1;
-					E_Straight[0] = 0;
-					for (y = x + 1; y <= 13; y++)
-					{
-						if (E_SORT[x] + z == E_SORT[y])
-						{
-							E_Straight[0] += 1;
-							z += 1;
-
-						}
-					}
-				}
-
-				if (E_Straight[0] >= 4 && E_Straight[1] == 14 || E_Straight[1] == 28 || E_Straight[1] == 42 || E_Straight[1] == 56)
-				{
-					E_RSF_FLG = TRUE;
-				}
-				a[7] = 11;
-			}
-
-
-
-			//SF
-			if (a[7] == 11&&E_RSF_FLG == FALSE)
-			{
-
-
-				for (x = 7; x <= 10; x++)
-				{
-					z = 1;
-					E_Straight[2] = 0;
-					for (y = x + 1; y <= 13; y++)
-					{
-						if (E_SORT[x] + z == E_SORT[y])
-						{
-							EP[0] = E_SORT[y];
-							E_Straight[2] += 1;
-							z += 1;
-							if (E_Straight[2] >= 4)
-							{
-								E_SF_FLG = TRUE;
-								
-							}
-						}
-					}
-				}
-				a[7] = 12;
-			}
-			//4card
-			if (a[7] == 12 && E_SF_FLG == FALSE && E_RSF_FLG == FALSE) {
-
-				for (x = 0; x <= 3; x++)
-				{
-					for (y = x + 1; y <= 4; y++) {
-
-						if (E_SORT[x] == E_SORT[y])
-						{
-
-							for (z = y + 1; z <= 5; z++) {
-
-								if (E_SORT[y] == E_SORT[z])
-								{
-
-									for (v = z + 1; v <= 6; v++) {
-
-										if (E_SORT[z] == E_SORT[v])
-										{
-											EP[0] = E_SORT[y];
-											E_4CARD_FLG = TRUE;
-											
-										}
-									}
-								}
-							}
-						}
-
-					}
-				}
-				a[7] = 13;
-			}
-			//fullhouse
-			if (a[7] == 13 && E_4CARD_FLG == FALSE && E_SF_FLG == FALSE && E_RSF_FLG == FALSE)
-			{
-				for (x = 0; x <= 3; x++)
-				{
-					for (y = x + 1; y <= 4; y++) {
-
-						if (E_SORT[x] == E_SORT[y])
-						{
-
-							for (z = y + 1; z <= 5; z++) {
-
-								if (E_SORT[y] == E_SORT[z])
-								{
-									EP[0] = E_SORT[y];
-									a[13] += 1;	
-								}
-								else if (E_SORT[y] != E_SORT[z])
-								{
-									EP[1] = E_SORT[y];
-									a[14] += 1;
-								}
-							}
-						}
-
-					}
-				}
-				if (a[13] >= 1 && a[14] >= 1)
-				{
-					E_FULLHOUSE_FLG = TRUE;
 					
 				}
-				a[7] = 14;
 			}
-			//flash
-			if (a[7] == 14 && E_FULLHOUSE_FLG == FALSE && E_4CARD_FLG == FALSE && E_SF_FLG == FALSE && E_RSF_FLG == FALSE)
-			{
-				if (E_CARD_A[0] < E_CARD_A[1])
-				{
-					EP[0] = E_CARD_A[1];
-				}
+			COUNT = 3;
+		}
 
-				else if (E_CARD_A[0] > E_CARD_A[1])
-				{
-					EP[0] = E_CARD_A[0];
-				}
 
-				else if (E_CARD_A[0] == E_CARD_A[1])
-				{
-					EP[0] = E_CARD_A[0];
-				}
+		//straight
+		if (COUNT == 3)
+		{
+			for (A = 0; A <= 5; A++) {
+				C = 0;
+				D = 1;
+				for (B = A + 1; B <= 6; B++) {
 
-				if (E_CARD_S[0] == E_CARD_S[1])
-				{
-					a[15] += 1;
-					a[16] += 1;
-				}
-				for (x = 0; x <= 4; x++)
-				{
-					if (E_CARD_S[0] == C_CARD_S[x])
-					{
-						a[15] += 1;
-					}
-					if (E_CARD_S[1] == C_CARD_S[x])
-					{
-						a[16] += 1;
-					}
-				}
-				if (a[15] >= 4 || a[16] >= 4)
-				{
-					E_FLASH_FLG = TRUE;
 					
-				}
-				a[7] = 15;
-			}
-			//straight
-			if (a[7] == 15 && E_FLASH_FLG == FALSE && E_FULLHOUSE_FLG == FALSE && E_4CARD_FLG == FALSE && E_SF_FLG == FALSE && E_RSF_FLG == FALSE)
-			{
-
-				for (x = 0; x <= 3; x++)
-				{
-					z = 1;
-					E_Straight[3] = 0;
-					for (y = x + 1; y <= 6; y++)
-					{
-						if (E_SORT[x] + z == E_SORT[y])
+					if (P_SORT[A] == P_SORT[B] - D) {
+						D = D + 1;
+						C = C + 1;
+						if (C >= 4)
 						{
-							PP[0] = E_SORT[y];
-							E_Straight[3] += 1;
-							z += 1;
-							if (E_Straight[3] >= 4)
-							{
-								E_STRAIGHT_FLG = TRUE;
-								
-							}
+							HandPoint[0] = P_SORT[B];
+							P_STRAIGHT_FLG = TRUE;
+							P_PEA_FLG[1] = FALSE;
+							P_2PEA_FLG = FALSE;
+							P_3CARD_FLG = FALSE;
+							COUNT = 4;
 						}
+
 					}
+
 				}
 
-				a[7] = 16;
+		    }
+			
+			
 				
-			}
-			//3card
-			if (a[7] == 16&&E_STRAIGHT_FLG == FALSE && E_FLASH_FLG == FALSE && E_FULLHOUSE_FLG == FALSE && E_4CARD_FLG == FALSE && E_SF_FLG == FALSE && E_RSF_FLG == FALSE)
-			{
-
-				for (x = 0; x <= 3; x++)
-				{
-					for (y = x + 1; y <= 4; y++) {
-
-						if (E_SORT[x] == E_SORT[y])
-						{
-
-							for (z = y + 1; z <= 5; z++) {
-
-								if (E_SORT[y] == E_SORT[z])
-								{
-									PP[0] = E_SORT[z];
-									E_3CARD_FLG = TRUE;
-									
-								}
-							}
-						}
-
-					}
-				}
-				a[7] = 17;
-			}
-			//pea 2pea
-			if (a[7] == 17 && E_3CARD_FLG == FALSE && E_STRAIGHT_FLG == FALSE && E_FLASH_FLG == FALSE && E_FULLHOUSE_FLG == FALSE && E_4CARD_FLG == FALSE && E_SF_FLG == FALSE && E_RSF_FLG == FALSE) {
-
-				for (x = 0; x <= 5; x++)
-				{
-					for (y = x + 1; y <= 6; y++) {
-
-						if (E_SORT[x] == E_SORT[y])
-						{
-							a[17] += 1;
-							break;
-						}
-
-					}
-				}
-
-				if (a[17] == 1)
-				{
-					E_PEA_FLG[1] = TRUE;
-					EP[0] = E_SORT[y];
-
-				}
-				else if (a[17] >= 2)
-				{
-					E_2PEA_FLG = TRUE;
-					E_PEA_FLG[1] = FALSE;
-					EP[0] = E_SORT[y];
-				}
-				a[7] = 18;
-			}
-
-			if (a[7] == 18 && E_PEA_FLG[0] == FALSE && E_PEA_FLG[1] == FALSE && E_2PEA_FLG == FALSE && E_3CARD_FLG == FALSE && E_STRAIGHT_FLG == FALSE && E_FLASH_FLG == FALSE && E_FULLHOUSE_FLG == FALSE && E_4CARD_FLG == FALSE && E_SF_FLG == FALSE && E_RSF_FLG == FALSE)
-			{
-				E_NOPEA_FLG = TRUE;
-				if (E_CARD_A[0] < E_CARD_A[1])
-				{
-					EP[0] = E_CARD_A[1];
-				}
-
-				else if (E_CARD_A[0] > E_CARD_A[1])
-				{
-					EP[0] = E_CARD_A[0];
-				}
-
-				else if (E_CARD_A[0] == E_CARD_A[1])
-				{
-					EP[0] = E_CARD_A[0];
-				}
-				a[7] = 19;
-			}
-
 			
 
-			a[7] = 20;
+
+			COUNT = 4;
+		}
+
+
+		//flash
+		if (COUNT == 4)
+		{
+			C = 0;
+			for (A = 0; A <= 2; A++)
+			{
+
+					if (CARD_S[A] == CARD_S[A + 1] && CARD_S[A] == CARD_S[A + 2] && CARD_S[A] == CARD_S[A + 3] && CARD_S[A] == CARD_S[A + 4])
+					{
+						C = C + 1;
+					}
+					if (C >= 1)
+					{
+						HandPoint[0] = P_CARD_A[0] + P_CARD_A[1];
+						P_FLASH_FLG = TRUE;
+						P_STRAIGHT_FLG = FALSE;
+						P_PEA_FLG[1] = FALSE;
+					
+						P_2PEA_FLG = FALSE;
+						P_3CARD_FLG = FALSE;
+						COUNT = 5;
+					}
+				
+			}
+			COUNT = 5;
+		}
+
+
+		//fullhouse
+		if (COUNT == 5)
+		{
+			for (A = 0; A <= 2; A++) {
+
+				for (B = A + 1; B <= 3; B++) {
+
+					for (C = B + 1; C <= 4; C++) {
+
+						if (P_SORT[A] == P_SORT[B] && P_SORT[B] == P_SORT[C])
+						{
+						
+							for (D = C + 1; D <= 5; D++) {
+								for (E = D + 1; E <= 5; E++) {
+									if (P_SORT[D] == P_SORT[E]) {
+										HandPoint[0] = P_SORT[A] + P_SORT[B] + P_SORT[C] + P_SORT[D] + P_SORT[E];
+										P_FULLHOUSE_FLG = TRUE;
+										P_FLASH_FLG = FALSE;
+										P_STRAIGHT_FLG = FALSE;
+										P_PEA_FLG[1] = FALSE;
+										P_PEA_FLG[0] = FALSE;
+										P_2PEA_FLG = FALSE;
+										P_3CARD_FLG = FALSE;
+										COUNT = 6;
+									}
+								}
+							}
+
+
+						}
+					}
+				}
+			}
+			
+
+
+			for (A = 0; A <= 2; A++) {
+
+				for (B = A + 1; B <= 3; B++) {
+
+					if (P_SORT[A] == P_SORT[B]) {
+						
+						for (C = B + 1; C <= 4; C++) {
+
+							for (D = C + 1; D <= 5; D++) {
+
+								for (E = D + 1; E <= 6; E++) {
+									if (P_SORT[C] == P_SORT[D] && P_SORT[D] == P_SORT[E]) {
+										HandPoint[0] = P_SORT[A] + P_SORT[B] + P_SORT[C] + P_SORT[D] + P_SORT[E];
+										P_FULLHOUSE_FLG = TRUE;
+										P_FLASH_FLG = FALSE;
+										P_STRAIGHT_FLG = FALSE;
+										P_PEA_FLG[1] = FALSE;
+						
+										P_2PEA_FLG = FALSE;
+										P_3CARD_FLG = FALSE;
+										COUNT = 6;
+									}
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+			}
+
+
+
+			COUNT = 6;
+		}
+
+
+		//4CARD
+		if (COUNT == 6)
+		{
+			for (A = 0; A <= 3; A++) {
+
+				if (P_SORT[A] == P_SORT[A + 1] && P_SORT[A] == P_SORT[A + 2]&& P_SORT[A] == P_SORT[A + 3])
+				{
+					HandPoint[0] = P_SORT[A];
+					P_4CARD_FLG = TRUE;
+					P_FULLHOUSE_FLG = FALSE;
+					P_FLASH_FLG = FALSE;
+					P_STRAIGHT_FLG = FALSE;
+					P_PEA_FLG[1] = FALSE;
+					P_2PEA_FLG = FALSE;
+					P_3CARD_FLG = FALSE;
+					COUNT = 7;
+				}
+
+			}
+			COUNT = 7;
+		}
+		
+
+		//straight flash
+		if (COUNT == 7)
+		{
+			for (A = 7; A <= 12; A++) {
+				C = 0;
+				D = 1;
+
+				for (B = A + 1; B <= 13; B++) {
+
+
+					if (P_SORT[A] == P_SORT[B] - D) {
+						E = P_SORT[B];
+						D = D + 1;
+						C = C + 1;
+						
+						if (C >= 4)
+						{
+							HandPoint[0] = P_SORT[B];
+							P_SF_FLG = TRUE;
+							P_4CARD_FLG = FALSE;
+							P_FULLHOUSE_FLG = FALSE;
+							P_FLASH_FLG = FALSE;
+							P_STRAIGHT_FLG = FALSE;
+							P_PEA_FLG[1] = FALSE;
+							P_2PEA_FLG = FALSE;
+							P_3CARD_FLG = FALSE;
+							COUNT = 8;
+						}
+
+					}
+
+				}
+
+			}
+
+	      COUNT = 8;
+		}
+
+
+		//royal straight flash
+		if (COUNT == 8)
+		{
+			
+			if (P_SF_FLG == TRUE&&E == 14)
+			{
+				P_RSF_FLG = TRUE;
+				P_SF_FLG = FALSE;
+				P_4CARD_FLG = FALSE;
+				P_FULLHOUSE_FLG = FALSE;
+				P_FLASH_FLG = FALSE;
+				P_STRAIGHT_FLG = FALSE;
+				P_PEA_FLG[1] = FALSE;
+				P_2PEA_FLG = FALSE;
+				P_3CARD_FLG = FALSE;
+				COUNT = 9;
+			}
+
+
+			COUNT = 9;
+
 
 		}
 
+		//nopea
+		if (COUNT == 9&& P_SF_FLG == FALSE&&P_4CARD_FLG == FALSE&&P_3CARD_FLG == FALSE && P_RSF_FLG == FALSE && P_2PEA_FLG == FALSE&&
+			P_FLASH_FLG == FALSE && P_FULLHOUSE_FLG == FALSE && P_STRAIGHT_FLG == FALSE && P_PEA_FLG[1] == FALSE)
+		{
+			P_NOPEA_FLG = TRUE;
 	
+		}
+
+		a[20] = 1;
+	}
 }
 
 
 //
-void Porker::GAMEOVER()
+void Porker::E_HAND()
 {
-	if (Round_Count == 4)
-	{
-		if (Score[0] > Score[1]) 
-		{
-			WL[0] = 1;
-				GameOver = TRUE;
-		}
-		
-		if (Score[0] < Score[1])
-		{
-			WL[0] = 2;
-			GameOver = TRUE;
+	if (a[20] == 1) {
+		int COUNT = 0;
+		int A = 0;
+		int B = 0;
+		int C = 0;
+		int D = 0;
+		int E = 0;
+
+		//1pea
+		if (COUNT == 0) {
+			for (A = 0; A <= 5; A++) {
+				for (B = A + 1; B <= 6; B++) {
+					if (E_SORT[A] == E_SORT[B])
+					{
+						HandPoint[3] = E_SORT[B];
+						E_PEA_FLG[1] = TRUE;
+						COUNT = 1;
+					}
+				}
+			}
+			COUNT = 1;
 		}
 
-		
 
+		//2pea
+		if (COUNT == 1) {
+			//1つ目のペア
+			for (A = 0; A <= 5; A++) {
+				for (B = A + 1; B <= 6; B++) {
+					if (E_SORT[A] == E_SORT[B] && B != 6)
+					{
+						HandPoint[3] = E_SORT[B];
+						//2つ目のペア
+						for (C = B + 1; C <= 5; C++) {
+							for (D = C + 1; D <= 6; D++) {
+								if (E_SORT[C] == E_SORT[D])
+								{
+									HandPoint[3] = E_SORT[B] + E_SORT[D];
+									E_PEA_FLG[1] = FALSE;
+
+									E_2PEA_FLG = TRUE;
+									COUNT = 2;
+								}
+							}
+						}
+
+
+					}
+				}
+			}
+			COUNT = 2;
+		}
+
+
+		//3card
+		if (COUNT == 2)
+		{
+			for (A = 0; A <= 4; A++) {
+
+				for (B = A + 1; B <= 5; B++) {
+
+					if (E_SORT[A] == E_SORT[B] && E_SORT[B] == E_SORT[B + 1])
+					{
+						HandPoint[3] = E_SORT[A];
+						E_PEA_FLG[1] = FALSE;
+
+						E_2PEA_FLG = FALSE;
+						E_3CARD_FLG = TRUE;
+						COUNT = 3;
+					}
+
+				}
+			}
+			COUNT = 3;
+		}
+
+
+		//straight
+		if (COUNT == 3)
+		{
+			for (A = 0; A <= 5; A++) {
+				C = 0;
+				D = 1;
+				for (B = A + 1; B <= 6; B++) {
+
+
+					if (E_SORT[A] == E_SORT[B] - D) {
+						D = D + 1;
+						C = C + 1;
+						if (C >= 4)
+						{
+							HandPoint[3] = E_SORT[B];
+							E_STRAIGHT_FLG = TRUE;
+							E_PEA_FLG[1] = FALSE;
+							E_2PEA_FLG = FALSE;
+							E_3CARD_FLG = FALSE;
+							COUNT = 4;
+						}
+
+					}
+
+				}
+
+			}
+
+
+
+
+
+
+			COUNT = 4;
+		}
+
+
+		//flash
+		if (COUNT == 4)
+		{
+			C = 0;
+			for (A = 7; A <= 9; A++)
+			{
+
+				if (CARD_S[A] == CARD_S[A + 1] && CARD_S[A] == CARD_S[A + 2] && CARD_S[A] == CARD_S[A + 3] && CARD_S[A] == CARD_S[A + 4])
+				{
+					C = C + 1;
+				}
+				if (C >= 1)
+				{
+					HandPoint[3] = E_CARD_A[0] + E_CARD_A[1];
+					E_FLASH_FLG = TRUE;
+					E_STRAIGHT_FLG = FALSE;
+					E_PEA_FLG[1] = FALSE;
+
+					E_2PEA_FLG = FALSE;
+					E_3CARD_FLG = FALSE;
+					COUNT = 5;
+				}
+
+			}
+			COUNT = 5;
+		}
+
+
+		//fullhouse
+		if (COUNT == 5)
+		{
+			for (A = 0; A <= 2; A++) {
+
+				for (B = A + 1; B <= 3; B++) {
+
+					for (C = B + 1; C <= 4; C++) {
+
+						if (E_SORT[A] == E_SORT[B] && E_SORT[B] == E_SORT[C])
+						{
+
+							for (D = C + 1; D <= 5; D++) {
+								for (E = D + 1; E <= 5; E++) {
+									if (E_SORT[D] == E_SORT[E]) {
+										HandPoint[3] = E_SORT[A] + E_SORT[B] + E_SORT[C] + E_SORT[D] + E_SORT[E];
+										E_FULLHOUSE_FLG = TRUE;
+										E_FLASH_FLG = FALSE;
+										E_STRAIGHT_FLG = FALSE;
+										E_PEA_FLG[1] = FALSE;
+										E_PEA_FLG[0] = FALSE;
+										E_2PEA_FLG = FALSE;
+										E_3CARD_FLG = FALSE;
+										COUNT = 6;
+									}
+								}
+							}
+
+
+						}
+					}
+				}
+			}
+
+
+
+			for (A = 0; A <= 2; A++) {
+
+				for (B = A + 1; B <= 3; B++) {
+
+					if (E_SORT[A] == E_SORT[B]) {
+
+						for (C = B + 1; C <= 4; C++) {
+
+							for (D = C + 1; D <= 5; D++) {
+
+								for (E = D + 1; E <= 6; E++) {
+									if (E_SORT[C] == E_SORT[D] && E_SORT[D] == E_SORT[E]) {
+										HandPoint[3] = E_SORT[A] + E_SORT[B] + E_SORT[C] + E_SORT[D] + E_SORT[E];
+										E_FULLHOUSE_FLG = TRUE;
+										E_FLASH_FLG = FALSE;
+										E_STRAIGHT_FLG = FALSE;
+										E_PEA_FLG[1] = FALSE;
+
+										E_2PEA_FLG = FALSE;
+										E_3CARD_FLG = FALSE;
+										COUNT = 6;
+									}
+								}
+
+							}
+
+						}
+
+					}
+
+				}
+			}
+
+
+
+			COUNT = 6;
+		}
+
+
+		//4CARD
+		if (COUNT == 6)
+		{
+			for (A = 0; A <= 3; A++) {
+
+				if (E_SORT[A] == E_SORT[A + 1] && E_SORT[A] == E_SORT[A + 2] && E_SORT[A] == E_SORT[A + 3])
+				{
+					HandPoint[3] = E_SORT[A];
+					E_4CARD_FLG = TRUE;
+					E_FULLHOUSE_FLG = FALSE;
+					E_FLASH_FLG = FALSE;
+					E_STRAIGHT_FLG = FALSE;
+					E_PEA_FLG[1] = FALSE;
+					E_2PEA_FLG = FALSE;
+					E_3CARD_FLG = FALSE;
+					COUNT = 7;
+				}
+
+			}
+			COUNT = 7;
+		}
+
+
+		//straight flash
+		if (COUNT == 7)
+		{
+			for (A = 7; A <= 12; A++) {
+				C = 0;
+				D = 1;
+
+				for (B = A + 1; B <= 13; B++) {
+
+
+					if (E_SORT[A] == E_SORT[B] - D) {
+						E = E_SORT[B];
+						D = D + 1;
+						C = C + 1;
+
+						if (C >= 4)
+						{
+							HandPoint[3] = E_SORT[B];
+							E_SF_FLG = TRUE;
+							E_4CARD_FLG = FALSE;
+							E_FULLHOUSE_FLG = FALSE;
+							E_FLASH_FLG = FALSE;
+							E_STRAIGHT_FLG = FALSE;
+							E_PEA_FLG[1] = FALSE;
+							E_2PEA_FLG = FALSE;
+							E_3CARD_FLG = FALSE;
+							COUNT = 8;
+						}
+
+					}
+
+				}
+
+			}
+
+			COUNT = 8;
+		}
+
+
+		//royal straight flash
+		if (COUNT == 8)
+		{
+
+			if (E_SF_FLG == TRUE && E == 14)
+			{
+				E_RSF_FLG = TRUE;
+				E_SF_FLG = FALSE;
+				E_4CARD_FLG = FALSE;
+				E_FULLHOUSE_FLG = FALSE;
+				E_FLASH_FLG = FALSE;
+				E_STRAIGHT_FLG = FALSE;
+				E_PEA_FLG[1] = FALSE;
+				E_2PEA_FLG = FALSE;
+				
+				E_3CARD_FLG = FALSE;
+				COUNT = 9;
+			}
+
+
+			COUNT = 9;
+
+
+		}
+
+		//nopea
+		if (COUNT == 9 && E_SF_FLG == FALSE && E_4CARD_FLG == FALSE && E_3CARD_FLG == FALSE && E_RSF_FLG == FALSE && E_2PEA_FLG == FALSE &&
+			E_FLASH_FLG == FALSE && E_FULLHOUSE_FLG == FALSE && E_STRAIGHT_FLG == FALSE && E_PEA_FLG[1] == FALSE)
+		{
+			E_NOPEA_FLG = TRUE;
+
+		}
+
+		a[20] = 2;
 	}
-	
+}
+
+
+//
+void Porker::UI_HAND()
+{
+
 }
 
 
 //
 void Porker::WINANDLOSE()
 {
-	if (Turn >= 4&&a[7] == 20)
+	if (Turn >= 4)
 	{
 		if (P_PEA_FLG[0] == TRUE || P_PEA_FLG[1] == TRUE)
 		{
@@ -1648,7 +1839,7 @@ void Porker::WINANDLOSE()
 		}
 		if (W_point[0] == W_point[1])
 		{
-			if (PP[0] > EP[0])
+			/*if (PP[0] > EP[0])
 			{
 				R_Win[0] = TRUE;
 			}
@@ -1656,18 +1847,53 @@ void Porker::WINANDLOSE()
 			{
 				R_Win[1] = TRUE;
 			}
-			else if (PP[0] == EP[0] &&a[28] == 0)
+			else if (PP[0] == EP[0])
 			{
-				a[27]=GetRand(1);
-				a[28] = 1;
-				if (a[27] == 0)
+				if (HandPoint[0]>HandPoint[3])
+				{
+					R_Win[0] = TRUE;
+				}
+
+				else if (HandPoint[0] < HandPoint[3])
 				{
 					R_Win[1] = TRUE;
 				}
 
-				else if (a[27] == 1) 
+				else if (HandPoint[0] == HandPoint[3])
+				{
+					if (P_CARD_A[0] + P_CARD_A[1]> E_CARD_A[0] + E_CARD_A[1])
+					{
+						R_Win[0] = TRUE;
+					}
+
+					else if (P_CARD_A[0] + P_CARD_A[1] < E_CARD_A[0] + E_CARD_A[1])
+					{
+						R_Win[1] = TRUE;
+					}
+				}
+			}*/
+
+
+			if (HandPoint[0] > HandPoint[3])
+			{
+				R_Win[0] = TRUE;
+			}
+
+			else if (HandPoint[0] < HandPoint[3])
+			{
+				R_Win[1] = TRUE;
+			}
+
+		    if (HandPoint[0] == HandPoint[3])
+			{
+				if (P_CARD_A[0] + P_CARD_A[1] > E_CARD_A[0] + E_CARD_A[1])
 				{
 					R_Win[0] = TRUE;
+				}
+
+				else if (P_CARD_A[0] + P_CARD_A[1] < E_CARD_A[0] + E_CARD_A[1])
+				{
+					R_Win[1] = TRUE;
 				}
 			}
 		}
@@ -1684,7 +1910,216 @@ void Porker::WINANDLOSE()
 			Pot = 0;
 		}
 	}
+	
 
+}
+
+
+//
+void Porker::GAMEOVER()
+{
+	if (Round_Count == 4)
+	{
+		if (Score[0] > Score[1]) 
+		{
+			WL[0] = 1;
+				GameOver = TRUE;
+		}
+		
+		if (Score[0] < Score[1])
+		{
+			WL[0] = 2;
+			GameOver = TRUE;
+		}
+		if (Score[0] == Score[1])
+		{
+			WL[0] = 3;
+			GameOver = TRUE;
+		}
+		
+
+	}
+	
+}
+
+
+//
+void Porker::WINANDLOSE()
+{
+	if (Turn >= 4)
+	{
+		if (P_PEA_FLG[0] == TRUE || P_PEA_FLG[1] == TRUE)
+		{
+			W_point[0] = 1;
+		}
+
+		if (P_2PEA_FLG == TRUE )
+		{
+			W_point[0] = 2;
+		}
+
+		if (P_3CARD_FLG == TRUE)
+		{
+			W_point[0] = 3;
+		}
+
+		if (P_STRAIGHT_FLG == TRUE)
+		{
+			W_point[0] = 4;
+		}
+
+		if (P_FLASH_FLG == TRUE)
+		{
+			W_point[0] = 5;
+		}
+
+		if (P_FULLHOUSE_FLG == TRUE)
+		{
+			W_point[0] = 6;
+		}
+
+		if (P_4CARD_FLG == TRUE)
+		{
+			W_point[0] = 7;
+		}
+
+		if (P_SF_FLG == TRUE)
+		{
+			W_point[0] = 8;
+		}
+
+		if (P_RSF_FLG == TRUE)
+		{
+			W_point[0] = 9;
+		}
+
+		if (E_PEA_FLG[0] == TRUE || E_PEA_FLG[1] == TRUE)
+		{
+			W_point[1] = 1;
+		}
+
+		if (E_2PEA_FLG == TRUE)
+		{
+			W_point[1] = 2;
+		}
+
+		if (E_3CARD_FLG == TRUE)
+		{
+			W_point[1] = 3;
+		}
+
+		if (E_STRAIGHT_FLG == TRUE)
+		{
+			W_point[1] = 4;
+		}
+
+		if (E_FLASH_FLG == TRUE)
+		{
+			W_point[1] = 5;
+		}
+
+		if (E_FULLHOUSE_FLG == TRUE)
+		{
+			W_point[1] = 6;
+		}
+
+		if (E_4CARD_FLG == TRUE)
+		{
+			W_point[1] = 7;
+		}
+
+		if (E_SF_FLG == TRUE)
+		{
+			W_point[1] = 8;
+		}
+
+		if (E_RSF_FLG == TRUE)
+		{
+			W_point[1] = 9;
+		}
+
+		if (W_point[0] > W_point[1])
+		{
+			R_Win[0] = TRUE;
+		}
+		if (W_point[0] < W_point[1])
+		{
+			R_Win[1] = TRUE;
+		}
+		if (W_point[0] == W_point[1])
+		{
+			/*if (PP[0] > EP[0])
+			{
+				R_Win[0] = TRUE;
+			}
+			else if (PP[0] < EP[0])
+			{
+				R_Win[1] = TRUE;
+			}
+			else if (PP[0] == EP[0])
+			{
+				if (HandPoint[0]>HandPoint[3])
+				{
+					R_Win[0] = TRUE;
+				}
+
+				else if (HandPoint[0] < HandPoint[3])
+				{
+					R_Win[1] = TRUE;
+				}
+
+				else if (HandPoint[0] == HandPoint[3])
+				{
+					if (P_CARD_A[0] + P_CARD_A[1]> E_CARD_A[0] + E_CARD_A[1])
+					{
+						R_Win[0] = TRUE;
+					}
+
+					else if (P_CARD_A[0] + P_CARD_A[1] < E_CARD_A[0] + E_CARD_A[1])
+					{
+						R_Win[1] = TRUE;
+					}
+				}
+			}*/
+
+
+			if (HandPoint[0] > HandPoint[3])
+			{
+				R_Win[0] = TRUE;
+			}
+
+			else if (HandPoint[0] < HandPoint[3])
+			{
+				R_Win[1] = TRUE;
+			}
+
+		    if (HandPoint[0] == HandPoint[3])
+			{
+				if (P_CARD_A[0] + P_CARD_A[1] > E_CARD_A[0] + E_CARD_A[1])
+				{
+					R_Win[0] = TRUE;
+				}
+
+				else if (P_CARD_A[0] + P_CARD_A[1] < E_CARD_A[0] + E_CARD_A[1])
+				{
+					R_Win[1] = TRUE;
+				}
+			}
+		}
+
+		if (R_Win[0] == TRUE && Result == TRUE)
+		{
+			Score[0] = Pot + Score[0];
+			Pot = 0;
+
+		}
+		if (R_Win[1] == TRUE && Result == TRUE)
+		{
+			Score[1] = Pot + Score[1];
+			Pot = 0;
+		}
+	}
+	
 
 }
 
@@ -1702,6 +2137,7 @@ AbstractScene* Porker::Update()
 	CARD_ANALAYSIS();
 	CARD_SORT();
 	HAND();
+	E_HAND();
 	ROUND_UI();
 	WAIT_TIME();
 	WINANDLOSE();
@@ -1735,10 +2171,34 @@ AbstractScene* Porker::Update()
 //描画
 void Porker::Draw() const
 {
-
-	DrawGraph(0, 0, BackGround[0], FALSE);
-
 	
+	DrawGraph(0, 0, BackGround[0], FALSE);
+	
+	/*DrawBox(806, 539, 1101, 709, 0x00ff2b, TRUE);*/
+	
+	
+
+
+
+	DrawFormatString(150, 50, 0xffffff, "%d", P_SORT[0]);  
+	DrawFormatString(160, 50, 0xffffff, "%d", P_SORT[1]);  
+	DrawFormatString(170, 50, 0xffffff, "%d", P_SORT[2]);  
+	DrawFormatString(180, 50, 0xffffff, "%d", P_SORT[3]);  
+	DrawFormatString(190, 50, 0xffffff, "%d", P_SORT[4]);  
+	DrawFormatString(200, 50, 0xffffff, "%d", P_SORT[5]);  
+	DrawFormatString(210, 50, 0xffffff, "%d", P_SORT[6]);  
+
+	DrawFormatString(150, 70, 0xffffff, "%d", P_SORT[7]);
+	DrawFormatString(180, 70, 0xffffff, "%d", P_SORT[8]);
+	DrawFormatString(210, 70, 0xffffff, "%d", P_SORT[9]);
+	DrawFormatString(240, 70, 0xffffff, "%d", P_SORT[10]);
+	DrawFormatString(260, 70, 0xffffff, "%d", P_SORT[11]);
+	DrawFormatString(280, 70, 0xffffff, "%d", P_SORT[12]);
+	DrawFormatString(300, 70, 0xffffff, "%d", P_SORT[13]);
+	
+	DrawFormatString(150, 90, 0xffffff, "%d", W_point[0]);
+	DrawFormatString(180, 90, 0xffffff, "%d", W_point[1]);
+
 
 
 	//DrawString(1150, 20, "SCORE", 0x000000);
@@ -1754,12 +2214,16 @@ void Porker::Draw() const
 
 	if (Turn >= 4 && P_RSF_FLG == TRUE)
 	{
+		
+		DrawGraph(806, 539, BackGround[3], FALSE);
+		DrawGraph(126, 239, BackGround[8], FALSE);
+		DrawGraph(426, 539, BackGround[7], FALSE);
 		SetFontSize(40);
 		if (Poker_Second[4] >= 0 && Poker_Second[4] <= 20) {
-			DrawString(905, 560, "ROYAL", 0x0055ff, TRUE);
+			DrawString(905, 560, "ROYAL", 0x0000FF, TRUE);
 		}
 		if (Poker_Second[4] >= 20 && Poker_Second[4] <= 40) {
-			DrawString(870, 610, "STRAIGHT", 0xffff1a, TRUE);
+			DrawString(870, 610, "STRAIGHT", 0xFFD700, TRUE);
 		}
 		if (Poker_Second[4] >= 40 && Poker_Second[4] <= 60) {
 			DrawString(905, 660, "FLUSH", 0xff0000, TRUE);
@@ -1771,34 +2235,42 @@ void Porker::Draw() const
 
 	if (Turn >= 4 && P_SF_FLG == TRUE)
 	{
+		DrawGraph(426, 539, BackGround[4], FALSE);
+		DrawGraph(806, 539, BackGround[6], FALSE);
+		DrawGraph(126, 239, BackGround[5], FALSE);
 		SetFontSize(40);
 		if (Poker_Second[4] >= 30) {
-			DrawString(870, 580, "STRAIGHT", 0xffff1a, TRUE);
-			DrawString(905, 630, "FLUSH", 0xffff1a, TRUE);
-			DrawString(910, 530, "", 0xffff1a, TRUE);
-			DrawString(950, 530, "", 0xffff1a, TRUE);
+			DrawString(870, 580, "STRAIGHT", 0xff0000, TRUE);
+			DrawString(905, 630, "FLUSH", 0xff0000, TRUE);
 		}
 	}
 
 	if (Turn >= 4 && P_4CARD_FLG == TRUE)
 	{
+		DrawGraph(426, 539, BackGround[4], FALSE);
+		DrawGraph(806, 539, BackGround[6], FALSE);
+		DrawGraph(126, 239, BackGround[5], FALSE);
 		SetFontSize(40);
 		if (Poker_Second[4] >= 30) {
-			DrawString(910, 550, "FOUR", 0xffff1a, TRUE);
-			DrawString(910, 600, "OF A", 0xffff1a, TRUE);
-			DrawString(915, 650, "KIND", 0xffff1a, TRUE);
-			DrawString(910, 530, "", 0xffff1a, TRUE);
-			DrawString(950, 530, "", 0xffff1a, TRUE);
+			DrawString(910, 550, "FOUR", 0xff0000, TRUE);
+			DrawString(910, 600, "OF A", 0xff0000, TRUE);
+			DrawString(915, 650, "KIND", 0xff0000, TRUE);
+			
+			DrawString(910, 530, "", 0xffffff, TRUE);
+			DrawString(950, 530, "", 0xffffff, TRUE);
 		}
 	}
 
 
 	if (Turn >= 4 && P_FULLHOUSE_FLG == TRUE)
 	{
+		DrawBox(806, 539, 1101, 709, 0xff0000, TRUE);
+		DrawBox(426, 539, 801, 709, 0xff0000, TRUE);
+		DrawBox(126, 239, 1101, 499, 0xff0000, TRUE);
 		SetFontSize(40);
 		if (Poker_Second[4] >= 30) {
-			DrawString(920, 570, "FULL", 0xff0000, TRUE);
-			DrawString(910, 640, "HOUSE", 0xff0000, TRUE);
+			DrawString(920, 570, "FULL", 0xffffff, TRUE);
+			DrawString(910, 640, "HOUSE", 0xffffff, TRUE);
 		}
 	}
 
@@ -1826,7 +2298,7 @@ void Porker::Draw() const
 		SetFontSize(40);
 		DrawString(870, 600, "TWO PAIR", 0xffffff, TRUE);
 	}
-	if (Turn >= 4 && P_PEA_FLG[0] == TRUE || Turn >= 4 && P_PEA_FLG[1] == TRUE&& P_2PEA_FLG == FALSE)
+	if (Turn >= 4 && P_PEA_FLG[1] == TRUE&& P_2PEA_FLG == FALSE)
 	{
 		SetFontSize(40);
 		DrawString(870, 600, "ONE PAIR", 0xffffff, TRUE);
@@ -1915,7 +2387,7 @@ void Porker::Draw() const
 			SetFontSize(40);
 			DrawString(870, 100, "TWO PAIR", 0xffffff, TRUE);
 		}
-		if (ShowDawn == TRUE && E_PEA_FLG[0] == TRUE && E_2PEA_FLG == FALSE || ShowDawn == TRUE && E_PEA_FLG[1] == TRUE && E_2PEA_FLG == FALSE)
+		if (ShowDawn == TRUE && E_PEA_FLG[1] == TRUE && E_2PEA_FLG == FALSE )
 		{
 			SetFontSize(40);
 			DrawString(870, 100, "ONE PAIR", 0xffffff, TRUE);
@@ -1929,8 +2401,15 @@ void Porker::Draw() const
 
 	                           //カード//
 	SetFontSize(30);
-	DrawGraph(460, 495, Tranpu_Img[P_Rand[0]], TRUE); //プレイヤーのカード1
-	DrawGraph(635, 495, Tranpu_Img[P_Rand[1]], TRUE); //プレイヤーのカード2
+	if (FB_UI != 1 && FB_UI != 2) {
+		DrawGraph(460, 495, Tranpu_Img[P_Rand[0]], TRUE); //プレイヤーのカード1
+		DrawGraph(635, 495, Tranpu_Img[P_Rand[1]], TRUE); //プレイヤーのカード2
+	}
+	if (FB_UI == 1 || FB_UI == 2) {
+		DrawGraph(460, 495, Tranpu_Img[0], TRUE); //プレイヤーのカード1
+		DrawGraph(635, 495, Tranpu_Img[0], TRUE); //プレイヤーのカード2
+	}
+
 
 	//ショウダウンしたら現れる
 	if (ShowDawn == TRUE)
@@ -1972,16 +2451,18 @@ void Porker::Draw() const
 
 	if (Result == TRUE)
 	{
-		DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
-		SetFontSize(40);
-		DrawString(580, 60, "RESULT", 0x000000, TRUE);
+		
+		
 		
 
 		if (R_Win[0] == TRUE)
 		{
 			//ROUND WIN
+			DrawBox(0, 0, 1280, 720, 0xffffff, TRUE);
+			SetFontSize(40);
+			DrawString(580, 60, "RESULT", 0x000000, TRUE);
 				SetFontSize(36);
-				DrawString(580, 200, "YOU WIN", 0x000000, TRUE);
+				DrawString(570, 200, "YOU WIN", 0x000000, TRUE);
 				DrawFormatString(100, 400, 0xff0000, "PLAYER'S SCORE: %d", Score[0], TRUE);
 				DrawFormatString(780, 400, 0x6445ff, "ENEMY'S SCORE: %d", Score[1], TRUE);
 				if (Round_Count !=3) {
@@ -1995,15 +2476,18 @@ void Porker::Draw() const
 		if (R_Win[1] == TRUE)
 		{
 			//ROUND LOSE
+			DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+			SetFontSize(40);
+			DrawString(580, 60, "RESULT", 0xffffff, TRUE);
 			SetFontSize(36);
-			DrawString(580, 200, "YOU LOSE", 0x000000, TRUE);
+			DrawString(570, 200, "YOU LOSE", 0xffffff, TRUE);
 			DrawFormatString(100, 400, 0x6445ff, "PLAYER'S SCORE: %d", Score[0], TRUE);
 			DrawFormatString(780, 400, 0xff0000, "ENEMY'S SCORE: %d", Score[1], TRUE);
 			if (Round_Count != 3) {
-				DrawString(450, 550, "[X]BUTTON-NEXT ROUND", 0x000000, TRUE);
+				DrawString(450, 550, "[X]BUTTON-NEXT ROUND", 0xffffff, TRUE);
 			}
 			else if (Round_Count == 3) {
-				DrawString(450, 550, "[X]BUTTON-GAME OVER", 0x000000, TRUE);
+				DrawString(450, 550, "[X]BUTTON-GAME OVER", 0xffffff, TRUE);
 			}
 		}
 	}
@@ -2027,6 +2511,14 @@ void Porker::Draw() const
 			SetFontSize(30);
 			DrawString(480, 650, "A_BUTTON-Game Select", 0xffffff, TRUE);
 		}
+
+		if (WL[0] == 3) {
+			DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+			SetFontSize(40);
+			DrawString(500, 200, "DRAW", 0xffffff, TRUE);
+			SetFontSize(30);
+			DrawString(480, 650, "A_BUTTON-Game Select", 0xffffff, TRUE);
+		}
 	}
 
 
@@ -2047,6 +2539,7 @@ void Porker::Draw() const
 	if (Round_UI == TRUE && Round_Count == 1)
 	{
 		DrawBox(0, 0, 1280, 720, 0x000000, TRUE);
+	
 		//11pea
 		if (P_PEA_FLG[0] == TRUE && P_CARD_A[0] == 11)
 		{
@@ -2087,7 +2580,7 @@ void Porker::Draw() const
 		}
 
 		//14pea
-		else if (P_PEA_FLG[0] == TRUE && P_CARD_A[0] == 14)
+		else if (P_PEA_FLG[0] == TRUE && P_CARD_A[0] == 1)
 		{
 	
 			if (Poker_Second[3] >= 30) {
@@ -2130,6 +2623,15 @@ void Porker::Draw() const
 			SetFontSize(30);
 			DrawString(485, 650, "Press the A button", 0x000000, TRUE);
 		}
+		//SF 4C
+		if (P_SF_FLG == TRUE||P_4CARD_FLG == TRUE)
+		{
+			DrawGraph(0, 0, BackGround[1], FALSE);
+			SetFontSize(40);
+			DrawString(580, 100, "ROUND1", 0x000000, TRUE);
+			SetFontSize(30);
+			DrawString(485, 650, "Press the A button", 0x000000, TRUE);
+		}
 	}
 	//Round2表示UI
 	if (Round_UI == TRUE && Round_Count == 2)
@@ -2163,7 +2665,7 @@ void Porker::Draw() const
 
 			if (Poker_Second[3] >= 30) {
 				SetFontSize(40);
-				DrawString(580, 100, "ROUND1", 0x00ff2b, TRUE);
+				DrawString(580, 100, "ROUND2", 0x00ff2b, TRUE);
 				SetFontSize(30);
 				DrawString(485, 650, "Press the A button", 0x00ff2b, TRUE);
 			}
@@ -2207,6 +2709,26 @@ void Porker::Draw() const
 			DrawString(580, 100, "ROUND2", 0xffffff, TRUE);
 			SetFontSize(30);
 			DrawString(485, 650, "Press the A button", 0xffffff, TRUE);
+		}
+
+		//RSF
+		if (P_RSF_FLG == TRUE)
+		{
+			DrawGraph(0, 0, BackGround[2], FALSE);
+			SetFontSize(40);
+			DrawString(580, 100, "ROUND2", 0x000000, TRUE);
+			SetFontSize(30);
+			DrawString(485, 650, "Press the A button", 0x000000, TRUE);
+		}
+
+		//SF 4C
+		if (P_SF_FLG == TRUE || P_4CARD_FLG == TRUE)
+		{
+			DrawGraph(0, 0, BackGround[1], FALSE);
+			SetFontSize(40);
+			DrawString(580, 100, "ROUND2", 0x000000, TRUE);
+			SetFontSize(30);
+			DrawString(485, 650, "Press the A button", 0x000000, TRUE);
 		}
 	}
 	//Round3表示UI
@@ -2285,6 +2807,26 @@ void Porker::Draw() const
 			DrawString(580, 100, "ROUND3", 0xffffff, TRUE);
 			SetFontSize(30);
 			DrawString(485, 650, "Press the A button", 0xffffff, TRUE);
+		}
+
+		//RSF
+		if (P_RSF_FLG == TRUE)
+		{
+			DrawGraph(0, 0, BackGround[2], FALSE);
+			SetFontSize(40);
+			DrawString(580, 100, "ROUND3", 0x000000, TRUE);
+			SetFontSize(30);
+			DrawString(485, 650, "Press the A button", 0x000000, TRUE);
+		}
+
+		//SF 4C
+		if (P_SF_FLG == TRUE || P_4CARD_FLG == TRUE)
+		{
+			DrawGraph(0, 0, BackGround[1], FALSE);
+			SetFontSize(40);
+			DrawString(580, 100, "ROUND3", 0x000000, TRUE);
+			SetFontSize(30);
+			DrawString(485, 650, "Press the A button", 0x000000, TRUE);
 		}
 	}
 
