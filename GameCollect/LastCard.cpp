@@ -96,46 +96,49 @@ AbstractScene* LastCard::Update()
     //プレイヤー行動
     case 1: 
 
-        //ドローが必要か調べる
-        
-        if (player_checkdraw == 0) {
-            for (int i = 0; i < playerHands[0].size(); i++) {
-                if (CardCheck(playerHands[0][i]) == TRUE) {
-                    player_checkdraw = 1;
-                }
-            }
-            if (player_checkdraw == 0) {
-                player_checkdraw = 2;
-            }
+        if (WildCardFlg == 1) {
+            Wildcard();
+            //return;
         }
-        
-        //カードを場に出す
-        if (player_checkdraw == 1) {
-            if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
-                if (CardCheck(playerHands[0][now_Select]) == TRUE) {
-                    field.push_back(playerHands[0][now_Select]);
+        else {
 
-                    CardFlgCheck(playerHands[0][now_Select]);
+            //ドローが必要か調べる
+            if (player_checkdraw == 0) {
+                for (int i = 0; i < playerHands[0].size(); i++) {
+                    if (CardCheck(playerHands[0][i]) == TRUE) {
+                        player_checkdraw = 1;
+                    }
+                }
+                if (player_checkdraw == 0) {
+                    player_checkdraw = 2;
+                }
+            }
 
-                    playerHands[0].erase(playerHands[0].begin() + now_Select);
+            //カードを場に出す
+            if (player_checkdraw == 1) {
+                if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
+                    if (CardCheck(playerHands[0][now_Select]) == TRUE) {
+                        field.push_back(playerHands[0][now_Select]);
+
+                        CardFlgCheck(playerHands[0][now_Select]);
+
+                        playerHands[0].erase(playerHands[0].begin() + now_Select);
+                    }
+                    if (WildCardFlg != 1) {
+                        Turn++;
+                    }
+
+                    player_checkdraw = 0;
                 }
-                if (WildCardFlg == 1) {
-                    Wildcard();
-                }
+            }
+
+            //カードをドロー
+            if (player_checkdraw == 2) {
+                CardDraw(0);
                 Turn++;
                 player_checkdraw = 0;
             }
         }
-
-        //カードをドロー
-        if (player_checkdraw == 2) {
-            CardDraw(0);
-            Turn++;
-            player_checkdraw = 0;
-        }
-
-
-
         break;
     //敵行動
     case 2:
@@ -355,21 +358,25 @@ void LastCard::Wildcard()
         if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_Y) && (PAD_INPUT::OnButton(XINPUT_BUTTON_Y) == true)) {
             WildCardColor = 0;
             WildCardFlg = 0;
+            Turn++;
         }
         //オレンジ
         if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_B) && (PAD_INPUT::OnButton(XINPUT_BUTTON_B) == true)) {
             WildCardColor = 1;
             WildCardFlg = 0;
+            Turn++;
         }
         //紫
         if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
             WildCardColor = 2;
             WildCardFlg = 0;
+            Turn++;
         }
         //水色
         if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_X) && (PAD_INPUT::OnButton(XINPUT_BUTTON_X) == true)) {
             WildCardColor = 3;
             WildCardFlg = 0;
+            Turn++;
         }
     }
     else {
