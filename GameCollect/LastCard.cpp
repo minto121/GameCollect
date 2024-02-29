@@ -13,6 +13,8 @@ LastCard::LastCard()
     turn_margin;
     max_turn_margin;
 
+   BackGroundImg=LoadGraph("images/LastCard/BackGround01.png");
+
     //Card;
 
     CardImg;
@@ -120,6 +122,10 @@ AbstractScene* LastCard::Update()
                     if (CardCheck(playerHands[0][now_Select]) == TRUE) {
                         field.push_back(playerHands[0][now_Select]);
 
+                        if (WildCardColor != -1) {
+                            WildCardColor = -1;
+                        }
+
                         CardFlgCheck(playerHands[0][now_Select]);
 
                         playerHands[0].erase(playerHands[0].begin() + now_Select);
@@ -174,9 +180,9 @@ AbstractScene* LastCard::Update()
 
 void LastCard::Draw() const
 {
-	//DrawGraph(35, 49, CardImg[2], FALSE);
+	//DrawGraph(0, 0, CardImg[2], FALSE);
 
-
+    DrawGraph(0, 0, BackGroundImg, TRUE);
 
     for (size_t i = 0; i < playerHands.size(); ++i) {
         int posX = 0;
@@ -222,6 +228,8 @@ void LastCard::Draw() const
     }
 
     DrawGraph(500, 200, CardImg[field.back()], TRUE);
+
+    
 
 }
 
@@ -293,8 +301,6 @@ bool LastCard::CardCheck(int select_card)
         return TRUE;
     }
 
-
-
     return false;
 }
 
@@ -314,6 +320,9 @@ void LastCard::EnemyAction()
     if (enemycard != -1) {
         field.push_back(enemycard);
         playerHands[Turn - 1].erase(playerHands[Turn - 1].begin() + num);
+        if (WildCardColor != -1) {
+            WildCardColor = -1;
+        }
         CardFlgCheck(enemycard);
     }
     else {
