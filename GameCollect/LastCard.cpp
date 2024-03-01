@@ -21,6 +21,8 @@ LastCard::LastCard()
 
     LoadDivGraph("images/LastCard/LastCard.png", 65, 13, 5, 128, 256, CardImg);
 
+    LoadDivGraph("images/LastCard/WildCardColor.png", 4, 4, 1, 128, 256, WildCardColorImg);
+
     // デッキにカードを追加する
     for (int i = 0; i < 2; ++i) {
         for (int color = 0; color < NUM_COLORS; ++color) {

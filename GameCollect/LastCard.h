@@ -23,6 +23,8 @@ private:
 
     int CardImg[65];
 
+    int WildCardColorImg[4];
+
     std::vector<std::vector<int>> playerHands;
     std::vector<int> deck;
     std::vector<int> field;
