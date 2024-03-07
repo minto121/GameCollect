@@ -1,23 +1,24 @@
 ﻿#pragma once
 #include "AbstractScene.h"
-#include<vector>
+#include <vector>
 class Takoyaki :
     public AbstractScene
 {
-
+    std::vector<int> drawnCardHistory;
 private:
-    int Select;             //選択数 
-    int Cards_img[56];      //カード情報格納配列
-    int CursolImg;          //カーソル画像
-    int cardimg;            //カード
-    int select_X;           //カードごとのカーソル位置を保持
+    int Cards_img[56];
+    int cardimg;
+    int select_X;
     int select_Y;
     int BackCard_Img;
-    bool cardFlipped[2][10];       //カードの裏返し
     bool AButtonPressed;
-    int isPlayer1Turn;
+
+    bool isPlayer1Turn;
+    bool cardFlipped[2][10];
+   
     int drawnCard;
-    std::vector<int> deck;
+    int drawnNumber;
+   
     //手札の情報を保持する配列
     int handCard[2][10];
 public:
@@ -32,6 +33,13 @@ public:
 
     //描画に関することを実装
     void Draw() const;
+
+    void DrawnCard();
+
+    void WinnerChecker();
+
+    void Printf();
+
 };
 
 

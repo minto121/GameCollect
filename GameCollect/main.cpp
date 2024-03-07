@@ -63,17 +63,17 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 	// ゲームループ
 	while ((ProcessMessage() == 0) && (sceneMng->Update() != nullptr)) {
 
-		ClearDrawScreen();		// 画面の初期化
+		ClearDrawScreen();		
 		PAD_INPUT::UpdateKey();
 		sceneMng->Draw();
 		FPSC.All();
 		FPSC.Disp();
-		//強制終了
+		
 		if (PAD_INPUT::OnButton(XINPUT_BUTTON_BACK) || CheckHitKey(KEY_INPUT_ESCAPE))
 		{
 			break;
 		}
-		ScreenFlip();			// 裏画面の内容を表画面に反映
+		ScreenFlip();			
 	}
 
 	DxLib_End();

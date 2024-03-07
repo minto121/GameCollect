@@ -4,10 +4,13 @@
 #include "PadInput.h"
 #include "GameSelect.h"
 
+#include <algorithm>
+#include <random>
+
 
 Takoyaki::Takoyaki()
 {
-	Select = 0;
+	
 	Cards_img[56];
 
 	// カード画像の初期化
@@ -41,43 +44,72 @@ Takoyaki::~Takoyaki() {
 }
 
 bool isPlayer1Trun = true;
+
 AbstractScene* Takoyaki::Update()
 {
-	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A)) {
-		if (isPlayer1Turn) {
-			int drawnCard = GetRand(13); // 0〜9のランダムな値を取得
-			if (!cardFlipped[0][drawnCard]) { // カードがまだ捲られていない場合のみ処理を行う
-				cardFlipped[0][drawnCard] = true; // カードを裏返す
-				handCard[0][drawnCard] = GetRand(13) + 1;
+	if (PAD_INPUT::OnButton(XINPUT_BUTTON_A) || CheckHitKey(KEY_INPUT_A)) {
+		int drawnCard = GetRand(13); // 0〜9のランダムな値を取得
+		if (!cardFlipped[isPlayer1Turn ? 0 : 1][drawnCard]) { // カードがまだ捲られていない場合のみ処理を行う
+			cardFlipped[isPlayer1Turn ? 0 : 1][drawnCard] = true; // カードを裏返す
+			handCard[isPlayer1Turn ? 0 : 1][drawnCard] = GetRand(13) + 1;
 
-				// 絵札（10～13）が出た場合、相手のターンに切り替える
-				if (handCard[0][drawnCard] >= 10 && handCard[0][drawnCard] <= 13) {
-					isPlayer1Turn = false; // プレイヤー1のターンを終了
-				}
+			// 絵札（10～13）が出た場合、相手のターンに切り替える
+			if (handCard[isPlayer1Turn ? 0 : 1][drawnCard] >= 11 && handCard[isPlayer1Turn ? 0 : 1][drawnCard] <= 13) {
+				isPlayer1Turn = !isPlayer1Turn; // ターンを切り替える
+				printf("Player's turn ended\n");
 			}
-		}
-		else {
-			int drawnCard = GetRand(13); // 0〜9のランダムな値を取得
-			if (!cardFlipped[1][drawnCard]) { // カードがまだ捲られていない場合のみ処理を行う
-				cardFlipped[1][drawnCard] = true; // カードを裏返す
-				handCard[1][drawnCard] = GetRand(13) + 1;
 
-				// 絵札（10～13）が出た場合、プレイヤー1のターンに切り替える
-				if (handCard[1][drawnCard] >= 10 && handCard[1][drawnCard] <= 13) {
-					isPlayer1Turn = true; // プレイヤー1のターンに切り替える
-				}
-			}
+			// キーが押されたら少し待つ
+			Sleep(500); // ミリ秒単位で指定（0.5秒）
 		}
 	}
 
-
 	// 手札の描画
 	Draw();
+
+
+	//プレイヤー1の手札がすべて裏返ったか
+	bool player1Win = true;
+	for (int i = 0; i < 10; ++i) {
+		if (!cardFlipped[0][i]) {
+			player1Win = false;
+			break;
+		}
+	}
+
+	//プレイヤー2の手札がすべて裏返ったか
+	bool player2Win = true;
+	for (int i = 0; i < 10; ++i) {
+		if (!cardFlipped[1][i]) {
+			player2Win = false;
+			break;
+		}
+	}
+	if (player1Win || player2Win) {
+		//勝利メッセージ表示
+		//DrawString(SCREEN_WIDTH)
+	}
+
+	if (player1Win || player2Win) {
+		ClearDrawScreen();
+		if (player1Win && player2Win) {
+			DrawString(100, 100, "Draw!", GetColor(255, 255, 255));
+		}
+		else if (player1Win) {
+			DrawString(100, 100, "Player 2 wins!", GetColor(255, 255, 255));
+		}
+		else {
+			DrawString(100, 100, "Player 1 wins!", GetColor(255, 255, 255));
+		}
+		ScreenFlip();
+		WaitKey();
+		//CheckWinner();
+	}
 	ScreenFlip();
 	return this;
 }
 
-void Takoyaki::Draw()const
+void Takoyaki::Draw() const
 {
 	ClearDrawScreen();
 
@@ -94,16 +126,93 @@ void Takoyaki::Draw()const
 	}
 
 	// 2P側の手札のカード画像描画
-		for (int i = 0; i < 10; ++i) {
-			int cardIndex = handCard[1][i];
-			if (cardIndex >= 0 && cardIndex < 56) {
-				DrawGraph(70 + i * 120, 300, cardFlipped[1][i] ? Cards_img[cardIndex] : BackCard_Img, TRUE);
+	for (int i = 0; i < 10; ++i) {
+		int cardIndex = handCard[1][i];
+		if (cardIndex >= 0 && cardIndex < 56) {
+			DrawGraph(70 + i * 120, 450, cardFlipped[1][i] ? Cards_img[cardIndex] : BackCard_Img, TRUE);
+		}
+		else {
+			DrawGraph(70 + i * 120, 450, BackCard_Img, TRUE); // カードが無効な場合、バックカードを描画
+		}
+	}
+
+	if (drawnCard >= 0 && drawnCard < 56) {
+		DrawGraph(640, 250, Cards_img[drawnCard], TRUE);
+	}
+
+
+	
+
+	ScreenFlip();
+}
+
+
+void Takoyaki::DrawnCard()
+{
+	int drawnCard;
+	int drawnNumber;
+
+	do {
+		drawnCard = GetRand(13); // 0〜12のランダムな値を取得
+		drawnNumber = GetRand(10); // 0 から 9 のランダムな値を取得
+	} while (cardFlipped[0][drawnCard] || cardFlipped[1][drawnCard] ||
+		std::find(std::begin(handCard[0]), std::end(handCard[0]), drawnCard) != std::end(handCard[0]) ||
+		std::find(std::begin(handCard[1]), std::end(handCard[1]), drawnCard) != std::end(handCard[1]) ||
+		std::find(std::begin(drawnCardHistory), std::end(drawnCardHistory), drawnCard) != std::end(drawnCardHistory));
+
+	drawnCardHistory.push_back(drawnCard); // 引いたカードを履歴に追加
+
+	if (!isPlayer1Turn) {
+		cardFlipped[0][drawnCard] = true; // カードを裏返す
+
+		// 未めくられている手札の位置を探す
+		auto it = std::find(std::begin(cardFlipped[0]), std::end(cardFlipped[0]), false);
+
+		if (it != std::end(cardFlipped[0])) {
+			// 未使用のランダムな位置に山札の番号を設定
+			*it = true; // カードをめくる
+			int index = std::distance(std::begin(cardFlipped[0]), it);
+
+			// 同じ絵柄のカードが既に出ている場合は再抽選
+			if (std::find(std::begin(handCard[0]), std::end(handCard[0]), drawnCard) != std::end(handCard[0])) {
+				// 再抽選
+				continue;
+			}
+
+			handCard[0][index] = drawnCard;
+
+			// 絵札（11〜13）が出た場合、プレイヤー2のターンに切り替える
+			if (drawnCard >= 11 && drawnCard <= 13) {
+				isPlayer1Turn = true; // プレイヤー2のターンに切り替える
+				printf("Player 2's turn started\n");
 			}
 			else {
-				DrawGraph(70 + i * 120, 300, BackCard_Img, TRUE); // カードが無効な場合、バックカードを描画
+				// 数字の場合、対応する手札をめくる
+				int handIndex = drawnCard - 1; // カードの数字と手札のインデックスは1ずれる
+				cardFlipped[0][handIndex] = true;
+				printf("Player 1 flipped card %d at index %d\n", drawnCard, handIndex);
 			}
 		}
-	
-	ScreenFlip();
+	}
+	else {
+		// プレイヤー2のターンの場合、対応する手札をめくる
+		int handIndex = drawnCard - 1; // カードの数字と手札のインデックスは1ずれる
+		cardFlipped[1][handIndex] = true;
+		printf("Player 2 flipped card %d at index %d\n", drawnCard, handIndex);
 
+		// 同じ絵柄のカードが既に出ている場合は再抽選
+		if (std::find(std::begin(handCard[1]), std::end(handCard[1]), drawnCard) != std::end(handCard[1])) {
+			// 再抽選
+			continue;
+		}
+
+		// 絵札（11〜13）が出た場合、プレイヤー1のターンに切り替える
+		if (drawnCard >= 11 && drawnCard <= 13) {
+			isPlayer1Turn = false; // プレイヤー1のターンに切り替える
+		}
+	}
+
+	Draw(); // ターンが切り替わったときに手札を描画
+	ScreenFlip();
+	Sleep(1000); // 1秒待機
 }
