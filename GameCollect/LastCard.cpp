@@ -131,9 +131,9 @@ AbstractScene* LastCard::Update()
                         CardFlgCheck(playerHands[0][now_Select]);
 
                         playerHands[0].erase(playerHands[0].begin() + now_Select);
-                    }
-                    if (WildCardFlg != 1) {
-                        Turn++;
+                        if (WildCardFlg != 1) {
+                            Turn++;
+                        }
                     }
 
                     player_checkdraw = 0;
@@ -186,6 +186,8 @@ void LastCard::Draw() const
 
     DrawGraph(0, 0, BackGroundImg, TRUE);
 
+    //DrawGraph(0, 0, WildCardColorImg[2], TRUE);
+
     for (size_t i = 0; i < playerHands.size(); ++i) {
         int posX = 0;
         int posY = 0;
@@ -229,10 +231,13 @@ void LastCard::Draw() const
         }
     }
 
-    DrawGraph(500, 200, CardImg[field.back()], TRUE);
-
+    if (WildCardColor!=-1) {
+        DrawGraph(500, 200, WildCardColorImg[WildCardColor], TRUE);
+    }
+    else {
+        DrawGraph(500, 200, CardImg[field.back()], TRUE);
+    }
     
-
 }
 
 void LastCard::InitPlayerHands()
