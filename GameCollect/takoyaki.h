@@ -18,7 +18,7 @@ private:
    
     int drawnCard;
     int drawnNumber;
-   
+    
     //手札の情報を保持する配列
     int handCard[2][10];
 public:
@@ -38,11 +38,7 @@ public:
 
     void WinnerChecker();
 
-    void Printf();
+  
 
 };
-
-
-
-
 

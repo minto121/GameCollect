@@ -26,7 +26,7 @@ Takoyaki::Takoyaki()
 
 	AButtonPressed = false;
 	//手札の初期化
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 9; ++i) {
 		handCard[0][i] = 0;
 		handCard[1][i] = 0;
 		cardFlipped[0][i] = false;
@@ -43,7 +43,7 @@ Takoyaki::~Takoyaki() {
 
 }
 
-bool isPlayer1Trun = true;
+bool isPlayer1Turn = true;
 
 AbstractScene* Takoyaki::Update()
 {
@@ -70,7 +70,7 @@ AbstractScene* Takoyaki::Update()
 
 	//プレイヤー1の手札がすべて裏返ったか
 	bool player1Win = true;
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 9; ++i) {
 		if (!cardFlipped[0][i]) {
 			player1Win = false;
 			break;
@@ -79,7 +79,7 @@ AbstractScene* Takoyaki::Update()
 
 	//プレイヤー2の手札がすべて裏返ったか
 	bool player2Win = true;
-	for (int i = 0; i < 10; ++i) {
+	for (int i = 0; i < 9; ++i) {
 		if (!cardFlipped[1][i]) {
 			player2Win = false;
 			break;
@@ -150,11 +150,9 @@ void Takoyaki::Draw() const
 void Takoyaki::DrawnCard()
 {
 	int drawnCard;
-	int drawnNumber;
 
 	do {
 		drawnCard = GetRand(13); // 0〜12のランダムな値を取得
-		drawnNumber = GetRand(10); // 0 から 9 のランダムな値を取得
 	} while (cardFlipped[0][drawnCard] || cardFlipped[1][drawnCard] ||
 		std::find(std::begin(handCard[0]), std::end(handCard[0]), drawnCard) != std::end(handCard[0]) ||
 		std::find(std::begin(handCard[1]), std::end(handCard[1]), drawnCard) != std::end(handCard[1]) ||
@@ -172,23 +170,17 @@ void Takoyaki::DrawnCard()
 			// 未使用のランダムな位置に山札の番号を設定
 			*it = true; // カードをめくる
 			int index = std::distance(std::begin(cardFlipped[0]), it);
-
-			// 同じ絵柄のカードが既に出ている場合は再抽選
-			if (std::find(std::begin(handCard[0]), std::end(handCard[0]), drawnCard) != std::end(handCard[0])) {
-				// 再抽選
-				continue;
-			}
-
 			handCard[0][index] = drawnCard;
 
 			// 絵札（11〜13）が出た場合、プレイヤー2のターンに切り替える
-			if (drawnCard >= 11 && drawnCard <= 13) {
+			if (drawnCard >= 10 && drawnCard <= 12) {
 				isPlayer1Turn = true; // プレイヤー2のターンに切り替える
 				printf("Player 2's turn started\n");
 			}
 			else {
 				// 数字の場合、対応する手札をめくる
 				int handIndex = drawnCard - 1; // カードの数字と手札のインデックスは1ずれる
+				
 				cardFlipped[0][handIndex] = true;
 				printf("Player 1 flipped card %d at index %d\n", drawnCard, handIndex);
 			}
@@ -200,15 +192,9 @@ void Takoyaki::DrawnCard()
 		cardFlipped[1][handIndex] = true;
 		printf("Player 2 flipped card %d at index %d\n", drawnCard, handIndex);
 
-		// 同じ絵柄のカードが既に出ている場合は再抽選
-		if (std::find(std::begin(handCard[1]), std::end(handCard[1]), drawnCard) != std::end(handCard[1])) {
-			// 再抽選
-			continue;
-		}
-
 		// 絵札（11〜13）が出た場合、プレイヤー1のターンに切り替える
-		if (drawnCard >= 11 && drawnCard <= 13) {
-			isPlayer1Turn = false; // プレイヤー1のターンに切り替える
+		if (drawnCard >= 10 && drawnCard <= 12) {
+			isPlayer1Turn = !isPlayer1Turn; // プレイヤー1とプレイヤー2のターンを切り替える
 		}
 	}
 
