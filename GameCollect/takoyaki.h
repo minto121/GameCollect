@@ -1,33 +1,37 @@
-#pragma once
+ï»¿#pragma once
 #include "AbstractScene.h"
-
+#include <vector>
 class Takoyaki :
     public AbstractScene
 {
-
+    std::vector<int> drawnCardHistory;
 private:
-    int Select;     //‘I‘ğ” 
-    int Cards_img[42];  //ƒJ[ƒh
-    int CursolImg; //ƒJ[ƒ\ƒ‹‰æ‘œ
-    int select_X;//ƒJ[ƒh‚²‚Æ‚ÌƒJ[ƒ\ƒ‹ˆÊ’u‚ğ•Û
-    int BackCard_Img;
-    bool cardFlipped;//ƒJ[ƒh‚Ì— •Ô‚µ
+    int Cards_img[56];
     int cardimg;
+    int select_X;
+    int select_Y;
+    int BackCard_Img;
+    bool AButtonPressed;
+
+    bool isPlayer1Turn;
+    bool cardFlipped[2][10];
+   
+    int drawnCard;
+    int drawnNumber;
+    
+    //æ‰‹æœ­ã®æƒ…å ±ã‚’ä¿æŒã™ã‚‹é…åˆ—
+    int handCard[2][10];
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     Takoyaki();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~Takoyaki();
 
-    //•`‰æˆÈŠO‚ÌXV‚ğÀs
-    AbstractScene* Update() override;
+    //æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè¡Œ
+    AbstractScene* Update();
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•
-    void Draw() const override;
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…
+    void Draw() const;
 };
-
-
-
-
 

@@ -18,7 +18,7 @@ private:
 		bool flg = 1;
 		int img;
 	} ;
-
+	// Î‚ÌF‚ÆŠeŒÂ”
 	struct STONE gStone[6][8];
 
 	
