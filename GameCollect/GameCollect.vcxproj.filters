@@ -7,6 +7,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="PadInput.cpp" />
     <ClCompile Include="Hanafuda_GameMain.cpp" />
+    <ClCompile Include="Line.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Hit&amp;Blow.cpp" />
@@ -28,8 +29,7 @@
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="LastCard.cpp" />
     <ClCompile Include="DotAndBox.cpp" />
-    <ClCompile Include="Line.cpp" />
-     <ClCompile Include="GameMain.cpp" />
+    <ClCompile Include="GameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gomoku_AI.h" />
@@ -58,8 +58,8 @@
     <ClInclude Include="Title.h" />
     <ClInclude Include="Hanafuda_GameMain.h" />
     <ClInclude Include="DotAndBox.h" />
-    <ClInclude Include="Line.h" />
     <ClInclude Include="GameMain.h" />
+    <ClInclude Include="Line.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Log.txt" />

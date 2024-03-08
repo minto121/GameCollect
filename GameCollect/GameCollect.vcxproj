@@ -154,7 +154,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DotAndBox.cpp" />
-    <ClCompile Include="Line.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="Checkermain.cpp" />
@@ -166,6 +165,7 @@
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="Hound.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="LastCard.cpp" />
@@ -184,7 +184,6 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="DotAndBox.h" />
-    <ClInclude Include="Line.h" />
     <ClInclude Include="GameMain.h" />
     <ClInclude Include="Checkermain.h" />
     <ClInclude Include="FpsController.h" />
@@ -196,6 +195,7 @@
     <ClInclude Include="Hex_GameMain.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Hound.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="LastCard.h" />
     <ClInclude Include="Porker.h" />
