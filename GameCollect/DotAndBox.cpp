@@ -54,10 +54,6 @@ DotAndBox::DotAndBox() : guidePointflg(false)
 	selectedLine.LineendX = 0;
 	selectedLine.LineendY = 0;
 
-
-	Bline = LoadGraph("images/DotsAndBoxes/BlueLine.png");
-	Rline = LoadGraph("images/DotsAndBoxes/RedLine.png");
-
 	// savedLines 配列を初期化
 	for (int i = 0; i < MAX_POINTS; ++i) {
 		savedLines[i] = {}; // デフォルトコンストラクタで初期化
