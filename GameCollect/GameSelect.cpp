@@ -2,12 +2,18 @@
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
-#include "sinkeisuijaku.h" ï¿½Gï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½Ì‚ÅAï¿½ï¿½Uï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Aï¿½Eï¿½gï¿½ï¿½
+#include "sinkeisuijaku.h" E½GE½E½E½[E½oE½E½Ì‚ÅAE½E½UE½RE½E½E½E½E½gE½AE½EE½gE½E½
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
 #include "Connect4.h"
+=======
+#include "sinkeisuijaku.h"
+#include"Hit&Blow.h"
+#include"Hanafuda_GameMain.h"
+#include"Mankara.h"
+#include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
 #include "SixBallPuzzle.h"
 #include "Porker.h"
@@ -21,7 +27,7 @@
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
 {
-	font_handle = CreateFontToHandle("HGï¿½ï¿½ï¿½ï¿½E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
+	font_handle = CreateFontToHandle("HGE½E½E½E½E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
 	now_menu = static_cast<int>(SELECT::Mankara);
 	input_margin = 0;
 }
@@ -32,28 +38,28 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-// ï¿½ï¿½ï¿½ï¿½ÔŠuï¿½ï¿½ï¿½ï¿½
+// E½E½E½E½ÔŠuE½E½E½E½
 const int max_input_margin = 15;
-// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ÌŠï¿½ï¿½x
+// E½XE½eE½BE½bE½NE½ÌŠï¿½E½x
 const int stick_sensitivity = 20000;
 
 if (input_margin < max_input_margin) {
 	input_margin++;
 }
 else {
-	// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½Yï¿½ï¿½ï¿½Wï¿½ï¿½ï¿½æ“¾
+	// E½XE½eE½BE½bE½NE½E½YE½E½E½WE½E½E½æ“¾
 	int stick_y = PAD_INPUT::GetLStick().ThumbY;
 
 	if (std::abs(stick_y) > stick_sensitivity) {
 		//playsoundmem
-		// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+		// E½XE½eE½BE½bE½NE½E½E½E½ÉˆÚ“ï¿½E½E½E½E½E½êE
 		if (stick_y > 0) {
-			// ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â‘Oï¿½ÉˆÚ“ï¿½
+			// E½E½E½jE½E½E½[E½IE½E½E½E½E½E½E½E½Â‘OE½ÉˆÚ“ï¿½
 			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
 		}
-		// ï¿½Xï¿½eï¿½Bï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ÉˆÚ“ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‡
+		// E½XE½eE½BE½bE½NE½E½E½E½E½ÉˆÚ“ï¿½E½E½E½E½E½êE
 		else if (stick_y < 0) {
-			// ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âï¿½ï¿½ÉˆÚ“ï¿½
+			// E½E½E½jE½E½E½[E½IE½E½E½E½E½E½E½E½Âï¿½E½ÉˆÚ“ï¿½
 			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
 		}
 		input_margin = 0;
@@ -66,8 +72,10 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	switch (current_selection)
 	{
 	case SELECT::sinnkeisuizyaku:
-			return new sinkeisuijaku(); // ï¿½Gï¿½ï¿½ï¿½[ï¿½oï¿½ï¿½Ì‚ÅAï¿½ï¿½Uï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½gï¿½Aï¿½Eï¿½gï¿½ï¿½
+			return new sinkeisuijaku(); // E½GE½E½E½[E½oE½E½Ì‚ÅAE½E½UE½RE½E½E½E½E½gE½AE½EE½gE½E½
 			break;
+			return new sinkeisuijaku();
+			break; 
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
@@ -89,6 +97,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		return new Hex();
 		break;
 	case SELECT::sixballpuzzle:
+		return new Connect4();
+		break;
+
 		return new SixBallPuzzle();
 		break;
 	case SELECT::Mankara:
@@ -110,24 +121,15 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		return new Takoyaki();
 		break;
 	case SELECT::Gomoku:
-		// ä¸€æ—¦ä»®ã§ç½®ã„ã¦ã¾ã™ã€‚äº”ç›®ä¸¦ã¹æ‹…å½“è€…ã¯å¤‰æ›´ãŒã‚ã‚Œã°å¤‰æ›´ã—ã¦ãã ã•ã„ã€‚
+		// ˆê’U‰¼‚Å’u‚¢‚Ä‚Ü‚·BŒÜ–Ú•À‚×’S“–Ò‚Í•ÏX‚ª‚ ‚ê‚Î•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
 		return new gomokuTitle(); 
 		break;
 	case SELECT::Dotbox:
 		return new GameMain();
 		break;
 
-	case SELECT::Hitblow:
-		return new HitAndBlow();
-		break;
-	case SELECT::Hekusu:
-		return new Hex();
-		break;
-	case SELECT::sixballpuzzle:
-		return new Connect4();
-		break;
 	default:
-		printfDx("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È‹@ï¿½\ï¿½Å‚ï¿½ï¿½B\n");
+		printfDx("E½E½E½E½E½E½E½È‹@E½\E½Å‚ï¿½E½B\n");
 		break;
 	}
 }
@@ -140,18 +142,18 @@ void GameSelect::Draw() const
 {
 	for (int i = 0; i < static_cast<int>(SELECT::MENU_SIZE); i++)
 	{
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌÅï¿½Yï¿½ï¿½ï¿½W
+		// E½E½E½E½E½E½ÌÅï¿½YE½E½E½W
 		const int base_y = 0;
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½Wï¿½ÔŠu
+		// E½E½E½E½E½E½E½YE½E½E½WE½ÔŠu
 		const int margin_y = 50;
 
-		// ï¿½ï¿½ï¿½ï¿½ï¿½F
+		// E½E½E½E½E½F
 		int color = 0xFFFFFF;
-		// ï¿½ï¿½ï¿½ï¿½ï¿½Oï¿½gï¿½F
+		// E½E½E½E½E½OE½gE½F
 		int border_color = 0x000000;
 
-		// ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½Fï¿½Æ•ï¿½ï¿½ï¿½ï¿½Oï¿½gï¿½Fï¿½ğ”½“]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// E½JE½[E½\E½E½E½E½E½E½E½E½E½Ä‚ï¿½E½E½êE¿½AE½E½E½E½E½FE½Æ•ï¿½E½E½E½OE½gE½FE½ğ”½“]E½E½E½E½E½E½
 		if (now_menu == i) {
 			color = ~color;
 			border_color = ~border_color;
