@@ -1,8 +1,8 @@
-#include "GameSelect.h"
+ï»¿#include "GameSelect.h"
 #include "Title.h"
 #include"PadInput.h"
 #include "DxLib.h"
-#include "sinkeisuijaku.h" E½GE½E½E½[E½oE½E½Ì‚ÅAE½E½UE½RE½E½E½E½E½gE½AE½EE½gE½E½
+#include "sinkeisuijaku.h" ãƒ»ï½½Gãƒ»ï½½ãƒ»ï½½ãƒ»ï½½[ãƒ»ï½½oãƒ»ï½½ãƒ»ï½½ï¾Œã§ã€ãƒ»ï½½ãƒ»ï½½Uãƒ»ï½½Rãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½gãƒ»ï½½Aãƒ»ï½½Eãƒ»ï½½gãƒ»ï½½ãƒ»ï½½
 #include"Hit&Blow.h"
 //#include"Hanafuda_GameMain.h"
 #include "RabbitAndHounds.h"
@@ -27,7 +27,7 @@
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
 {
-	font_handle = CreateFontToHandle("HGE½E½E½E½E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
+	font_handle = CreateFontToHandle("HGãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½E", 27, 1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8, -1, 3);
 	now_menu = static_cast<int>(SELECT::Mankara);
 	input_margin = 0;
 }
@@ -38,28 +38,28 @@ GameSelect::~GameSelect()
 
 AbstractScene* GameSelect::Update()
 {
-// E½E½E½E½ÔŠuE½E½E½E½
+// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾”éš”ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½
 const int max_input_margin = 15;
-// E½XE½eE½BE½bE½NE½ÌŠï¿½E½x
+// ãƒ»ï½½Xãƒ»ï½½eãƒ»ï½½Bãƒ»ï½½bãƒ»ï½½Nãƒ»ï½½ï¾Œå¥‡ï½¿ï½½ãƒ»ï½½x
 const int stick_sensitivity = 20000;
 
 if (input_margin < max_input_margin) {
 	input_margin++;
 }
 else {
-	// E½XE½eE½BE½bE½NE½E½YE½E½E½WE½E½E½æ“¾
+	// ãƒ»ï½½Xãƒ»ï½½eãƒ»ï½½Bãƒ»ï½½bãƒ»ï½½Nãƒ»ï½½ãƒ»ï½½Yãƒ»ï½½ãƒ»ï½½ãƒ»ï½½Wãƒ»ï½½ãƒ»ï½½ãƒ»ï½½è¬«ï½¾
 	int stick_y = PAD_INPUT::GetLStick().ThumbY;
 
 	if (std::abs(stick_y) > stick_sensitivity) {
 		//playsoundmem
-		// E½XE½eE½BE½bE½NE½E½E½E½ÉˆÚ“ï¿½E½E½E½E½E½êE
+		// ãƒ»ï½½Xãƒ»ï½½eãƒ»ï½½Bãƒ»ï½½bãƒ»ï½½Nãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾‰ç§»é›£ï½¿ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½é¼¾ãƒ»
 		if (stick_y > 0) {
-			// E½E½E½jE½E½E½[E½IE½E½E½E½E½E½E½E½Â‘OE½ÉˆÚ“ï¿½
+			// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½jãƒ»ï½½ãƒ»ï½½ãƒ»ï½½[ãƒ»ï½½Iãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾‚å‰ãƒ»ï½½ï¾‰ç§»é›£ï½¿ï½½
 			now_menu = (now_menu - 1 + static_cast<int>(SELECT::MENU_SIZE)) % static_cast<int>(SELECT::MENU_SIZE);
 		}
-		// E½XE½eE½BE½bE½NE½E½E½E½E½ÉˆÚ“ï¿½E½E½E½E½E½êE
+		// ãƒ»ï½½Xãƒ»ï½½eãƒ»ï½½Bãƒ»ï½½bãƒ»ï½½Nãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾‰ç§»é›£ï½¿ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½é¼¾ãƒ»
 		else if (stick_y < 0) {
-			// E½E½E½jE½E½E½[E½IE½E½E½E½E½E½E½E½Âï¿½E½ÉˆÚ“ï¿½
+			// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½jãƒ»ï½½ãƒ»ï½½ãƒ»ï½½[ãƒ»ï½½Iãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾‚è¶£ï½¿ï½½ãƒ»ï½½ï¾‰ç§»é›£ï½¿ï½½
 			now_menu = (now_menu + 1) % static_cast<int>(SELECT::MENU_SIZE);
 		}
 		input_margin = 0;
@@ -72,7 +72,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	switch (current_selection)
 	{
 	case SELECT::sinnkeisuizyaku:
-			return new sinkeisuijaku(); // E½GE½E½E½[E½oE½E½Ì‚ÅAE½E½UE½RE½E½E½E½E½gE½AE½EE½gE½E½
+			return new sinkeisuijaku(); // ãƒ»ï½½Gãƒ»ï½½ãƒ»ï½½ãƒ»ï½½[ãƒ»ï½½oãƒ»ï½½ãƒ»ï½½ï¾Œã§ã€ãƒ»ï½½ãƒ»ï½½Uãƒ»ï½½Rãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½gãƒ»ï½½Aãƒ»ï½½Eãƒ»ï½½gãƒ»ï½½ãƒ»ï½½
 			break;
 			return new sinkeisuijaku();
 			break; 
@@ -121,7 +121,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		return new Takoyaki();
 		break;
 	case SELECT::Gomoku:
-		// ˆê’U‰¼‚Å’u‚¢‚Ä‚Ü‚·BŒÜ–Ú•À‚×’S“–Ò‚Í•ÏX‚ª‚ ‚ê‚Î•ÏX‚µ‚Ä‚­‚¾‚³‚¢B
+		// ä¸€æ—¦ä»®ã§ç½®ã„ã¦ã¾ã™ã€‚äº”ç›®ä¸¦ã¹æ‹…å½“è€…ã¯å¤‰æ›´ãŒã‚ã‚Œã°å¤‰æ›´ã—ã¦ãã ã•ã„ã€‚
 		return new gomokuTitle(); 
 		break;
 	case SELECT::Dotbox:
@@ -129,7 +129,7 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 		break;
 
 	default:
-		printfDx("E½E½E½E½E½E½E½È‹@E½\E½Å‚ï¿½E½B\n");
+		printfDx("ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾ˆæ©Ÿãƒ»ï½½\ãƒ»ï½½ï¾…ã‚‘ï½¿ï½½ãƒ»ï½½B\n");
 		break;
 	}
 }
@@ -142,18 +142,18 @@ void GameSelect::Draw() const
 {
 	for (int i = 0; i < static_cast<int>(SELECT::MENU_SIZE); i++)
 	{
-		// E½E½E½E½E½E½ÌÅï¿½YE½E½E½W
+		// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾Œæœ€æ“¾ï½¿ï½½Yãƒ»ï½½ãƒ»ï½½ãƒ»ï½½W
 		const int base_y = 0;
 
-		// E½E½E½E½E½E½E½YE½E½E½WE½ÔŠu
+		// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½Yãƒ»ï½½ãƒ»ï½½ãƒ»ï½½Wãƒ»ï½½ï¾”éš”
 		const int margin_y = 50;
 
-		// E½E½E½E½E½F
+		// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½F
 		int color = 0xFFFFFF;
-		// E½E½E½E½E½OE½gE½F
+		// ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½Oãƒ»ï½½gãƒ»ï½½F
 		int border_color = 0x000000;
 
-		// E½JE½[E½\E½E½E½E½E½E½E½E½E½Ä‚ï¿½E½E½êE¿½AE½E½E½E½E½FE½Æ•ï¿½E½E½E½OE½gE½FE½ğ”½“]E½E½E½E½E½E½
+		// ãƒ»ï½½Jãƒ»ï½½[ãƒ»ï½½\ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ï¾„ã‚‘ï½¿ï½½ãƒ»ï½½ãƒ»ï½½é¼¾ãƒ»ï½¿ï½½Aãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½Fãƒ»ï½½ï¾†åŒ…ï½¿ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½Oãƒ»ï½½gãƒ»ï½½Fãƒ»ï½½î“ï½½è»¢ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½ãƒ»ï½½
 		if (now_menu == i) {
 			color = ~color;
 			border_color = ~border_color;
