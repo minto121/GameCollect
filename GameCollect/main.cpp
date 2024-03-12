@@ -13,6 +13,8 @@
 #include"Reversi.h"
 #include"Title.h"
 #include"Hex_GameMain.h"
+#include "GameMain.h"
+#include"Hex_GameMain.h"
 #include"Connect4.h"
 
 #define FRAMERATE 60.0 //�t���[�����[�g
@@ -43,7 +45,7 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 
 	try
 	{
-		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameSelect());
+		sceneMng = new SceneManager((AbstractScene*)new /*RabbitAndHounds());*/GameMain());
 
 	}
 	catch (const char* err)
@@ -77,6 +79,9 @@ int WINAPI WinMain(_In_ HINSTANCE ih, _In_opt_ HINSTANCE ioh, _In_ LPSTR il, _In
 		}
 		ScreenFlip();			// ����ʂ̓��e��\��ʂɔ��f
 	}
+
+	DxLib_End();
+
 	return 0;
 
 }

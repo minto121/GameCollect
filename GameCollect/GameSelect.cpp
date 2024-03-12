@@ -8,6 +8,15 @@
 #include "RabbitAndHounds.h"
 #include "Hex_GameMain.h"
 #include "Connect4.h"
+#include "Hex_GameMain.h"
+#include "SixBallPuzzle.h"
+#include "Porker.h"
+#include "Reversi.h"
+#include "Checkermain.h"
+#include "LastCard.h"
+#include "takoyaki.h"
+#include"gomoku_TitleScene.h"
+#include "GameMain.h"
 #include<iostream>
 #define SCREEN_WIDTH 1280
 GameSelect::GameSelect()
@@ -62,9 +71,9 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case SELECT::rabbiitdog:
 			return new RabbitAndHounds();
 			break;
-	/*case SELECT::Hanafuda:
+	case SELECT::Hanafuda:
 		return new Hanafuda();
-		break;*/
+		break;
 	/*case LEVEL::NORMAL:
 	{
 		return new GameMain(current_selection);
@@ -73,6 +82,41 @@ if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_
 	case LEVEL::HARD:
 		return new GameMain(current_selection);
 		break;*/
+	case SELECT::Hitblow:
+		return new HitAndBlow();
+		break;
+	case SELECT::Hekusu:
+		return new Hex();
+		break;
+	case SELECT::sixballpuzzle:
+		return new SixBallPuzzle();
+		break;
+	case SELECT::Mankara:
+		return new Mankara();
+		break;
+	case SELECT::poker:
+		return new Porker();
+		break;
+	case SELECT::Osero:
+		return new Reversi();
+		break;
+	case SELECT::Checker:
+		return new Checkermain();
+		break;
+	case SELECT::lastcard:
+		return new LastCard();
+		break;
+	case SELECT::takoyaaki:
+		return new Takoyaki();
+		break;
+	case SELECT::Gomoku:
+		// 一旦仮で置いてます。五目並べ担当者は変更があれば変更してください。
+		return new gomokuTitle(); 
+		break;
+	case SELECT::Dotbox:
+		return new GameMain();
+		break;
+
 	case SELECT::Hitblow:
 		return new HitAndBlow();
 		break;

@@ -53,7 +53,10 @@ HitAndBlow::HitAndBlow()
 
 HitAndBlow::~HitAndBlow()
 {
-
+	/* メモリ容量軽くするため、音楽ファイル消しておく */
+	DeleteSoundMem(PutPinSE);
+	DeleteSoundMem(HitPinSE);
+	DeleteSoundMem(BlowPinSE);
 }
 
 AbstractScene* HitAndBlow::Update()
@@ -155,8 +158,9 @@ AbstractScene* HitAndBlow::Update()
 		}
 	}
 
-	return this;
-}
+		if (Reasoning[(WarpPosition + 1) % 4] >= 0) {
+			DrawGraph(90 + Turns * 130, 220 + (WarpPosition + 1) % 4 * 80, ColorImg[Reasoning[(WarpPosition + 1) % 4]], TRUE); // 予想を画像で表示
+		}
 
 void HitAndBlow::Draw() const
 {
@@ -231,6 +235,7 @@ void HitAndBlow::Draw() const
 		}
 
 	}
+
 }
 
 void HitAndBlow::RandomDecision()

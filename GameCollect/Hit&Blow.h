@@ -45,7 +45,7 @@ public:
 	// 描画以外をアップデート
 	AbstractScene* Update();
 	// 描画をアップデート
-	void Draw() const override;
+	virtual void Draw() const override;
 
 	// ランダムに正解の色と場所、順番を決める関数
 	void RandomDecision();
