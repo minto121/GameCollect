@@ -131,8 +131,24 @@ AbstractScene* LastCard::Update()
                         CardFlgCheck(playerHands[0][now_Select]);
 
                         playerHands[0].erase(playerHands[0].begin() + now_Select);
-                        if (WildCardFlg != 1) {
-                            Turn++;
+                        if (OnFlgCheck()==true) {
+                            if (SkipFlg == 1) {
+                                if (ReverseFlg == false) {
+                                    Turn = Turn + 2;
+                                }
+                                else {
+                                    Turn = Turn - 2;
+                                }
+
+                                SkipFlg = 0;
+                            }
+                        }else {
+                            if (ReverseFlg == false) {
+                                Turn++;
+                            }
+                            else {
+                                Turn--;
+                            }
                         }
                     }
 
@@ -160,13 +176,37 @@ AbstractScene* LastCard::Update()
             if (WildCardFlg == 1) {
                 Wildcard();
             }
-            Turn++;
+
+            if (SkipFlg == 1) {
+                if (ReverseFlg == false) {
+                    Turn = Turn + 2;
+                }
+                else {
+                    Turn = Turn - 2;
+                }
+
+                SkipFlg = 0;
+            }
+            else {
+                if (ReverseFlg == false) {
+                    Turn++;
+                }
+                else {
+                    Turn--;
+                }
+            }
+            
             turn_margin = 0;
         }
         break;
 
     default:
-        Turn = 1;
+        if (ReverseFlg == false) {
+            Turn = Turn - 4;
+        }
+        else {
+            Turn = Turn + 4;
+        }
         break;
     }
 
@@ -357,11 +397,16 @@ void LastCard::CardFlgCheck(int select_card)
     if (Select_CardColor == 4) {
         WildCardFlg = 1;
     }
-    ////ワイルドカードで選んだ色の判断
-    //if (Select_CardColor == WildCardColor) {
-    //    //WildCardColor = -1;
-    //    return TRUE;
-    //}
+    
+    //スキップカードの判断
+    if (Select_CardNumber == 11) {
+        SkipFlg = 1;
+    }
+    
+    ////スキップカードの判断
+    if (Select_CardNumber == 12) {
+        ReverseFlg = !ReverseFlg;
+    }
 
 
 
@@ -400,5 +445,20 @@ void LastCard::Wildcard()
         WildCardFlg = 0;
     }
 
+}
+
+bool LastCard::OnFlgCheck()
+{
+    if (WildCardFlg == 1) {
+        return true;
+    }
+
+    if (SkipFlg == 1) {
+        return true;
+    }
+
+
+
+    return false;
 }
 

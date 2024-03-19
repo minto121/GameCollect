@@ -55,7 +55,7 @@ private:
 
     int SkipFlg = 0;    //スキップフラグ
 
-    int ReverseFlg = 0; //リバースフラグ
+    bool ReverseFlg = false; //リバースフラグ false:時計回り true:反時計回り
 
     int Draw2Count = 0; //ドロー2カウント
     int Draw3Count = 0; //ドロー3カウント
@@ -92,4 +92,8 @@ public:
 
     //ワイルドカードの処理
     void Wildcard();
+
+    //特殊カードのフラグチェック
+    bool OnFlgCheck();
+
 };
