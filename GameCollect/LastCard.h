@@ -96,4 +96,7 @@ public:
     //特殊カードのフラグチェック
     bool OnFlgCheck();
 
+    //ドローカード処理
+    void Drawcard();
+
 };

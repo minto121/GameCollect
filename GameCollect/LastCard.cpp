@@ -102,7 +102,6 @@ AbstractScene* LastCard::Update()
 
         if (WildCardFlg == 1) {
             Wildcard();
-            //return;
         }
         else {
 
@@ -142,6 +141,17 @@ AbstractScene* LastCard::Update()
 
                                 SkipFlg = 0;
                             }
+
+                            if (Draw2Flg == 1 || Draw3Flg == 1) {
+                                Drawcard();
+                                if (ReverseFlg == false) {
+                                    Turn++;
+                                }
+                                else {
+                                    Turn--;
+                                }
+                            }
+
                         }else {
                             if (ReverseFlg == false) {
                                 Turn++;
@@ -152,14 +162,36 @@ AbstractScene* LastCard::Update()
                         }
                     }
 
+
                     player_checkdraw = 0;
                 }
             }
 
             //カードをドロー
             if (player_checkdraw == 2) {
-                CardDraw(0);
-                Turn++;
+                if (Draw2Flg == 1 || Draw3Flg == 1) {
+                    int num;
+                    num = (Draw2Count * 2) + (Draw3Count * 3);
+
+                    for (int i = 0; i < num; i++) {
+                        CardDraw(0);
+                    }
+                    Draw2Count = 0;
+                    Draw3Count = 0;
+                    Draw2Flg = 0;
+                    Draw3Flg = 0;
+
+                }else{
+                    CardDraw(0);
+                }
+
+                if (ReverseFlg == false) {
+                    Turn++;
+                }
+                else {
+                    Turn--;
+                }
+
                 player_checkdraw = 0;
             }
         }
@@ -177,15 +209,29 @@ AbstractScene* LastCard::Update()
                 Wildcard();
             }
 
-            if (SkipFlg == 1) {
-                if (ReverseFlg == false) {
-                    Turn = Turn + 2;
-                }
-                else {
-                    Turn = Turn - 2;
+            if (OnFlgCheck() == true) {
+                if (SkipFlg == 1) {
+                    if (ReverseFlg == false) {
+                        Turn = Turn + 2;
+                    }
+                    else {
+                        Turn = Turn - 2;
+                    }
+
+                    SkipFlg = 0;
                 }
 
-                SkipFlg = 0;
+                if (Draw2Flg == 1 || Draw3Flg == 1) {
+                    Drawcard();
+                    if (ReverseFlg == false) {
+                        Turn++;
+                    }
+                    else {
+                        Turn--;
+                    }
+                }
+
+
             }
             else {
                 if (ReverseFlg == false) {
@@ -329,23 +375,36 @@ bool LastCard::CardCheck(int select_card)
     int Field_CardColor = field.back() / (CARDS_PER_COLOR);
     int Field_CardNumber = field.back() % CARDS_PER_COLOR;
     
-    //色の判断
-    if (Select_CardColor == Field_CardColor) {
-        return TRUE;
+    
+    if (Draw2Flg == 0 && Draw3Flg == 0) {
+
+        //色の判断
+        if (Select_CardColor == Field_CardColor) {
+            return TRUE;
+        }
+        //数字の判断
+        if (Select_CardNumber == Field_CardNumber) {
+            return TRUE;
+        }
+        //ワイルドカードの判断
+        if (Select_CardColor == 4) {
+            //WildCardFlg = 1;
+            return TRUE;
+        }
+        //ワイルドカードで選んだ色の判断
+        if (Select_CardColor == WildCardColor) {
+            //WildCardColor = -1;
+            return TRUE;
+        }
     }
-    //数字の判断
-    if (Select_CardNumber == Field_CardNumber) {
-        return TRUE;
-    }
-    //ワイルドカードの判断
-    if (Select_CardColor == 4) {
-        //WildCardFlg = 1;
-        return TRUE;
-    }
-    //ワイルドカードで選んだ色の判断
-    if (Select_CardColor == WildCardColor) {
-        //WildCardColor = -1;
-        return TRUE;
+    else {
+        if (Select_CardNumber == 10 || Draw2Flg == 1) {
+            return TRUE;
+        }
+
+        if (Select_CardNumber == 9 && Draw3Flg == 0) {
+            return TRUE;
+        }
     }
 
     return false;
@@ -373,7 +432,22 @@ void LastCard::EnemyAction()
         CardFlgCheck(enemycard);
     }
     else {
-        CardDraw(Turn - 1);
+        if (Draw2Flg == 1 || Draw3Flg == 1) {
+            int num;
+            num = (Draw2Count * 2) + (Draw3Count * 3);
+
+            for (int i = 0; i < num; i++) {
+                CardDraw(Turn - 1);
+            }
+            Draw2Count = 0;
+            Draw3Count = 0;
+            Draw2Flg = 0;
+            Draw3Flg = 0;
+        }
+        else {
+            CardDraw(Turn - 1);
+        }
+        
     }
 }
 
@@ -403,12 +477,20 @@ void LastCard::CardFlgCheck(int select_card)
         SkipFlg = 1;
     }
     
-    ////スキップカードの判断
+    //リバースカードの判断
     if (Select_CardNumber == 12) {
         ReverseFlg = !ReverseFlg;
     }
 
+    //ドロー2カードの判断
+    if (Select_CardNumber == 9) {
+        Draw2Flg = 1;
+    }
 
+    //ドロー3カードの判断
+    if (Select_CardNumber == 10) {
+        Draw3Flg = 1;
+    }
 
 }
 
@@ -457,8 +539,24 @@ bool LastCard::OnFlgCheck()
         return true;
     }
 
+    if (Draw2Flg == 1) {
+        return true;
+    }
+
+    if (Draw3Flg == 1) {
+        return true;
+    }
 
 
     return false;
+}
+
+void LastCard::Drawcard()
+{
+    if (Draw3Flg == 1) {
+        Draw3Count++;
+    }else if (Draw2Flg == 1) {
+        Draw2Count++;
+    }
 }
 
