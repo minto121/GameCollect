@@ -17,7 +17,8 @@ private:
     const int stick_sensitivity = 20000;
 
     int input_margin = 0;  //操作時間間隔
-    int now_Select = 0; //現在選択してるメニュー
+    int now_SelectX = 0; //現在選択してるメニュー
+    int now_SelectY = 0; //現在選択してるメニュー
 
     int BackGroundImg;
 
@@ -59,6 +60,8 @@ private:
 
     int Draw2Count = 0; //ドロー2カウント
     int Draw3Count = 0; //ドロー3カウント
+
+    int LastFlg = 0;    //ラストカード宣言フラグ
 
     int a;
 

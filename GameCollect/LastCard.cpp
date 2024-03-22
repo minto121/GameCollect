@@ -8,7 +8,8 @@
 LastCard::LastCard()
 {
     input_margin;
-    now_Select;
+    now_SelectX;
+    now_SelectY;
 
     turn_margin;
     max_turn_margin;
@@ -71,26 +72,50 @@ AbstractScene* LastCard::Update()
     else {
         // スティックのX座標を取得
         int stick_x = PAD_INPUT::GetLStick().ThumbX;
+        int stick_y = PAD_INPUT::GetLStick().ThumbY;
 
-        if (std::abs(stick_x) > stick_sensitivity) {
+        if (std::abs(stick_x) > stick_sensitivity && now_SelectY == 0) {
             //playsoundmem
             // スティックが右に移動した場合
             if (stick_x > 0) {
                 // メニュー選択肢を一つ右に移動
-                now_Select = (now_Select + 1);
-                if (now_Select >= playerHands[0].size()) {
-                    now_Select = now_Select - (playerHands[0].size());
+                now_SelectX = (now_SelectX + 1);
+                if (now_SelectX >= playerHands[0].size()) {
+                    now_SelectX = now_SelectX - (playerHands[0].size());
                 }
             }
             // スティックが左に移動した場合
             else if (stick_x < 0) {
                 // メニュー選択肢を一つ左に移動
-                now_Select = (now_Select - 1);
-                if (now_Select < 0) {
-                    now_Select = now_Select + (playerHands[0].size());
+                now_SelectX = (now_SelectX - 1);
+                if (now_SelectX < 0) {
+                    now_SelectX = now_SelectX + (playerHands[0].size());
                 }
             }
             input_margin = 0;
+        }
+
+        if (playerHands[0].size() == 2) {
+            if (std::abs(stick_y) > stick_sensitivity) {
+                //playsoundmem
+                // スティックが右に移動した場合
+                if (stick_y > 0) {
+                    // メニュー選択肢を一つ右に移動
+                    now_SelectY = (now_SelectY + 1);
+                    if (now_SelectY > 1) {
+                        now_SelectY = 0;
+                    }
+                }
+                // スティックが左に移動した場合
+                else if (stick_y < 0) {
+                    // メニュー選択肢を一つ左に移動
+                    now_SelectY = (now_SelectY - 1);
+                    if (now_SelectY < 0) {
+                        now_SelectY = 1;
+                    }
+                }
+                input_margin = 0;
+            }
         }
     }
 
@@ -119,17 +144,24 @@ AbstractScene* LastCard::Update()
 
             //カードを場に出す
             if (player_checkdraw == 1) {
-                if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
-                    if (CardCheck(playerHands[0][now_Select]) == TRUE) {
-                        field.push_back(playerHands[0][now_Select]);
+
+                if (now_SelectY == 1 && LastFlg == 0) {
+                    if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true)) {
+                        LastFlg = 1;
+                        now_SelectY = 0;
+                    }
+                }
+                else if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true) && now_SelectY == 0) {
+                    if (CardCheck(playerHands[0][now_SelectX]) == TRUE) {
+                        field.push_back(playerHands[0][now_SelectX]);
 
                         if (WildCardColor != -1) {
                             WildCardColor = -1;
                         }
 
-                        CardFlgCheck(playerHands[0][now_Select]);
+                        CardFlgCheck(playerHands[0][now_SelectX]);
 
-                        playerHands[0].erase(playerHands[0].begin() + now_Select);
+                        playerHands[0].erase(playerHands[0].begin() + now_SelectX);
                         if (OnFlgCheck()==true) {
                             if (SkipFlg == 1) {
                                 if (ReverseFlg == false) {
@@ -162,6 +194,15 @@ AbstractScene* LastCard::Update()
                         }
                     }
 
+                    //ラストカード宣言していない場合ドロー
+                    if (playerHands[0].size() == 1 && LastFlg == 0) {
+                        for (int i = 0; i < 3; i++) {
+                            CardDraw(0);
+                        }
+                    }
+                    else if (LastFlg == 1) {
+                        LastFlg = 0;
+                    }
 
                     player_checkdraw = 0;
                 }
@@ -256,7 +297,13 @@ AbstractScene* LastCard::Update()
         break;
     }
 
+    if (deck.size() <= 0) {
+        deck = field;
+        // デッキをシャッフルする
+        std::shuffle(deck.begin(), deck.end(), std::default_random_engine(std::random_device()()));
+    }
 
+    
 
 
 	if (CheckHitKey(KEY_INPUT_O))
@@ -305,10 +352,15 @@ void LastCard::Draw() const
                 int cardImg = CardImg[row * 13 + column]; // カードの画像
 
                 // カードを描画する
-                DrawGraph(posX, posY, cardImg, TRUE);
+                //DrawGraph(posX, posY, cardImg, TRUE);
 
-                if (i == 0 && j == now_Select) {
-                    DrawBox(posX, posY, posX + cardWidth, posY + cardHeight, 0xff0000, false);
+                if (i == 0 && j == now_SelectX) {
+                    //DrawBox(posX, posY, posX + cardWidth, posY + cardHeight, 0xff0000, false);
+                    DrawGraph(posX, posY-40, cardImg, TRUE);
+                }
+                else {
+                    // カードを描画する
+                    DrawGraph(posX, posY, cardImg, TRUE);
                 }
 
                 // 次のカードの描画位置を調整する
@@ -324,6 +376,16 @@ void LastCard::Draw() const
         DrawGraph(500, 200, CardImg[field.back()], TRUE);
     }
     
+    SetFontSize(30);
+    if (playerHands[0].size() == 2 && LastFlg == 0 && Turn == 0) {
+        DrawFormatString(500, 500, GetColor(0, 0, 255), "LASTCARD");
+    }
+    
+    if (now_SelectY == 1) {
+        DrawBox(500, 500, 630, 530, 0xff0000, false);
+    }
+    
+
 }
 
 void LastCard::InitPlayerHands()
