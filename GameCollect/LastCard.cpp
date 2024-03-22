@@ -394,11 +394,11 @@ void LastCard::Draw() const
         DrawBox(500, 500, 630, 530, 0xff0000, false);
     }
     
-    //if (WinFlg == 1) {
+    if (WinFlg == 1) {
         DrawGraph(0, 0, BackGroundImg, TRUE);
         DrawFormatString(500, 300, GetColor(0, 0, 255), "Ç†Ç»ÇΩÇÃèáà ÇÕ%dÇ≈Ç∑ÅB",rank);
         DrawFormatString(500, 500, GetColor(0, 0, 255), "Please press the A button");
-    //}
+    }
 
 }
 
