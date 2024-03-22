@@ -154,10 +154,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DotAndBox.cpp" />
-    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Checkermain.cpp" />
+    <ClCompile Include="Connect4.cpp" />
     <ClCompile Include="FpsController.cpp" />
     <ClCompile Include="GameMain.cpp" />
-    <ClCompile Include="Checkermain.cpp" />
     <ClCompile Include="gomoku.cpp" />
     <ClCompile Include="gomokuScene.cpp" />
     <ClCompile Include="gomoku_AI.cpp" />
@@ -167,6 +167,7 @@
     <ClCompile Include="Hex_GameMain.cpp" />
     <ClCompile Include="Hit&amp;Blow.cpp" />
     <ClCompile Include="Hound.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mankara.cpp" />
     <ClCompile Include="LastCard.cpp" />
@@ -185,10 +186,10 @@
   <ItemGroup>
     <ClInclude Include="AbstractScene.h" />
     <ClInclude Include="DotAndBox.h" />
-    <ClInclude Include="Line.h" />
-    <ClInclude Include="GameMain.h" />
     <ClInclude Include="Checkermain.h" />
+    <ClInclude Include="Connect4.h" />
     <ClInclude Include="FpsController.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="gomoku.h" />
     <ClInclude Include="gomokuScene.h" />
     <ClInclude Include="gomoku_AI.h" />
@@ -196,18 +197,17 @@
     <ClInclude Include="gomoku_TitleScene.h" />
     <ClInclude Include="Hanafuda_GameMain.h" />
     <ClInclude Include="Hex_GameMain.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Hit&amp;Blow.h" />
     <ClInclude Include="Hound.h" />
+    <ClInclude Include="Line.h" />
     <ClInclude Include="Mankara.h" />
     <ClInclude Include="LastCard.h" />
     <ClInclude Include="Porker.h" />
     <ClInclude Include="Rabbit.h" />
     <ClInclude Include="RabbitAndHounds.h" />
-    <ClInclude Include="reversi.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="PadInput.h" />
     <ClInclude Include="GameSelect.h" />
-    <ClInclude Include="Select.h" />
     <ClInclude Include="SixBallPuzzle.h" />
     <ClInclude Include="sinkeisuijaku.h" />
     <ClInclude Include="takoyaki.h" />

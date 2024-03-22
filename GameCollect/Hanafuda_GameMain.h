@@ -7,8 +7,7 @@
 //#define TANE 9  //タネ　全部で９枚
 //#define HIKARI  //光札　全部で５枚
 
-class Hanafuda:
-	public AbstractScene
+class Hanafuda : public AbstractScene
 {
 private:
 	//持ち札構造体（持ち札の月、札の種類ごとの座標）

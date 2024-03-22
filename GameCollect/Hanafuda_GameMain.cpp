@@ -5,6 +5,7 @@
 #include"PadInput.h"
 #include"stdlib.h"
 #include<iostream>
+
 Hanafuda::Hanafuda()
 {
 	for (int i = 0; i < 8; i++) {
