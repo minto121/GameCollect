@@ -63,6 +63,10 @@ private:
 
     int LastFlg = 0;    //ラストカード宣言フラグ
 
+    int WinFlg = 0;
+
+    int rank = 1;
+
     int a;
 
 public:

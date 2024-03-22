@@ -118,7 +118,6 @@ AbstractScene* LastCard::Update()
             }
         }
     }
-
     //É^Å[Éìêßå‰
     switch (Turn)
     {
@@ -162,6 +161,16 @@ AbstractScene* LastCard::Update()
                         CardFlgCheck(playerHands[0][now_SelectX]);
 
                         playerHands[0].erase(playerHands[0].begin() + now_SelectX);
+
+                        if (playerHands[0].size()<=0) {
+                            WinFlg = 1;
+                            for (int i = 1; i < 4; ++i) {
+                                if (playerHands[i].size() <= 0) {
+                                    rank++;
+                                }
+                            }
+                        }
+
                         if (OnFlgCheck()==true) {
                             if (SkipFlg == 1) {
                                 if (ReverseFlg == false) {
@@ -306,10 +315,10 @@ AbstractScene* LastCard::Update()
     
 
 
-	if (CheckHitKey(KEY_INPUT_O))
-	{
-		return nullptr;
-	}
+    if (PAD_INPUT::GetNowKey(XINPUT_BUTTON_A) && (PAD_INPUT::OnButton(XINPUT_BUTTON_A) == true) && WinFlg == 1)
+    {
+        return nullptr;
+    }
 	return this;
 }
 
@@ -385,6 +394,11 @@ void LastCard::Draw() const
         DrawBox(500, 500, 630, 530, 0xff0000, false);
     }
     
+    //if (WinFlg == 1) {
+        DrawGraph(0, 0, BackGroundImg, TRUE);
+        DrawFormatString(500, 300, GetColor(0, 0, 255), "Ç†Ç»ÇΩÇÃèáà ÇÕ%dÇ≈Ç∑ÅB",rank);
+        DrawFormatString(500, 500, GetColor(0, 0, 255), "Please press the A button");
+    //}
 
 }
 
