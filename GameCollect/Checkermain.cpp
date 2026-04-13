@@ -3,43 +3,43 @@
 #include "DxLib.h"
 
 Checkermain::Checkermain() {
-	// ‰æ‘œ‚ğ“Ç‚İ‚İA‰Šú‰»
-	Boardimg = LoadGraph("../images/Checkers/banmen.png");   // ƒ{[ƒh
-	PieceB = LoadGraph("../images/Checkers/WK.png");         // ‹î•
-	PieceR = LoadGraph("../images/Checkers/RD.png");         // ‹îÔ
+	// ï¿½æ‘œï¿½ï¿½Ç‚İï¿½ï¿½İAï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	Boardimg = LoadGraph("../images/Checkers/banmen.png");   // ï¿½{ï¿½[ï¿½h
+	PieceB = LoadGraph("../images/Checkers/WK.png");         // ï¿½î•
+	PieceR = LoadGraph("../images/Checkers/RD.png");         // ï¿½ï¿½ï¿½
 	PieceBK = LoadGraph("../images/Checkers/KB.png");        //kingkuro
 	PieceRK = LoadGraph("../images/Checkers/KR.png");          //kingaka
-	Checkerback = LoadGraph("../images/Checkers/back.png");  // ”wŒi
-	selectX = 0;                                             // ƒJ[ƒ\ƒ‹ˆÚ“®XÀ•W
-	selectY = 0;                                             // ƒJ[ƒ\ƒ‹ˆÚ“®YÀ•W
-	phase = 0;                                               // æUŒãU‚Ìƒtƒ‰ƒO
-	F_select = false;                                        // ‹î‚Ì‘I‘ğó‘Ô‚ğ‰Šú‰»
-	movevail = false;                                        // ˆÚ“®‚ª—LŒø‚©‚Ç‚¤‚©‚ğ•\‚·
+	Checkerback = LoadGraph("../images/Checkers/back.png");  // ï¿½wï¿½i
+	selectX = 0;                                             // ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½Ú“ï¿½Xï¿½ï¿½ï¿½W
+	selectY = 0;                                             // ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½Ú“ï¿½Yï¿½ï¿½ï¿½W
+	phase = 0;                                               // ï¿½ï¿½Uï¿½ï¿½Uï¿½Ìƒtï¿½ï¿½ï¿½O
+	F_select = false;                                        // ï¿½ï¿½Ì‘Iï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	movevail = false;                                        // ï¿½Ú“ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 	cantake = false;
 	F_totteta = false;
-	StartX = 0;                                              // ˆÚ“®Œ³XÀ•W
-	StartY = 0;                                              // ˆÚ“®Œ³YÀ•W
-	SelectX = 0;                                             // ˆÚ“®æXÀ•W
-	SelectY = 0;                                             // ˆÚ“®æYÀ•W
+	StartX = 0;                                              // ï¿½Ú“ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½W
+	StartY = 0;                                              // ï¿½Ú“ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½W
+	SelectX = 0;                                             // ï¿½Ú“ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½W
+	SelectY = 0;                                             // ï¿½Ú“ï¿½ï¿½ï¿½Yï¿½ï¿½ï¿½W
 	jumpedX = 0;
 	jumpedY = 0;
 	SjumpedX = 0;
 	SjumpedY = 0;
-	player1Pieces = 12;                                      // ƒvƒŒƒCƒ„[1‚Ì‹î‚Ì”
-	player2Pieces = 12;                                      // ƒvƒŒƒCƒ„[2‚Ì‹î‚Ì”
+	player1Pieces = 12;                                      // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[1ï¿½Ì‹ï¿½Ìï¿½
+	player2Pieces = 12;                                      // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[2ï¿½Ì‹ï¿½Ìï¿½
 }
 Checkermain::~Checkermain() {
-	// ƒfƒXƒgƒ‰ƒNƒ^
+	// ï¿½fï¿½Xï¿½gï¿½ï¿½ï¿½Nï¿½^
 }
 AbstractScene* Checkermain::Update() {
 
 	/*Gameover();*/
-	// ƒL[“ü—Í‚Ìó‘Ô‚ğXV
+	// ï¿½Lï¿½[ï¿½ï¿½ï¿½Í‚Ìï¿½Ô‚ï¿½Xï¿½V
 	g_OldKey = g_NowKey;
 	g_NowKey = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	g_KeyFlg = g_NowKey & ~g_OldKey;
 
-	// ƒJ[ƒ\ƒ‹‚ğ“®‚©‚·ˆ—
+	// ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ğ“®‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (g_KeyFlg & PAD_INPUT_RIGHT && selectX < 7) {
 		selectX += 1;
 	}
@@ -53,7 +53,7 @@ AbstractScene* Checkermain::Update() {
 		selectY -= 1;
 	}
 
-	// ‹î‚ÌˆÚ“®
+	// ï¿½ï¿½ÌˆÚ“ï¿½
 	for (int x = 0; x < 8; x++) {
 		for (int y = 0; y < 8; y++) {
 			if (phase == 0) {
@@ -86,23 +86,23 @@ AbstractScene* Checkermain::Update() {
 						phase = 2;
 
 					}
-					// “Á’è‚ÌğŒ‚Å¬‹à‚·‚éˆ—‚ğ’Ç‰Á
+					// ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 					if (board[SelectX][SelectY] == 1 && SelectY == 7) {
-						board[SelectX][SelectY] = 4; // 4‚Í¬‹à‚ğ•\‚·
+						board[SelectX][SelectY] = 4; // 4ï¿½Íï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 					}
 				}
 			}
 			else if (phase == 1) {
 			
 				if(F_totteta==true){
-					// ƒWƒƒƒ“ƒv‚µ‚½Œã‚ÌêŠ‚ª—¼•û‹ó‚¢‚Ä‚È‚©‚Á‚½‚çphase2‚É‚¢‚­
+					// ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌêŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó‚¢‚Ä‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½phase2ï¿½É‚ï¿½ï¿½ï¿½
 					if (board[StartX + 2][StartY + 2] != 0 && board[StartX - 2][StartY + 2] != 0) {
 
 					F_totteta = false;
 					cantake = false;
 					
 					}
-					// Î‚ß‘O‚Ìƒ}ƒX‚ª—¼•û‹ó‚¢‚Ä‚é‚Æ‚«phase2‚É‚¢‚­
+					// ï¿½Î‚ß‘Oï¿½Ìƒ}ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó‚¢‚Ä‚ï¿½Æ‚ï¿½phase2ï¿½É‚ï¿½ï¿½ï¿½
 					if (board[StartX + 1][StartY + 1] == 0 && board[StartX - 1][StartY + 1] == 0) {
 						F_totteta = false;
 						cantake = false;
@@ -135,9 +135,9 @@ AbstractScene* Checkermain::Update() {
 						if (cantake == false) {
 							phase = 2;
 						}
-						// “Á’è‚ÌğŒ‚Å¬‹à‚·‚éˆ—‚ğ’Ç‰Á
+						// ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 						if (board[SelectX][SelectY] == 1 && SelectY == 7) {
-							board[SelectX][SelectY] = 4; // 4‚Í¬‹à‚ğ•\‚·
+							board[SelectX][SelectY] = 4; // 4ï¿½Íï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 						}
 					}
 				}
@@ -174,9 +174,9 @@ AbstractScene* Checkermain::Update() {
 						phase = 0;
 					}
 					
-					// “Á’è‚ÌğŒ‚Å¬‹à‚·‚éˆ—‚ğ’Ç‰Á
+					// ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 					if (board[SelectX][SelectY] == 1 && SelectY == 7) {
-						board[SelectX][SelectY] = 4; // 4‚Í¬‹à‚ğ•\‚·
+						board[SelectX][SelectY] = 4; // 4ï¿½Íï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 					}
 				}
 
@@ -221,9 +221,9 @@ AbstractScene* Checkermain::Update() {
 						else {
 							phase = 0;
 						}
-						// “Á’è‚ÌğŒ‚Å¬‹à‚·‚éˆ—‚ğ’Ç‰Á
+						// ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½Åï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 						if (board[SelectX][SelectY] == 2 && SelectY == 0) {
-							board[SelectX][SelectY] = 3; // 4‚Í¬‹à‚ğ•\‚·
+							board[SelectX][SelectY] = 3; // 4ï¿½Íï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 						}
 					}
 				}
@@ -234,11 +234,11 @@ AbstractScene* Checkermain::Update() {
 	return this;
 }
 void Checkermain::Draw() const {
-	// ”wŒi‚ğ•`‰æ
+	// ï¿½wï¿½iï¿½ï¿½`ï¿½ï¿½
 	DrawGraph(0, 0, Checkerback, FALSE);
-	// ƒ{[ƒh‚ğ•`‰æ
+	// ï¿½{ï¿½[ï¿½hï¿½ï¿½`ï¿½ï¿½
 	DrawGraph(180, 0, Boardimg, TRUE);
-	// ƒvƒŒƒCƒ„[1‚Ì‹î‚ğ•`‰æ
+	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[1ï¿½Ì‹ï¿½ï¿½`ï¿½ï¿½
 	for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 8; x++) {
 			if (board[x][y] == 2) {
@@ -246,7 +246,7 @@ void Checkermain::Draw() const {
 			}
 		}
 	}
-	// ƒvƒŒƒCƒ„[2‚Ì‹î‚ğ•`‰æ
+	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[2ï¿½Ì‹ï¿½ï¿½`ï¿½ï¿½
 	for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 8; x++) {
 			if (board[x][y] == 1) {
@@ -254,7 +254,7 @@ void Checkermain::Draw() const {
 			}
 		}
 	}
-	// ¬‹à‚Ì‹î‚ğ•`‰æ
+	// ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½`ï¿½ï¿½
 	for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 8; x++) {
 			if (board[x][y] == 3) {
@@ -262,7 +262,7 @@ void Checkermain::Draw() const {
 			}
 		}
 	}
-	// ¬‹à‚Ì‹î‚ğ•`‰æ
+	// ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½`ï¿½ï¿½
 	for (int y = 0; y < 8; y++) {
 		for (int x = 0; x < 8; x++) {
 			if (board[x][y] == 4) {
@@ -270,61 +270,61 @@ void Checkermain::Draw() const {
 			}
 		}
 	}
-	// ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ÉlŠpŒ`‚ğ•`‰æ
+	// ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½ÌˆÊ’uï¿½Élï¿½pï¿½`ï¿½ï¿½`ï¿½ï¿½
 	DrawBox(372 + (selectX * 71), 72 + (selectY * 71), 445 + (selectX * 71), 145 + (selectY * 71), GetColor(0, 250, 0), FALSE);
 	(SetFontSize(30));
-	// ƒfƒoƒbƒOî•ñ‚ğ•\¦
-	DrawFormatString(0, 0, 0x000000, "Y: %d", selectY);                 // ƒJ[ƒ\ƒ‹ˆÚ“®Y
-	DrawFormatString(0, 30, 0x000000, "X: %d", selectX);                // ƒJ[ƒ\ƒ‹ˆÚ“®X
+	// ï¿½fï¿½oï¿½bï¿½Oï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
+	DrawFormatString(0, 0, 0x000000, "Y: %d", selectY);                 // ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½Ú“ï¿½Y
+	DrawFormatString(0, 30, 0x000000, "X: %d", selectX);                // ï¿½Jï¿½[ï¿½\ï¿½ï¿½ï¿½Ú“ï¿½X
 	DrawFormatString(0, 100, 0x000000, "F_select: %d", F_select);
 	DrawFormatString(0, 125, 0x000000, "cantake: %d", cantake);
-	DrawFormatString(0, 150, 0x000000, "Phase(0:Ô 1:•): %d", phase);
+	DrawFormatString(0, 150, 0x000000, "Phase(0:ï¿½ï¿½ 1:ï¿½ï¿½): %d", phase);
 	DrawFormatString(0, 175, 0x000000, "totteta: %d", F_totteta);
 	DrawFormatString(0, 200, 0x000000, "board: %d", board[selectX][selectY]);
 	DrawFormatString(0, 300, 0x000000, " player1Pieces: %d", player1Pieces);
 	DrawFormatString(0, 350, 0x000000, " player2Pieces: %d", player2Pieces);
 }
 void Checkermain::InitBoard() {
-	// ƒ`ƒFƒbƒJ[ƒ{[ƒh‚Ì‰Šú‰»
+	// ï¿½`ï¿½Fï¿½bï¿½Jï¿½[ï¿½{ï¿½[ï¿½hï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			board[i][j] = 0;
 		}
 	}
-	player1Pieces = 12; // ƒvƒŒƒCƒ„[1‚Ì‹î‚Ì”
-	player2Pieces = 12; // ƒvƒŒƒCƒ„[2‚Ì‹î‚Ì”
+	player1Pieces = 12; // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[1ï¿½Ì‹ï¿½Ìï¿½
+	player2Pieces = 12; // ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[2ï¿½Ì‹ï¿½Ìï¿½
 }
 bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) {
-	// ˆÚ“®æ‚ªƒ{[ƒh‚Ì”ÍˆÍŠO‚Å‚ ‚éê‡A–³Œø
+	// ï¿½Ú“ï¿½ï¿½æ‚ªï¿½{ï¿½[ï¿½hï¿½Ì”ÍˆÍŠOï¿½Å‚ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½ï¿½
 	if (SelectX < 0 || SelectY < 0 || SelectX >= 8 || SelectY >= 8) {
 		return false;
 	}
 
-	// ˆÚ“®æ‚É‚·‚Å‚É‹î‚ª‚ ‚éê‡A–³Œø
+	// ï¿½Ú“ï¿½ï¿½ï¿½É‚ï¿½ï¿½Å‚É‹î‚ªï¿½ï¿½ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½ï¿½
 	if (board[SelectX][SelectY] != 0) {
 		return false;
 	}
-	// Ô‹î
+	// ï¿½Ô‹ï¿½
 	if (board[StartX][StartY] == 1&&phase==0) {
-		// ˆÚ“®æ‚ª—×Ú‚µ‚Ä‚¢‚éê‡i’Êí‚ÌˆÚ“®jÔ‹î‚Ì‰EÎ‚ß‘OˆÚ“®
+		// ï¿½Ú“ï¿½ï¿½æ‚ªï¿½×Ú‚ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ê‡ï¿½iï¿½Êï¿½ÌˆÚ“ï¿½ï¿½jï¿½Ô‹ï¿½Ì‰Eï¿½Î‚ß‘Oï¿½Ú“ï¿½
 		if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Á
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 			cantake = false;
 			return true;
 		}
-		// Ô‹î‚Ì¶Î‚ß‘OˆÚ“®
+		// ï¿½Ô‹ï¿½Ìï¿½ï¿½Î‚ß‘Oï¿½Ú“ï¿½
 		else if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Á
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 			cantake = false;
 			return true;
 		}
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		else if ((SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 				F_totteta = true;
 				return true;
@@ -332,15 +332,15 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 
 	}
-	// Ô‹î
+	// ï¿½Ô‹ï¿½
 	else if (board[StartX][StartY] == 1 && phase == 1) {
 		
 		 if ((SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if (board[jumpedX][jumpedY] == 2 || (board[jumpedX][jumpedY] == 3)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 				F_totteta = true;
 				return true;
@@ -358,31 +358,31 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 			 return true;
 		 }*/
 	}
-	// •‹î
+	// ï¿½ï¿½ï¿½ï¿½
 	else if (board[StartX][StartY] == 2 && phase == 2) {
-		// •‹î‚Ì‰EÎ‚ß‘OˆÚ“®
+		// ï¿½ï¿½ï¿½ï¿½Ì‰Eï¿½Î‚ß‘Oï¿½Ú“ï¿½
 		if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Á
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 			if (board[StartX][StartY] == 2) {
 				cantake = false;
 				return true;
 			}
 		}
-		// •‹î‚Ì¶Î‚ß‘OˆÚ“®
+		// ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½Î‚ß‘Oï¿½Ú“ï¿½
 		else  if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Á
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 			if (board[StartX][StartY] == 2) {
 				cantake = false;
 				return true;
 			}
 		}
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		else if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 
 				F_totteta = true;
@@ -392,15 +392,15 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 
 	}
-	// •‹î
+	// ï¿½ï¿½ï¿½ï¿½
 	else if (board[StartX][StartY] == 2 && phase == 3) {
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if (board[jumpedX][jumpedY] == 1 || (board[jumpedX][jumpedY] == 4)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 
 				F_totteta = true;
@@ -410,43 +410,43 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 	
 	}
-	// •‹î(¬‹àj
+	// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½j
 	else if (board[StartX][StartY] == 3 && phase == 2) {
 		if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹à•‹î‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 3) {
 				cantake = false;
 				return true;
 			}
 		}
 		else  if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹à•‹î‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 3) {
 				cantake = false;
 				return true;
 			}
 		}
 		else if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹à•‹î¶Î‚ßŒã‚ë‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î¶ï¿½Î‚ßŒï¿½ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 3) {
 				cantake = false;
 				return true;
 			}
 		}
 		else if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹à•‹î‰EÎ‚ßŒã‚ë‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Î‚ßŒï¿½ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 3) {
 				cantake = false;
 				return true;
 			}
 		}
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		else if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if ((board[jumpedX][jumpedY] == 1) || (board[jumpedX][jumpedY] == 4)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 
 				F_totteta = true;
@@ -456,15 +456,15 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 
 	}
-	// •‹î(¬‹àj
+	// ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½j
 	else if (board[StartX][StartY] == 3 && phase == 3) {
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if ((board[jumpedX][jumpedY] == 1) || (board[jumpedX][jumpedY] == 4)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 
 				F_totteta = true;
@@ -474,58 +474,58 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 	
 	}
-	// Ô‹î(¬‹àj
+	// ï¿½Ô‹ï¿½(ï¿½ï¿½ï¿½ï¿½j
 	else if (board[StartX][StartY] == 4&&phase==0) {
 		if ((SelectX - StartX) == 1 && (SelectY - StartY) == 1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹àÔ‹î¶Î‚ßŒã‚ë‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ô‹î¶ï¿½Î‚ßŒï¿½ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 4) {
 				cantake = false;
 				return true;
 			}
 		}
 		else  if ((SelectX - StartX) == -1 && (SelectY - StartY) == 1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹àÔ‹î‰EÎ‚ßŒã‚ë‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ô‹ï¿½Eï¿½Î‚ßŒï¿½ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 4) {
 				cantake = false;
 				return true;
 			}
 		}
 		else  if ((SelectX - StartX) == -1 && (SelectY - StartY) == -1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹àÔ‹î‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ô‹ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 4) {
 				cantake = false;
 				return true;
 			}
 		}
 		else  if ((SelectX - StartX) == 1 && (SelectY - StartY) == -1) {
-			// 1‚Â‘O‚Éi‚Ş‚±‚Æ‚ª‹–‰Â‚³‚ê‚éğŒ‚ğ’Ç‰Ái¬‹àÔ‹î‚ÌˆÚ“®j
+			// 1ï¿½Â‘Oï¿½Éiï¿½Ş‚ï¿½ï¿½Æ‚ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½ï¿½iï¿½ï¿½ï¿½ï¿½Ô‹ï¿½ÌˆÚ“ï¿½ï¿½j
 			if (board[StartX][StartY] == 4) {
 				cantake = false;
 				return true;
 			}
 		}
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		else if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if ((board[jumpedX][jumpedY] == 2) || (board[jumpedX][jumpedY] == 3)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 				F_totteta = true;
 				return true;
 			}
 		}
 	}
-	// Ô‹î(¬‹àj
+	// ï¿½Ô‹ï¿½(ï¿½ï¿½ï¿½ï¿½j
 	else if (board[StartX][StartY] == 4 && phase == 1) {
-		// ã‰º¶‰EÎ‚ß‚»‚ê‚¼‚ê‚ÌƒWƒƒƒ“ƒv‰Â”\‚Èê‡‚ğŒÂ•Ê‚Éƒ`ƒFƒbƒN
+		// ï¿½ã‰ºï¿½ï¿½ï¿½Eï¿½Î‚ß‚ï¿½ï¿½ê‚¼ï¿½ï¿½ÌƒWï¿½ï¿½ï¿½ï¿½ï¿½vï¿½Â”\ï¿½Èê‡ï¿½ï¿½Â•Ê‚Éƒ`ï¿½Fï¿½bï¿½N
 		if ((SelectX - StartX == 2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == -2) || (SelectX - StartX == -2 && SelectY - StartY == 2) || (SelectX - StartX == 2 && SelectY - StartY == 2)) {
 			jumpedX = (SelectX + StartX) / 2;
 			jumpedY = (SelectY + StartY) / 2;
-			// ”ò‚Ñ‰z‚¦‚½ˆÊ’u‚É‘Šè‚Ì‹î‚ª‚ ‚é‚©Šm”F
+			// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½Ê’uï¿½É‘ï¿½ï¿½ï¿½Ì‹î‚ªï¿½ï¿½ï¿½é‚©ï¿½mï¿½F
 			if ((board[jumpedX][jumpedY] == 2) || (board[jumpedX][jumpedY] == 3)) {
-				// ”ò‚Ñ‰z‚¦‚½‘Šè‚Ì‹î‚ğíœ
+				// ï¿½ï¿½Ñ‰zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‹ï¿½ï¿½íœ
 				board[jumpedX][jumpedY] = 0;
 				F_totteta = true;
 				return true;
@@ -533,13 +533,13 @@ bool Checkermain::IsMoveValid(int StartX, int StartY, int SelectX, int SelectY) 
 		}
 	
 	}
-	return false; // ã‹L‚ÌğŒ‚ÉŠY“–‚µ‚È‚¢ê‡A–³Œø‚ÈˆÚ“®
+	return false; // ï¿½ï¿½Lï¿½Ìï¿½ï¿½ï¿½ÉŠYï¿½ï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½ï¿½ï¿½ÈˆÚ“ï¿½
 }
 void Checkermain::Gameover()
 {
-	// ƒvƒŒƒCƒ„[1‚Ì‹î‚Ì”‚ğXV
+	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[1ï¿½Ì‹ï¿½Ìï¿½ï¿½ï¿½Xï¿½V
 	player1Pieces = 0;
-	// ƒvƒŒƒCƒ„[2‚Ì‹î‚Ì”‚ğXV
+	// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[2ï¿½Ì‹ï¿½Ìï¿½ï¿½ï¿½Xï¿½V
 	player2Pieces = 0;
 
 	for (int x = 0; x < 8; x++) {
@@ -552,15 +552,15 @@ void Checkermain::Gameover()
 			}
 		}
 	}
-	// ‚Ç‚¿‚ç‚©‚ÌƒvƒŒƒCƒ„[‚ª‹î‚ğ‚Á‚Ä‚¢‚È‚¢ê‡AŸ”s‚ª‚Â‚¢‚½‚Æ”»’è
+	// ï¿½Ç‚ï¿½ï¿½ç‚©ï¿½Ìƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½ê‡ï¿½Aï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½ï¿½Æ”ï¿½ï¿½ï¿½
 	if (player1Pieces == 0) {
-		// ƒvƒŒƒCƒ„[2‚ÌŸ—˜
+		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[2ï¿½Ìï¿½ï¿½ï¿½
 		printf("bbb");
-		// ‚Ü‚½‚ÍA•K—v‚É‰‚¶‚Ä•Ê‚Ìˆ—‚ğ’Ç‰Á
+		// ï¿½Ü‚ï¿½ï¿½ÍAï¿½Kï¿½vï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä•Ê‚Ìï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 	}
 	else if (player2Pieces == 0) {
-		// ƒvƒŒƒCƒ„[1‚ÌŸ—˜
+		// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[1ï¿½Ìï¿½ï¿½ï¿½
 		printf("aaaa");
-		// ‚Ü‚½‚ÍA•K—v‚É‰‚¶‚Ä•Ê‚Ìˆ—‚ğ’Ç‰Á
+		// ï¿½Ü‚ï¿½ï¿½ÍAï¿½Kï¿½vï¿½É‰ï¿½ï¿½ï¿½ï¿½Ä•Ê‚Ìï¿½ï¿½ï¿½ï¿½ï¿½Ç‰ï¿½
 	}
 }
